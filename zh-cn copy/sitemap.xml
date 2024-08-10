@@ -3,18 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>//localhost:1313/zh-cn%20copy/</loc>
+    <loc>http://localhost:1313/zh-cn%20copy/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="//localhost:1313/"
+      hreflang="zh-cn"
+      href="http://localhost:1313/"
     />
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="//localhost:1313/zh-cn%20copy/"
+      hreflang="jp"
+      href="http://localhost:1313/jp/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn copy"
+      href="http://localhost:1313/zh-cn%20copy/"
     />
   </url>
 </urlset>

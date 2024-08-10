@@ -13,7 +13,12 @@
     />
     <xhtml:link
       rel="alternate"
-      hreflang="en"
+      hreflang="ja"
+      href="http://localhost:1313/ja/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="jp"
       href="http://localhost:1313/jp/"
     />
   </url>
