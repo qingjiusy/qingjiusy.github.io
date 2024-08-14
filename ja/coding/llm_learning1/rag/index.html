@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+<html lang="ja" dir="ltr" class="scroll-smooth" data-default-appearance="light"
   data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   
-  <meta http-equiv="content-language" content="zh-cn" />
+  <meta http-equiv="content-language" content="ja" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>LLM RAG初步学习 &middot; QingJiu</title>
-  <meta name="title" content="LLM RAG初步学习 &middot; QingJiu" />
+  <title>LLM RAGの初歩的な学習 &middot; QingJiu観察した世界</title>
+  <meta name="title" content="LLM RAGの初歩的な学習 &middot; QingJiu観察した世界" />
   
   <meta name="description" content="blog" />
   <meta name="keywords" content="LLM, " />
   
   
-  <link rel="canonical" href="http://localhost:1313/coding/llm_learning1/" />
+  <link rel="canonical" href="http://localhost:1313/ja/coding/llm_learning1/rag/" />
   
   
   
@@ -60,22 +60,20 @@
   
   
   
-  <meta property="og:url" content="http://localhost:1313/coding/llm_learning1/">
-  <meta property="og:site_name" content="QingJiu">
-  <meta property="og:title" content="LLM RAG初步学习">
+  <meta property="og:url" content="http://localhost:1313/ja/coding/llm_learning1/rag/">
+  <meta property="og:site_name" content="QingJiu観察した世界">
+  <meta property="og:title" content="LLM RAGの初歩的な学習">
   <meta property="og:description" content="blog">
-  <meta property="og:locale" content="zh_cn">
+  <meta property="og:locale" content="ja">
   <meta property="og:type" content="article">
     <meta property="article:section" content="coding">
     <meta property="article:published_time" content="2024-08-14T00:00:00+00:00">
     <meta property="article:modified_time" content="2024-08-14T00:00:00+00:00">
     <meta property="article:tag" content="LLM">
-    <meta property="og:image" content="http://localhost:1313/coding/llm_learning1/featured.png">
 
   
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/coding/llm_learning1/featured.png">
-  <meta name="twitter:title" content="LLM RAG初步学习">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="LLM RAGの初歩的な学習">
   <meta name="twitter:description" content="blog">
 
   
@@ -84,15 +82,15 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Codings",
-    "name": "LLM RAG初步学习",
-    "headline": "LLM RAG初步学习",
+    "name": "LLM RAGの初歩的な学習",
+    "headline": "LLM RAGの初歩的な学習",
     
     "abstract": "blog",
-    "inLanguage": "zh-cn",
-    "url" : "http:\/\/localhost:1313\/coding\/llm_learning1\/",
+    "inLanguage": "ja",
+    "url" : "http:\/\/localhost:1313\/ja\/coding\/llm_learning1\/rag\/",
     "author" : {
       "@type": "Person",
-      "name": "清酒"
+      "name": "QingJiu"
     },
     "copyrightYear": "2024",
     "dateCreated": "2024-08-14T00:00:00\u002b00:00",
@@ -103,14 +101,14 @@
     "keywords": ["LLM"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1978"
+    "wordCount": "2650"
   }]
   </script>
 
 
   
   
-  <meta name="author" content="清酒" />
+  <meta name="author" content="QingJiu" />
   
   
   
@@ -290,18 +288,20 @@
   <div id="the-top" class="absolute flex self-center">
     <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
       href="#main-content"><span
-        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>メインコンテンツへスキップ</a>
   </div>
   
   
   <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
     class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
     
+    
+    
     <div class="flex flex-1 items-center justify-between">
         <nav class="flex space-x-3">
 
             
-            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            <a href="/ja/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu観察した世界</a>
             
 
         </nav>
@@ -353,14 +353,14 @@
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="/ja/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
-            生活
+            日常
           </p>
         </a>
         
-        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="/ja/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
             code
@@ -370,7 +370,7 @@
         <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
-            知识
+            知識
           </p>
         </a>
         
@@ -397,19 +397,19 @@
 
 
     </span>
-    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LLM RAG初步学习">简体中文</div>
+    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LLM RAGの初歩的な学習">JA</div>
   </div>
   <div class="absolute menuhide">
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/coding/llm_learning1/" class="flex items-center">
+        <a href="/coding/llm_learning1/rag/" class="flex items-center">
           <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LLM RAG初步学习">
             简体中文
           </p>
         </a>
         
-        <a href="/ja/coding/llm_learning1/" class="flex items-center">
+        <a href="/ja/coding/llm_learning1/rag/" class="flex items-center">
           <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LLM RAGの初歩的な学習">
             日本語
           </p>
@@ -484,19 +484,19 @@
 
 
     </span>
-    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LLM RAG初步学习">简体中文</div>
+    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LLM RAGの初歩的な学習">JA</div>
   </div>
   <div class="absolute menuhide">
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/coding/llm_learning1/" class="flex items-center">
+        <a href="/coding/llm_learning1/rag/" class="flex items-center">
           <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LLM RAG初步学习">
             简体中文
           </p>
         </a>
         
-        <a href="/ja/coding/llm_learning1/" class="flex items-center">
+        <a href="/ja/coding/llm_learning1/rag/" class="flex items-center">
           <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LLM RAGの初歩的な学習">
             日本語
           </p>
@@ -632,16 +632,16 @@
 </li>
 
 <li class="mt-1">
-    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    <a href="/ja/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
-            生活
+            日常
         </p>
     </a>
 </li>
 
 <li class="mt-1">
-    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    <a href="/ja/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
             code
@@ -653,7 +653,7 @@
     <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
-            知识
+            知識
         </p>
     </a>
 </li>
@@ -701,6 +701,12 @@
   
   
   
+ 
+  
+   
+  
+ 
+
 
 
 <div id="hero" class="h-[150px] md:h-[200px]"></div>
@@ -709,7 +715,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/llm_learning1/featured_hu12797386639531594831.png);">
+    style="background-image:url(/img/miku_hu8696593001210945618.png);">
     
 
 
@@ -735,7 +741,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      LLM RAG初步学习
+      LLM RAGの初歩的な学習
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -780,7 +786,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-08-14 00:00:00 &#43;0000 UTC">14 August 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1978 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
+  <time datetime="2024-08-14 00:00:00 &#43;0000 UTC">14 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2650 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">6 分</span>
   
 
   
@@ -819,20 +825,20 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="QingJiu" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
     
     <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
-      作者
+      著者
     </div>
     <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
-      清酒
+      QingJiu
     </div>
     
     
-    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">「世界を観察する」</div>
     
     <div class="text-2xl sm:text-lg">
   <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
@@ -883,22 +889,22 @@
   class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
+    目次
   </summary>
   <div
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#最开始">最开始</a></li>
-    <li><a href="#什么是rag">什么是RAG？</a>
+    <li><a href="#最初に">最初に</a></li>
+    <li><a href="#ragとは">RAGとは？</a>
       <ul>
-        <li><a href="#为什么要用rag">为什么要用RAG？</a></li>
-        <li><a href="#rag可以处理哪些数据">RAG可以处理哪些数据？</a></li>
+        <li><a href="#なぜragを使うのか">なぜRAGを使うのか？</a></li>
+        <li><a href="#ragでどのようなデータを扱うことができるのか">RAGでどのようなデータを扱うことができるのか？</a></li>
       </ul>
     </li>
-    <li><a href="#文件检索">文件检索</a>
+    <li><a href="#文書検索">文書検索</a>
       <ul>
-        <li><a href="#基于倒排索引">基于倒排索引</a>
+        <li><a href="#インバーテッドインデックスに基づく方法">インバーテッドインデックスに基づく方法</a>
           <ul>
             <li><a href="#tfidf">TFIDF</a></li>
             <li><a href="#bm25">BM25</a></li>
@@ -907,10 +913,10 @@
         </li>
       </ul>
     </li>
-    <li><a href="#语义检索">语义检索</a></li>
-    <li><a href="#多路召回">多路召回</a></li>
-    <li><a href="#重排序">重排序</a></li>
-    <li><a href="#总结">总结</a></li>
+    <li><a href="#セマンティック検索">セマンティック検索</a></li>
+    <li><a href="#マルチパスリコール">マルチパスリコール</a></li>
+    <li><a href="#リランキング">リランキング</a></li>
+    <li><a href="#まとめ">まとめ</a></li>
   </ul>
 </nav>
   </div>
@@ -918,22 +924,22 @@
 <details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
   <summary
     class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
+    目次
   </summary>
   <div
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#最开始">最开始</a></li>
-    <li><a href="#什么是rag">什么是RAG？</a>
+    <li><a href="#最初に">最初に</a></li>
+    <li><a href="#ragとは">RAGとは？</a>
       <ul>
-        <li><a href="#为什么要用rag">为什么要用RAG？</a></li>
-        <li><a href="#rag可以处理哪些数据">RAG可以处理哪些数据？</a></li>
+        <li><a href="#なぜragを使うのか">なぜRAGを使うのか？</a></li>
+        <li><a href="#ragでどのようなデータを扱うことができるのか">RAGでどのようなデータを扱うことができるのか？</a></li>
       </ul>
     </li>
-    <li><a href="#文件检索">文件检索</a>
+    <li><a href="#文書検索">文書検索</a>
       <ul>
-        <li><a href="#基于倒排索引">基于倒排索引</a>
+        <li><a href="#インバーテッドインデックスに基づく方法">インバーテッドインデックスに基づく方法</a>
           <ul>
             <li><a href="#tfidf">TFIDF</a></li>
             <li><a href="#bm25">BM25</a></li>
@@ -942,10 +948,10 @@
         </li>
       </ul>
     </li>
-    <li><a href="#语义检索">语义检索</a></li>
-    <li><a href="#多路召回">多路召回</a></li>
-    <li><a href="#重排序">重排序</a></li>
-    <li><a href="#总结">总结</a></li>
+    <li><a href="#セマンティック検索">セマンティック検索</a></li>
+    <li><a href="#マルチパスリコール">マルチパスリコール</a></li>
+    <li><a href="#リランキング">リランキング</a></li>
+    <li><a href="#まとめ">まとめ</a></li>
   </ul>
 </nav>
   </div>
@@ -1031,101 +1037,99 @@
         <div class="article-content max-w-prose mb-20">
           
 
-<h2 class="relative group">最开始 
-    <div id="%E6%9C%80%E5%BC%80%E5%A7%8B" class="anchor"></div>
+<h2 class="relative group">最初に 
+    <div id="%E6%9C%80%E5%88%9D%E3%81%AB" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%9C%80%E5%BC%80%E5%A7%8B" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E6%9C%80%E5%88%9D%E3%81%AB" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>最近学习了相关的NLP的基础，打算开始着手自己搞LLM相关的具体应用了。接下来就用blog记录一下自己学RAG中学到的东西。</p>
+<p>最近、関連するNLPの基礎を学び、これから自分でLLMに関する具体的な応用に取り組もうとしています。次に、RAGを学ぶ中で得た知識をブログで記録しようと思います。</p>
 
 
-<h2 class="relative group">什么是RAG？ 
-    <div id="%E4%BB%80%E4%B9%88%E6%98%AFrag" class="anchor"></div>
+<h2 class="relative group">RAGとは？ 
+    <div id="rag%E3%81%A8%E3%81%AF" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BB%80%E4%B9%88%E6%98%AFrag" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#rag%E3%81%A8%E3%81%AF" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p><strong>RAG</strong>(Retrieval-Augmented Generation)是一种将信息检索和文本生成结合的技术，通常用于自然语言处理任务中。RAG模型将信息检索（Retrieval）和生成
-(Generation)两个阶段结合起来，以提高生成的文本内容的准确性和相关性。</p>
-<p>以上是GPT说的，看起来非常的高大上是不是(笑)。</p>
-<p>让我来打个比方：现在有一个小孩，你想问它有关于相机方面的知识。第一种方案是让小孩开始从零学习相机方面的知识，自己去理解镜头中的光圈，焦段&hellip;该怎
-么去摄影的时候使用，这种方案就是<strong>SFT(Supervised Fine-Tuning)</strong>,通过输入我们的数据(相机方面的知识)去让预训练模型(小孩)学习，从而得到我们想要的模型(懂得相机知识的小孩)。而另外一种方法就是RAG，它觉得让小孩从零学习相机方面的知识还是太麻烦了，直接找了一本相机的书给小孩，和他说：“现在我要问你问题,你从这本书里面找答案给我结果。”所以RAG这个方法并不会改变我们的模型(小孩)，而是增加了输入(书)来辅助模型生成更好的结果。</p>
+<p><strong>RAG</strong>（Retrieval-Augmented Generation）とは、情報検索とテキスト生成を組み合わせた技術で、通常は自然言語処理タスクで使用されます。RAGモデルは、情報検索（Retrieval）と生成（Generation）の2つのステージを組み合わせることで、生成されたテキストの内容の正確性と関連性を向上させます。</p>
+<p>これはGPTが説明したものですが、とても複雑に見えるでしょうか（笑）。</p>
+<p>たとえば、今、あなたが子供にカメラに関する知識を質問したいとします。最初の方法は、その子供がカメラについてゼロから学び、レンズの絞り、焦点距離などを理解し、どのように写真撮影で使うのかを学ぶことです。この方法は、<strong>SFT</strong>（Supervised Fine-Tuning）です。つまり、我々のデータ（カメラに関する知識）を入力することで、事前学習されたモデル（子供）が学習し、カメラの知識を持つ子供（目的のモデル）を得るというものです。もう一つの方法はRAGです。RAGは、子供がゼロからカメラについて学ぶのは手間がかかると考え、直接カメラに関する本を子供に渡し、「今から質問するから、この本から答えを探して教えて」と言います。したがって、RAGはモデル（子供）を変更するのではなく、入力（本）を増やして、より良い結果を生成するのを助けるという方法です。</p>
 <p>
     <figure>
-      <img class="my-0 rounded-md" loading="lazy" src="./rag1.jpg" alt="RAG流程图" />
+      <img class="my-0 rounded-md" loading="lazy" src="./rag1.jpg" alt="RAGフロー図" />
       
     </figure>
 </p>
 
 
-<h3 class="relative group">为什么要用RAG？ 
-    <div id="%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8rag" class="anchor"></div>
+<h3 class="relative group">なぜRAGを使うのか？ 
+    <div id="%E3%81%AA%E3%81%9Crag%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%8B" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8rag" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E3%81%AA%E3%81%9Crag%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%8B" aria-label="アンカー">#</a>
     </span>        
     
 </h3>
-<p>显而易见的，RAG可以在不改变LLM的情况下去获得好的结果，省去了<strong>finetune</strong>时耗费的时间和经历。因此，当我们想要学习一个变化很频繁的动态数据时，可以考虑使用RAG。</p>
+<p>明らかなように、RAGはLLMを変更せずに良い結果を得ることができ、<strong>finetune</strong>にかかる時間や労力を省くことができます。そのため、頻繁に変化する動的データを学習したい場合には、RAGの使用を検討できます。</p>
 
 
-<h3 class="relative group">RAG可以处理哪些数据？ 
-    <div id="rag%E5%8F%AF%E4%BB%A5%E5%A4%84%E7%90%86%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE" class="anchor"></div>
+<h3 class="relative group">RAGでどのようなデータを扱うことができるのか？ 
+    <div id="rag%E3%81%A7%E3%81%A9%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E6%89%B1%E3%81%86%E3%81%93%E3%81%A8%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%AE%E3%81%8B" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#rag%E5%8F%AF%E4%BB%A5%E5%A4%84%E7%90%86%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#rag%E3%81%A7%E3%81%A9%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E6%89%B1%E3%81%86%E3%81%93%E3%81%A8%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%AE%E3%81%8B" aria-label="アンカー">#</a>
     </span>        
     
 </h3>
-<p>RAG不仅可以处理文本类型的数据，也可以处理PDF这种类型的数据，可谓是非常方便了。不仅如此，它还可以处理多模态相关的内容，只要集成了相关的模块即可。在这次学习中，我着目于文字相关内容。</p>
+<p>RAGはテキスト形式のデータだけでなく、PDFのようなデータも扱うことができ、とても便利です。それだけでなく、関連するモジュールを統合すれば、マルチモーダルな内容も処理できます。今回の学習では、テキストに焦点を当てました。</p>
 
 
-<h2 class="relative group">文件检索 
-    <div id="%E6%96%87%E4%BB%B6%E6%A3%80%E7%B4%A2" class="anchor"></div>
+<h2 class="relative group">文書検索 
+    <div id="%E6%96%87%E6%9B%B8%E6%A4%9C%E7%B4%A2" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%96%87%E4%BB%B6%E6%A3%80%E7%B4%A2" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E6%96%87%E6%9B%B8%E6%A4%9C%E7%B4%A2" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>接下来讲讲RAG怎么进行文本检索。具体方法有基于倒排索引。</p>
+<p>次に、RAGがどのようにしてテキスト検索を行うかを説明します。具体的な方法としては、インバーテッドインデックス（倒立索引）に基づくものがあります。</p>
 
 
-<h3 class="relative group">基于倒排索引 
-    <div id="%E5%9F%BA%E4%BA%8E%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95" class="anchor"></div>
+<h3 class="relative group">インバーテッドインデックスに基づく方法 
+    <div id="%E3%82%A4%E3%83%B3%E3%83%90%E3%83%BC%E3%83%86%E3%83%83%E3%83%89%E3%82%A4%E3%83%B3%E3%83%87%E3%83%83%E3%82%AF%E3%82%B9%E3%81%AB%E5%9F%BA%E3%81%A5%E3%81%8F%E6%96%B9%E6%B3%95" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%9F%BA%E4%BA%8E%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E3%82%A4%E3%83%B3%E3%83%90%E3%83%BC%E3%83%86%E3%83%83%E3%83%89%E3%82%A4%E3%83%B3%E3%83%87%E3%83%83%E3%82%AF%E3%82%B9%E3%81%AB%E5%9F%BA%E3%81%A5%E3%81%8F%E6%96%B9%E6%B3%95" aria-label="アンカー">#</a>
     </span>        
     
 </h3>
-<p>我们平时在使用的搜索引擎就是一个文本检索的过程，它是包含多个步骤的。</p>
-<p>简单来说，首先就是对文本进行预处理，变成规范统一的格式。比如去除标点，停用词<strong>Stop Words</strong>，字母全部变成小写等等&hellip;然后就是构建文本的索引，本质就是构建倒排表。主要逻辑是记录每个词项，以及词项所在文档中间的位置信息。通过倒排表<strong>Inverted Index</strong>我们可以找到词所在的文档。</p>
+<p>普段使っている検索エンジンは、テキスト検索の一過程であり、いくつかのステップが含まれています。</p>
+<p>簡単に言うと、まずテキストを前処理し、統一された形式に変換します。たとえば、句読点やストップワード（<strong>Stop Words</strong>）を削除し、すべての文字を小文字に変換するなど。そして、テキストのインデックスを構築します。本質的には、インバーテッドインデックス（倒立表）を構築することです。主なロジックは、各単語とその単語がどの文書に位置しているかを記録することです。インバーテッドインデックス<strong>Inverted Index</strong>を使用することで、単語がどの文書にあるかを見つけることができます。</p>
 <p>
     <figure>
-      <img class="my-0 rounded-md" loading="lazy" src="./rag2.png" alt="倒排" />
+      <img class="my-0 rounded-md" loading="lazy" src="./rag2.png" alt="インバーテッド" />
       
     </figure>
 </p>
-<p>可以在这张图片中看到这个逻辑。简单来说，词作为key，文档作为value。</p>
-<p>最后就是文本检索，预处理用户查询，然后计算查询中每个词项的权重。并利用检索算法(TFIDF,BM25)进行相关排序，把相关性高的文档排到前面。</p>
+<p>この図でそのロジックがわかります。簡単に言うと、単語がキーで、文書がバリューとなります。</p>
+<p>最後に、テキスト検索が行われ、ユーザーのクエリが前処理されます。次に、クエリ内の各単語の重みを計算し、検索アルゴリズム（TFIDF、BM25）を使用して関連性の高い文書を上位に配置します。</p>
 
 
 <h4 class="relative group">TFIDF 
@@ -1134,19 +1138,19 @@
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#tfidf" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#tfidf" aria-label="アンカー">#</a>
     </span>        
     
 </h4>
-<p><strong>TF-IDF</strong>（Term Frequency-Inverse Document Frequency）是一种常用的文本挖掘和信息检索技术，用于衡量词汇在文档中的重要性。</p>
-<p>简单来说TF是词项在文档中的词频，表示一个词在文档中出现的频率。IDF是逆文档频率，表示一个词在所有文档中出现的稀有程度。</p>
-<p>计算公式：</p>
+<p><strong>TF-IDF</strong>（Term Frequency-Inverse Document Frequency）は、文書内の単語の重要性を測定するための一般的なテキストマイニングおよび情報検索技術です。</p>
+<p>簡単に言うと、TFは文書内の単語の出現頻度であり、IDFは全文書中で単語がどれだけ珍しいかを表しています。</p>
+<p>計算式：</p>
 <p>
 
 $$
 \text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)
 $$</p>
-<p>其中，𝑡是词，𝑑是文档，𝐷是文档集合。</p>
+<p>ここで、𝑡は単語、𝑑は文書、𝐷は文書集合です。</p>
 
 
 <h4 class="relative group">BM25 
@@ -1155,11 +1159,11 @@ $$</p>
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#bm25" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#bm25" aria-label="アンカー">#</a>
     </span>        
     
 </h4>
-<p>对TFIDF的一种改进，不仅考虑到了TF，IDF。还考虑到了文档的长度<strong>doc_len</strong>。文档越长，分数越小。因为越长的文档能包含的词项肯定越多越杂，所以对问题的针对性回答肯定不会那么好，直观上比较容易理解。</p>
+<p>TFIDFの改良版で、TFとIDFに加え、文書の長さ（<strong>doc_len</strong>）も考慮しています。文書が長ければ長いほどスコアが低くなります。長い文書はより多くの単語を含むことができるため、質問への回答がターゲットに対してあまり適切でない可能性が高くなります。これは直感的に理解しやすいです。</p>
 
 
 <h4 class="relative group">展望 
@@ -1168,68 +1172,68 @@ $$</p>
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%B1%95%E6%9C%9B" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E5%B1%95%E6%9C%9B" aria-label="アンカー">#</a>
     </span>        
     
 </h4>
-<p>在实际工业中，特别是大规模数据集中，应该使用专业的文档检索工具，比如<strong>Elasticsearch</strong>。</p>
+<p>実際の産業において、特に大規模なデータセットでは、<strong>Elasticsearch</strong>のような専門の文書検索ツールを使用するべきです。</p>
 
 
-<h2 class="relative group">语义检索 
-    <div id="%E8%AF%AD%E4%B9%89%E6%A3%80%E7%B4%A2" class="anchor"></div>
+<h2 class="relative group">セマンティック検索 
+    <div id="%E3%82%BB%E3%83%9E%E3%83%B3%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E6%A4%9C%E7%B4%A2" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%AF%AD%E4%B9%89%E6%A3%80%E7%B4%A2" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E3%82%BB%E3%83%9E%E3%83%B3%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E6%A4%9C%E7%B4%A2" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>这一块算是NLP基础。最早的word2vec就是将词变成语义向量。BERT等模型则可以做到把句子变成语义向量。通过计算语义向量之间的相似度，可以计算出句子间，词之间的相似程度。比如apple company和iphone，如果只靠之前的文本检索，由于这两个词之间都没有相同的词，可以说是一点相似度都没有。但是我们如果从语义的角度出发，可以说两者之间有很大的关系。</p>
-<p>这个任务叫做mteb：<strong>Massive Text Embedding Benchmark</strong>。</p>
-<p>在语义检索之前，需要对文本进行<strong>文本切分</strong>，因为模型的输入是有长度上限的。</p>
-<p>目前在RAG中，主要是<em><strong>文本检索和语义检索结合使用</strong></em>，这样可以得到一个更高的精度。</p>
+<p>これはNLPの基礎の一部といえます。最初のword2vecは単語を意味ベクトルに変換するものでした。BERTなどのモデルは文を意味ベクトルに変換することができます。意味ベクトル間の類似度を計算することで、文同士や単語同士の類似度を計算できます。たとえば、「apple company」と「iphone」は、従来のテキスト検索では、これらの単語に共通する単語がないため、類似度がほとんどないとみなされます。しかし、意味的な観点から見ると、両者は非常に関連しているといえます。</p>
+<p>このタスクは、<strong>Massive Text Embedding Benchmark</strong>（mteb）と呼ばれます。</p>
+<p>セマンティック検索の前に、<strong>テキストセグメンテーション</strong>が必要です。モデルの入力には長さの制限があるためです。</p>
+<p>現在のRAGでは、主に<em><strong>テキスト検索とセマンティック検索の併用</strong></em>によって、より高い精度を実現しています。</p>
 
 
-<h2 class="relative group">多路召回 
-    <div id="%E5%A4%9A%E8%B7%AF%E5%8F%AC%E5%9B%9E" class="anchor"></div>
+<h2 class="relative group">マルチパスリコール 
+    <div id="%E3%83%9E%E3%83%AB%E3%83%81%E3%83%91%E3%82%B9%E3%83%AA%E3%82%B3%E3%83%BC%E3%83%AB" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%A4%9A%E8%B7%AF%E5%8F%AC%E5%9B%9E" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E3%83%9E%E3%83%AB%E3%83%81%E3%83%91%E3%82%B9%E3%83%AA%E3%82%B3%E3%83%BC%E3%83%AB" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>文本检索中增加检索精度的常用方法，通过多种召回路径进行综合，最后得到候选文档。简单来说就是通过多种检索方法进行检索，然后对结果进行加权计算得到最终的分数，这就是多路召回。</p>
+<p>テキスト検索で精度を向上させるための一般的な方法で、複数のリコールパスを使用して、最終的に候補文書を得ます。簡単に言うと、複数の検索方法を使用して検索し、その結果を加重計算して最終スコアを得るというのがマルチパスリコールです。</p>
 
 
-<h2 class="relative group">重排序 
-    <div id="%E9%87%8D%E6%8E%92%E5%BA%8F" class="anchor"></div>
+<h2 class="relative group">リランキング 
+    <div id="%E3%83%AA%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E9%87%8D%E6%8E%92%E5%BA%8F" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E3%83%AA%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>另一种增加精度的方法。具体来说就是对第一次检索出的结果，用其他更强大的模型(也叫<strong>Rerank</strong>模型)进行重排序，得到更加精确的结果。</p>
-<p>从复杂性和计算资源的角度来看，<strong>Rerank</strong>模型通常比初始检索模型更复杂。所以不直接使用<strong>Rerank</strong>模型，而是在粗排之后进行精排。</p>
-<p>举个例子，比如现在想要topk的检索结果。先用初始检索模型检索出top(k+N)个结果，然后用精排对k+N个文档重新排序，得到topk个结果。</p>
+<p>精度を向上させるためのもう一つの方法です。具体的には、最初に検索された結果に対して、別のより強力なモデル（<strong>Rerank</strong>モデルと呼ばれる）を使用して再ランキングし、より精確な結果を得ます。</p>
+<p>複雑さと計算リソースの観点から、<strong>Rerank</strong>モデルは通常、初期の検索モデルよりも複雑です。そのため、<strong>Rerank</strong>モデルを直接使用するのではなく、粗いランキングの後に精密なランキングを行います。</p>
+<p>たとえば、今、topkの検索結果を求めたいとします。まず、初期検索モデルを使用してtop(k+N)個の結果を検索し、次に精密なランキングを行い、topk個の結果を得ます。</p>
 
 
-<h2 class="relative group">总结 
-    <div id="%E6%80%BB%E7%BB%93" class="anchor"></div>
+<h2 class="relative group">まとめ 
+    <div id="%E3%81%BE%E3%81%A8%E3%82%81" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E3%81%BE%E3%81%A8%E3%82%81" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>RAG作为LLM的一项应用，还是蛮有前景的，之后打算把项目摸一遍，熟悉熟悉代码。</p>
+<p>RAGはLLMの応用として非常に有望であり、今後、プロジェクトに取り組み、コードに慣れ親しむ予定です。</p>
 
         </div>
         
@@ -1252,8 +1256,8 @@ $$</p>
           
         
       <script>
-        var oid = "views_coding\\llm_learning1\\index.md"
-        var oid_likes = "likes_coding\\llm_learning1\\index.md"
+        var oid = "views_coding\\llm_learning1\\rag.md"
+        var oid_likes = "likes_coding\\llm_learning1\\rag.md"
       </script>
       
       
@@ -1274,7 +1278,7 @@ $$</p>
       <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
   <a href="#the-top"
     class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
-    aria-label="返回顶部" title="返回顶部">
+    aria-label="TOPへスクロール" title="TOPへスクロール">
     &uarr;
   </a>
 </div>
@@ -1286,7 +1290,7 @@ $$</p>
       <ul class="flex flex-col list-none sm:flex-row">
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/ja/tags/"
             title="">
             
             Tags
@@ -1294,7 +1298,7 @@ $$</p>
         </li>
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/ja/categories/"
             title="">
             
             Categories
@@ -1310,7 +1314,7 @@ $$</p>
     
     
     <p class="text-sm text-neutral-500 dark:text-neutral-400">
-      2024 清酒 转载请标明出处
+      2024 QingJiu 転載する際は出典を明記してください
     </p>
     
 
@@ -1319,9 +1323,9 @@ $$</p>
     <p class="text-xs text-neutral-500 dark:text-neutral-400">
       
       
-      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
         href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
     </p>
     
 
@@ -1344,7 +1348,7 @@ $$</p>
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="http://localhost:1313/"
+  data-url="http://localhost:1313/ja/"
   style="z-index:500"
 >
   <div
@@ -1367,14 +1371,14 @@ $$</p>
           type="search"
           id="search-query"
           class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
-          placeholder="搜索"
+          placeholder="検索"
           tabindex="0"
         />
       </form>
       <button
         id="close-search-button"
         class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-        title="关闭 (Esc)"
+        title="閉じる (Esc)"
       >
         
 
