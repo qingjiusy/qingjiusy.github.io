@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM on QingJiu</title>
+    <link>http://localhost:1313/tags/llm/</link>
+    <description>Recent content in LLM on QingJiu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>2024 清酒 转载请标明出处</copyright>
+    <lastBuildDate>Wed, 14 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLM RAG初步学习</title>
+      <link>http://localhost:1313/coding/llm_learning1/</link>
+      <pubDate>Wed, 14 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/coding/llm_learning1/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/llm_learning1/featured.png" />
+    </item>
+    
+  </channel>
+</rss>
