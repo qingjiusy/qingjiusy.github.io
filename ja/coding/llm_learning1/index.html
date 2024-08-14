@@ -1061,7 +1061,17 @@
 <p>たとえば、今、あなたが子供にカメラに関する知識を質問したいとします。最初の方法は、その子供がカメラについてゼロから学び、レンズの絞り、焦点距離などを理解し、どのように写真撮影で使うのかを学ぶことです。この方法は、<strong>SFT</strong>（Supervised Fine-Tuning）です。つまり、我々のデータ（カメラに関する知識）を入力することで、事前学習されたモデル（子供）が学習し、カメラの知識を持つ子供（目的のモデル）を得るというものです。もう一つの方法はRAGです。RAGは、子供がゼロからカメラについて学ぶのは手間がかかると考え、直接カメラに関する本を子供に渡し、「今から質問するから、この本から答えを探して教えて」と言います。したがって、RAGはモデル（子供）を変更するのではなく、入力（本）を増やして、より良い結果を生成するのを助けるという方法です。</p>
 <p>
     <figure>
-      <img class="my-0 rounded-md" loading="lazy" src="./rag1.jpg" alt="RAGフロー図" />
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/llm_learning1/rag1_hu15623823190739634755.jpg 330w,
+        /coding/llm_learning1/rag1_hu10603138564584828983.jpg 660w,
+        /coding/llm_learning1/rag1_hu2782354126627427776.jpg 1024w,
+        /coding/llm_learning1/rag1_hu2382995388970926229.jpg 2x"
+        src="/coding/llm_learning1/rag1_hu10603138564584828983.jpg"
+        alt="RAGフロー図"
+      />
       
     </figure>
 </p>
@@ -1120,7 +1130,17 @@
 <p>簡単に言うと、まずテキストを前処理し、統一された形式に変換します。たとえば、句読点やストップワード（<strong>Stop Words</strong>）を削除し、すべての文字を小文字に変換するなど。そして、テキストのインデックスを構築します。本質的には、インバーテッドインデックス（倒立表）を構築することです。主なロジックは、各単語とその単語がどの文書に位置しているかを記録することです。インバーテッドインデックス<strong>Inverted Index</strong>を使用することで、単語がどの文書にあるかを見つけることができます。</p>
 <p>
     <figure>
-      <img class="my-0 rounded-md" loading="lazy" src="./rag2.png" alt="インバーテッド" />
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/llm_learning1/rag2_hu9740117101798796282.png 330w,
+        /coding/llm_learning1/rag2_hu15036523213387235041.png 660w,
+        /coding/llm_learning1/rag2_hu611022913096001199.png 1024w,
+        /coding/llm_learning1/rag2_hu3546438947803454201.png 2x"
+        src="/coding/llm_learning1/rag2_hu15036523213387235041.png"
+        alt="インバーテッド"
+      />
       
     </figure>
 </p>
