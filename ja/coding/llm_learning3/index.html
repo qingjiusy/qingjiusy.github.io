@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+<html lang="ja" dir="ltr" class="scroll-smooth" data-default-appearance="light"
   data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   
-  <meta http-equiv="content-language" content="zh-cn" />
+  <meta http-equiv="content-language" content="ja" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>学习使用langchain和RAG &middot; QingJiu</title>
-  <meta name="title" content="学习使用langchain和RAG &middot; QingJiu" />
+  <title>LangChainとRAGの使い方を学ぶ(2) &middot; QingJiu観察した世界</title>
+  <meta name="title" content="LangChainとRAGの使い方を学ぶ(2) &middot; QingJiu観察した世界" />
   
   <meta name="description" content="blog" />
   <meta name="keywords" content="LLM, " />
   
   
-  <link rel="canonical" href="http://localhost:1313/coding/llm_learning2/" />
+  <link rel="canonical" href="http://localhost:1313/ja/coding/llm_learning3/" />
   
   
   
@@ -60,22 +60,22 @@
   
   
   
-  <meta property="og:url" content="http://localhost:1313/coding/llm_learning2/">
-  <meta property="og:site_name" content="QingJiu">
-  <meta property="og:title" content="学习使用langchain和RAG">
+  <meta property="og:url" content="http://localhost:1313/ja/coding/llm_learning3/">
+  <meta property="og:site_name" content="QingJiu観察した世界">
+  <meta property="og:title" content="LangChainとRAGの使い方を学ぶ(2)">
   <meta property="og:description" content="blog">
-  <meta property="og:locale" content="zh_cn">
+  <meta property="og:locale" content="ja">
   <meta property="og:type" content="article">
     <meta property="article:section" content="coding">
-    <meta property="article:published_time" content="2024-08-15T00:00:00+00:00">
-    <meta property="article:modified_time" content="2024-08-15T00:00:00+00:00">
+    <meta property="article:published_time" content="2024-08-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-17T00:00:00+00:00">
     <meta property="article:tag" content="LLM">
-    <meta property="og:image" content="http://localhost:1313/coding/llm_learning2/featured.png">
+    <meta property="og:image" content="http://localhost:1313/coding/llm_learning3/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/coding/llm_learning2/featured.png">
-  <meta name="twitter:title" content="学习使用langchain和RAG">
+  <meta name="twitter:image" content="http://localhost:1313/coding/llm_learning3/featured.png">
+  <meta name="twitter:title" content="LangChainとRAGの使い方を学ぶ(2)">
   <meta name="twitter:description" content="blog">
 
   
@@ -84,33 +84,33 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Codings",
-    "name": "学习使用langchain和RAG",
-    "headline": "学习使用langchain和RAG",
+    "name": "LangChainとRAGの使い方を学ぶ(2)",
+    "headline": "LangChainとRAGの使い方を学ぶ(2)",
     
     "abstract": "blog",
-    "inLanguage": "zh-cn",
-    "url" : "http:\/\/localhost:1313\/coding\/llm_learning2\/",
+    "inLanguage": "ja",
+    "url" : "http:\/\/localhost:1313\/ja\/coding\/llm_learning3\/",
     "author" : {
       "@type": "Person",
-      "name": "清酒"
+      "name": "QingJiu"
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-08-15T00:00:00\u002b00:00",
-    "datePublished": "2024-08-15T00:00:00\u002b00:00",
+    "dateCreated": "2024-08-17T00:00:00\u002b00:00",
+    "datePublished": "2024-08-17T00:00:00\u002b00:00",
     
-    "dateModified": "2024-08-15T00:00:00\u002b00:00",
+    "dateModified": "2024-08-17T00:00:00\u002b00:00",
     
     "keywords": ["LLM"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "3260"
+    "wordCount": "3419"
   }]
   </script>
 
 
   
   
-  <meta name="author" content="清酒" />
+  <meta name="author" content="QingJiu" />
   
   
   
@@ -157,18 +157,20 @@
   <div id="the-top" class="absolute flex self-center">
     <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
       href="#main-content"><span
-        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>メインコンテンツへスキップ</a>
   </div>
   
   
   <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
     class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
     
+    
+    
     <div class="flex flex-1 items-center justify-between">
         <nav class="flex space-x-3">
 
             
-            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            <a href="/ja/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu観察した世界</a>
             
 
         </nav>
@@ -220,14 +222,14 @@
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="/ja/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
-            生活
+            日常
           </p>
         </a>
         
-        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="/ja/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
             code
@@ -237,7 +239,7 @@
         <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
-            知识
+            知識
           </p>
         </a>
         
@@ -264,20 +266,20 @@
 
 
     </span>
-    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG">简体中文</div>
+    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(2)">JA</div>
   </div>
   <div class="absolute menuhide">
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/coding/llm_learning2/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG">
+        <a href="/coding/llm_learning3/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG(2)">
             简体中文
           </p>
         </a>
         
-        <a href="/ja/coding/llm_learning2/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ">
+        <a href="/ja/coding/llm_learning3/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(2)">
             日本語
           </p>
         </a>
@@ -351,20 +353,20 @@
 
 
     </span>
-    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG">简体中文</div>
+    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(2)">JA</div>
   </div>
   <div class="absolute menuhide">
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/coding/llm_learning2/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG">
+        <a href="/coding/llm_learning3/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG(2)">
             简体中文
           </p>
         </a>
         
-        <a href="/ja/coding/llm_learning2/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ">
+        <a href="/ja/coding/llm_learning3/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(2)">
             日本語
           </p>
         </a>
@@ -499,16 +501,16 @@
 </li>
 
 <li class="mt-1">
-    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    <a href="/ja/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
-            生活
+            日常
         </p>
     </a>
 </li>
 
 <li class="mt-1">
-    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    <a href="/ja/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
             code
@@ -520,7 +522,7 @@
     <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
-            知识
+            知識
         </p>
     </a>
 </li>
@@ -576,7 +578,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/llm_learning2/featured_hu12797386639531594831.png);">
+    style="background-image:url(/coding/llm_learning3/featured_hu12797386639531594831.png);">
     
 
 
@@ -602,7 +604,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      学习使用langchain和RAG
+      LangChainとRAGの使い方を学ぶ(2)
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -647,7 +649,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-08-15 00:00:00 &#43;0000 UTC">15 August 2024</time><span class="px-2 text-primary-500">&middot;</span><span>3260 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
+  <time datetime="2024-08-17 00:00:00 &#43;0000 UTC">17 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>3419 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">7 分</span>
   
 
   
@@ -686,20 +688,20 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="QingJiu" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
     
     <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
-      作者
+      著者
     </div>
     <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
-      清酒
+      QingJiu
     </div>
     
     
-    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">「世界を観察する」</div>
     
     <div class="text-2xl sm:text-lg">
   <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
@@ -750,19 +752,18 @@
   class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
+    目次
   </summary>
   <div
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#最开始">最开始</a></li>
-    <li><a href="#lcellangchain-expression-language">LCEL(LangChain Expression Language)</a></li>
-    <li><a href="#multi-query">Multi Query</a></li>
-    <li><a href="#rag-fusion">RAG-Fusion</a></li>
-    <li><a href="#decomposition">Decomposition</a></li>
-    <li><a href="#stepback">StepBack</a></li>
-    <li><a href="#hyde">HyDE</a></li>
+    <li><a href="#routing">routing</a></li>
+    <li><a href="#query-construction">Query Construction</a></li>
+    <li><a href="#text-splittingchunking">Text Splitting/chunking</a></li>
+    <li><a href="#multi-representation-indexing">Multi-representation Indexing</a></li>
+    <li><a href="#raptor">RAPTOR</a></li>
+    <li><a href="#colbert">ColBERT</a></li>
   </ul>
 </nav>
   </div>
@@ -770,19 +771,18 @@
 <details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
   <summary
     class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
+    目次
   </summary>
   <div
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#最开始">最开始</a></li>
-    <li><a href="#lcellangchain-expression-language">LCEL(LangChain Expression Language)</a></li>
-    <li><a href="#multi-query">Multi Query</a></li>
-    <li><a href="#rag-fusion">RAG-Fusion</a></li>
-    <li><a href="#decomposition">Decomposition</a></li>
-    <li><a href="#stepback">StepBack</a></li>
-    <li><a href="#hyde">HyDE</a></li>
+    <li><a href="#routing">routing</a></li>
+    <li><a href="#query-construction">Query Construction</a></li>
+    <li><a href="#text-splittingchunking">Text Splitting/chunking</a></li>
+    <li><a href="#multi-representation-indexing">Multi-representation Indexing</a></li>
+    <li><a href="#raptor">RAPTOR</a></li>
+    <li><a href="#colbert">ColBERT</a></li>
   </ul>
 </nav>
   </div>
@@ -868,270 +868,164 @@
         <div class="article-content max-w-prose mb-20">
           
 
-<h2 class="relative group">最开始 
-    <div id="%E6%9C%80%E5%BC%80%E5%A7%8B" class="anchor"></div>
+<h2 class="relative group">routing 
+    <div id="routing" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%9C%80%E5%BC%80%E5%A7%8B" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#routing" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>发现了一个用langchain去做RAG的学习项目，于是就开始新知识的探索，记录一下自己踩过的坑</p>
-
-
-<h2 class="relative group">LCEL(LangChain Expression Language) 
-    <div id="lcellangchain-expression-language" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#lcellangchain-expression-language" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>这是langchain特有的一种语言模式，尤其是在使用里面的<code>chain</code>的时候。这种奇怪的语法真的在一开始给我看懵了，貌似什么东西都能往<code>chain</code>里面塞的。</p>
-<p>而langchain的核心也就在这个<code>chain</code>上。而Langchain实际上是通过重写了<code>| (__or__)</code> 来实现它。</p>
-<p>而通过<code>|</code>，可以将各个部分链接在一起组成一条chain，前面的输出作为后面的输入。接下来通过代码具体看看。</p>
-<p>比如进行数据传递：</p>
-<pre tabindex="0"><code>from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
-
-prompt = ChatPromptTemplate.from_template(
-    &#34;{topic}の一つ歴史的な話を教えてください&#34;
+<p>langchainは、入力に応じて動的にルーティングを変更することができます。</p>
+<p>具体的な実装としては、<code>RunnableBranch</code>を使用して動的にルーティングを変更することができます。例えば、次のコードを見てみましょう：</p>
+<pre tabindex="0"><code>branch = RunnableBranch(
+    (lambda x: &#34;anthropic&#34; in x[&#34;topic&#34;].lower(), anthropic_chain),
+    (lambda x: &#34;langchain&#34; in x[&#34;topic&#34;].lower(), langchain_chain),
+    general_chain,
 )
+</code></pre><p>このコードは、<code>RunnableBranch</code>を使用して条件付きのロジック分岐処理を作成し、入力の<code>topic</code>フィールドの内容に基づいて適切な実行チェーン（chain）を選択します。</p>
+<p>プログラムがここに到達すると、まず<code>topic</code>に<code>anthropic</code>が含まれているかどうかを確認し、含まれていれば<code>anthropic_chain</code>を実行します。含まれていなければ、さらに<code>langchain</code>があるかどうかを判断し、あれば<code>langchain_chain</code>を実行します。それでもなければ、デフォルトの<code>general_chain</code>を実行します。</p>
+<p><code>RunnableBranch</code>を使用する以外に、自分で関数を定義して、上記と同じルーティング機能を実現することもできます。</p>
+<p>以下のように：</p>
+<pre tabindex="0"><code>def route(info):
+    if &#34;anthropic&#34; in info[&#34;topic&#34;].lower():
+        return anthropic_chain
+    elif &#34;langchain&#34; in info[&#34;topic&#34;].lower():
+        return langchain_chain
+    else:
+        return general_chain
 
-output_parser = StrOutputParser()
- 
-llm = SelfGPT()
+from langchain_core.runnables import RunnableLambda
 
-#use lcel
-chain = (
-    {&#34;topic&#34;: RunnablePassthrough()}
-    | prompt
-    | llm
-    | output_parser
+full_chain = {&#34;topic&#34;: chain, &#34;question&#34;: lambda x: x[&#34;question&#34;]} | RunnableLambda(
+    route
 )
-
-chain.invoke(&#34;京都&#34;)
-</code></pre><pre tabindex="0"><code>&#39;Assistant: 京都には多くの歴史的な話がありますが、その中でも有名なのは「平等院鳳凰堂」の話です。この建物は平安時代に建てられたもので、平等院という寺院の中にあります。鳳凰堂は非常に美しく、独特な様式で建てられています。この建物は何度も改修されてきましたが、現在もその美しさは健在です。\n\nまた、鳳凰堂の庭園には「青龍」「白虎」「朱雀」「玄武」という四霊の石像があり、それぞれが東西南北を象徴しています。この庭園は非常に美しく、静かな空気が流れています。鳳凰堂は世界遺産にも登録されており、多く&#39;
-</code></pre><p><code>RunnablePassthrough</code>:允许将输入数据传递而不做更改，可以在需要时很方便地进行数据的填充。经常会和<code>RunnableParallel</code>一起使用。</p>
-<p>由于我设置了输出的token上限，于是输出就截断了。
-可以看到通过调用<code>invoke()</code>函数可以进行数据的传递。</p>
-<p>而在复杂的工作流中，<code>invoke()</code>可以与多个步骤结合使用，进行逐步执行。</p>
-<pre tabindex="0"><code>temp_prompt = prompt.invoke({&#34;topic&#34;: &#34;鎌倉&#34;})
-temp_prompt
-</code></pre><pre tabindex="0"><code>ChatPromptValue(messages=[HumanMessage(content=&#39;鎌倉の一つ歴史的な話を教えてください&#39;)])
-</code></pre><p>再将这个prompt的输入传入llm：</p>
-<pre tabindex="0"><code>temp_llm = llm.invoke(temp_prompt)
-temp_llm
-</code></pre><pre tabindex="0"><code>&#39;鎌倉には多くの歴史的な話がありますが、その中でも代表的なものの一つが源頼朝の鶴岡八幡宮参詣です。\n\n源頼朝は鎌倉幕府の初代将軍として知られ、1180年代末には平氏との長い戦いに勝利して、幕府を確立しました。その後、頼朝は鎌倉周辺に多くの寺社を寄進し、鶴岡八幡宮にも多大な恩恵を与えたとされています。\n\nまた、頼朝は自らも鶴岡八幡宮を参詣し、その際には従者たちとともに数百頭もの馬を連れて行ったという逸話も残っています。この参詣によって、&#39;
-</code></pre><p>同时，如果我们设置了自己的langsmith api，也可以去langsmith上直观的查看各个模块的输入输出：</p>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/llm_learning2/langsmith_hu3652909697293478867.png 330w,
-        /coding/llm_learning2/langsmith_hu11038137036377370257.png 660w,
-        /coding/llm_learning2/langsmith_hu17633008728456542750.png 1024w,
-        /coding/llm_learning2/langsmith_hu16472708929767413350.png 2x"
-        src="/coding/llm_learning2/langsmith_hu11038137036377370257.png"
-        alt="langsmith"
-      />
-      
-    </figure>
-</p>
-<p>可以看到这其实是一系列的串行处理。</p>
+</code></pre><p>したがって、複数のチェーンを作成し、実際の状況に応じて判断することができます。これにより、対応するデータベースやプロンプトを簡単に選択することができます。</p>
 
 
-<h2 class="relative group">Multi Query 
-    <div id="multi-query" class="anchor"></div>
+<h2 class="relative group">Query Construction 
+    <div id="query-construction" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#multi-query" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#query-construction" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>一种RAG中的技术，利用prompt和llm从原本用户提问的query中生成多角度的，适合llm去理解的query。通过生成的Multi Query，再对文档库进行retrieve，可以比之前得到更加全面的结果。</p>
-<p>以下是一段常用的prompt：</p>
-<pre tabindex="0"><code>template = &#34;&#34;&#34;You are an AI language model assistant. Your task is to generate five 
-different versions of the given user question to retrieve relevant documents from a vector 
-database. By generating multiple perspectives on the user question, your goal is to help
-the user overcome some of the limitations of the distance-based similarity search. 
-Provide these alternative questions separated by newlines. Original question: {question}&#34;&#34;&#34;
-prompt_perspectives = ChatPromptTemplate.from_template(template)
-</code></pre>
+<p><strong>開始する前に、まず2つの概念を明確にしておきましょう</strong>：</p>
+<p><strong>構造化データ</strong>：構造化データは主に SQL やグラフデータベースに保存され、事前に定義されたスキーマが特徴であり、表形式やリレーショナルな形で組織されているため、正確なクエリ操作に適しています。</p>
+<p><strong>非構造化データ</strong>：非構造化データは通常ベクトルデータベースに保存され、事前に定義されたモデルを持たない情報で構成されており、通常はフィルタリングのための構造化メタデータが付随しています。</p>
+<p>典型的なRAG（Retrieval-Augmented Generation：検索強化生成）の場合、ユーザーのクエリはベクトル表現に変換されます。次に、このベクトルをソースドキュメントのベクトル表現と比較し、最も類似したベクトルを見つけます。これは非構造化データに対しては非常に効果的ですが、構造化データに対してはどうでしょうか？</p>
+<p>世界のほとんどのデータには一定の構造があります。その大部分はリレーショナル（例：SQL）やグラフデータベースに存在します。たとえ非構造化データであっても、通常は構造化メタデータ（例：著者、種類、公開日など）と関連しています。</p>
+<p>例えば、クエリ「1980 年に公開されたエイリアンに関する映画は何か」を考えてみましょう。このクエリの一部（「エイリアン」）はセマンティックに検索したいかもしれませんが、別の部分（「年 == 1980」）は正確に検索したい部分です。</p>
+<p>この機能を実現するために使用される典型的なプロンプト：</p>
+<pre tabindex="0"><code>system = &#34;&#34;&#34;You are an expert at converting user questions into database queries. \
+You have access to a database of tutorial videos about a software library for building LLM-powered applications. \
+Given a question, return a database query optimized to retrieve the most relevant results.
 
-<h2 class="relative group">RAG-Fusion 
-    <div id="rag-fusion" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#rag-fusion" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p><code>rag fusion</code>，它的主要思想是在<code>Multi Query</code>的基础上，对其检索结果进行重新排序(即reranking)后输出Top K个最相关文档，最后将这top k个文档喂给LLM并生成最终的答案(answer)。</p>
-<p>具体的重新排序方法，在langchain的官方教学文档中采用了RRF(<code>Reciprocal rank fusion</code>)。核心思想是将来自多个检索系统或模型的排名结果进行融合，通过一种简单的加权方式来综合这些结果，从而得到一个更好的最终排序。具体来说，RRF 基于每个结果的倒数排名（reciprocal rank）来进行融合。</p>
-<pre tabindex="0"><code>def reciprocal_rank_fusion(results: list[list], k=60):
-    &#34;&#34;&#34; Reciprocal_rank_fusion that takes multiple lists of ranked documents 
-        and an optional parameter k used in the RRF formula &#34;&#34;&#34;
-    
-    # Initialize a dictionary to hold fused scores for each unique document
-    fused_scores = {}
-
-    # Iterate through each list of ranked documents
-    for docs in results:
-        # Iterate through each document in the list, with its rank (position in the list)
-        for rank, doc in enumerate(docs):
-            # Convert the document to a string format to use as a key (assumes documents can be serialized to JSON)
-            doc_str = dumps(doc)
-            # If the document is not yet in the fused_scores dictionary, add it with an initial score of 0
-            if doc_str not in fused_scores:
-                fused_scores[doc_str] = 0
-            # Retrieve the current score of the document, if any
-            previous_score = fused_scores[doc_str]
-            # Update the score of the document using the RRF formula: 1 / (rank + k)
-            # higher rank, higher scores
-            fused_scores[doc_str] += 1 / (rank + k)
-
-    # Sort the documents based on their fused scores in descending order to get the final reranked results
-    reranked_results = [
-        (loads(doc), score)
-        for doc, score in sorted(fused_scores.items(), key=lambda x: x[1], reverse=True)
+If there are acronyms or words you are not familiar with, do not try to rephrase them.&#34;&#34;&#34;
+prompt = ChatPromptTemplate.from_messages(
+    [
+        (&#34;system&#34;, system),
+        (&#34;human&#34;, &#34;{question}&#34;),
     ]
-
-    # Return the reranked results as a list of tuples, each containing the document and its fused score
-    return reranked_results
-</code></pre><p>在这个函数中，让平滑因子k为60。选择 k=60 是为了确保即使某些文档在某个检索结果中的排名非常靠前（例如排名为 1），其评分也不会过高。这有助于避免在评分过程中出现极端值，使得评分更加稳定和合理。</p>
-<p>在这个应用中也看到了langchain这种嵌套式的写法(不完整的代码，只是为了理解观看)：</p>
-<pre tabindex="0"><code>prompt_rag_fusion = ChatPromptTemplate.from_template(template)
-
-generate_queries = (
-    prompt_rag_fusion 
-    | SelfGPT()
-    | StrOutputParser() 
-    | (lambda x: x.split(&#34;\n&#34;))
 )
+</code></pre><p>具体的にユーザーの質問を構造化クエリに変換するために、<code>LangChain</code>では<code>Pydantic</code>クラスを使用して、必要なファンクションコールスキーマを簡単に指定することができます。</p>
 
-retrieval_chain_rag_fusion = generate_queries | retriever.map() | reciprocal_rank_fusion
 
-final_rag_chain = (
-    {&#34;context&#34;: retrieval_chain_rag_fusion, 
-     &#34;question&#34;: itemgetter(&#34;question&#34;)} 
-    | prompt
-    | SelfGPT()
-    | StrOutputParser()
-)
-</code></pre>
-
-<h2 class="relative group">Decomposition 
-    <div id="decomposition" class="anchor"></div>
+<h2 class="relative group">Text Splitting/chunking 
+    <div id="text-splittingchunking" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#decomposition" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#text-splittingchunking" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>分解<code>Decomposition</code>代表了增强简单检索增强生成（RAG）方法的另一种创新技术。分解技术是一种解决问题的策略，涉及将复杂的问题或问题分解为更小、更易于管理的子问题，独立地解决每个问题，然后整合它们的解决方案以形成全面的答案。这种方法可以对问题的每个组成部分进行重点和详细的分析，从而促进更简单、更有效的解决方案。通过单独解决子问题，它可以利用简单性来解决复杂问题，确保对主要问题的彻底理解和解决。分解不仅增强了问题解决过程的清晰度和效率，而且提高了解决方案的准确性和相关性。</p>
-<p>以下是一段常用的prompt：</p>
-<pre tabindex="0"><code>template = &#34;&#34;&#34;You are a helpful assistant that generates multiple sub-questions related to an input question. \n
-The goal is to break down the input into a set of sub-problems / sub-questions that can be answers in isolation. \n
-Generate multiple search queries related to: {question} \n
-Output (3 queries):&#34;&#34;&#34;
-</code></pre><p>在具体实现中，有<code>Answer recursively</code>和<code>Answer individually</code>两种方法。</p>
-<p><code>Answer recursively</code>是将分解后的问题一一输入llm，前面answer得到的答案与前面的query一起作为下一个query的prompt内容，来进行更好的提示。</p>
+<p><code>Text Splitting</code> と <code>chunking</code> は、テキストデータを処理および最適化するための重要なステップです。これらのステップは、大規模なテキストデータをより小さな部分に分割することで、より効率的に検索や生成を行えるようにします。</p>
+<p><code>Text Splitting</code> は、長いドキュメントやテキストを、より小さく処理しやすい部分に分割することを指します。分割はさまざまな戦略に基づいて行われ、その目的は、大きなテキストを個別に処理できる小さな単位に分解することです。<code>Chunk</code>（または「テキストブロック」）は、分割されたテキストの単位を指します。各 chunk はテキストの一部であり、段落、文、または他の定義された長さで構成されます。Chunk は Text Splitting の結果であり、通常はその後の処理（例えば、ベクトル化、インデックス化、検索など）に使用されます。</p>
+<p>分割方法には多くの種類があり、段落ごとに分割する方法や、セマンティクスに基づいて分割する方法があります。</p>
+
+
+<h2 class="relative group">Multi-representation Indexing 
+    <div id="multi-representation-indexing" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#multi-representation-indexing" aria-label="アンカー">#</a>
+    </span>        
+    
+</h2>
+<p>現在、私たちは RAG を実現するための多くのツールを持っていますが、まだいくつかの課題があります。</p>
+<p>例えば、半構造化データ（非構造化テキストを含む構造化テーブル）や複数のモーダル（画像）を含むドキュメントに対して、どのように RAG を実行すればよいでしょうか？</p>
+<p>確かに、途方に暮れるでしょう。画像？これまでに話してきたのは自然言語処理のことだけでした。そうです、この時点では、自然言語処理だけでは解決が難しいです。しかし、複数のマルチモーダルモデルが登場したことで、今ではモーダル間や半構造化データにまたがる RAG を可能にする統一された戦略を検討する価値があります。そのため、私たちはよくマルチモーダルモデルを使ってこれを解決します。</p>
+<p>実際の操作では、<code>MultiVector Retriever</code>フレームワークを使用します。</p>
+<p>多くの場合、各ドキュメントに複数のベクトルを保存することが有益です。LangChain には、このような設定を簡単にクエリできる基盤となる<code>MultiVectorRetriever</code>が用意されており、複雑な作業は各ドキュメントに複数のベクトルを作成する方法にあります。</p>
+<p>各ドキュメントに複数のベクトルを作成する方法には次のものがあります：</p>
+<ul>
+<li><strong>小さなチャンク</strong>: ドキュメントを小さなチャンクに分割し、これらのチャンクを埋め込みます（これは ParentDocumentRetriever です）。</li>
+<li><strong>要約</strong>: 各ドキュメントの要約を作成し、それをドキュメントと一緒に（またはドキュメントの代わりに）埋め込みます。</li>
+<li><strong>仮説的な質問</strong>: 各ドキュメントが回答に適した仮説的な質問を作成し、それをドキュメントと一緒に（またはドキュメントの代わりに）埋め込みます。</li>
+</ul>
+<p>これを使用することで、私たちの RAG はさらに強力になります。</p>
+
+
+<h2 class="relative group">RAPTOR 
+    <div id="raptor" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#raptor" aria-label="アンカー">#</a>
+    </span>        
+    
+</h2>
+<p>質問に対する回答が複数のドキュメントに分散している場合、単純な RAG では力不足になることがあります。もちろん、考えられる解決策の一つは KNN（k-Nearest Neighbors）を使用することですが、異なるクエリに対して関連するドキュメントの数が異なるため、固定の K 値を設定して使用するのは難しいです。この場合、<code>RAPTOR</code> を使用することでこの問題をうまく解決できます。</p>
 <p>
     <figure>
       <img
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/llm_learning2/answer_recusively_hu288859585016983620.png 330w,
-        /coding/llm_learning2/answer_recusively_hu16848497122563375925.png 660w,
-        /coding/llm_learning2/answer_recusively_hu14111344998883141986.png 1024w,
-        /coding/llm_learning2/answer_recusively_hu11480585330629780111.png 2x"
-        src="/coding/llm_learning2/answer_recusively_hu16848497122563375925.png"
-        alt="answer recusively"
+        /coding/llm_learning3/RAPTOR_hu12130854765539293659.png 330w,
+        /coding/llm_learning3/RAPTOR_hu12759152663373366340.png 660w,
+        /coding/llm_learning3/RAPTOR_hu13971230870989185012.png 1024w,
+        /coding/llm_learning3/RAPTOR_hu11698187178676181724.png 2x"
+        src="/coding/llm_learning3/RAPTOR_hu12759152663373366340.png"
+        alt="RAPTOR"
       />
       
     </figure>
 </p>
-<p><code>Answer individually</code>是一个分总的结构。先把每个question分割成subquestion，分别得到各自的问题，然后对各自的问题进行获得答案。最后把这些问题答案对作为prompt输入，得到最终的答案。</p>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/llm_learning2/answer_individually_hu2949818301367518711.png 330w,
-        /coding/llm_learning2/answer_individually_hu6187435892872990672.png 660w,
-        /coding/llm_learning2/answer_individually_hu16801014206863333318.png 1024w,
-        /coding/llm_learning2/answer_individually_hu7234115507133695037.png 2x"
-        src="/coding/llm_learning2/answer_individually_hu6187435892872990672.png"
-        alt="answer individually"
-      />
-      
-    </figure>
-</p>
+<p>RAPTOR のアイデアは、ドキュメントツリーを構築することです。まず、各ドキュメントに対して埋め込みを行い、それらをクラスタリングしてクラスタリングされたドキュメント群を得ます。次に、それぞれの群について要約を作成し、ドキュメントの内容を精練します。このプロセスを繰り返すことで、ドキュメントから情報の要約を抽出することができます。</p>
+<p>この方法は、ツリーのリーフノード（各ドキュメント）からツリーのルートノード（最終的な要約）へと自下に向かって構築されます。これにより、少量のコンテキストで回答できる質問に対してサポートを提供することができます。</p>
 
 
-<h2 class="relative group">StepBack 
-    <div id="stepback" class="anchor"></div>
+<h2 class="relative group">ColBERT 
+    <div id="colbert" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#stepback" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#colbert" aria-label="アンカー">#</a>
     </span>        
     
 </h2>
-<p>另一种prompt思路。</p>
-<p>在具体生活中，人类在解决一个包含很多细节的具体问题时，先站在更高的层次上解决一些更加抽象的问题，可以拓展一个更宽阔的上下文环境，从而辅助解决这个具体的问题。</p>
-<p>反应到LLM中，就是当问LLM一个具体的物理题目时，先让LLM解决一个更加高层次的抽象问题。比如思考这个问题背后用得到物理定律或法则是什么，然后再让LLM去解决那个包含了很多细节的具体的物理题目，可能效果就会更好，准确率更高。</p>
-<p>因此，也就有了<code>Step-Back</code>的prompting思路。</p>
+<p>RAG では、<code>Dense Passage Retrieval (DPR)</code> を使用して、密な埋め込み表現（dense embeddings）を利用し、クエリとドキュメントを同じベクトル空間にマッピングすることで、ベクトルの類似度（例えばコサイン類似度）によってクエリとドキュメントをマッチングします。</p>
+<p>これは非常に効果的ですが、その後、ドキュメント内にあまり一般的でない用語が含まれている場合、モデルのパフォーマンスが悪化することが分かりました。関連する段落が大量の無関係な情報に囲まれていると、関連する段落が見逃される可能性があります。この問題を解決するために、ColBERT を使用することができます。</p>
+<p>ColBERT は、従来の単一ベクトルベースの DPR が段落を単一の「埋め込み」ベクトルに変換するのに対して、段落内の各 <code>token</code> にコンテキストに影響を受けた <code>vector</code> を生成します。ColBERT は同様に、クエリ内の各 <code>token</code> に <code>vector</code> を生成します。</p>
+<p>以下は、ColBERT を使用した簡単な例で、シンプルな4行の Python コードで実現できます：</p>
+<pre tabindex="0"><code>def maxsim(qv, document_embeddings):
+    return max(qv @ dv for dv in document_embeddings)
 
-
-<h2 class="relative group">HyDE 
-    <div id="hyde" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#hyde" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>那么为什么需要LLM生成假设性回答？</p>
-<p>在面对缺乏具体性或缺乏易于识别的元素从给定上下文中推导答案的问题时，有时候会相当具有挑战性。</p>
-<p>例如，考虑尼康的情况，它通常以摄影器材而闻名。然而，如果有人询问尼康最好的设备是什么，这个问题暗示了对摄影设备的关注。这里的难点在于没有指定具体的设备。因此，寻找洞察力变得有困难。为了解决这个问题，我们可以考虑使用HyDE。</p>
-<p><code>HyDE (Hypothetical Document Embeddings)</code> 的本质是使用大语言模型 (LLM) 为用户查询生成假设文档。这些文档是根据 LLM 本身的知识生成的，可能包含错误或不准确之处。但是，它们与 RAG 知识库中的文档相关联。然后，通过使用这些假设文档来检索具有相似向量的真实文档，从而提高检索的准确性。</p>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/llm_learning2/hyde_hu8438308140684268032.png 330w,
-        /coding/llm_learning2/hyde_hu4161769573337978570.png 660w,
-        /coding/llm_learning2/hyde_hu3049693078471876956.png 1024w,
-        /coding/llm_learning2/hyde_hu16712228262166347422.png 2x"
-        src="/coding/llm_learning2/hyde_hu4161769573337978570.png"
-        alt="hyde"
-      />
-      
-    </figure>
-</p>
-<p>具体来解释一下这张图：用户本身输入的查询为<code>question</code>，它所反映到嵌入空间中是黄色的坐标，而距离rag提供的<code>documents</code>的坐标（红色，绿色，蓝色）都有一定的距离。而我们使用<code>HyDE</code>去让LLM根据<code>question</code>生成<code>hypothetical document</code>，用它去生成嵌入空间中的坐标（黄色），然后进行检索。这样可以提高检索的准确性。</p>
+def score(query_embeddings, document_embeddings):
+    return sum(maxsim(qv, document_embeddings) for qv in query_embeddings)
+</code></pre><p>具体的に LangChain では、<code>RAGatouille</code> を使用して簡単に <code>ColBERT</code> を利用することができます。関連するコードは <a href="https://python.langchain.com/v0.2/docs/integrations/retrievers/ragatouille/" target="_blank">LangChain の公式ドキュメント</a>で確認できます。</p>
 
         </div>
         
@@ -1154,8 +1048,8 @@ Output (3 queries):&#34;&#34;&#34;
           
         
       <script>
-        var oid = "views_coding\\llm_learning2\\index.md"
-        var oid_likes = "likes_coding\\llm_learning2\\index.md"
+        var oid = "views_coding\\llm_learning3\\index.md"
+        var oid_likes = "likes_coding\\llm_learning3\\index.md"
       </script>
       
       
@@ -1175,7 +1069,7 @@ Output (3 queries):&#34;&#34;&#34;
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/coding/llm_learning1/">
+            <a class="flex group mr-3" href="/ja/coding/llm_learning2/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -1187,11 +1081,11 @@ Output (3 queries):&#34;&#34;&#34;
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >LLM RAG初步学习</span
+                  >LangChainとRAGの使い方を学ぶ</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-08-14 00:00:00 &#43;0000 UTC">14 August 2024</time>
+                    <time datetime="2024-08-15 00:00:00 &#43;0000 UTC">15 8月 2024</time>
                   
                 </span>
               </span>
@@ -1199,28 +1093,6 @@ Output (3 queries):&#34;&#34;&#34;
           
         </span>
         <span>
-          
-            <a class="flex text-right group ml-3" href="/coding/llm_learning3/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >学习使用langchain和RAG(2)</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-08-17 00:00:00 &#43;0000 UTC">17 August 2024</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
           
         </span>
       </div>
@@ -1235,7 +1107,7 @@ Output (3 queries):&#34;&#34;&#34;
       <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
   <a href="#the-top"
     class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
-    aria-label="返回顶部" title="返回顶部">
+    aria-label="TOPへスクロール" title="TOPへスクロール">
     &uarr;
   </a>
 </div>
@@ -1247,7 +1119,7 @@ Output (3 queries):&#34;&#34;&#34;
       <ul class="flex flex-col list-none sm:flex-row">
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/ja/tags/"
             title="">
             
             Tags
@@ -1255,7 +1127,7 @@ Output (3 queries):&#34;&#34;&#34;
         </li>
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/ja/categories/"
             title="">
             
             Categories
@@ -1271,7 +1143,7 @@ Output (3 queries):&#34;&#34;&#34;
     
     
     <p class="text-sm text-neutral-500 dark:text-neutral-400">
-      2024 清酒 转载请标明出处
+      2024 QingJiu 転載する際は出典を明記してください
     </p>
     
 
@@ -1280,9 +1152,9 @@ Output (3 queries):&#34;&#34;&#34;
     <p class="text-xs text-neutral-500 dark:text-neutral-400">
       
       
-      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
         href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
     </p>
     
 
@@ -1305,7 +1177,7 @@ Output (3 queries):&#34;&#34;&#34;
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="http://localhost:1313/"
+  data-url="http://localhost:1313/ja/"
   style="z-index:500"
 >
   <div
@@ -1328,14 +1200,14 @@ Output (3 queries):&#34;&#34;&#34;
           type="search"
           id="search-query"
           class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
-          placeholder="搜索"
+          placeholder="検索"
           tabindex="0"
         />
       </form>
       <button
         id="close-search-button"
         class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-        title="关闭 (Esc)"
+        title="閉じる (Esc)"
       >
         
 
