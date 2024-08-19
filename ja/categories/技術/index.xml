@@ -7,7 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>2024 QingJiu 転載する際は出典を明記してください</copyright>
-    <lastBuildDate>Thu, 15 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/ja/categories/%E6%8A%80%E8%A1%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/ja/categories/%E6%8A%80%E8%A1%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LangChainとRAGの使い方を学ぶ(3)</title>
+      <link>http://localhost:1313/ja/coding/llm_learning4/</link>
+      <pubDate>Mon, 19 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/ja/coding/llm_learning4/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/llm_learning4/featured.png" />
+    </item>
+    
+    <item>
+      <title>LangChainとRAGの使い方を学ぶ(2)</title>
+      <link>http://localhost:1313/ja/coding/llm_learning3/</link>
+      <pubDate>Sat, 17 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/ja/coding/llm_learning3/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/llm_learning3/featured.png" />
+    </item>
+    
     <item>
       <title>LangChainとRAGの使い方を学ぶ</title>
       <link>http://localhost:1313/ja/coding/llm_learning2/</link>

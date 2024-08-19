@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>2024 清酒 转载请标明出处</copyright>
-    <lastBuildDate>Sat, 17 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>学习使用langchain和RAG(3)</title>
+      <link>http://localhost:1313/coding/llm_learning4/</link>
+      <pubDate>Mon, 19 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/coding/llm_learning4/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/llm_learning4/featured.png" />
+    </item>
+    
     <item>
       <title>学习使用langchain和RAG(2)</title>
       <link>http://localhost:1313/coding/llm_learning3/</link>

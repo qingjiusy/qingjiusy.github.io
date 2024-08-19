@@ -8,16 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>技術 &middot; QingJiu観察した世界</title>
-  <meta name="title" content="技術 &middot; QingJiu観察した世界" />
+  <title>LangChainとRAGの使い方を学ぶ(3) &middot; QingJiu観察した世界</title>
+  <meta name="title" content="LangChainとRAGの使い方を学ぶ(3) &middot; QingJiu観察した世界" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="LLM, " />
   
   
-  
-  
-  
-  <link rel="canonical" href="http://localhost:1313/ja/categories/%E6%8A%80%E8%A1%93/" />
-  
-  <link rel="alternate" type="application/rss+xml" href="/ja/categories/%E6%8A%80%E8%A1%93/index.xml" title="QingJiu観察した世界" />
+  <link rel="canonical" href="http://localhost:1313/ja/coding/llm_learning4/" />
   
   
   
@@ -62,18 +60,53 @@
   
   
   
-  <meta property="og:url" content="http://localhost:1313/ja/categories/%E6%8A%80%E8%A1%93/">
+  <meta property="og:url" content="http://localhost:1313/ja/coding/llm_learning4/">
   <meta property="og:site_name" content="QingJiu観察した世界">
-  <meta property="og:title" content="技術">
+  <meta property="og:title" content="LangChainとRAGの使い方を学ぶ(3)">
+  <meta property="og:description" content="blog">
   <meta property="og:locale" content="ja">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2024-08-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-19T00:00:00+00:00">
+    <meta property="article:tag" content="LLM">
+    <meta property="og:image" content="http://localhost:1313/coding/llm_learning4/featured.png">
 
   
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="技術">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/coding/llm_learning4/featured.png">
+  <meta name="twitter:title" content="LangChainとRAGの使い方を学ぶ(3)">
+  <meta name="twitter:description" content="blog">
 
   
-  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "LangChainとRAGの使い方を学ぶ(3)",
+    "headline": "LangChainとRAGの使い方を学ぶ(3)",
+    
+    "abstract": "blog",
+    "inLanguage": "ja",
+    "url" : "http:\/\/localhost:1313\/ja\/coding\/llm_learning4\/",
+    "author" : {
+      "@type": "Person",
+      "name": "QingJiu"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-08-19T00:00:00\u002b00:00",
+    "datePublished": "2024-08-19T00:00:00\u002b00:00",
+    
+    "dateModified": "2024-08-19T00:00:00\u002b00:00",
+    
+    "keywords": ["LLM"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1012"
+  }]
+  </script>
+
 
   
   
@@ -221,6 +254,41 @@
             
 
             
+<div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    <span class="mr-1">
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+    <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg>
+  </span>
+
+
+    </span>
+    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(3)">JA</div>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/coding/llm_learning4/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG(3)">
+            简体中文
+          </p>
+        </a>
+        
+        <a href="/ja/coding/llm_learning4/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(3)">
+            日本語
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
             
@@ -273,6 +341,41 @@
             <span></span>
 
             
+<div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    <span class="mr-1">
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+    <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg>
+  </span>
+
+
+    </span>
+    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(3)">JA</div>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/coding/llm_learning4/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG(3)">
+            简体中文
+          </p>
+        </a>
+        
+        <a href="/ja/coding/llm_learning4/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(3)">
+            日本語
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
             
@@ -460,16 +563,13 @@
       
 
 
-
-
-
-
- 
+<article>
   
-   
   
- 
-
+  
+  
+  
+  
 
 
 <div id="hero" class="h-[150px] md:h-[200px]"></div>
@@ -478,7 +578,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/img/miku_hu8696593001210945618.png);">
+    style="background-image:url(/coding/llm_learning4/featured_hu12797386639531594831.png);">
     
 
 
@@ -498,112 +598,23 @@
     });
 </script>
 
- <header>
-  
-  <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">技術</h1>
-  <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-</div>
-
-
-  </div>
-  </header>
-
-  <section class="flex flex-col max-w-full mt-0 mb-5 prose dark:prose-invert lg:flex-row">
-    
-    <script>
-      var oid = "views_term_技術"
-      var oid_likes = "likes_term_技術"
-    </script>
-    
-    
-    <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
-  </section>
-
-
-  
-
-  
   
   
 
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      LangChainとRAGの使い方を学ぶ(3)
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
   
-
-  <section class="space-y-10 w-full">
-    
-    
-    <h2 class="mt-12 text-2xl font-bold text-neutral-700 first:mt-8 dark:text-neutral-300">
-      2024
-    </h2>
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <a class="flex flex-wrap article " href="/ja/coding/llm_learning4/">
-    
-        
-        <div class="w-full md:w-auto h-full thumbnail nozoom thumbnailshadow md:mr-7" style="background-image:url(/coding/llm_learning4/featured_hu3563912243379123978.png);"></div>
-        
-      <div class=" mt-3 md:mt-0">
-      <div class="items-center text-left text-xl font-semibold">
-        
-        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/ja/coding/llm_learning4/">LangChainとRAGの使い方を学ぶ(3)</div>
-        
-        
-        
-      </div>
-      <div class="text-sm text-neutral-500 dark:text-neutral-400">
-        
-
-
-
-
+  
 
 
 
@@ -651,311 +662,379 @@
 
 
 
-      </div>
-      
     </div>
-  </a>
 
     
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <a class="flex flex-wrap article " href="/ja/coding/llm_learning3/">
     
+    
+    
+
+    
+
+    
+      
+      
         
-        <div class="w-full md:w-auto h-full thumbnail nozoom thumbnailshadow md:mr-7" style="background-image:url(/coding/llm_learning3/featured_hu3563912243379123978.png);"></div>
         
-      <div class=" mt-3 md:mt-0">
-      <div class="items-center text-left text-xl font-semibold">
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
         
-        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/ja/coding/llm_learning3/">LangChainとRAGの使い方を学ぶ(2)</div>
-        
-        
-        
-      </div>
-      <div class="text-sm text-neutral-500 dark:text-neutral-400">
-        
-
-
-
-
-
-
-
-
-
-
-
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="QingJiu" src="/img/cc_hu7181080746626923322.png" />
+    
   
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      著者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      QingJiu
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">「世界を観察する」</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
 
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
 
+  </span>
 
+</span></a
+        >
+      
+    
+  </div>
 
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2024-08-17 00:00:00 &#43;0000 UTC">17 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>3419 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">7 分</span>
-  
-
-  
-  
+</div>
+  </div>
 </div>
 
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目次
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#re-ranking">Re-ranking</a></li>
+    <li><a href="#crag">CRAG</a></li>
+    <li><a href="#self-rag">Self-RAG</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目次
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#re-ranking">Re-ranking</a></li>
+    <li><a href="#crag">CRAG</a></li>
+    <li><a href="#self-rag">Self-RAG</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
 
 
 
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
 
 
-
+</script>
+   </div>
       </div>
       
-    </div>
-  </a>
 
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<h2 class="relative group">Re-ranking 
+    <div id="re-ranking" class="anchor"></div>
     
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#re-ranking" aria-label="アンカー">#</a>
+    </span>        
     
+</h2>
+<p>以前、<code>RAG-fusion</code>を通じてこれを示しました。簡単に言うと、まず<code>query</code>から<code>multi query</code>を取得し、次に複数のドキュメントを検索し、<code>RRF</code>を利用して<code>rerank</code>を行い、より良い順序を得るというものです。</p>
+<p>これは一つの方法ですが、もう一つの方法を見てみましょう：<code>CohereRerank</code>です。</p>
+<p><code>CohereRerank</code>は、Cohereが提供するAPIサービスで、検索結果や他のリストを再度並べ替えるために使用されます。これは、大規模な事前学習済み言語モデルを活用して、クエリとドキュメントの関連性に基づいて、指定されたドキュメントや結果リストを再度並べ替えるものです。</p>
+<p>以下は、<code>CohereRerank</code>を使用したコード例です。<code>CohereRerank</code>ではモデル名を宣言することができます。</p>
+<pre tabindex="0"><code>from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
+from langchain_cohere import CohereRerank
+from langchain_community.llms import Cohere
 
+llm = Cohere(temperature=0)
+compressor = CohereRerank(model=&#34;rerank-english-v3.0&#34;)
+compression_retriever = ContextualCompressionRetriever(
+    base_compressor=compressor, base_retriever=retriever
+)
 
+compressed_docs = compression_retriever.invoke(
+    &#34;What did the president say about Ketanji Jackson Brown&#34;
+)
+pretty_print_docs(compressed_docs)
+</code></pre>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <a class="flex flex-wrap article " href="/ja/coding/llm_learning2/">
+<h2 class="relative group">CRAG 
+    <div id="crag" class="anchor"></div>
     
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#crag" aria-label="アンカー">#</a>
+    </span>        
+    
+</h2>
+<p><code>CRAGフレームワーク（Corrective Retrieval Augmented Generation）</code>は、生成モデルのロバスト性を向上させることを目的としています。従来の検索強化生成（RAG）モデルは、検索エラーや不正確なドキュメントを処理する際に、パフォーマンスが低下する可能性があります。CRAGは、検索されたドキュメントの品質を評価する軽量な<code>retrieval evaluator</code>を設計し、評価結果に基づいて異なる知識検索動作をトリガーします。これには、検索されたドキュメントの精細な処理や、必要に応じて大規模なネットワーク検索を通じて検索結果を拡張することが含まれ、生成内容の正確性と関連性を向上させます。CRAGフレームワークはプラグイン方式で、さまざまなRAG基礎手法とシームレスに組み合わせることができ、実験によりRAG手法の性能を大幅に向上させることが証明されています。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/llm_learning4/crag_hu376050560655819745.png 330w,
+        /coding/llm_learning4/crag_hu3613179419740257705.png 660w,
+        /coding/llm_learning4/crag_hu8796656083991873932.png 1024w,
+        /coding/llm_learning4/crag_hu14266232277660497907.png 2x"
+        src="/coding/llm_learning4/crag_hu3613179419740257705.png"
+        alt="CRAGフレームワーク"
+      />
+      
+    </figure>
+</p>
+
+
+<h2 class="relative group">Self-RAG 
+    <div id="self-rag" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#self-rag" aria-label="アンカー">#</a>
+    </span>        
+    
+</h2>
+<p><code>Self-RAG</code>は、検索と自己反省を通じて生成結果を得るフレームワークです。</p>
+<p>主要なコアアルゴリズムは以下の図に示されています：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/llm_learning4/self-rag_hu10972089115395564910.png 330w,
+        /coding/llm_learning4/self-rag_hu9525904182570885631.png 660w,
+        /coding/llm_learning4/self-rag_hu16556713313354404163.png 1024w,
+        /coding/llm_learning4/self-rag_hu1932745003106520475.png 2x"
+        src="/coding/llm_learning4/self-rag_hu9525904182570885631.png"
+        alt="self-ragアルゴリズム"
+      />
+      
+    </figure>
+</p>
+<p>まず、入力（プロンプトxおよび以前の出力）に基づいて、検索が必要かどうかを判断します。必要がない場合は、標準のLMのように次の出力片を生成します。検索が必要な場合、モデルは検索された段落の関連性を評価するためのコメントタグを生成し、完了した段落集合内の各文書を遍歴し、フィールドに基づいてランク付けします。ランク付けされた文書を使用して、より良い出力を実現します。</p>
+
+        </div>
         
-        <div class="w-full md:w-auto h-full thumbnail nozoom thumbnailshadow md:mr-7" style="background-image:url(/coding/llm_learning2/featured_hu3563912243379123978.png);"></div>
         
-      <div class=" mt-3 md:mt-0">
-      <div class="items-center text-left text-xl font-semibold">
-        
-        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/ja/coding/llm_learning2/">LangChainとRAGの使い方を学ぶ</div>
+
         
         
-        
+
+          
       </div>
-      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+     
+      
+      
         
+        
+          
+          
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\\llm_learning4\\index.md"
+        var oid_likes = "likes_coding\\llm_learning4\\index.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
 
-
-
-
-
-
-
-
-
-
-
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/ja/coding/llm_learning3/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >LangChainとRAGの使い方を学ぶ(2)</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-08-17 00:00:00 &#43;0000 UTC">17 8月 2024</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
   
 
 
+    
+  </footer>
+</article>
 
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2024-08-15 00:00:00 &#43;0000 UTC">15 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>3947 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">8 分</span>
-  
-
-  
-  
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="TOPへスクロール" title="TOPへスクロール">
+    &uarr;
+  </a>
 </div>
-
-
-
-
-
-
-
-      </div>
-      
-    </div>
-  </a>
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <a class="flex flex-wrap article " href="/ja/coding/llm_learning1/">
-    
-        
-        <div class="w-full md:w-auto h-full thumbnail nozoom thumbnailshadow md:mr-7" style="background-image:url(/coding/llm_learning1/featured_hu3563912243379123978.png);"></div>
-        
-      <div class=" mt-3 md:mt-0">
-      <div class="items-center text-left text-xl font-semibold">
-        
-        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/ja/coding/llm_learning1/">LLM RAGの初歩的な学習</div>
-        
-        
-        
-      </div>
-      <div class="text-sm text-neutral-500 dark:text-neutral-400">
-        
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2024-08-14 00:00:00 &#43;0000 UTC">14 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2650 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">6 分</span>
-  
-
-  
-  
-</div>
-
-
-
-
-
-
-
-      </div>
-      
-    </div>
-  </a>
-
-    
-    
-  </section>
-
-  
-
-  
-
-  
-
-  
-      
     </main><footer id="site-footer" class="py-10 print:hidden">
   
   

@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="ja" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
   data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   
-  <meta http-equiv="content-language" content="ja" />
+  <meta http-equiv="content-language" content="zh-cn" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>Categories &middot; QingJiu観察した世界</title>
-  <meta name="title" content="Categories &middot; QingJiu観察した世界" />
+  <title>学习使用langchain和RAG(3) &middot; QingJiu</title>
+  <meta name="title" content="学习使用langchain和RAG(3) &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="LLM, " />
   
   
-  
-  
-  
-  <link rel="canonical" href="http://localhost:1313/ja/categories/" />
-  
-  <link rel="alternate" type="application/rss+xml" href="/ja/categories/index.xml" title="QingJiu観察した世界" />
+  <link rel="canonical" href="http://localhost:1313/coding/llm_learning4/" />
   
   
   
@@ -62,22 +60,57 @@
   
   
   
-  <meta property="og:url" content="http://localhost:1313/ja/categories/">
-  <meta property="og:site_name" content="QingJiu観察した世界">
-  <meta property="og:title" content="Categories">
-  <meta property="og:locale" content="ja">
-  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:1313/coding/llm_learning4/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="学习使用langchain和RAG(3)">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2024-08-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-19T00:00:00+00:00">
+    <meta property="article:tag" content="LLM">
+    <meta property="og:image" content="http://localhost:1313/coding/llm_learning4/featured.png">
 
   
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Categories">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/coding/llm_learning4/featured.png">
+  <meta name="twitter:title" content="学习使用langchain和RAG(3)">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "学习使用langchain和RAG(3)",
+    "headline": "学习使用langchain和RAG(3)",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "http:\/\/localhost:1313\/coding\/llm_learning4\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-08-19T00:00:00\u002b00:00",
+    "datePublished": "2024-08-19T00:00:00\u002b00:00",
+    
+    "dateModified": "2024-08-19T00:00:00\u002b00:00",
+    
+    "keywords": ["LLM"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "737"
+  }]
+  </script>
+
 
   
   
-
-  
-  
-  <meta name="author" content="QingJiu" />
+  <meta name="author" content="清酒" />
   
   
   
@@ -124,20 +157,18 @@
   <div id="the-top" class="absolute flex self-center">
     <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
       href="#main-content"><span
-        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>メインコンテンツへスキップ</a>
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
   </div>
   
   
   <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
     class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
     
-    
-    
     <div class="flex flex-1 items-center justify-between">
         <nav class="flex space-x-3">
 
             
-            <a href="/ja/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu観察した世界</a>
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
             
 
         </nav>
@@ -189,14 +220,14 @@
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/ja/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
-            日常
+            生活
           </p>
         </a>
         
-        <a href="/ja/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
             code
@@ -206,7 +237,7 @@
         <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
           <p class="text-sm font-sm" title="">
-            知識
+            知识
           </p>
         </a>
         
@@ -233,20 +264,20 @@
 
 
     </span>
-    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="Categories">JA</div>
+    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG(3)">简体中文</div>
   </div>
   <div class="absolute menuhide">
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/categories/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="Categories">
+        <a href="/coding/llm_learning4/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG(3)">
             简体中文
           </p>
         </a>
         
-        <a href="/ja/categories/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="Categories">
+        <a href="/ja/coding/llm_learning4/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(3)">
             日本語
           </p>
         </a>
@@ -320,20 +351,20 @@
 
 
     </span>
-    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="Categories">JA</div>
+    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG(3)">简体中文</div>
   </div>
   <div class="absolute menuhide">
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/categories/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="Categories">
+        <a href="/coding/llm_learning4/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="学习使用langchain和RAG(3)">
             简体中文
           </p>
         </a>
         
-        <a href="/ja/categories/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="Categories">
+        <a href="/ja/coding/llm_learning4/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="LangChainとRAGの使い方を学ぶ(3)">
             日本語
           </p>
         </a>
@@ -468,16 +499,16 @@
 </li>
 
 <li class="mt-1">
-    <a href="/ja/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
-            日常
+            生活
         </p>
     </a>
 </li>
 
 <li class="mt-1">
-    <a href="/ja/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
             code
@@ -489,7 +520,7 @@
     <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
         <p class="text-sm font-small" title="">
-            知識
+            知识
         </p>
     </a>
 </li>
@@ -530,16 +561,13 @@
       
 
 
-
-
-
-
- 
+<article>
   
-   
   
- 
-
+  
+  
+  
+  
 
 
 <div id="hero" class="h-[150px] md:h-[200px]"></div>
@@ -548,7 +576,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/img/miku_hu8696593001210945618.png);">
+    style="background-image:url(/coding/llm_learning4/featured_hu12797386639531594831.png);">
     
 
 
@@ -568,21 +596,41 @@
     });
 </script>
 
- 
+  
+  
 
-  <header>
+  <header id="single_header" class="mt-5 max-w-prose">
     
-    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Categories</h1>
-    <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      学习使用langchain和RAG(3)
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
 
 
 
 
 
+  
+  
 
 
 
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
 
 
 
@@ -599,64 +647,392 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
+  <time datetime="2024-08-19 00:00:00 &#43;0000 UTC">19 August 2024</time><span class="px-2 text-primary-500">&middot;</span><span>737 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  
+
+  
+  
 </div>
 
 
+
+
+
+
+
     </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
   
-  <script>
-    var oid = "views_taxonomy_categories"
-    var oid_likes = "likes_taxonomy_categories"
-  </script>
-  
-  
-  <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
-  
-
-  
-
-  <section class="flex flex-wrap max-w-prose -mx-2 overflow-hidden">
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4">
-    <h2 class="flex items-center">
-      <a
-        class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-        href="/ja/categories/%E6%8A%80%E8%A1%93/"
-        >技術</a
-      >
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#re-ranking">Re-ranking</a></li>
+    <li><a href="#crag">CRAG</a></li>
+    <li><a href="#self-rag">Self-RAG</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#re-ranking">Re-ranking</a></li>
+    <li><a href="#crag">CRAG</a></li>
+    <li><a href="#self-rag">Self-RAG</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
       
-        <span class="px-2 text-base text-primary-500">&middot;</span>
-        <span class="text-base text-neutral-400">
-          4
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<h2 class="relative group">Re-ranking 
+    <div id="re-ranking" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#re-ranking" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>我们之前通过<code>RAG-fusion</code>展示过这一点。简单来说，就是先从<code>query</code>中得到<code>multi query</code>，然后检索到多个文档，利用<code>RRF</code>进行<code>rerank</code>，得到一个更好的排序。</p>
+<p>这是一种方法，同时让我们来看看另一种方法：<code>CohereRerank</code>。</p>
+<p><code>CohereRerank</code>是一个由Cohere提供的API服务，用于对搜索结果或其他排序列表进行重新排序。它利用大规模预训练的语言模型，根据查询和文档之间的相关性，对给定的文档或结果列表进行重新排序。</p>
+<p>以下是一段使用<code>CohereRerank</code>的代码示例。可以在<code>CohereRerank</code>中声明模型名。</p>
+<pre tabindex="0"><code>from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
+from langchain_cohere import CohereRerank
+from langchain_community.llms import Cohere
+
+llm = Cohere(temperature=0)
+compressor = CohereRerank(model=&#34;rerank-english-v3.0&#34;)
+compression_retriever = ContextualCompressionRetriever(
+    base_compressor=compressor, base_retriever=retriever
+)
+
+compressed_docs = compression_retriever.invoke(
+    &#34;What did the president say about Ketanji Jackson Brown&#34;
+)
+pretty_print_docs(compressed_docs)
+</code></pre>
+
+<h2 class="relative group">CRAG 
+    <div id="crag" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#crag" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p><code>CRAG框架（Corrective Retrieval Augmented Generation）</code>旨在提高生成模型的鲁棒性。传统的检索增强生成（RAG）模型在处理检索错误或不准确的文档时可能表现不佳。CRAG通过设计一个轻量级的<code>retrieval evaluator</code>来评估检索文档的质量，并根据评估结果触发不同的知识检索行为。这包括对检索到的文档进行精细化处理，以及在必要时通过大规模网络搜索扩展检索结果，从而提高生成内容的准确性和相关性。CRAG框架是插件式的，可以与各种RAG基础方法无缝结合，通过实验证明能显著提高RAG方法的性能。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/llm_learning4/crag_hu376050560655819745.png 330w,
+        /coding/llm_learning4/crag_hu3613179419740257705.png 660w,
+        /coding/llm_learning4/crag_hu8796656083991873932.png 1024w,
+        /coding/llm_learning4/crag_hu14266232277660497907.png 2x"
+        src="/coding/llm_learning4/crag_hu3613179419740257705.png"
+        alt="CRAG框架"
+      />
+      
+    </figure>
+</p>
+
+
+<h2 class="relative group">Self-RAG 
+    <div id="self-rag" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#self-rag" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p><code>Self-RAG</code>是一个通过检索和自我反思得到生成结果的框架。</p>
+<p>主要的核心算法如下图所示：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/llm_learning4/self-rag_hu10972089115395564910.png 330w,
+        /coding/llm_learning4/self-rag_hu9525904182570885631.png 660w,
+        /coding/llm_learning4/self-rag_hu16556713313354404163.png 1024w,
+        /coding/llm_learning4/self-rag_hu1932745003106520475.png 2x"
+        src="/coding/llm_learning4/self-rag_hu9525904182570885631.png"
+        alt="self-rag算法"
+      />
+      
+    </figure>
+</p>
+<p>首先，根据输入（prompt x和之前的输出），我们会计算出是否需要检索。如果不需要，则像标准LM一样输出下一个输出片段。需要需要检索，那么模型就会生成一个评论标记来评估检索段落的相关性，遍历完成段落集合中的每一个文档，然后根据字段来进行排名。用排好名的文档实现更好的输出。</p>
+
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\\llm_learning4\\index.md"
+        var oid_likes = "likes_coding\\llm_learning4\\index.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/llm_learning3/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >学习使用langchain和RAG(2)</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-08-17 00:00:00 &#43;0000 UTC">17 August 2024</time>
+                  
+                </span>
+              </span>
+            </a>
+          
         </span>
-      
-    </h2>
-  </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4">
-    <h2 class="flex items-center">
-      <a
-        class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-        href="/ja/categories/%E6%97%A5%E5%B8%B8/"
-        >日常</a
-      >
-      
-        <span class="px-2 text-base text-primary-500">&middot;</span>
-        <span class="text-base text-neutral-400">
-          1
+        <span>
+          
         </span>
-      
-    </h2>
-  </article>
-    
-  </section>
-
+      </div>
+    </div>
   
 
 
+    
+  </footer>
+</article>
 
-      
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
     </main><footer id="site-footer" class="py-10 print:hidden">
   
   
@@ -665,7 +1041,7 @@
       <ul class="flex flex-col list-none sm:flex-row">
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/ja/tags/"
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
             title="">
             
             Tags
@@ -673,7 +1049,7 @@
         </li>
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/ja/categories/"
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
             title="">
             
             Categories
@@ -689,7 +1065,7 @@
     
     
     <p class="text-sm text-neutral-500 dark:text-neutral-400">
-      2024 QingJiu 転載する際は出典を明記してください
+      2024 清酒 转载请标明出处
     </p>
     
 
@@ -698,9 +1074,9 @@
     <p class="text-xs text-neutral-500 dark:text-neutral-400">
       
       
-      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
         href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
     </p>
     
 
@@ -723,7 +1099,7 @@
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="http://localhost:1313/ja/"
+  data-url="http://localhost:1313/"
   style="z-index:500"
 >
   <div
@@ -746,14 +1122,14 @@
           type="search"
           id="search-query"
           class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
-          placeholder="検索"
+          placeholder="搜索"
           tabindex="0"
         />
       </form>
       <button
         id="close-search-button"
         class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-        title="閉じる (Esc)"
+        title="关闭 (Esc)"
       >
         
 
