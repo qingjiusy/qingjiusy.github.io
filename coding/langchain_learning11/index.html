@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Langchain agent(2) &middot; QingJiu</title>
+  <meta name="title" content="Langchain agent(2) &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="LLM, " />
+  
+  
+  <link rel="canonical" href="http://localhost:1313/coding/langchain_learning11/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.8324631a59ccf1388a18ef024ca886c93e0e8f45e6fd81bc64f48894958f706e641168d69e3c54ccc828bd29c9edfe0849898650e7b56bdf474678210948e423.css"
+    integrity="sha512-gyRjGlnM8TiKGO8CTKiGyT4Oj0Xm/YG8ZPSIlJWPcG5kEWjWnjxUzMgovSnJ7f4ISYmGUOe1a99HRnghCUjkIw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.6ece09b43917cb66380f5ee610feb0c6d1b73798d171ccd7d73ac38dd7b4a5326ef0ac3f9a557ff5cc67c7d9e484f4ddd1f3f23301f277206665da75c58261e9.js"
+    integrity="sha512-bs4JtDkXy2Y4D17mEP6wxtG3N5jRcczX1zrDjde0pTJu8Kw/mlV/9cxnx9nkhPTd0fPyMwHydyBmZdp1xYJh6Q==" data-copy="" data-copied=""></script>
+  
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/coding/langchain_learning11/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="Langchain agent(2)">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2024-11-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-11-12T00:00:00+00:00">
+    <meta property="article:tag" content="LLM">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Langchain agent(2)">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "Langchain agent(2)",
+    "headline": "Langchain agent(2)",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "http:\/\/localhost:1313\/coding\/langchain_learning11\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-11-12T00:00:00\u002b00:00",
+    "datePublished": "2024-11-12T00:00:00\u002b00:00",
+    
+    "dateModified": "2024-11-12T00:00:00\u002b00:00",
+    
+    "keywords": ["LLM"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "6569"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+ 
+  
+   
+  
+ 
+
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/img/miku_hu8696593001210945618.png);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Langchain agent(2)
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-11-12 00:00:00 &#43;0000 UTC">12 November 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6569 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#agent-的关键组件">Agent 的关键组件</a></li>
+    <li><a href="#深挖-agentexecutor-的运行机制">深挖 AgentExecutor 的运行机制</a>
+      <ul>
+        <li><a href="#开始-debug">开始 Debug</a></li>
+        <li><a href="#第一轮思考模型决定搜索">第一轮思考：模型决定搜索</a></li>
+        <li><a href="#第二轮思考模型决定计算">第二轮思考：模型决定计算</a></li>
+        <li><a href="#第三轮思考模型完成任务">第三轮思考：模型完成任务</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结时刻">总结时刻</a></li>
+    <li><a href="#思考题">思考题</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#agent-的关键组件">Agent 的关键组件</a></li>
+    <li><a href="#深挖-agentexecutor-的运行机制">深挖 AgentExecutor 的运行机制</a>
+      <ul>
+        <li><a href="#开始-debug">开始 Debug</a></li>
+        <li><a href="#第一轮思考模型决定搜索">第一轮思考：模型决定搜索</a></li>
+        <li><a href="#第二轮思考模型决定计算">第二轮思考：模型决定计算</a></li>
+        <li><a href="#第三轮思考模型完成任务">第三轮思考：模型完成任务</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结时刻">总结时刻</a></li>
+    <li><a href="#思考题">思考题</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>上节课中，你了解了ReAct框架的原理，最后我给你留了一道思考题，让你说一说LangChain中的“代理”和“链”的差异究竟是什么。</p>
+<p>我的答案是：<strong>在链中，一系列操作被硬编码（在代码中）。在代理中，语言模型被用作推理引擎来确定要采取哪些操作以及按什么顺序执行这些操作</strong>。</p>
+<p>下面这个图，就展现出了Agent接到任务之后，自动进行推理，然后自主调用工具完成任务的过程。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image_hu10623590596645231104.png 330w,
+        /coding/langchain_learning11/image_hu10464570149170448443.png 660w,
+        /coding/langchain_learning11/image_hu1998181346388624235.png 1024w,
+        /coding/langchain_learning11/image_hu14777489178923157974.png 2x"
+        src="/coding/langchain_learning11/image_hu10464570149170448443.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>那么，你看LangChain，乃至整个大模型应用开发的核心理念就呼之欲出了。这个核心理念就是<strong>操作的序列并非硬编码在代码中，而是使用语言模型（如GPT-3或GPT-4）来选择执行的操作序列</strong>。</p>
+<p>这里，我又一次重复了上一段话，显得有点啰嗦，但是这个思路真的是太重要了，它也凸显了LLM作为AI自主决定程序逻辑这个编程新范式的价值，我希望你仔细认真地去理解。</p>
+
+
+<h2 class="relative group">Agent 的关键组件 
+    <div id="agent-%E7%9A%84%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#agent-%E7%9A%84%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在LangChain的代理中，有这样几个关键组件。</p>
+<ol>
+<li>
+<p><strong>代理</strong>（Agent）：这个类决定下一步执行什么操作。它由一个语言模型和一个提示（prompt）驱动。提示可能包含代理的性格（也就是给它分配角色，让它以特定方式进行响应）、任务的背景（用于给它提供更多任务类型的上下文）以及用于激发更好推理能力的提示策略（例如ReAct）。LangChain中包含很多种不同类型的代理。</p>
+</li>
+<li>
+<p><strong>工具</strong>（Tools）：工具是代理调用的函数。这里有两个重要的考虑因素：一是让代理能访问到正确的工具，二是以最有帮助的方式描述这些工具。如果你没有给代理提供正确的工具，它将无法完成任务。如果你没有正确地描述工具，代理将不知道如何使用它们。LangChain提供了一系列的工具，同时你也可以定义自己的工具。</p>
+</li>
+<li>
+<p><strong>工具包</strong>（Toolkits）：工具包是一组用于完成特定目标的彼此相关的工具，每个工具包中包含多个工具。比如LangChain的Office365工具包中就包含连接Outlook、读取邮件列表、发送邮件等一系列工具。当然LangChain中还有很多其他工具包供你使用。</p>
+</li>
+<li>
+<p><strong>代理执行器</strong>（AgentExecutor）：代理执行器是代理的运行环境，它调用代理并执行代理选择的操作。执行器也负责处理多种复杂情况，包括处理代理选择了不存在的工具的情况、处理工具出错的情况、处理代理产生的无法解析成工具调用的输出的情况，以及在代理决策和工具调用进行观察和日志记录。</p>
+</li>
+</ol>
+<p>总的来说，代理就是一种用语言模型做出决策、调用工具来执行具体操作的系统。通过设定代理的性格、背景以及工具的描述，你可以定制代理的行为，使其能够根据输入的文本做出理解和推理，从而实现自动化的任务处理。而代理执行器（AgentExecutor）就是上述机制得以实现的引擎。</p>
+<p>在这一讲中，我们将深入LangChain源代码的内部，揭示代理是如何通过代理执行器来自动决策的。</p>
+
+
+<h2 class="relative group">深挖 AgentExecutor 的运行机制 
+    <div id="%E6%B7%B1%E6%8C%96-agentexecutor-%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B7%B1%E6%8C%96-agentexecutor-%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>让我们先来回顾一下上一讲中的关键代码。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">llm</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 大语言模型</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span> <span class="o">=</span> <span class="n">load_tools</span><span class="p">([</span><span class="s2">&#34;serpapi&#34;</span><span class="p">,</span> <span class="s2">&#34;llm-math&#34;</span><span class="p">],</span> <span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">)</span> <span class="c1"># 工具-搜索和数学运算</span>
+</span></span><span class="line"><span class="cl"><span class="n">agent</span> <span class="o">=</span> <span class="n">initialize_agent</span><span class="p">(</span><span class="n">tools</span><span class="p">,</span> <span class="n">llm</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">AgentType</span><span class="o">.</span><span class="n">ZERO_SHOT_REACT_DESCRIPTION</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 代理</span>
+</span></span><span class="line"><span class="cl"><span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&#34;目前市场上玫瑰花的平均价格是多少？如果我在此基础上加价15%卖出，应该如何定价？&#34;</span><span class="p">)</span> <span class="c1"># 运行代理</span>
+</span></span></code></pre></div><p>在这段代码中，模型、工具、代理的初始化，以及代理运行的过程都极为简洁。但是，LangChain的内部封装的逻辑究竟是怎样的？我希望带着你至少弄清楚两个问题。</p>
+<ol>
+<li>代理每次给大模型的具体提示是什么样子的？能够让模型给出下一步的行动指南，这个提示的秘密何在？</li>
+<li>代理执行器是如何按照ReAct框架来调用模型，接收模型的输出，并根据这个输出来调用工具，然后又根据工具的返回结果生成新的提示的。</li>
+</ol>
+<p>运行代码后我们得到下面的日志。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-1_hu6663756667032998680.png 330w,
+        /coding/langchain_learning11/image-1_hu13597080146775799109.png 660w,
+        /coding/langchain_learning11/image-1_hu11923262860942700637.png 1024w,
+        /coding/langchain_learning11/image-1_hu14667967632428622036.png 2x"
+        src="/coding/langchain_learning11/image-1_hu13597080146775799109.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>要回答上面的两个问题，仅仅观察LangChain输出的Log是不够的。我们需要深入到LangChain的程序内部，深挖一下AgentExcutor的运行机制。</p>
+
+
+<h3 class="relative group">开始 Debug 
+    <div id="%E5%BC%80%E5%A7%8B-debug" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%BC%80%E5%A7%8B-debug" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>现在，请你用你的代码编辑工具（比如VS Code）在agent.run这个语句设置一个断点，用 “Step Into” 功能深入几层LangChain内部代码，直到我们进入了 <strong>agent.py文件的AgentExecutor类的内部方法 _take_next_step</strong>。</p>
+<p>这个 _take_next_step 方法掌控着下一步要调用什么的计划，你可以看到self.agent.plan方法被调用，这是计划开始之处。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-2_hu8132518971787266301.png 330w,
+        /coding/langchain_learning11/image-2_hu10800251898508241958.png 660w,
+        /coding/langchain_learning11/image-2_hu7939362206337813288.png 1024w,
+        /coding/langchain_learning11/image-2_hu11598958916586678083.png 2x"
+        src="/coding/langchain_learning11/image-2_hu10800251898508241958.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>注意：如果使用VS Code，要把launch.json的justMycode项设置为false才可以debug LangChain包中的代码。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-3_hu14144875758484336818.png 330w,
+        /coding/langchain_learning11/image-3_hu495403056666194790.png 660w,
+        /coding/langchain_learning11/image-3_hu15347165735860174849.png 1024w,
+        /coding/langchain_learning11/image-3_hu16640410292717777780.png 2x"
+        src="/coding/langchain_learning11/image-3_hu495403056666194790.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+
+
+<h3 class="relative group">第一轮思考：模型决定搜索 
+    <div id="%E7%AC%AC%E4%B8%80%E8%BD%AE%E6%80%9D%E8%80%83%E6%A8%A1%E5%9E%8B%E5%86%B3%E5%AE%9A%E6%90%9C%E7%B4%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%B8%80%E8%BD%AE%E6%80%9D%E8%80%83%E6%A8%A1%E5%9E%8B%E5%86%B3%E5%AE%9A%E6%90%9C%E7%B4%A2" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在AgentExecutor 的_take_next_step 方法的驱动下，我们进一步Debug，<strong>深入self.agent.plan方法</strong>，来到了整个行为链条的第一步—— <strong>Plan</strong>，这个Plan的具体细节是由Agent类的Plan方法来完成的，你可以看到，输入的问题将会被传递给llm_chain，然后接收llm_chain调用大模型的返回结果。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-4_hu13167864722890643631.png 330w,
+        /coding/langchain_learning11/image-4_hu605725409192235610.png 660w,
+        /coding/langchain_learning11/image-4_hu10617673538383905242.png 1024w,
+        /coding/langchain_learning11/image-4_hu11478544134472749683.png 2x"
+        src="/coding/langchain_learning11/image-4_hu605725409192235610.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>再往前进一步，我们就要开始调用大模型了，那么，LangChain到底传递给了大模型什么具体的提示信息，让大模型能够主动进行工具的选择呢？秘密在 <strong>LLMChain类的generate方法</strong>中，我们可以看到提示的具体内容。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-5_hu10912128594558128451.png 330w,
+        /coding/langchain_learning11/image-5_hu8197870777735195529.png 660w,
+        /coding/langchain_learning11/image-5_hu9017630578909464984.png 1024w,
+        /coding/langchain_learning11/image-5_hu4895010198818222878.png 2x"
+        src="/coding/langchain_learning11/image-5_hu8197870777735195529.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>在Debug过程中，你可以观察prompt，也就是提示的具体内容，这里我把这个提示Copy出来，你可以看一下。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">0</span><span class="p">:</span> <span class="n">StringPromptValue</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Answer the following questions as best you can. You have access to the following tools:</span><span class="se">\n\n</span><span class="s1">Search: A search engine. Useful for when you need to answer questions about current events. Input should be a search query.</span><span class="se">\n</span><span class="s1">Calculator: Useful for when you need to answer questions about math.</span><span class="se">\n\n</span><span class="s1">Use the following format:</span><span class="se">\n\n</span><span class="s1">Question: the input question you must answer</span><span class="se">\n</span><span class="s1">Thought: you should always think about what to do</span><span class="se">\n</span><span class="s1">Action: the action to take, should be one of [Search, Calculator]</span><span class="se">\n</span><span class="s1">Action Input: the input to the action</span><span class="se">\n</span><span class="s1">Observation: the result of the action</span><span class="se">\n</span><span class="s1">... (this Thought/Action/Action Input/Observation can repeat N times)</span><span class="se">\n</span><span class="s1">Thought: I now know the final answer</span><span class="se">\n</span><span class="s1">Final Answer: the final answer to the original input question</span><span class="se">\n\n</span><span class="s1">Begin!</span><span class="se">\n\n</span><span class="s1">Question: 目前市场上玫瑰花的平均价格是多少？如果我在此基础上加价15%卖出，应该如何定价？</span><span class="se">\n</span><span class="s1">Thought: </span>
+</span></span></code></pre></div><p>我来给你详细拆解一下这个prompt。注意，下面的解释文字不是原始提示，而是我添加的说明。</p>
+<blockquote>
+<p>0: StringPromptValue(text=&lsquo;Answer the following questions as best you can. You have access to the following tools:\n\n</p>
+</blockquote>
+<p><em>这句提示是让模型尽量回答问题，并告诉模型拥有哪些工具。</em></p>
+<blockquote>
+<p>Search: A search engine. Useful for when you need to answer questions about current events. Input should be a search query.\n</p>
+</blockquote>
+<p><em>这是向模型介绍第一个工具：搜索。</em></p>
+<blockquote>
+<p>Calculator: Useful for when you need to answer questions about math.\n\n</p>
+</blockquote>
+<p><em>这是向模型介绍第二个工具：计算器。</em></p>
+<blockquote>
+<p>Use the following format:\n\n （指导模型使用下面的格式）
+Question: the input question you must answer\n （问题）
+Thought: you should always think about what to do\n （思考）
+Action: the action to take, should be one of [Search, Calculator]\n （行动）
+Action Input: the input to the action\n （行动的输入）
+Observation: the result of the action\n&hellip; （观察：行动的返回结果）
+(this Thought/Action/Action Input/Observation can repeat N times)\n （上面这个过程可以重复多次）
+Thought: I now know the final answer\n （思考：现在我知道最终答案了）
+Final Answer: the final answer to the original input question\n\n （最终答案）</p>
+</blockquote>
+<p><em>上面，就是给模型的思考框架。具体解释可以看一下括号中的文字</em></p>
+<blockquote>
+<p>Begin!\n\n</p>
+</blockquote>
+<p><em>现在开始！</em></p>
+<blockquote>
+<p>Question: 目前市场上玫瑰花的平均价格是多少？如果我在此基础上加价15%卖出，应该如何定价？<br>
+\nThought:&rsquo;)</p>
+</blockquote>
+<p><em>具体问题，也就是具体任务。</em></p>
+<p>上面我一句句拆解的这个提示词，就是Agent之所以能够趋动大模型，进行<strong>思考-行动-观察行动结果-再思考-再行动-再观察</strong>这个循环的核心秘密。有了这样的提示词，模型就会不停地思考、行动，直到模型判断出问题已经解决，给出最终答案，跳出循环。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-6_hu8503461143204565992.png 330w,
+        /coding/langchain_learning11/image-6_hu14481419889093138609.png 660w,
+        /coding/langchain_learning11/image-6_hu4606319915527878006.png 1024w,
+        /coding/langchain_learning11/image-6_hu1938773072748582862.png 2x"
+        src="/coding/langchain_learning11/image-6_hu14481419889093138609.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>那么，调用大模型之后，模型具体返回了什么结果呢？</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-7_hu12173988468103048086.png 330w,
+        /coding/langchain_learning11/image-7_hu2196256049535532451.png 660w,
+        /coding/langchain_learning11/image-7_hu5433654948757408607.png 1024w,
+        /coding/langchain_learning11/image-7_hu5762993615973114983.png 2x"
+        src="/coding/langchain_learning11/image-7_hu2196256049535532451.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>在Debug过程中，我们发现调用模型之后的outputs中包含下面的内容。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">0</span><span class="p">:</span> <span class="n">LLMResult</span><span class="p">(</span><span class="n">generations</span><span class="o">=</span><span class="p">[[</span><span class="n">Generation</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39; I need to find the current market price of roses and then calculate the new price with a 15% markup.</span><span class="se">\n</span><span class="s1"> </span>
+</span></span><span class="line"><span class="cl"><span class="n">Action</span><span class="p">:</span> <span class="n">Search</span>\<span class="n">nAction</span> <span class="n">Input</span><span class="p">:</span> <span class="s2">&#34;Average price of roses&#34;</span><span class="s1">&#39;, generation_info={&#39;</span><span class="n">finish_reason</span><span class="s1">&#39;: &#39;</span><span class="n">stop</span><span class="s1">&#39;, &#39;</span><span class="n">logprobs</span><span class="s1">&#39;: None})]], </span>
+</span></span><span class="line"><span class="cl"><span class="n">llm_output</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;token_usage&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;completion_tokens&#39;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span> <span class="s1">&#39;total_tokens&#39;</span><span class="p">:</span> <span class="mi">294</span><span class="p">,</span> <span class="s1">&#39;prompt_tokens&#39;</span><span class="p">:</span> <span class="mi">258</span><span class="p">},</span> <span class="s1">&#39;model_name&#39;</span><span class="p">:</span> <span class="s1">&#39;gpt-3.5-turbo-instruct&#39;</span><span class="p">},</span> <span class="n">run</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span></code></pre></div><p>把上面的内容拆解如下：</p>
+<blockquote>
+<p>&rsquo;text&rsquo;: &rsquo; I need to find the current market price of roses and then calculate the new price with a 15% markup.\n （Text：问题文本）
+Action: Search\n （行动：搜索）
+Action Input: &ldquo;Average price of roses&rdquo;&rsquo; （行动的输入：搜索玫瑰平均价格）</p>
+</blockquote>
+<p>看来，模型知道面对这个问题，<strong>它自己根据现有知识解决不了，下一步行动是需要选择工具箱中的搜索工具</strong>。而此时，命令行中也输出了模型的第一步计划——调用搜索工具。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-8_hu6801643426767159565.png 330w,
+        /coding/langchain_learning11/image-8_hu8012444681006912310.png 660w,
+        /coding/langchain_learning11/image-8_hu193912941167503774.png 1024w,
+        /coding/langchain_learning11/image-8_hu7862065983404158396.png 2x"
+        src="/coding/langchain_learning11/image-8_hu8012444681006912310.png"
+        alt="alt text"
+      />
+      
+    </figure>
+
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-9_hu8335344801907288358.png 330w,
+        /coding/langchain_learning11/image-9_hu5448717101915820426.png 660w,
+        /coding/langchain_learning11/image-9_hu17925724099451223840.png 1024w,
+        /coding/langchain_learning11/image-9_hu4896071529466138051.png 2x"
+        src="/coding/langchain_learning11/image-9_hu5448717101915820426.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>现在模型知道了要调用什么工具，第一轮的Plan部分就结束了。下面，我们就来到了AgentExecutor 的_take_next_step 的<strong>工具调用部分</strong>。</p>
+<p>在这里，因为模型返回了Action为Search，OutputParse解析了这个结果之后，LangChain很清楚地知道，Search工具会被调用。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-10_hu13540943006508466121.png 330w,
+        /coding/langchain_learning11/image-10_hu12838284378104988342.png 660w,
+        /coding/langchain_learning11/image-10_hu4394415266756160049.png 1024w,
+        /coding/langchain_learning11/image-10_hu4354810267883073590.png 2x"
+        src="/coding/langchain_learning11/image-10_hu12838284378104988342.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>工具调用完成之后，我们就拥有了一个对当前工具调用的 <strong>Observation</strong>，也就是当前工具调用的结果。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-11_hu8801055308992473264.png 330w,
+        /coding/langchain_learning11/image-11_hu4011079979073791692.png 660w,
+        /coding/langchain_learning11/image-11_hu14130776304472947168.png 1024w,
+        /coding/langchain_learning11/image-11_hu14334764719009400236.png 2x"
+        src="/coding/langchain_learning11/image-11_hu4011079979073791692.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>下一步，我们要再次调用大模型，形成新的 <strong>Thought</strong>，看看任务是否已经完成了，或者仍需要再次调用工具（新的工具或者再次调用同一工具）。</p>
+
+
+<h3 class="relative group">第二轮思考：模型决定计算 
+    <div id="%E7%AC%AC%E4%BA%8C%E8%BD%AE%E6%80%9D%E8%80%83%E6%A8%A1%E5%9E%8B%E5%86%B3%E5%AE%9A%E8%AE%A1%E7%AE%97" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%BA%8C%E8%BD%AE%E6%80%9D%E8%80%83%E6%A8%A1%E5%9E%8B%E5%86%B3%E5%AE%9A%E8%AE%A1%E7%AE%97" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>因为任务尚未完成，第二轮思考开始，程序重新进入了Plan环节。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-12_hu11724534044769979299.png 330w,
+        /coding/langchain_learning11/image-12_hu14707115557082917361.png 660w,
+        /coding/langchain_learning11/image-12_hu7162121864549428098.png 1024w,
+        /coding/langchain_learning11/image-12_hu5323050887625998976.png 2x"
+        src="/coding/langchain_learning11/image-12_hu14707115557082917361.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>此时，LangChain的LLM Chain根据目前的input，也就是历史对话记录生成了新的提示信息。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-13_hu9806158022823838860.png 330w,
+        /coding/langchain_learning11/image-13_hu2198187760888688626.png 660w,
+        /coding/langchain_learning11/image-13_hu3036573641813147475.png 1024w,
+        /coding/langchain_learning11/image-13_hu16410547371884505789.png 2x"
+        src="/coding/langchain_learning11/image-13_hu2198187760888688626.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">0</span><span class="p">:</span> <span class="n">StringPromptValue</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Answer the following questions as best you can. You have access to the following tools:</span><span class="se">\n\n</span><span class="s1">Search: A search engine. Useful for when you need to answer questions about current events. Input should be a search query.</span><span class="se">\n</span><span class="s1">Calculator: Useful for when you need to answer questions about math.</span><span class="se">\n\n</span><span class="s1">Use the following format:</span><span class="se">\n\n</span><span class="s1">Question: the input question you must answer</span><span class="se">\n</span><span class="s1">Thought: you should always think about what to do</span><span class="se">\n</span><span class="s1">Action: the action to take, should be one of [Search, Calculator]</span><span class="se">\n</span><span class="s1">Action Input: the input to the action</span><span class="se">\n</span><span class="s1">Observation: the result of the action</span><span class="se">\n</span><span class="s1">... (this Thought/Action/Action Input/Observation can repeat N times)</span><span class="se">\n</span><span class="s1">Thought: I now know the final answer</span><span class="se">\n</span><span class="s1">Final Answer: the final answer to the original input question</span><span class="se">\n\n</span><span class="s1">Begin!</span><span class="se">\n\n</span><span class="s1">Question: 目前市场上玫瑰花的平均价格是多少？如果我在此基础上加价15%卖出，应该如何定价？</span><span class="se">\n</span><span class="s1">Thought: I need to find the current market price of roses and then calculate the new price with a 15% markup.</span><span class="se">\n</span><span class="s1">Action: Search</span><span class="se">\n</span><span class="s1">Action Input: &#34;Average price of roses&#34;</span><span class="se">\n</span><span class="s1">Observation: The average price for a dozen roses in the U.S. is $80.16. The state where a dozen roses cost the most is Hawaii at $108.33. That</span><span class="se">\&#39;</span><span class="s1">s 35% more expensive than the national average. A dozen roses are most affordable in Pennsylvania, costing $66.15 on average.</span><span class="se">\n</span><span class="s1">Thought:</span>
+</span></span></code></pre></div><p>我们再来拆解一下这个prompt。</p>
+<blockquote>
+<p>0: StringPromptValue(text=&lsquo;Answer the following questions as best you can. You have access to the following tools:\n\n</p>
+</blockquote>
+<p><em>这句提示是让模型尽量回答问题，并告诉模型拥有哪些工具。</em></p>
+<blockquote>
+<p>Search: A search engine. Useful for when you need to answer questions about current events. Input should be a search query.\n</p>
+</blockquote>
+<p><em>这是向模型介绍第一个工具：搜索。</em></p>
+<blockquote>
+<p>Calculator: Useful for when you need to answer questions about math.\n\n</p>
+</blockquote>
+<p><em>这是向模型介绍第二个工具：计算器。</em></p>
+<blockquote>
+<p>Use the following format:\n\n （指导模型使用下面的格式）
+Question: the input question you must answer\n （问题）
+Thought: you should always think about what to do\n （思考）
+Action: the action to take, should be one of [Search, Calculator]\n （行动）
+Action Input: the input to the action\n （行动的输入）
+Observation: the result of the action\n&hellip; （观察：行动的返回结果）
+(this Thought/Action/Action Input/Observation can repeat N times)\n （上面这个过程可以重复多次）
+Thought: I now know the final answer\n （思考：现在我知道最终答案了）
+Final Answer: the final answer to the original input question\n\n （最终答案）</p>
+</blockquote>
+<p><em>上面是一段比较细节的解释说明，看一下括号中的文字。</em></p>
+<blockquote>
+<p>Begin!\n\n</p>
+</blockquote>
+<p><em>现在开始！</em></p>
+<blockquote>
+<p>Question: 目前市场上玫瑰花的平均价格是多少？如果我在此基础上加价15%卖出，应该如何定价？\n</p>
+</blockquote>
+<p><em>具体问题，也就是具体任务</em>。</p>
+<p><em>这句之前的提示，与我们在第一轮思考时看到的完全相同。</em></p>
+<blockquote>
+<p>Thought: I need to find the current market price of roses and then calculate the new price with a 15% markup.\n （思考：我需要找到玫瑰花的价格，并加入15%的加价）
+Action: Search\nAction （行动：搜索）
+Input: &ldquo;Average price of roses&rdquo;\n （行动的输入：玫瑰花的平均价格）
+Observation: The average price for a dozen roses in the U.S. is $80.16. The state where a dozen roses cost the most is Hawaii at $108.33. That&rsquo;s 35% more expensive than the national average. A dozen roses are most affordable in Pennsylvania, costing $66.15 on average.\n （观察：这里时搜索工具返回的玫瑰花价格信息）</p>
+</blockquote>
+<blockquote>
+<p>Thought:&rsquo;</p>
+</blockquote>
+<p><em>思考：后面是大模型应该进一步推理的内容。</em></p>
+<p>大模型根据上面这个提示，返回了下面的output信息。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-14_hu8585764301980883392.png 330w,
+        /coding/langchain_learning11/image-14_hu5029262592719995930.png 660w,
+        /coding/langchain_learning11/image-14_hu17738805459892183884.png 1024w,
+        /coding/langchain_learning11/image-14_hu8825553506547636604.png 2x"
+        src="/coding/langchain_learning11/image-14_hu5029262592719995930.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-15_hu14645539636209838588.png 330w,
+        /coding/langchain_learning11/image-15_hu3809462659272368647.png 660w,
+        /coding/langchain_learning11/image-15_hu4382124812899936293.png 1024w,
+        /coding/langchain_learning11/image-15_hu7580404803526951311.png 2x"
+        src="/coding/langchain_learning11/image-15_hu3809462659272368647.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">AgentAction</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="s1">&#39;Calculator&#39;</span><span class="p">,</span> <span class="n">tool_input</span><span class="o">=</span><span class="s1">&#39;80.16 * 1.15&#39;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s1">&#39; I need to calculate the new price with a 15% markup.</span><span class="se">\n</span><span class="s1">Action: Calculator</span><span class="se">\n</span><span class="s1">Action Input: 80.16 * 1.15&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>这个输出显示，模型告诉自己，“我需要计算新的Price，在搜索结果的基础上加价15%”，并确定Action为计算器，输入计算器工具的指令为80.16*1.15。<strong>这是一个非常有逻辑性的思考</strong>。</p>
+<p>经过解析之后的Thought在命令行中的输出如下：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-16_hu3069886999355090617.png 330w,
+        /coding/langchain_learning11/image-16_hu10284501780879726979.png 660w,
+        /coding/langchain_learning11/image-16_hu12739939506622416904.png 1024w,
+        /coding/langchain_learning11/image-16_hu3508348385836483928.png 2x"
+        src="/coding/langchain_learning11/image-16_hu10284501780879726979.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>有了上面的Thought做指引，AgentExecutor调用了第二个工具：LLMMath。现在开始计算。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-17_hu4668722162500926406.png 330w,
+        /coding/langchain_learning11/image-17_hu2563319393552867313.png 660w,
+        /coding/langchain_learning11/image-17_hu8562606913949878679.png 1024w,
+        /coding/langchain_learning11/image-17_hu9565025355346678263.png 2x"
+        src="/coding/langchain_learning11/image-17_hu2563319393552867313.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>因为这个数学工具也是调用LLM，我们可以看一下内部的提示，看看这个工具是怎样指导LLM做数学计算的。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-18_hu16955755132545279306.png 330w,
+        /coding/langchain_learning11/image-18_hu17142189426760610517.png 660w,
+        /coding/langchain_learning11/image-18_hu5741025318421162184.png 1024w,
+        /coding/langchain_learning11/image-18_hu4503875039872891450.png 2x"
+        src="/coding/langchain_learning11/image-18_hu17142189426760610517.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-19_hu15400019267137848146.png 330w,
+        /coding/langchain_learning11/image-19_hu4132978430426614104.png 660w,
+        /coding/langchain_learning11/image-19_hu1829609658265351161.png 1024w,
+        /coding/langchain_learning11/image-19_hu12288075341117099594.png 2x"
+        src="/coding/langchain_learning11/image-19_hu4132978430426614104.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>这个提示，我把它拷贝出来，也拆解一下。</p>
+<blockquote>
+<p>0: StringPromptValue(text=&lsquo;Translate a math problem into a expression that can be executed using Python&rsquo;s numexpr library. Use the output of running this code to answer the question.\n\n</p>
+</blockquote>
+<p><em>指定模型用Python的数学库来编程解决数学问题，而不是自己计算。这就规避了大模型数学推理能力弱的局限。</em></p>
+<blockquote>
+<p>Question: ${Question with math problem.}\n （问题）
+text\n${single line mathematical expression that solves the problem} n<code>\n （问题的数学描述） ...numexpr.evaluate(text)...\n</code> （通过Python库运行问题的数学描述）
+output\n${Output of running the code}\n```\n （输出的Python代码运行结果）
+Answer: ${Answer}\n\n （问题的答案）
+Begin.\n\n （开始）</p>
+</blockquote>
+<p><em>从这里开始是两个数学式的解题示例。</em></p>
+<blockquote>
+<p>Question: What is 37593 * 67?\n
+<code>text\n37593 * 67\n</code>
+\n&hellip;numexpr.evaluate(&ldquo;37593 * 67&rdquo;)&hellip;\n
+<code>output\n2518731\n</code>\n
+Answer: 2518731\n\n
+Question: 37593^(1/5)\n
+<code>text\n37593**(1/5)\n</code>\n&hellip;
+numexpr.evaluate(&ldquo;37593**(1/5)&rdquo;)&hellip;\n
+<code>output\n8.222831614237718\n</code>\n
+Answer: 8.222831614237718\n\n</p>
+</blockquote>
+<p><em>两个数学式的解题示例结束。</em></p>
+<blockquote>
+<p>Question: 80.16 * 1.15\n&rsquo;)</p>
+</blockquote>
+<p><em>这里是玫瑰花问题的具体描述。</em></p>
+<p>下面，就是模型返回结果。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-20_hu15589424565548628524.png 330w,
+        /coding/langchain_learning11/image-20_hu4541209399926126547.png 660w,
+        /coding/langchain_learning11/image-20_hu2023169114554574933.png 1024w,
+        /coding/langchain_learning11/image-20_hu17939381168502320278.png 2x"
+        src="/coding/langchain_learning11/image-20_hu4541209399926126547.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>在LLMChain内部，根据Python代码进行了计算，因此final_ansewer也已经算好了。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-21_hu12817315358014580286.png 330w,
+        /coding/langchain_learning11/image-21_hu11874250118008186157.png 660w,
+        /coding/langchain_learning11/image-21_hu3155256605637868808.png 1024w,
+        /coding/langchain_learning11/image-21_hu12846069747541440927.png 2x"
+        src="/coding/langchain_learning11/image-21_hu11874250118008186157.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>至此，LangChain的BaseTool返回的Observation如下：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-22_hu15264924075866844615.png 330w,
+        /coding/langchain_learning11/image-22_hu6496651457831803551.png 660w,
+        /coding/langchain_learning11/image-22_hu4191017488473701782.png 1024w,
+        /coding/langchain_learning11/image-22_hu6301816857948867479.png 2x"
+        src="/coding/langchain_learning11/image-22_hu6496651457831803551.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">observation</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;Answer: 92.18399999999998&#39;</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-23_hu3048881641643140740.png 330w,
+        /coding/langchain_learning11/image-23_hu15992233504619431819.png 660w,
+        /coding/langchain_learning11/image-23_hu13600763480090579827.png 1024w,
+        /coding/langchain_learning11/image-23_hu2262018080899063389.png 2x"
+        src="/coding/langchain_learning11/image-23_hu15992233504619431819.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>命令行中也输出了当前数学工具调用后的Observation结果：92.18。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-24_hu18275758660114788381.png 330w,
+        /coding/langchain_learning11/image-24_hu9424078312915729370.png 660w,
+        /coding/langchain_learning11/image-24_hu13941684926206324545.png 1024w,
+        /coding/langchain_learning11/image-24_hu9802070352575389039.png 2x"
+        src="/coding/langchain_learning11/image-24_hu9424078312915729370.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+
+
+<h3 class="relative group">第三轮思考：模型完成任务 
+    <div id="%E7%AC%AC%E4%B8%89%E8%BD%AE%E6%80%9D%E8%80%83%E6%A8%A1%E5%9E%8B%E5%AE%8C%E6%88%90%E4%BB%BB%E5%8A%A1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%B8%89%E8%BD%AE%E6%80%9D%E8%80%83%E6%A8%A1%E5%9E%8B%E5%AE%8C%E6%88%90%E4%BB%BB%E5%8A%A1" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>第三轮思考开始。此时，Executor的Plan应该进一步把当前的新结果传递给大模型，不出所料的话，大模型应该有足够的智慧判断出任务此时已经成功地完成了</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-25_hu14373706974942407129.png 330w,
+        /coding/langchain_learning11/image-25_hu611943197682473347.png 660w,
+        /coding/langchain_learning11/image-25_hu1703085289889639504.png 1024w,
+        /coding/langchain_learning11/image-25_hu15933514605223181872.png 2x"
+        src="/coding/langchain_learning11/image-25_hu611943197682473347.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-26_hu13597226594812300330.png 330w,
+        /coding/langchain_learning11/image-26_hu6404044435911966032.png 660w,
+        /coding/langchain_learning11/image-26_hu9043429155411435595.png 1024w,
+        /coding/langchain_learning11/image-26_hu17750927071132882778.png 2x"
+        src="/coding/langchain_learning11/image-26_hu6404044435911966032.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>下面是目前最新的 prompt。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">0</span><span class="p">:</span> <span class="n">StringPromptValue</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Answer the following questions as best you can. You have access to the following tools:</span><span class="se">\n\n</span><span class="s1">Search: A search engine. Useful for when you need to answer questions about current events. Input should be a search query.</span><span class="se">\n</span><span class="s1">Calculator: Useful for when you need to answer questions about math.</span><span class="se">\n\n</span><span class="s1">Use the following format:</span><span class="se">\n\n</span><span class="s1">Question: the input question you must answer</span><span class="se">\n</span><span class="s1">Thought: you should always think about what to do</span><span class="se">\n</span><span class="s1">Action: the action to take, should be one of [Search, Calculator]</span><span class="se">\n</span><span class="s1">Action Input: the input to the action</span><span class="se">\n</span><span class="s1">Observation: the result of the action</span><span class="se">\n</span><span class="s1">... (this Thought/Action/Action Input/Observation can repeat N times)</span><span class="se">\n</span><span class="s1">Thought: I now know the final answer</span><span class="se">\n</span><span class="s1">Final Answer: the final answer to the original input question</span><span class="se">\n\n</span><span class="s1">Begin!</span><span class="se">\n\n</span><span class="s1">Question: 目前市场上玫瑰花的平均价格是多少？如果我在此基础上加价15%卖出，应该如何定价？</span><span class="se">\n</span><span class="s1">Thought: I need to find the current market price of roses and then calculate the new price with a 15% markup.</span><span class="se">\n</span><span class="s1">Action: Search</span><span class="se">\n</span><span class="s1">Action Input: &#34;Average price of roses&#34;</span><span class="se">\n</span><span class="s1">Observation: The average price for a dozen roses in the U.S. is $80.16. The state where a dozen roses cost the most is Hawaii at $108.33. That</span><span class="se">\&#39;</span><span class="s1">s 35% more expensive than the national average. A dozen roses are most affordable in Pennsylvania, costing $66.15 on average.</span><span class="se">\n</span><span class="s1">Thought: I need to calculate the new price with a 15% markup.</span><span class="se">\n</span><span class="s1">Action: Calculator</span><span class="se">\n</span><span class="s1">Action Input: 80.16 * 1.15</span><span class="se">\n</span><span class="s1">Observation: Answer: 92.18399999999998</span><span class="se">\n</span><span class="s1">Thought:&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>我们再来拆解一下这个最终的prompt。</p>
+<blockquote>
+<p>0: StringPromptValue(text=&lsquo;Answer the following questions as best you can. You have access to the following tools:\n\n</p>
+</blockquote>
+<p><em>这句提示是让模型尽量回答问题，并告诉模型拥有哪些工具。</em></p>
+<blockquote>
+<p>Search: A search engine. Useful for when you need to answer questions about current events. Input should be a search query.\n</p>
+</blockquote>
+<p><em>这是向模型介绍第一个工具：搜索。</em></p>
+<blockquote>
+<p>Calculator: Useful for when you need to answer questions about math.\n\n</p>
+</blockquote>
+<p><em>这是向模型介绍第二个工具：计算器。</em></p>
+<blockquote>
+<p>Use the following format:\n\n （指导模型使用下面的格式）
+Question: the input question you must answer\n （问题）
+Thought: you should always think about what to do\n （思考）
+Action: the action to take, should be one of [Search, Calculator]\n （行动）
+Action Input: the input to the action\n （行动的输入）
+Observation: the result of the action\n&hellip; （观察：行动的返回结果）
+(this Thought/Action/Action Input/Observation can repeat N times)\n （上面这个过程可以重复多次）
+Thought: I now know the final answer\n （思考：现在我知道最终答案了）
+Final Answer: the final answer to the original input question\n\n （最终答案）</p>
+</blockquote>
+<p><em>仍然是比较细节的说明，看括号文字。</em></p>
+<blockquote>
+<p>Begin!\n\n</p>
+</blockquote>
+<p><em>现在开始！</em></p>
+<blockquote>
+<p>Question: 目前市场上玫瑰花的平均价格是多少？如果我在此基础上加价15%卖出，应该如何定价？\n</p>
+</blockquote>
+<p><em>具体问题，也就是具体任务。</em></p>
+<blockquote>
+<p>Thought: I need to find the current market price of roses and then calculate the new price with a 15% markup.\n （思考：我需要找到玫瑰花的价格，并加入15%的加价）
+Action: Search\nAction （行动：搜索）
+Input: &ldquo;Average price of roses&rdquo;\n （行动的输入：玫瑰花的平均价格）
+Observation: The average price for a dozen roses in the U.S. is $80.16. The state where a dozen roses cost the most is Hawaii at $108.33. That&rsquo;s 35% more expensive than the national average. A dozen roses are most affordable in Pennsylvania, costing $66.15 on average.\n （观察：这里时搜索工具返回的玫瑰花价格信息）</p>
+</blockquote>
+<p><em>这句之前的提示，与我们在第二轮思考时看到的完全相同。</em></p>
+<blockquote>
+<p>Thought: I need to calculate the new price with a 15% markup.\n （思考：我需要计算玫瑰花15%的加价）
+Action: Calculator\n （行动：计算器工具）
+Action Input: 80.16 * 1.15\n （行动输入：一个数学式）
+Observation: Answer: 92.18399999999998\n （观察：计算得到的答案）
+Thought:&rsquo; （思考）</p>
+</blockquote>
+<p>可见，每一轮的提示都跟随着模型的思维链条，逐步递进，逐步完善。环环相扣，最终结果也就呼之欲出了。</p>
+<p>继续Debug，发现模型在这一轮思考之后的输出中终于包含了 “<strong>I now know the final answer.</strong>”，这说明模型意识到任务已经成功地完成了。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-27_hu3692993748470911011.png 330w,
+        /coding/langchain_learning11/image-27_hu6974095402771286140.png 660w,
+        /coding/langchain_learning11/image-27_hu4770788289251834565.png 1024w,
+        /coding/langchain_learning11/image-27_hu12511711385082390107.png 2x"
+        src="/coding/langchain_learning11/image-27_hu6974095402771286140.png"
+        alt="alt text"
+      />
+      
+    </figure>
+
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-28_hu10906381851954310046.png 330w,
+        /coding/langchain_learning11/image-28_hu9156069793685416609.png 660w,
+        /coding/langchain_learning11/image-28_hu10840286300344909428.png 1024w,
+        /coding/langchain_learning11/image-28_hu3313586550035211145.png 2x"
+        src="/coding/langchain_learning11/image-28_hu9156069793685416609.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>此时，AgentExcutor的plan方法返回一个 <strong>AgentFinish 实例</strong>，这表示代理经过对输出的检查，其内部逻辑判断出任务已经完成，思考和行动的循环要结束了。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-29_hu7889412623967125724.png 330w,
+        /coding/langchain_learning11/image-29_hu11234937943051268940.png 660w,
+        /coding/langchain_learning11/image-29_hu8741965168452969756.png 1024w,
+        /coding/langchain_learning11/image-29_hu5572217357263376432.png 2x"
+        src="/coding/langchain_learning11/image-29_hu11234937943051268940.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>至此，整个链条完成，AgentExecutor 的任务结束。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-30_hu14216275216896514157.png 330w,
+        /coding/langchain_learning11/image-30_hu5848189653474263278.png 660w,
+        /coding/langchain_learning11/image-30_hu3172045808502648032.png 1024w,
+        /coding/langchain_learning11/image-30_hu2975150010527997802.png 2x"
+        src="/coding/langchain_learning11/image-30_hu5848189653474263278.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>在命令行中，模型输出 <code>Thought: I now know the final answer.</code> （我已经知道最终的答案）。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning11/image-31_hu8913570083705176579.png 330w,
+        /coding/langchain_learning11/image-31_hu8527760672295263639.png 660w,
+        /coding/langchain_learning11/image-31_hu4755134993957739134.png 1024w,
+        /coding/langchain_learning11/image-31_hu8310518323177731737.png 2x"
+        src="/coding/langchain_learning11/image-31_hu8527760672295263639.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>最终答案：玫瑰的平均价格是 80.16 美元，加价15%后，是 92.18 美元。</p>
+
+
+<h2 class="relative group">总结时刻 
+    <div id="%E6%80%BB%E7%BB%93%E6%97%B6%E5%88%BB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93%E6%97%B6%E5%88%BB" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>这一课中，我们深入到AgentExecutor的代码内部，深挖其运行机制，了解了AgentExecutor是如何通过计划和工具调用，一步一步完成Thought、Action和Observation的。</p>
+<p>如果我们审视一下AgentExecutor 的代码实现，会发现AgentExecutor这个类是作为链（Chain）而存在，同时也为代理执行各种工具，完成任务。它会接收代理的计划，并执行代理思考链路中每一步的行动。</p>
+<p>AgentExecutor中最重要的方法是步骤处理方法，_take_next_step方法。它用于在思考-行动-观察的循环中采取单步行动。先调用代理的计划，查找代理选择的工具，然后使用选定的工具执行该计划（此时把输入传给工具），从而获得观察结果，然后继续思考，直到输出是 AgentFinish 类型，循环才会结束。</p>
+
+
+<h2 class="relative group">思考题 
+    <div id="%E6%80%9D%E8%80%83%E9%A2%98" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%80%9D%E8%80%83%E9%A2%98" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>
+<p>请你在 agent.py 文件中找到AgentExecutor类。</p>
+</li>
+<li>
+<p>请你在AgentExecutor类中找到_take_next_step方法，对应本课的内容，分析AgentExecutor类是怎样实现Plan和工具调用的。</p>
+</li>
+</ol>
+
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\\langchain_learning11\\index.md"
+        var oid_likes = "likes_coding\\langchain_learning11\\index.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/langchain_learning12/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Langchain agent(3)</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-11-12 00:00:00 &#43;0000 UTC">12 November 2024</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/langchain_learning10/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Langchain agent(1)</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-11-12 00:00:00 &#43;0000 UTC">12 November 2024</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2024 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

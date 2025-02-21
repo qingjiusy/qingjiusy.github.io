@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Langchain agent(3) &middot; QingJiu</title>
+  <meta name="title" content="Langchain agent(3) &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="LLM, " />
+  
+  
+  <link rel="canonical" href="http://localhost:1313/coding/langchain_learning12/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.8324631a59ccf1388a18ef024ca886c93e0e8f45e6fd81bc64f48894958f706e641168d69e3c54ccc828bd29c9edfe0849898650e7b56bdf474678210948e423.css"
+    integrity="sha512-gyRjGlnM8TiKGO8CTKiGyT4Oj0Xm/YG8ZPSIlJWPcG5kEWjWnjxUzMgovSnJ7f4ISYmGUOe1a99HRnghCUjkIw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.6ece09b43917cb66380f5ee610feb0c6d1b73798d171ccd7d73ac38dd7b4a5326ef0ac3f9a557ff5cc67c7d9e484f4ddd1f3f23301f277206665da75c58261e9.js"
+    integrity="sha512-bs4JtDkXy2Y4D17mEP6wxtG3N5jRcczX1zrDjde0pTJu8Kw/mlV/9cxnx9nkhPTd0fPyMwHydyBmZdp1xYJh6Q==" data-copy="" data-copied=""></script>
+  
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/coding/langchain_learning12/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="Langchain agent(3)">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2024-11-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-11-12T00:00:00+00:00">
+    <meta property="article:tag" content="LLM">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Langchain agent(3)">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "Langchain agent(3)",
+    "headline": "Langchain agent(3)",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "http:\/\/localhost:1313\/coding\/langchain_learning12\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-11-12T00:00:00\u002b00:00",
+    "datePublished": "2024-11-12T00:00:00\u002b00:00",
+    
+    "dateModified": "2024-11-12T00:00:00\u002b00:00",
+    
+    "keywords": ["LLM"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "5562"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+ 
+  
+   
+  
+ 
+
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/img/miku_hu8696593001210945618.png);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Langchain agent(3)
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-11-12 00:00:00 &#43;0000 UTC">12 November 2024</time><span class="px-2 text-primary-500">&middot;</span><span>5562 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是结构化工具">什么是结构化工具</a></li>
+    <li><a href="#什么是-playwright">什么是 Playwright</a></li>
+    <li><a href="#使用结构化工具对话代理">使用结构化工具对话代理</a>
+      <ul>
+        <li><a href="#第一轮思考">第一轮思考</a></li>
+        <li><a href="#第二轮思考">第二轮思考</a></li>
+        <li><a href="#第三轮思考">第三轮思考</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用-self-ask-with-search-代理">使用 Self-Ask with Search 代理</a></li>
+    <li><a href="#使用-plan-and-execute-代理">使用 Plan and execute 代理</a></li>
+    <li><a href="#总结时刻">总结时刻</a></li>
+    <li><a href="#思考题">思考题</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是结构化工具">什么是结构化工具</a></li>
+    <li><a href="#什么是-playwright">什么是 Playwright</a></li>
+    <li><a href="#使用结构化工具对话代理">使用结构化工具对话代理</a>
+      <ul>
+        <li><a href="#第一轮思考">第一轮思考</a></li>
+        <li><a href="#第二轮思考">第二轮思考</a></li>
+        <li><a href="#第三轮思考">第三轮思考</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用-self-ask-with-search-代理">使用 Self-Ask with Search 代理</a></li>
+    <li><a href="#使用-plan-and-execute-代理">使用 Plan and execute 代理</a></li>
+    <li><a href="#总结时刻">总结时刻</a></li>
+    <li><a href="#思考题">思考题</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>在上一讲中，我们深入LangChain程序内部机制，探索了AgentExecutor究竟是如何思考（Thought）、执行（Execute/Act）和观察（Observe）的，这些步骤之间的紧密联系就是代理在推理（Reasoning）和工具调用过程中的“生死因果”。</p>
+<p>现在我们趁热打铁，再学习几种更为复杂的代理：Structured Tool Chat（结构化工具对话）代理、Self-Ask with Search（自主询问搜索）代理、Plan and execute（计划与执行） 代理。</p>
+
+
+<h2 class="relative group">什么是结构化工具 
+    <div id="%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%93%E6%9E%84%E5%8C%96%E5%B7%A5%E5%85%B7" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%93%E6%9E%84%E5%8C%96%E5%B7%A5%E5%85%B7" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>LangChain的第一个版本是在 2022 年 11 月推出的，当时的设计是基于 ReAct 论文构建的，主要围绕着代理和工具的使用，并将二者集成到提示模板的框架中。</p>
+<p>早期的工具使用十分简单，AgentExecutor引导模型经过推理调用工具时，仅仅能够生成两部分内容：一是工具的名称，二是输入工具的内容。而且，在每一轮中，代理只被允许使用一个工具，并且输入内容只能是一个简单的字符串。这种简化的设计方式是为了让模型的任务变得更简单，因为进行复杂的操作可能会使得执行过程变得不太稳定。</p>
+<p>不过，随着语言模型的发展，尤其是出现了如 gpt-3.5-turbo 和 GPT-4 这样的模型，推理能力逐渐增强，也为代理提供了更高的稳定性和可行性。这就使得 LangChain 开始考虑放宽工具使用的限制。</p>
+<p>2023年初，LangChain 引入了“多操作”代理框架，允许代理计划执行多个操作。在此基础上，LangChain 推出了结构化工具对话代理，允许更复杂、多方面的交互。通过指定AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION 这个代理类型，代理能够调用包含一系列复杂工具的“<strong>结构化工具箱</strong>”，组合调用其中的多个工具，完成批次相关的任务集合。</p>
+<p>举例来说，结构化工具的示例包括：</p>
+<ol>
+<li>文件管理工具集：支持所有文件系统操作，如写入、搜索、移动、复制、列目录和查找。</li>
+<li>Web 浏览器工具集：官方的 PlayWright 浏览器工具包，允许代理访问网站、点击、提交表单和查询数据。</li>
+</ol>
+<p>下面，我们就以 PlayWright 工具包为例，来实现一个结构化工具对话代理。</p>
+<p>先来看一看什么是 PlayWright 工具包。</p>
+
+
+<h2 class="relative group">什么是 Playwright 
+    <div id="%E4%BB%80%E4%B9%88%E6%98%AF-playwright" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BB%80%E4%B9%88%E6%98%AF-playwright" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>Playwright是一个开源的自动化框架，它可以让你模拟真实用户操作网页，帮助开发者和测试者自动化网页交互和测试。用简单的话说，它就像一个“机器人”，可以按照你给的指令去浏览网页、点击按钮、填写表单、读取页面内容等等，就像一个真实的用户在使用浏览器一样。</p>
+<p>Playwright支持多种浏览器，比如Chrome、Firefox、Safari等，这意味着你可以用它来测试你的网站或测试应用在不同的浏览器上的表现是否一致。</p>
+<p>下面我们先用 <code>pip install playwright</code> 安装Playwright工具。</p>
+<p>不过，如果只用pip安装Playwright工具安装包，就使用它，还不行，会得到下面的信息。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image_hu7821870026828222273.png 330w,
+        /coding/langchain_learning12/image_hu16039282779227728729.png 660w,
+        /coding/langchain_learning12/image_hu3886616381044402398.png 1024w,
+        /coding/langchain_learning12/image_hu10075395835065568334.png 2x"
+        src="/coding/langchain_learning12/image_hu16039282779227728729.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>因此我们还需要通过 <code>playwright install</code> 命令来安装三种常用的浏览器工具。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-1_hu3309240317452605853.png 330w,
+        /coding/langchain_learning12/image-1_hu17519101577642216037.png 660w,
+        /coding/langchain_learning12/image-1_hu9471768416798656815.png 1024w,
+        /coding/langchain_learning12/image-1_hu11681437393232588178.png 2x"
+        src="/coding/langchain_learning12/image-1_hu17519101577642216037.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>现在，一切就绪，我们可以通过Playwright浏览器工具来访问一个测试网页。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">playwright.sync_api</span> <span class="kn">import</span> <span class="n">sync_playwright</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 使用Playwright上下文管理器</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">sync_playwright</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 使用Chromium，但你也可以选择firefox或webkit</span>
+</span></span><span class="line"><span class="cl">        <span class="n">browser</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 创建一个新的页面</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 导航到指定的URL</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s1">&#39;https://langchain.com/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 获取并打印页面标题</span>
+</span></span><span class="line"><span class="cl">        <span class="n">title</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Page title is: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 关闭浏览器</span>
+</span></span><span class="line"><span class="cl">        <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">run</span><span class="p">()</span>
+</span></span></code></pre></div><p>这个简单的Playwright脚本，它打开了一个新的浏览器实例。过程是：导航到指定的URL；获取页面标题并打印页面的标题；最后关闭浏览器。</p>
+<p>输出如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Page</span> <span class="n">title</span> <span class="ow">is</span><span class="p">:</span> <span class="n">LangChain</span>
+</span></span></code></pre></div><p>这个脚本展示了Playwright的工作方式，一切都是在命令行里面直接完成。它不需要我们真的去打开Chome网页，然后手工去点击菜单栏、拉动进度条等。</p>
+<p>下面这个表，我列出了使用命令行进行自动化网页测试的优势。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-2_hu4468008298878768989.png 330w,
+        /coding/langchain_learning12/image-2_hu5165430034913875353.png 660w,
+        /coding/langchain_learning12/image-2_hu3138749768898325949.png 1024w,
+        /coding/langchain_learning12/image-2_hu4579423081697537872.png 2x"
+        src="/coding/langchain_learning12/image-2_hu5165430034913875353.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>现在你了解了Playwright这个工具包的基本思路，下面我们就开始使用它来作为工具集，来实现结构化工具对话代理。</p>
+
+
+<h2 class="relative group">使用结构化工具对话代理 
+    <div id="%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E5%8C%96%E5%B7%A5%E5%85%B7%E5%AF%B9%E8%AF%9D%E4%BB%A3%E7%90%86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E5%8C%96%E5%B7%A5%E5%85%B7%E5%AF%B9%E8%AF%9D%E4%BB%A3%E7%90%86" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在这里，我们要使用的Agent类型是STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION。要使用的工具则是PlayWrightBrowserToolkit，这是LangChain中基于PlayWrightBrowser包封装的工具箱，它继承自 BaseToolkit类。</p>
+<p>PlayWrightBrowserToolkit 为 PlayWright 浏览器提供了一系列交互的工具，可以在同步或异步模式下操作。</p>
+<p>其中具体的工具就包括：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-3_hu4927403139912623072.png 330w,
+        /coding/langchain_learning12/image-3_hu2962091569290955711.png 660w,
+        /coding/langchain_learning12/image-3_hu15736342638265079529.png 1024w,
+        /coding/langchain_learning12/image-3_hu3847239876507517405.png 2x"
+        src="/coding/langchain_learning12/image-3_hu2962091569290955711.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>下面，我们就来看看结构化工具对话代理是怎样通过组合调用PlayWrightBrowserToolkit中的各种工具，自动完成我们交给它的任务。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.agents.agent_toolkits</span> <span class="kn">import</span> <span class="n">PlayWrightBrowserToolkit</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.tools.playwright.utils</span> <span class="kn">import</span> <span class="n">create_async_playwright_browser</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">async_browser</span> <span class="o">=</span> <span class="n">create_async_playwright_browser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">toolkit</span> <span class="o">=</span> <span class="n">PlayWrightBrowserToolkit</span><span class="o">.</span><span class="n">from_browser</span><span class="p">(</span><span class="n">async_browser</span><span class="o">=</span><span class="n">async_browser</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span> <span class="o">=</span> <span class="n">toolkit</span><span class="o">.</span><span class="n">get_tools</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">tools</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.agents</span> <span class="kn">import</span> <span class="n">initialize_agent</span><span class="p">,</span> <span class="n">AgentType</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">import</span> <span class="n">ChatAnthropic</span><span class="p">,</span> <span class="n">ChatOpenAI</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># LLM不稳定，对于这个任务，可能要多跑几次才能得到正确结果</span>
+</span></span><span class="line"><span class="cl"><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">agent_chain</span> <span class="o">=</span> <span class="n">initialize_agent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tools</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">agent</span><span class="o">=</span><span class="n">AgentType</span><span class="o">.</span><span class="n">STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent_chain</span><span class="o">.</span><span class="n">arun</span><span class="p">(</span><span class="s2">&#34;What are the headers on python.langchain.com?&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">asyncio</span>
+</span></span><span class="line"><span class="cl"><span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</span></span></code></pre></div><p>在这个示例中，我们询问大模型，网页python.langchain.com中有哪些标题目录？</p>
+<p>很明显，大模型不可能包含这个网页的内部信息，因为ChatGPT完成训练的那一年（2021年9月），LangChain还不存在。因此，大模型不可避免地需要通过PlayWrightBrowser工具来解决问题。</p>
+
+
+<h3 class="relative group">第一轮思考 
+    <div id="%E7%AC%AC%E4%B8%80%E8%BD%AE%E6%80%9D%E8%80%83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%B8%80%E8%BD%AE%E6%80%9D%E8%80%83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>代理进入AgentExecutor Chain之后的第一轮思考如下：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-4_hu10111156005725910282.png 330w,
+        /coding/langchain_learning12/image-4_hu6891902134824633077.png 660w,
+        /coding/langchain_learning12/image-4_hu13815765205639420154.png 1024w,
+        /coding/langchain_learning12/image-4_hu5625216668943131678.png 2x"
+        src="/coding/langchain_learning12/image-4_hu6891902134824633077.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>这里，我对上述思考做一个具体说明。</p>
+<blockquote>
+<p>I can use the &ldquo;navigate_browser&rdquo; tool to visit the website and then use the &ldquo;get_elements&rdquo; tool to retrieve the headers. Let me do that.</p>
+</blockquote>
+<p><em>这是第一轮思考，大模型知道自己没有相关信息，决定使用PlayWrightBrowserToolkit工具箱中的 navigate_browser 工具。</em></p>
+<blockquote>
+<p>Action:<code>{&quot;action&quot;: &quot;navigate_browser&quot;, &quot;action_input&quot;: {&quot;url&quot;: &quot;python.langchain.com&quot;}}</code></p>
+</blockquote>
+<p><em>行动：通过Playwright浏览器访问这个网站。</em></p>
+<blockquote>
+<p>Observation: Navigating to python.langchain.com returned status code 200</p>
+</blockquote>
+<p><em>观察：成功得到浏览器访问的返回结果。</em></p>
+<p>在第一轮思考过程中，模型决定使用PlayWrightBrowserToolkit中的navigate_browser工具。</p>
+
+
+<h3 class="relative group">第二轮思考 
+    <div id="%E7%AC%AC%E4%BA%8C%E8%BD%AE%E6%80%9D%E8%80%83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%BA%8C%E8%BD%AE%E6%80%9D%E8%80%83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>下面是大模型的第二轮思考。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-5_hu5874972997908537625.png 330w,
+        /coding/langchain_learning12/image-5_hu11614238492978438889.png 660w,
+        /coding/langchain_learning12/image-5_hu15176084339591237056.png 1024w,
+        /coding/langchain_learning12/image-5_hu6028765279845560781.png 2x"
+        src="/coding/langchain_learning12/image-5_hu11614238492978438889.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>还是对上述思考做一个具体说明。</p>
+<blockquote>
+<p>Thought:Now that I have successfully navigated to the website, I can use the &ldquo;get_elements&rdquo; tool to retrieve the headers. I will specify the CSS selector for the headers and retrieve their text.</p>
+</blockquote>
+<p><em>第二轮思考：模型决定使用PlayWrightBrowserToolkit工具箱中的另一个工具 get_elements，并且指定CSS selector只拿标题的文字。</em></p>
+<blockquote>
+<p>Action: <code>{&quot;action&quot;: &quot;get_elements&quot;, &quot;action_input&quot;: {&quot;selector&quot;: &quot;h1, h2, h3, h4, h5, h6&quot;, &quot;attributes&quot;: [&quot;innerText&quot;]}}</code></p>
+</blockquote>
+<p><em>行动：用Playwright的 get_elements 工具去拿网页中各级标题的文字。</em></p>
+<blockquote>
+<p>Observation: [{&ldquo;innerText&rdquo;: &ldquo;Introduction&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Get started​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Modules​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Model I/O​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Data connection​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Chains​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Agents​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Memory​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Callbacks​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Examples, ecosystem, and resources​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Use cases​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Guides​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Ecosystem​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Additional resources​&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;Support&rdquo;}, {&ldquo;innerText&rdquo;: &ldquo;API reference​&rdquo;}]</p>
+</blockquote>
+<p><em>观察：成功地拿到了标题文本。</em></p>
+<p>在第二轮思考过程中，模型决定使用PlayWrightBrowserToolkit中的get_elements工具。</p>
+
+
+<h3 class="relative group">第三轮思考 
+    <div id="%E7%AC%AC%E4%B8%89%E8%BD%AE%E6%80%9D%E8%80%83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%B8%89%E8%BD%AE%E6%80%9D%E8%80%83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>下面是大模型的第三轮思考。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-6_hu5053968903872573067.png 330w,
+        /coding/langchain_learning12/image-6_hu8986219302257027315.png 660w,
+        /coding/langchain_learning12/image-6_hu2291571753987245095.png 1024w,
+        /coding/langchain_learning12/image-6_hu3192744203801314663.png 2x"
+        src="/coding/langchain_learning12/image-6_hu8986219302257027315.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>对上述思考做一个具体说明。</p>
+<blockquote>
+<p>Thought:The headers on python.langchain.com are:</p>
+<ol>
+<li>Introduction &hellip; &hellip;</li>
+<li>API reference</li>
+</ol>
+</blockquote>
+<p><em>第三轮思考：模型已经找到了网页中的所有标题。</em></p>
+<blockquote>
+<p>Action:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;Final Answer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;action_input&#34;</span><span class="p">:</span> <span class="s2">&#34;The headers on python.langchain.com are: 1. Introduction 2. Get started 3. Modules 4. Model I/O 5. Data connection 6. Chains 7. Agents 8. Memory 9. Callbacks 10. Examples, ecosystem, and resources 11. Use cases 12. Guides 13. Ecosystem 14. Additional resources 15. Support 16. API reference&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></blockquote>
+<p><em>行动：给出最终答案。</em></p>
+<p>AgentExecutor Chain结束之后，成功输出python.langchain.com这个页面中各级标题的具体内容。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-7_hu5507257238005730590.png 330w,
+        /coding/langchain_learning12/image-7_hu2444528199748919374.png 660w,
+        /coding/langchain_learning12/image-7_hu16242973878217005944.png 1024w,
+        /coding/langchain_learning12/image-7_hu18042137674773784371.png 2x"
+        src="/coding/langchain_learning12/image-7_hu2444528199748919374.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>在这个过程中，结构化工具代理组合调用了Playwright工具包中的两种不同工具，自主完成了任务。</p>
+
+
+<h2 class="relative group">使用 Self-Ask with Search 代理 
+    <div id="%E4%BD%BF%E7%94%A8-self-ask-with-search-%E4%BB%A3%E7%90%86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%BF%E7%94%A8-self-ask-with-search-%E4%BB%A3%E7%90%86" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>讲完了Structured Tool Chat代理，我们再来看看Self-Ask with Search代理。</p>
+<p>Self-Ask with Search 也是LangChain中的一个有用的代理类型（SELF_ASK_WITH_SEARCH）。它利用一种叫做 “Follow-up Question（追问）”加“Intermediate Answer（中间答案）”的技巧，来辅助大模型寻找事实性问题的过渡性答案，从而引出最终答案。</p>
+<p>这是什么意思？让我通过示例来给你演示一下，你就明白了。在这个示例中，我们使用SerpAPIWrapper作为工具，用OpenAI作为语言模型，创建Self-Ask with Search代理。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">SerpAPIWrapper</span> 
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.agents</span> <span class="kn">import</span> <span class="n">initialize_agent</span><span class="p">,</span> <span class="n">Tool</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.agents</span> <span class="kn">import</span> <span class="n">AgentType</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">llm</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">search</span> <span class="o">=</span> <span class="n">SerpAPIWrapper</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Tool</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span><span class="o">=</span><span class="s2">&#34;Intermediate Answer&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">func</span><span class="o">=</span><span class="n">search</span><span class="o">.</span><span class="n">run</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">description</span><span class="o">=</span><span class="s2">&#34;useful for when you need to ask with search&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">self_ask_with_search</span> <span class="o">=</span> <span class="n">initialize_agent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tools</span><span class="p">,</span> <span class="n">llm</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">AgentType</span><span class="o">.</span><span class="n">SELF_ASK_WITH_SEARCH</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">self_ask_with_search</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;使用玫瑰作为国花的国家的首都是哪里?&#34;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p>该代理对于这个问题的输出如下：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-8_hu3707089781838033872.png 330w,
+        /coding/langchain_learning12/image-8_hu15634535216089658765.png 660w,
+        /coding/langchain_learning12/image-8_hu2131529399227412682.png 1024w,
+        /coding/langchain_learning12/image-8_hu13537199596600631659.png 2x"
+        src="/coding/langchain_learning12/image-8_hu15634535216089658765.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>其实，细心的你可能会发现，“<strong>使用玫瑰作为国花的国家的首都是哪里?</strong>”这个问题不是一个简单的问题，它其实是一个多跳问题——<strong>在问题和最终答案之间，存在中间过程</strong>。</p>
+<p>多跳问题（Multi-hop question）是指为了得到最终答案，需要进行多步推理或多次查询。这种问题不能直接通过单一的查询或信息源得到答案，而是需要跨越多个信息点，或者从多个数据来源进行组合和整合。</p>
+<p>也就是说，问题的答案依赖于另一个子问题的答案，这个子问题的答案可能又依赖于另一个问题的答案。这就像是一连串的问题跳跃，对于人类来说，解答这类问题可能需要从不同的信息源中寻找一系列中间答案，然后结合这些中间答案得出最终结论。</p>
+<p>“使用玫瑰作为国花的国家的首都是哪里？”这个问题并不直接询问哪个国家使用玫瑰作为国花，也不是直接询问英国的首都是什么。而是先要推知使用玫瑰作为国花的国家（英国）之后，进一步询问这个国家的首都。这就需要多跳查询。</p>
+<p>为什么 Self-Ask with Search 代理适合解决多跳问题呢？有下面几个原因。</p>
+<ol>
+<li><strong>工具集合</strong>：代理包含解决问题所必须的搜索工具，可以用来查询和验证多个信息点。这里我们在程序中为代理武装了SerpAPIWrapper工具。</li>
+<li><strong>逐步逼近</strong>：代理可以根据第一个问题的答案，提出进一步的问题，直到得到最终答案。这种逐步逼近的方式可以确保答案的准确性。</li>
+<li><strong>自我提问与搜索</strong>：代理可以自己提问并搜索答案。例如，首先确定哪个国家使用玫瑰作为国花，然后确定该国家的首都是什么。</li>
+<li><strong>决策链</strong>：代理通过一个决策链来执行任务，使其可以跟踪和处理复杂的多跳问题，这对于解决需要多步推理的问题尤为重要。</li>
+</ol>
+<p>在上面的例子中，通过大模型的两次follow-up追问，搜索工具给出了两个中间答案，最后给出了问题的最终答案——伦敦。</p>
+
+
+<h2 class="relative group">使用 Plan and execute 代理 
+    <div id="%E4%BD%BF%E7%94%A8-plan-and-execute-%E4%BB%A3%E7%90%86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%BF%E7%94%A8-plan-and-execute-%E4%BB%A3%E7%90%86" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在这节课的最后，我再给你介绍一种比较新的代理类型：Plan and execute 代理。</p>
+<p>计划和执行代理通过首先计划要做什么，然后执行子任务来实现目标。这个想法是受到 Plan-and-Solve 论文的启发。论文中提出了计划与解决（Plan-and-Solve）提示。它由两部分组成：首先，制定一个计划，并将整个任务划分为更小的子任务；然后按照该计划执行子任务。</p>
+<p>这种代理的独特之处在于，它的计划和执行不再是由同一个代理所完成，而是：</p>
+<ol>
+<li>计划由一个大语言模型代理（负责推理）完成。</li>
+<li>执行由另一个大语言模型代理（负责调用工具）完成。</li>
+</ol>
+<p>因为这个代理比较新，它隶属于LangChain的实验包langchain_experimental，所以你需要先安装langchain_experimental这个包。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">langchain</span> <span class="n">langchain_experimental</span>
+</span></span></code></pre></div><p>下面我们来使用一下这个代理。在这里，我们创建了Plan and execute代理，这个代理和之前看到的代理不同，它有一个Planner，有一个Executor，它们可以是不同的模型。</p>
+<p>当然，在这个示例中，我们都使用了ChatOpenAI模型。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain_experimental.plan_and_execute</span> <span class="kn">import</span> <span class="n">PlanAndExecute</span><span class="p">,</span> <span class="n">load_agent_executor</span><span class="p">,</span> <span class="n">load_chat_planner</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.llms</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">SerpAPIWrapper</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.agents.tools</span> <span class="kn">import</span> <span class="n">Tool</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">LLMMathChain</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">search</span> <span class="o">=</span> <span class="n">SerpAPIWrapper</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">llm</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">llm_math_chain</span> <span class="o">=</span> <span class="n">LLMMathChain</span><span class="o">.</span><span class="n">from_llm</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tools</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Tool</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;Search&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">func</span><span class="o">=</span><span class="n">search</span><span class="o">.</span><span class="n">run</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">description</span><span class="o">=</span><span class="s2">&#34;useful for when you need to answer questions about current events&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Tool</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span><span class="o">=</span><span class="s2">&#34;Calculator&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">func</span><span class="o">=</span><span class="n">llm_math_chain</span><span class="o">.</span><span class="n">run</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">description</span><span class="o">=</span><span class="s2">&#34;useful for when you need to answer questions about math&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">planner</span> <span class="o">=</span> <span class="n">load_chat_planner</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">executor</span> <span class="o">=</span> <span class="n">load_agent_executor</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">agent</span> <span class="o">=</span> <span class="n">PlanAndExecute</span><span class="p">(</span><span class="n">planner</span><span class="o">=</span><span class="n">planner</span><span class="p">,</span> <span class="n">executor</span><span class="o">=</span><span class="n">executor</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&#34;在纽约，100美元能买几束玫瑰?&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>输出如下：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-9_hu17758555026932020436.png 330w,
+        /coding/langchain_learning12/image-9_hu13113795951346773120.png 660w,
+        /coding/langchain_learning12/image-9_hu439888498105488786.png 1024w,
+        /coding/langchain_learning12/image-9_hu5627845351656361005.png 2x"
+        src="/coding/langchain_learning12/image-9_hu13113795951346773120.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-10_hu3897608140951423693.png 330w,
+        /coding/langchain_learning12/image-10_hu1861419487649883344.png 660w,
+        /coding/langchain_learning12/image-10_hu9428670324803061698.png 1024w,
+        /coding/langchain_learning12/image-10_hu13576027168718329834.png 2x"
+        src="/coding/langchain_learning12/image-10_hu1861419487649883344.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>在上面输出中，PlanAndExecute 链的调用流程以及代理的思考过程，我就留给你来做分析了，相信你可以把握住Plan and execute代理解决问题的基本脉络。</p>
+
+
+<h2 class="relative group">总结时刻 
+    <div id="%E6%80%BB%E7%BB%93%E6%97%B6%E5%88%BB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93%E6%97%B6%E5%88%BB" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>这节课是Agent的最后一课，也是LangChain所有基础知识的最后一课。我给你总结了两张的表。</p>
+<p>第一个表，是LangChain中常见的代理类型和它们的介绍。在这些代理中，有很多我们已经一起使用过了，有些则需要你自己去阅读相关文档，自己去探索它的使用方法。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-11_hu1694558078568099910.png 330w,
+        /coding/langchain_learning12/image-11_hu15465388008164436412.png 660w,
+        /coding/langchain_learning12/image-11_hu10889746444518843879.png 1024w,
+        /coding/langchain_learning12/image-11_hu4958420262053732205.png 2x"
+        src="/coding/langchain_learning12/image-11_hu15465388008164436412.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>第二个表，是我对LangChain各个组件的一个简明总结。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-12_hu17045248541922275173.png 330w,
+        /coding/langchain_learning12/image-12_hu8485518937584198776.png 660w,
+        /coding/langchain_learning12/image-12_hu10220962081404169419.png 1024w,
+        /coding/langchain_learning12/image-12_hu3983449160842888707.png 2x"
+        src="/coding/langchain_learning12/image-12_hu8485518937584198776.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-13_hu15081634897166980457.png 330w,
+        /coding/langchain_learning12/image-13_hu996647888959540835.png 660w,
+        /coding/langchain_learning12/image-13_hu9848341504646579726.png 1024w,
+        /coding/langchain_learning12/image-13_hu12177595905140868636.png 2x"
+        src="/coding/langchain_learning12/image-13_hu996647888959540835.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>上面这个图片，相信此时你已经不再陌生了，也掌握了它们的精髓所在。</p>
+<p>最后还有一个问题值得讲一讲，就是图中的 Indexes，到底是什么，其实这个Indexes是LangChang早期版本的一个组件，现在已经被整合到Retrieval（数据检索）这个单元中了。而Retrieval（包括Indexes），讲的其实就是如何把离散的文档及其他信息做嵌入，存储到向量数据库中，然后再提取的过程。这个过程我们在第4课已经讲过，在后面的课程中还会再深入介绍。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning12/image-14_hu18107082664662478075.png 330w,
+        /coding/langchain_learning12/image-14_hu11582246326881649536.png 660w,
+        /coding/langchain_learning12/image-14_hu2059967831736624325.png 1024w,
+        /coding/langchain_learning12/image-14_hu6343778338336232611.png 2x"
+        src="/coding/langchain_learning12/image-14_hu11582246326881649536.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>此外，在LangChain文档中，新的6大组件中其实还有一个模块——Callbacks，目前我们尚未涉及，在后续的课程中也会介绍。</p>
+<p>好了，LangChain的基础知识就讲到这里，从下节课起，我们将整合以前学过的各个组件的内容，为你讲解更多偏重具体应用的内容。</p>
+
+
+<h2 class="relative group">思考题 
+    <div id="%E6%80%9D%E8%80%83%E9%A2%98" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%80%9D%E8%80%83%E9%A2%98" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>在结构化工具对话代理的示例中，请你打印出PlayWrightBrowserToolkit中的所有具体工具名称的列表。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">tools</span> <span class="o">=</span> <span class="n">toolkit</span><span class="o">.</span><span class="n">get_tools</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">tools</span><span class="p">)</span>
+</span></span></code></pre></div><ol start="2">
+<li>在Plan and execute代理的示例中，请你分析PlanAndExecute、AgentExecutor和LLMMathChain链的调用流程以及代理的思考过程。</li>
+</ol>
+
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\\langchain_learning12\\index.md"
+        var oid_likes = "likes_coding\\langchain_learning12\\index.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/langchain_learning9/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Langchain Memory</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-11-11 00:00:00 &#43;0000 UTC">11 November 2024</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/langchain_learning11/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Langchain agent(2)</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-11-12 00:00:00 &#43;0000 UTC">12 November 2024</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2024 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Langchain Prompt Engineering(1) &middot; QingJiu</title>
+  <meta name="title" content="Langchain Prompt Engineering(1) &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="LLM, " />
+  
+  
+  <link rel="canonical" href="http://localhost:1313/coding/langchain_learning3/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.8324631a59ccf1388a18ef024ca886c93e0e8f45e6fd81bc64f48894958f706e641168d69e3c54ccc828bd29c9edfe0849898650e7b56bdf474678210948e423.css"
+    integrity="sha512-gyRjGlnM8TiKGO8CTKiGyT4Oj0Xm/YG8ZPSIlJWPcG5kEWjWnjxUzMgovSnJ7f4ISYmGUOe1a99HRnghCUjkIw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.6ece09b43917cb66380f5ee610feb0c6d1b73798d171ccd7d73ac38dd7b4a5326ef0ac3f9a557ff5cc67c7d9e484f4ddd1f3f23301f277206665da75c58261e9.js"
+    integrity="sha512-bs4JtDkXy2Y4D17mEP6wxtG3N5jRcczX1zrDjde0pTJu8Kw/mlV/9cxnx9nkhPTd0fPyMwHydyBmZdp1xYJh6Q==" data-copy="" data-copied=""></script>
+  
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/coding/langchain_learning3/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="Langchain Prompt Engineering(1)">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2025-02-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-02-21T00:00:00+00:00">
+    <meta property="article:tag" content="LLM">
+    <meta property="og:image" content="http://localhost:1313/coding/langchain_learning3/featured.jpg">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/coding/langchain_learning3/featured.jpg">
+  <meta name="twitter:title" content="Langchain Prompt Engineering(1)">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "Langchain Prompt Engineering(1)",
+    "headline": "Langchain Prompt Engineering(1)",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "http:\/\/localhost:1313\/coding\/langchain_learning3\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-02-21T00:00:00\u002b00:00",
+    "datePublished": "2025-02-21T00:00:00\u002b00:00",
+    
+    "dateModified": "2025-02-21T00:00:00\u002b00:00",
+    
+    "keywords": ["LLM"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "7279"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/langchain_learning3/featured_hu438823465313013668.jpg);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Langchain Prompt Engineering(1)
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-02-21 00:00:00 &#43;0000 UTC">21 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>7279 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#提示的结构">提示的结构</a></li>
+    <li><a href="#langchain-提示模板的类型">LangChain 提示模板的类型</a></li>
+    <li><a href="#使用-prompttemplate">使用 PromptTemplate</a></li>
+    <li><a href="#使用-chatprompttemplate">使用 ChatPromptTemplate</a></li>
+    <li><a href="#fewshot的思想起源">FewShot的思想起源</a></li>
+    <li><a href="#使用-fewshotprompttemplate">使用 FewShotPromptTemplate</a></li>
+    <li><a href="#使用示例选择器">使用示例选择器</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#提示的结构">提示的结构</a></li>
+    <li><a href="#langchain-提示模板的类型">LangChain 提示模板的类型</a></li>
+    <li><a href="#使用-prompttemplate">使用 PromptTemplate</a></li>
+    <li><a href="#使用-chatprompttemplate">使用 ChatPromptTemplate</a></li>
+    <li><a href="#fewshot的思想起源">FewShot的思想起源</a></li>
+    <li><a href="#使用-fewshotprompttemplate">使用 FewShotPromptTemplate</a></li>
+    <li><a href="#使用示例选择器">使用示例选择器</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>在一开始我自己学习的时候，曾有这个问题。</p>
+<p>在提示模板的构建过程中加入了partial_variables，也就是输出解析器指定的format_instructions之后，为什么能够让模型生成结构化的输出？</p>
+<p>当你用print语句打印出最终传递给大模型的提示时，一切就变得非常明了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">您是一位专业的鲜花店文案撰写员</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="n">对于售价为</span> <span class="mi">50</span> <span class="n">元的</span> <span class="n">玫瑰</span> <span class="err">，</span><span class="n">您能提供一个吸引人的简短描述吗</span><span class="err">？</span>
+</span></span><span class="line"><span class="cl"><span class="n">The</span> <span class="n">output</span> <span class="n">should</span> <span class="n">be</span> <span class="n">a</span> <span class="n">markdown</span> <span class="n">code</span> <span class="n">snippet</span> <span class="n">formatted</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">following</span> <span class="n">schema</span><span class="p">,</span> <span class="n">including</span> <span class="n">the</span> <span class="n">leading</span> <span class="ow">and</span> <span class="n">trailing</span> <span class="s2">&#34;```json&#34;</span> <span class="ow">and</span> <span class="s2">&#34;```&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">json</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="n">string</span>  <span class="o">//</span> <span class="n">鲜花的描述文案</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;reason&#34;</span><span class="p">:</span> <span class="n">string</span>  <span class="o">//</span> <span class="n">问什么要这样写这个文案</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>秘密在于，LangChain的输出解析器偷偷的在提示中加了一段话，也就是 {format_instructions} 中的内容。这段由LangChain自动添加的文字，就清楚地指示着我们希望得到什么样的回答以及回答的具体格式。提示指出，模型需要根据一个schema来格式化输出文本，<code>这个 schema 从 ```json 开始，到 ``` 结束</code>。</p>
+<p>这就是在告诉模型，你就follow这个schema（schema，可以理解为对数据结构的描述）的格式，就行啦！</p>
+<p>这就是一个很棒、很典型的<strong>提示工程</strong>。有了这样清晰的提示，智能程度比较高的模型（比如GPT3.5及以上版本），肯定能够输出可以被解析的数据结构，如JSON格式的数据。</p>
+<p>那么这节课我就带着你进一步深究，如何利用LangChain中的提示模板，做好提示工程。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning3/image_hu18276849419161940467.png 330w,
+        /coding/langchain_learning3/image_hu6832827408183778485.png 660w,
+        /coding/langchain_learning3/image_hu10956217688594868339.png 1024w,
+        /coding/langchain_learning3/image_hu9088146563369249977.png 2x"
+        src="/coding/langchain_learning3/image_hu6832827408183778485.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>上节课我说过，针对大模型的提示工程该如何做，吴恩达老师在他的 ChatGPT Prompt Engineering for Developers 公开课中，给出了两个大的原则：第一条原则是写出清晰而具体的指示，第二条原则是给模型思考的时间。</p>
+<p>无独有偶，在Open AI的官方文档 GPT 最佳实践中，也给出了和上面这两大原则一脉相承的6大策略。分别是：</p>
+<ol>
+<li>写清晰的指示</li>
+<li>给模型提供参考（也就是示例）</li>
+<li>将复杂任务拆分成子任务</li>
+<li>给GPT时间思考</li>
+<li>使用外部工具</li>
+<li>反复迭代问题</li>
+</ol>
+<p>怎么样，这些原则和策略是不是都是大白话？这些原则其实不仅能够指导大语言模型，也完全能够指导你的思维过程，让你处理问题时的思路更为清晰。所以说，大模型的思维过程和我们人类的思维过程，还是蛮相通的。</p>
+
+
+<h2 class="relative group">提示的结构 
+    <div id="%E6%8F%90%E7%A4%BA%E7%9A%84%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8F%90%E7%A4%BA%E7%9A%84%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>当然了，从大原则到实践，还是有一些具体工作需要说明，下面我们先看一个实用的提示框架。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning3/image-1_hu17196656535025819592.png 330w,
+        /coding/langchain_learning3/image-1_hu6424573525902809891.png 660w,
+        /coding/langchain_learning3/image-1_hu13823992684215267130.png 1024w,
+        /coding/langchain_learning3/image-1_hu936292220851438912.png 2x"
+        src="/coding/langchain_learning3/image-1_hu6424573525902809891.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>在这个提示框架中：</p>
+<ul>
+<li><strong>指令</strong>（Instuction）告诉模型这个任务大概要做什么、怎么做，比如如何使用提供的外部信息、如何处理查询以及如何构造输出。这通常是一个提示模板中比较固定的部分。一个常见用例是告诉模型“你是一个有用的XX助手”，这会让他更认真地对待自己的角色。</li>
+<li><strong>上下文</strong>（Context）则充当模型的额外知识来源。这些信息可以手动插入到提示中，通过矢量数据库检索得来，或通过其他方式（如调用API、计算器等工具）拉入。一个常见的用例时是把从向量数据库查询到的知识作为上下文传递给模型。</li>
+<li><strong>提示输入</strong>（Prompt Input）通常就是具体的问题或者需要大模型做的具体事情，这个部分和“指令”部分其实也可以合二为一。但是拆分出来成为一个独立的组件，就更加结构化，便于复用模板。这通常是作为变量，在调用模型之前传递给提示模板，以形成具体的提示。</li>
+<li><strong>输出指示器</strong>（Output Indicator）标记​​要生成的文本的开始。这就像我们小时候的数学考卷，先写一个“解”，就代表你要开始答题了。如果生成 Python 代码，可以使用 “import” 向模型表明它必须开始编写 Python 代码（因为大多数 Python 脚本以import开头）。这部分在我们和ChatGPT对话时往往是可有可无的，当然LangChain中的代理在构建提示模板时，经常性的会用一个“Thought：”（思考）作为引导词，指示模型开始输出自己的推理（Reasoning）。</li>
+</ul>
+<p>下面，就让我们看看如何使用 LangChain中的各种提示模板做提示工程，将更优质的提示输入大模型。</p>
+
+
+<h2 class="relative group">LangChain 提示模板的类型 
+    <div id="langchain-%E6%8F%90%E7%A4%BA%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#langchain-%E6%8F%90%E7%A4%BA%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>LangChain中提供String（StringPromptTemplate）和Chat（BaseChatPromptTemplate）两种基本类型的模板，并基于它们构建了不同类型的提示模板：
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning3/image-2_hu18012010093638909405.png 330w,
+        /coding/langchain_learning3/image-2_hu3351291392060550605.png 660w,
+        /coding/langchain_learning3/image-2_hu17124101930761066673.png 1024w,
+        /coding/langchain_learning3/image-2_hu14063006700358009734.png 2x"
+        src="/coding/langchain_learning3/image-2_hu3351291392060550605.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>这些模板的导入方式如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.prompts.prompt</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="n">FewShotPromptTemplate</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.prompts.pipeline</span> <span class="kn">import</span> <span class="n">PipelinePromptTemplate</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ChatMessagePromptTemplate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SystemMessagePromptTemplate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AIMessagePromptTemplate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">HumanMessagePromptTemplate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p>我发现有时候不指定 .prompts，直接从LangChain包也能导入模板。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+</span></span></code></pre></div><p>下面我们通过示例来介绍上面这些模版，前两个我们简单了解就好，其中最典型的FewShotPromptTemplate会重点讲。至于PipelinePrompt和自定义模板，使用起来比较简单，请你参考LangChain文档自己学习。</p>
+
+
+<h2 class="relative group">使用 PromptTemplate 
+    <div id="%E4%BD%BF%E7%94%A8-prompttemplate" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%BF%E7%94%A8-prompttemplate" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>下面通过示例简单说明一下PromptTemplate的使用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">template</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">你是业务咨询顾问。
+</span></span></span><span class="line"><span class="cl"><span class="s2">你给一个销售</span><span class="si">{product}</span><span class="s2">的电商公司，起一个好的名字？
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">prompt</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s2">&#34;鲜花&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p>输出：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">你是业务咨询顾问</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="n">你给一个销售鲜花的电商公司</span><span class="err">，</span><span class="n">起一个好的名字</span><span class="err">？</span>
+</span></span></code></pre></div><p>这个程序的主要功能是生成适用于不同场景的提示，对用户定义的一种产品或服务提供公司命名建议。</p>
+<p>在这里，<code>&quot;你是业务咨询顾问。你给一个销售{product}的电商公司，起一个好的名字？&quot;</code> 就是原始提示模板，其中 {product} 是占位符。</p>
+<p>然后通过PromptTemplate的from_template方法，我们创建了一个提示模板对象，并通过prompt.format方法将模板中的 {product} 替换为 <code>&quot;鲜花&quot;</code>。</p>
+<p>这样，就得到了一句具体的提示：你是业务咨询顾问。你给一个销售鲜花的电商公司，起一个好的名字？——这就要求大语言模型，要有的放矢。</p>
+<p>在上面这个过程中，LangChain中的模板的一个方便之处是from_template方法可以从传入的字符串中自动提取变量名称（如product），而无需刻意指定。上面程序中的product自动成为了format方法中的一个参数。</p>
+<p>当然，也可以通过提示模板类的构造函数，在创建模板时手工指定input_variables，示例如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">prompt</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">input_variables</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;product&#34;</span><span class="p">,</span> <span class="s2">&#34;market&#34;</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">template</span><span class="o">=</span><span class="s2">&#34;你是业务咨询顾问。对于一个面向</span><span class="si">{market}</span><span class="s2">市场的，专注于销售</span><span class="si">{product}</span><span class="s2">的公司，你会推荐哪个名字？&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s2">&#34;鲜花&#34;</span><span class="p">,</span> <span class="n">market</span><span class="o">=</span><span class="s2">&#34;高端&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p>输出：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">你是业务咨询顾问</span><span class="err">。</span><span class="n">对于一个面向高端市场的</span><span class="err">，</span><span class="n">专注于销售鲜花的公司</span><span class="err">，</span><span class="n">你会推荐哪个名字</span><span class="err">？</span>
+</span></span></code></pre></div><p>上面的方式直接生成了提示模板，并没有通过from_template方法从字符串模板中创建提示模板。二者效果是一样的。</p>
+
+
+<h2 class="relative group">使用 ChatPromptTemplate 
+    <div id="%E4%BD%BF%E7%94%A8-chatprompttemplate" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%BF%E7%94%A8-chatprompttemplate" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>对于OpenAI推出的ChatGPT这一类的聊天模型，LangChain也提供了一系列的模板，这些模板的不同之处是它们有对应的角色。</p>
+<p>下面代码展示了OpenAI的Chat Model中的各种消息角色。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">openai</span>
+</span></span><span class="line"><span class="cl"><span class="n">openai</span><span class="o">.</span><span class="n">ChatCompletion</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">model</span><span class="o">=</span><span class="s2">&#34;gpt-3.5-turbo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;system&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;You are a helpful assistant.&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;Who won the world series in 2020?&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;assistant&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;The Los Angeles Dodgers won the World Series in 2020.&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;Where was it played?&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p>OpenAI对传输到gpt-3.5-turbo和GPT-4的messsage格式说明如下：</p>
+<blockquote>
+<p>消息必须是消息对象的数组，其中每个对象都有一个角色（系统、用户或助理）和内容。对话可以短至一条消息，也可以来回多次。</p>
+<p>通常，对话首先由系统消息格式化，然后是交替的用户消息和助理消息。</p>
+<p>系统消息有助于设置助手的行为。例如，你可以修改助手的个性或提供有关其在整个对话过程中应如何表现的具体说明。但请注意，系统消息是可选的，并且没有系统消息的模型的行为可能类似于使用通用消息，例如“你是一个有用的助手”。</p>
+<p>用户消息提供助理响应的请求或评论。</p>
+<p>助理消息存储以前的助理响应，但也可以由你编写以给出所需行为的示例。</p>
+</blockquote>
+<p>LangChain的ChatPromptTemplate这一系列的模板，就是<strong>跟着这一系列角色而设计的。</strong></p>
+<p>下面，我给出一个示例。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 导入聊天消息类模板</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ChatPromptTemplate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SystemMessagePromptTemplate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">HumanMessagePromptTemplate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 模板的构建</span>
+</span></span><span class="line"><span class="cl"><span class="n">template</span><span class="o">=</span><span class="s2">&#34;你是一位专业顾问，负责为专注于</span><span class="si">{product}</span><span class="s2">的公司起名。&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">system_message_prompt</span> <span class="o">=</span> <span class="n">SystemMessagePromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">human_template</span><span class="o">=</span><span class="s2">&#34;公司主打产品是</span><span class="si">{product_detail}</span><span class="s2">。&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">human_message_prompt</span> <span class="o">=</span> <span class="n">HumanMessagePromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">human_template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">prompt_template</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span><span class="n">system_message_prompt</span><span class="p">,</span> <span class="n">human_message_prompt</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 格式化提示消息生成提示</span>
+</span></span><span class="line"><span class="cl"><span class="n">prompt</span> <span class="o">=</span> <span class="n">prompt_template</span><span class="o">.</span><span class="n">format_prompt</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s2">&#34;鲜花装饰&#34;</span><span class="p">,</span> <span class="n">product_detail</span><span class="o">=</span><span class="s2">&#34;创新的鲜花设计。&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">to_messages</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 下面调用模型，把提示传入模型，生成结果</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&#34;OPENAI_API_KEY&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;你的OpenAI Key&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+</span></span><span class="line"><span class="cl"><span class="n">chat</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span></code></pre></div><p>输出：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">content</span><span class="o">=</span><span class="s1">&#39;1. 花语创意</span><span class="se">\n</span><span class="s1">2. 花韵设计</span><span class="se">\n</span><span class="s1">3. 花艺创新</span><span class="se">\n</span><span class="s1">4. 花漾装饰</span><span class="se">\n</span><span class="s1">5. 花语装点</span><span class="se">\n</span><span class="s1">6. 花翩翩</span><span class="se">\n</span><span class="s1">7. 花语之美</span><span class="se">\n</span><span class="s1">8. 花馥馥</span><span class="se">\n</span><span class="s1">9. 花语时尚</span><span class="se">\n</span><span class="s1">10. 花之魅力&#39;</span> 
+</span></span><span class="line"><span class="cl"><span class="n">additional_kwargs</span><span class="o">=</span><span class="p">{}</span> 
+</span></span><span class="line"><span class="cl"><span class="n">example</span><span class="o">=</span><span class="kc">False</span>
+</span></span></code></pre></div><p>好吧，尽管模型成功地完成了任务，但是感觉没有咱“易速鲜花”响亮！</p>
+<p>讲完上面两种简单易用的提示模板，下面开始介绍今天的重点内容，FewShotPromptTemplate。FewShot，也就是少样本这一概念，是提示工程中非常重要的部分，对应着OpenAI提示工程指南中的第2条——给模型提供参考（也就是示例）。</p>
+
+
+<h2 class="relative group">FewShot的思想起源 
+    <div id="fewshot%E7%9A%84%E6%80%9D%E6%83%B3%E8%B5%B7%E6%BA%90" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#fewshot%E7%9A%84%E6%80%9D%E6%83%B3%E8%B5%B7%E6%BA%90" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>讲解概念之前，我先分享个事儿哈，帮助你理解。</p>
+<p>今天我下楼跑步时，一个老爷爷教孙子学骑车，小孩总掌握不了平衡，蹬一两下就下车。</p>
+<ul>
+<li>爷爷说：“宝贝，你得有毅力！”</li>
+<li>孙子说：“爷爷，什么是毅力？”</li>
+<li>爷爷说：“你看这个叔叔，绕着楼跑了10多圈了，这就是毅力，你也得至少蹬个10几趟才能骑起来。”</li>
+</ul>
+<p>这老爷爷就是给孙子做了一个One-Shot学习。如果他的孙子第一次听说却上来就明白什么是毅力，那就神了，这就叫Zero-Shot，表明这孩子的语言天赋不是一般的高，从知识积累和当前语境中就能够推知新词的涵义。有时候我们把Zero-Shot翻译为“顿悟”，聪明的大模型，某些情况下也是能够做到的。</p>
+<p>Few-Shot（少样本）、One-Shot（单样本）和与之对应的 Zero-Shot（零样本）的概念都起源于机器学习。如何让机器学习模型在极少量甚至没有示例的情况下学习到新的概念或类别，对于许多现实世界的问题是非常有价值的，因为我们往往无法获取到大量的标签化数据。</p>
+<p>这几个重要概念并非在某一篇特定的论文中首次提出，而是在机器学习和深度学习的研究中逐渐形成和发展的。</p>
+<ul>
+<li>对于Few-Shot Learning，一个重要的参考文献是2016年Vinyals, O.的论文《小样本学习的匹配网络》。</li>
+<li>这篇论文提出了一种新的学习模型——匹配网络（Matching Networks），专门针对单样本学习（One-Shot Learning）问题设计，而 One-Shot Learning 可以看作是一种最常见的 Few-Shot 学习的情况。</li>
+<li>对于Zero-Shot Learning，一个代表性的参考文献是Palatucci, M.在2009年提出的《基于语义输出编码的零样本学习（Zero-Shot Learning with semantic output codes）》，这篇论文提出了零次学习（Zero-Shot Learning）的概念，其中的学习系统可以根据类的语义描述来识别之前未见过的类。</li>
+</ul>
+<p>在提示工程（Prompt Engineering）中，Few-Shot 和 Zero-Shot 学习的概念也被广泛应用。</p>
+<ul>
+<li>在Few-Shot学习设置中，模型会被给予几个示例，以帮助模型理解任务，并生成正确的响应。</li>
+<li>在Zero-Shot学习设置中，模型只根据任务的描述生成响应，不需要任何示例。</li>
+</ul>
+<p>而OpenAI在介绍GPT-3模型的重要论文《Language models are Few-Shot learners（语言模型是少样本学习者）》中，更是直接指出：GPT-3模型，作为一个大型的自我监督学习模型，通过提升模型规模，实现了出色的Few-Shot学习性能。</p>
+<p>这篇论文为大语言模型可以进行Few-Shot学习提供了扎实的理论基础。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning3/image-3_hu10918255488932692674.png 330w,
+        /coding/langchain_learning3/image-3_hu1337734205059562073.png 660w,
+        /coding/langchain_learning3/image-3_hu5225286861773968915.png 1024w,
+        /coding/langchain_learning3/image-3_hu12529387195145833546.png 2x"
+        src="/coding/langchain_learning3/image-3_hu1337734205059562073.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>下图就是OpenAI的GPT-3论文给出的GPT-3在翻译任务中，通过FewShot提示完成翻译的例子。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/langchain_learning3/image-4_hu16845157492590736406.png 330w,
+        /coding/langchain_learning3/image-4_hu12446165349742839520.png 660w,
+        /coding/langchain_learning3/image-4_hu16029691704717354340.png 1024w,
+        /coding/langchain_learning3/image-4_hu5959258063223711062.png 2x"
+        src="/coding/langchain_learning3/image-4_hu12446165349742839520.png"
+        alt="alt text"
+      />
+      
+    </figure>
+</p>
+<p>以上，就是ZeroShot、OneShot、FewShot这些重要概念的起源。</p>
+
+
+<h2 class="relative group">使用 FewShotPromptTemplate 
+    <div id="%E4%BD%BF%E7%94%A8-fewshotprompttemplate" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%BF%E7%94%A8-fewshotprompttemplate" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>下面，就让我们来通过LangChain中的FewShotPromptTemplate构建出最合适的鲜花文案。</p>
+<ol>
+<li><strong>创建示例样本</strong>
+首先，创建一些示例，作为提示的样本。其中每个示例都是一个字典，其中键是输入变量，值是这些输入变量的值。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1. 创建一些示例</span>
+</span></span><span class="line"><span class="cl"><span class="n">samples</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;flower_type&#34;</span><span class="p">:</span> <span class="s2">&#34;玫瑰&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;occasion&#34;</span><span class="p">:</span> <span class="s2">&#34;爱情&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ad_copy&#34;</span><span class="p">:</span> <span class="s2">&#34;玫瑰，浪漫的象征，是你向心爱的人表达爱意的最佳选择。&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;flower_type&#34;</span><span class="p">:</span> <span class="s2">&#34;康乃馨&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;occasion&#34;</span><span class="p">:</span> <span class="s2">&#34;母亲节&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ad_copy&#34;</span><span class="p">:</span> <span class="s2">&#34;康乃馨代表着母爱的纯洁与伟大，是母亲节赠送给母亲的完美礼物。&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;flower_type&#34;</span><span class="p">:</span> <span class="s2">&#34;百合&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;occasion&#34;</span><span class="p">:</span> <span class="s2">&#34;庆祝&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ad_copy&#34;</span><span class="p">:</span> <span class="s2">&#34;百合象征着纯洁与高雅，是你庆祝特殊时刻的理想选择。&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;flower_type&#34;</span><span class="p">:</span> <span class="s2">&#34;向日葵&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;occasion&#34;</span><span class="p">:</span> <span class="s2">&#34;鼓励&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ad_copy&#34;</span><span class="p">:</span> <span class="s2">&#34;向日葵象征着坚韧和乐观，是你鼓励亲朋好友的最好方式。&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>samples这个列表，它包含了四个字典，每个字典代表了一种花的类型、适合的场合，以及对应的广告文案。 这些示例样本，就是构建FewShotPrompt时，作为例子传递给模型的参考信息。</p>
+<ol start="2">
+<li><strong>创建提示模板</strong>
+配置一个提示模板，将一个示例格式化为字符串。这个格式化程序应该是一个PromptTemplate对象。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 2. 创建一个提示模板</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.prompts.prompt</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+</span></span><span class="line"><span class="cl"><span class="n">template</span><span class="o">=</span><span class="s2">&#34;鲜花类型: </span><span class="si">{flower_type}</span><span class="se">\n</span><span class="s2">场合: </span><span class="si">{occasion}</span><span class="se">\n</span><span class="s2">文案: </span><span class="si">{ad_copy}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">prompt_sample</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="p">(</span><span class="n">input_variables</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;flower_type&#34;</span><span class="p">,</span> <span class="s2">&#34;occasion&#34;</span><span class="p">,</span> <span class="s2">&#34;ad_copy&#34;</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">                               <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">prompt_sample</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span></span></code></pre></div><p>提示模板的输出如下：</p>
+<pre tabindex="0"><code>鲜花类型: 玫瑰
+场合: 爱情
+文案: 玫瑰，浪漫的象征，是你向心爱的人表达爱意的最佳选择。
+</code></pre><p>在这个步骤中，我们创建了一个PromptTemplate对象。这个对象是根据指定的输入变量和模板字符串来生成提示的。在这里，输入变量包括 <code>&quot;flower_type&quot;</code>、<code>&quot;occasion&quot;</code>、<code>&quot;ad_copy&quot;</code>，模板是一个字符串，其中包含了用大括号包围的变量名，它们会被对应的变量值替换。</p>
+<p>到这里，我们就把字典中的示例格式转换成了提示模板，可以形成一个个具体可用的LangChain提示。比如我用samples[0]中的数据替换了模板中的变量，生成了一个完整的提示。</p>
+<ol start="3">
+<li>创建 FewShotPromptTemplate 对象
+然后，通过使用上一步骤中创建的prompt_sample，以及samples列表中的所有示例， 创建一个FewShotPromptTemplate对象，生成更复杂的提示。</li>
+</ol>
+<pre tabindex="0"><code># 3. 创建一个FewShotPromptTemplate对象
+from langchain.prompts.few_shot import FewShotPromptTemplate
+prompt = FewShotPromptTemplate(
+    examples=samples,
+    example_prompt=prompt_sample,
+    suffix=&#34;鲜花类型: {flower_type}\n场合: {occasion}&#34;,
+    input_variables=[&#34;flower_type&#34;, &#34;occasion&#34;]
+)
+print(prompt.format(flower_type=&#34;野玫瑰&#34;, occasion=&#34;爱情&#34;))
+</code></pre><p>输出：</p>
+<pre tabindex="0"><code>鲜花类型: 玫瑰
+场合: 爱情
+文案: 玫瑰，浪漫的象征，是你向心爱的人表达爱意的最佳选择。
+
+鲜花类型: 康乃馨
+场合: 母亲节
+文案: 康乃馨代表着母爱的纯洁与伟大，是母亲节赠送给母亲的完美礼物。
+
+鲜花类型: 百合
+场合: 庆祝
+文案: 百合象征着纯洁与高雅，是你庆祝特殊时刻的理想选择。
+
+鲜花类型: 向日葵
+场合: 鼓励
+文案: 向日葵象征着坚韧和乐观，是你鼓励亲朋好友的最好方式。
+
+鲜花类型: 野玫瑰
+场合: 爱情
+</code></pre><p>可以看到，FewShotPromptTemplate是一个更复杂的提示模板，它包含了多个示例和一个提示。这种模板可以使用多个示例来指导模型生成对应的输出。目前我们创建一个新提示，其中包含了根据指定的花的类型“野玫瑰”和场合“爱情”。</p>
+<ol start="4">
+<li><strong>调用大模型创建新文案</strong>
+最后，把这个对象输出给大模型，就可以根据提示，得到我们所需要的文案了！</li>
+</ol>
+<pre tabindex="0"><code># 4. 把提示传递给大模型
+import os
+os.environ[&#34;OPENAI_API_KEY&#34;] = &#39;你的Open AI Key&#39;
+from langchain.llms import OpenAI
+model = OpenAI(model_name=&#39;gpt-3.5-turbo-instruct&#39;)
+result = model(prompt.format(flower_type=&#34;野玫瑰&#34;, occasion=&#34;爱情&#34;))
+print(result)
+</code></pre><p>输出：</p>
+<pre tabindex="0"><code>文案: 野玫瑰代表着爱情的坚贞，是你向心爱的人表达爱意的最佳礼物。
+</code></pre><p>好！模型成功地模仿了我们的示例，写出了新文案，从结构到语气都蛮相似的。</p>
+
+
+<h2 class="relative group">使用示例选择器 
+    <div id="%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B%E9%80%89%E6%8B%A9%E5%99%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B%E9%80%89%E6%8B%A9%E5%99%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>如果我们的示例很多，那么一次性把所有示例发送给模型是不现实而且低效的。另外，每次都包含太多的Token也会浪费流量（OpenAI是按照Token数来收取费用）。</p>
+<p>LangChain给我们提供了示例选择器，来选择最合适的样本。（注意，因为示例选择器使用向量相似度比较的功能，此处需要安装向量数据库，这里我使用的是开源的Chroma，你也可以选择之前用过的Qdrant。）</p>
+<p>下面，就是使用示例选择器的示例代码。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 5. 使用示例选择器</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.prompts.example_selector</span> <span class="kn">import</span> <span class="n">SemanticSimilarityExampleSelector</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.vectorstores</span> <span class="kn">import</span> <span class="n">Chroma</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">langchain.embeddings</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 初始化示例选择器</span>
+</span></span><span class="line"><span class="cl"><span class="n">example_selector</span> <span class="o">=</span> <span class="n">SemanticSimilarityExampleSelector</span><span class="o">.</span><span class="n">from_examples</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">samples</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">OpenAIEmbeddings</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Chroma</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k</span><span class="o">=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建一个使用示例选择器的FewShotPromptTemplate对象</span>
+</span></span><span class="line"><span class="cl"><span class="n">prompt</span> <span class="o">=</span> <span class="n">FewShotPromptTemplate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">example_selector</span><span class="o">=</span><span class="n">example_selector</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">example_prompt</span><span class="o">=</span><span class="n">prompt_sample</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">suffix</span><span class="o">=</span><span class="s2">&#34;鲜花类型: </span><span class="si">{flower_type}</span><span class="se">\n</span><span class="s2">场合: </span><span class="si">{occasion}</span><span class="s2">&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">input_variables</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;flower_type&#34;</span><span class="p">,</span> <span class="s2">&#34;occasion&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">flower_type</span><span class="o">=</span><span class="s2">&#34;红玫瑰&#34;</span><span class="p">,</span> <span class="n">occasion</span><span class="o">=</span><span class="s2">&#34;爱情&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p>输出：</p>
+<pre tabindex="0"><code>鲜花类型: 玫瑰
+场合: 爱情
+文案: 玫瑰，浪漫的象征，是你向心爱的人表达爱意的最佳选择。
+
+鲜花类型: 红玫瑰
+场合: 爱情
+</code></pre><p>在这个步骤中，它首先创建了一个SemanticSimilarityExampleSelector对象，这个对象可以根据语义相似性选择最相关的示例。然后，它创建了一个新的FewShotPromptTemplate对象，这个对象使用了上一步创建的选择器来选择最相关的示例生成提示。</p>
+<p>然后，我们又用这个模板生成了一个新的提示，因为我们的提示中需要创建的是红玫瑰的文案，所以，示例选择器example_selector会根据语义的相似度（余弦相似度）找到最相似的示例，也就是“玫瑰”，并用这个示例构建了FewShot模板。</p>
+<p>这样，我们就避免了把过多的无关模板传递给大模型，以节省Token的用量。</p>
+
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\\langchain_learning3\\index.md"
+        var oid_likes = "likes_coding\\langchain_learning3\\index.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/langchain_learning4/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Langchain Prompt Engineering(2)</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-02-21 00:00:00 &#43;0000 UTC">21 February 2025</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/langchain_learning2/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Langchain Model I/O</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-02-21 00:00:00 &#43;0000 UTC">21 February 2025</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2025 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
