@@ -59,6 +59,16 @@
     </item>
     
     <item>
+      <title>自我介绍</title>
+      <link>http://localhost:1313/life/self_introduction/</link>
+      <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/life/self_introduction/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/life/self_introduction/featured.png" />
+    </item>
+    
+    <item>
       <title>学习使用langchain和RAG(3)</title>
       <link>http://localhost:1313/coding/llm_learning4/</link>
       <pubDate>Mon, 19 Aug 2024 00:00:00 +0000</pubDate>
@@ -106,16 +116,6 @@
       <guid>http://localhost:1313/life/test/</guid>
       <description>blog</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/life/test/featured.png" />
-    </item>
-    
-    <item>
-      <title>自我介绍</title>
-      <link>http://localhost:1313/life/self_introduction/</link>
-      <pubDate>Sat, 10 Aug 2024 00:00:00 +0000</pubDate>
-      
-      <guid>http://localhost:1313/life/self_introduction/</guid>
-      <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/life/self_introduction/featured.png" />
     </item>
     
   </channel>

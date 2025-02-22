@@ -81,6 +81,22 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>http://localhost:1313/life/self_introduction/</loc>
+    <lastmod>2025-02-21T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="ja"
+      href="http://localhost:1313/ja/life/self_introduction/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="http://localhost:1313/life/self_introduction/"
+    />
+  </url>
+  <url>
     <loc>http://localhost:1313/coding/llm_learning4/</loc>
     <lastmod>2024-08-19T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
@@ -158,22 +174,6 @@
       rel="alternate"
       hreflang="zh-cn"
       href="http://localhost:1313/life/test/"
-    />
-  </url>
-  <url>
-    <loc>http://localhost:1313/life/self_introduction/</loc>
-    <lastmod>2024-08-10T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="http://localhost:1313/ja/life/self_introduction/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="http://localhost:1313/life/self_introduction/"
     />
   </url>
 </urlset>
