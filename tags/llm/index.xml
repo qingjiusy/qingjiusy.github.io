@@ -1,1 +1,102 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Llm on QingJiu</title><link>https://qingjiusy.github.io/tags/llm/</link><description>Recent content in Llm on QingJiu</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 清酒 转载请标明出处</copyright><lastBuildDate>Sat, 22 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/tags/llm/index.xml" rel="self" type="application/rss+xml"/><item><title>Openai api调查学习</title><link>https://qingjiusy.github.io/coding/openapi/</link><pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/coding/openapi/</guid><description>blog</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/openapi/featured.png"/></item><item><title>GMO冬季intern体验</title><link>https://qingjiusy.github.io/life/gmo_intern/</link><pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/life/gmo_intern/</guid><description>blog</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/life/gmo_intern/featured.png"/></item><item><title>Langchain Model I/O</title><link>https://qingjiusy.github.io/coding/langchain_learning2/</link><pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/coding/langchain_learning2/</guid><description>blog</description></item><item><title>Langchain Prompt Engineering(1)</title><link>https://qingjiusy.github.io/coding/langchain_learning3/</link><pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/coding/langchain_learning3/</guid><description>blog</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/langchain_learning3/featured.jpg"/></item><item><title>Langchain Prompt Engineering(2)</title><link>https://qingjiusy.github.io/coding/langchain_learning4/</link><pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/coding/langchain_learning4/</guid><description>blog</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/langchain_learning4/featured.jpg"/></item><item><title>学习使用langchain和RAG(3)</title><link>https://qingjiusy.github.io/coding/llm_learning4/</link><pubDate>Mon, 19 Aug 2024 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/coding/llm_learning4/</guid><description>blog</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/llm_learning4/featured.png"/></item><item><title>学习使用langchain和RAG(2)</title><link>https://qingjiusy.github.io/coding/llm_learning3/</link><pubDate>Sat, 17 Aug 2024 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/coding/llm_learning3/</guid><description>blog</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/llm_learning3/featured.png"/></item><item><title>学习使用langchain和RAG</title><link>https://qingjiusy.github.io/coding/llm_learning2/</link><pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/coding/llm_learning2/</guid><description>blog</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/llm_learning2/featured.png"/></item><item><title>LLM RAG初步学习</title><link>https://qingjiusy.github.io/coding/llm_learning1/</link><pubDate>Wed, 14 Aug 2024 00:00:00 +0000</pubDate><guid>https://qingjiusy.github.io/coding/llm_learning1/</guid><description>blog</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/llm_learning1/featured.png"/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Llm on QingJiu</title>
+    <link>https://qingjiusy.github.io/tags/llm/</link>
+    <description>Recent content in Llm on QingJiu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>2025 清酒 转载请标明出处</copyright>
+    <lastBuildDate>Sat, 22 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Openai api调查学习</title>
+      <link>https://qingjiusy.github.io/coding/openapi/</link>
+      <pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/openapi/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/openapi/featured.png" />
+    </item>
+    
+    <item>
+      <title>GMO冬季intern体验</title>
+      <link>https://qingjiusy.github.io/life/gmo_intern/</link>
+      <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/life/gmo_intern/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/life/gmo_intern/featured.png" />
+    </item>
+    
+    <item>
+      <title>Langchain Model I/O</title>
+      <link>https://qingjiusy.github.io/coding/langchain_learning2/</link>
+      <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/langchain_learning2/</guid>
+      <description>blog</description>
+      
+    </item>
+    
+    <item>
+      <title>Langchain Prompt Engineering(1)</title>
+      <link>https://qingjiusy.github.io/coding/langchain_learning3/</link>
+      <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/langchain_learning3/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/langchain_learning3/featured.jpg" />
+    </item>
+    
+    <item>
+      <title>Langchain Prompt Engineering(2)</title>
+      <link>https://qingjiusy.github.io/coding/langchain_learning4/</link>
+      <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/langchain_learning4/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/langchain_learning4/featured.jpg" />
+    </item>
+    
+    <item>
+      <title>学习使用langchain和RAG(3)</title>
+      <link>https://qingjiusy.github.io/coding/llm_learning4/</link>
+      <pubDate>Mon, 19 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/llm_learning4/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/llm_learning4/featured.png" />
+    </item>
+    
+    <item>
+      <title>学习使用langchain和RAG(2)</title>
+      <link>https://qingjiusy.github.io/coding/llm_learning3/</link>
+      <pubDate>Sat, 17 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/llm_learning3/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/llm_learning3/featured.png" />
+    </item>
+    
+    <item>
+      <title>学习使用langchain和RAG</title>
+      <link>https://qingjiusy.github.io/coding/llm_learning2/</link>
+      <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/llm_learning2/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/llm_learning2/featured.png" />
+    </item>
+    
+    <item>
+      <title>LLM RAG初步学习</title>
+      <link>https://qingjiusy.github.io/coding/llm_learning1/</link>
+      <pubDate>Wed, 14 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/llm_learning1/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/llm_learning1/featured.png" />
+    </item>
+    
+  </channel>
+</rss>
