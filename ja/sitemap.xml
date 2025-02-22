@@ -3,6 +3,54 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
+    <loc>https://qingjiusy.github.io/ja/life/</loc>
+    <lastmod>2025-02-22T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://qingjiusy.github.io/life/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="ja"
+      href="https://qingjiusy.github.io/ja/life/"
+    />
+  </url>
+  <url>
+    <loc>https://qingjiusy.github.io/ja/</loc>
+    <lastmod>2025-02-22T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://qingjiusy.github.io/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="ja"
+      href="https://qingjiusy.github.io/ja/"
+    />
+  </url>
+  <url>
+    <loc>https://qingjiusy.github.io/ja/life/self_introduction/</loc>
+    <lastmod>2025-02-22T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://qingjiusy.github.io/life/self_introduction/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="ja"
+      href="https://qingjiusy.github.io/ja/life/self_introduction/"
+    />
+  </url>
+  <url>
     <loc>https://qingjiusy.github.io/ja/coding/</loc>
     <lastmod>2024-08-19T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
@@ -32,22 +80,6 @@
       rel="alternate"
       hreflang="ja"
       href="https://qingjiusy.github.io/ja/coding/llm_learning4/"
-    />
-  </url>
-  <url>
-    <loc>https://qingjiusy.github.io/ja/</loc>
-    <lastmod>2024-08-19T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://qingjiusy.github.io/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://qingjiusy.github.io/ja/"
     />
   </url>
   <url>
@@ -96,22 +128,6 @@
       rel="alternate"
       hreflang="ja"
       href="https://qingjiusy.github.io/ja/coding/llm_learning1/"
-    />
-  </url>
-  <url>
-    <loc>https://qingjiusy.github.io/ja/life/</loc>
-    <lastmod>2024-08-10T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://qingjiusy.github.io/life/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://qingjiusy.github.io/ja/life/"
     />
   </url>
   <url>

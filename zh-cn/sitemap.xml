@@ -3,6 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
+    <loc>https://qingjiusy.github.io/coding/</loc>
+    <lastmod>2025-02-22T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="ja"
+      href="https://qingjiusy.github.io/ja/coding/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://qingjiusy.github.io/coding/"
+    />
+  </url>
+  <url>
     <loc>https://qingjiusy.github.io/life/gmo_intern/</loc>
     <lastmod>2025-02-22T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
@@ -25,6 +41,12 @@
     />
   </url>
   <url>
+    <loc>https://qingjiusy.github.io/coding/openapi/</loc>
+    <lastmod>2025-02-22T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://qingjiusy.github.io/</loc>
     <lastmod>2025-02-22T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
@@ -38,22 +60,6 @@
       rel="alternate"
       hreflang="zh-cn"
       href="https://qingjiusy.github.io/"
-    />
-  </url>
-  <url>
-    <loc>https://qingjiusy.github.io/coding/</loc>
-    <lastmod>2025-02-21T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://qingjiusy.github.io/ja/coding/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://qingjiusy.github.io/coding/"
     />
   </url>
   <url>
@@ -152,6 +158,22 @@
       rel="alternate"
       hreflang="zh-cn"
       href="https://qingjiusy.github.io/life/test/"
+    />
+  </url>
+  <url>
+    <loc>https://qingjiusy.github.io/life/self_introduction/</loc>
+    <lastmod>2024-08-10T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="ja"
+      href="https://qingjiusy.github.io/ja/life/self_introduction/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://qingjiusy.github.io/life/self_introduction/"
     />
   </url>
 </urlset>

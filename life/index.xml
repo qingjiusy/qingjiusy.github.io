@@ -28,5 +28,15 @@
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/life/test/featured.png" />
     </item>
     
+    <item>
+      <title>自我介绍</title>
+      <link>https://qingjiusy.github.io/life/self_introduction/</link>
+      <pubDate>Sat, 10 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/life/self_introduction/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/life/self_introduction/featured.png" />
+    </item>
+    
   </channel>
 </rss>
