@@ -2,20 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lives on QingJiu</title>
-    <link>http://localhost:1313/life/</link>
+    <link>https://qingjiusy.github.io/life/</link>
     <description>Recent content in Lives on QingJiu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>2025 清酒 转载请标明出处</copyright>
-    <lastBuildDate>Sat, 10 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/life/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/life/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GMO冬季intern体验</title>
+      <link>https://qingjiusy.github.io/life/gmo_intern/</link>
+      <pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/life/gmo_intern/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/life/gmo_intern/featured.png" />
+    </item>
+    
     <item>
       <title>突如其来地想搭建一个blog</title>
-      <link>http://localhost:1313/life/test/</link>
+      <link>https://qingjiusy.github.io/life/test/</link>
       <pubDate>Sat, 10 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/life/test/</guid>
+      <guid>https://qingjiusy.github.io/life/test/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/life/test/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/life/test/featured.png" />
     </item>
     
   </channel>
