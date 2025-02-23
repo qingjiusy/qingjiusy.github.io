@@ -2,61 +2,61 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>技術 on QingJiu観察した世界</title>
-    <link>http://localhost:1313/ja/categories/%E6%8A%80%E8%A1%93/</link>
+    <link>http://localhost:61128/ja/categories/%E6%8A%80%E8%A1%93/</link>
     <description>Recent content in 技術 on QingJiu観察した世界</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>2025 QingJiu 転載する際は出典を明記してください</copyright>
-    <lastBuildDate>Sat, 22 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/ja/categories/%E6%8A%80%E8%A1%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:61128/ja/categories/%E6%8A%80%E8%A1%93/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>自己紹介</title>
-      <link>http://localhost:1313/ja/life/self_introduction/</link>
+      <link>http://localhost:61128/ja/life/self_introduction/</link>
       <pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/ja/life/self_introduction/</guid>
+      <guid>http://localhost:61128/ja/life/self_introduction/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/life/self_introduction/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:61128/life/self_introduction/featured.png" />
     </item>
     
     <item>
       <title>LangChainとRAGの使い方を学ぶ(3)</title>
-      <link>http://localhost:1313/ja/coding/llm_learning4/</link>
+      <link>http://localhost:61128/ja/coding/llm_learning4/</link>
       <pubDate>Mon, 19 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/ja/coding/llm_learning4/</guid>
+      <guid>http://localhost:61128/ja/coding/llm_learning4/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/llm_learning4/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:61128/coding/llm_learning4/featured.png" />
     </item>
     
     <item>
       <title>LangChainとRAGの使い方を学ぶ(2)</title>
-      <link>http://localhost:1313/ja/coding/llm_learning3/</link>
+      <link>http://localhost:61128/ja/coding/llm_learning3/</link>
       <pubDate>Sat, 17 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/ja/coding/llm_learning3/</guid>
+      <guid>http://localhost:61128/ja/coding/llm_learning3/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/llm_learning3/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:61128/coding/llm_learning3/featured.png" />
     </item>
     
     <item>
       <title>LangChainとRAGの使い方を学ぶ</title>
-      <link>http://localhost:1313/ja/coding/llm_learning2/</link>
+      <link>http://localhost:61128/ja/coding/llm_learning2/</link>
       <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/ja/coding/llm_learning2/</guid>
+      <guid>http://localhost:61128/ja/coding/llm_learning2/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/llm_learning2/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:61128/coding/llm_learning2/featured.png" />
     </item>
     
     <item>
       <title>LLM RAGの初歩的な学習</title>
-      <link>http://localhost:1313/ja/coding/llm_learning1/</link>
+      <link>http://localhost:61128/ja/coding/llm_learning1/</link>
       <pubDate>Wed, 14 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/ja/coding/llm_learning1/</guid>
+      <guid>http://localhost:61128/ja/coding/llm_learning1/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/llm_learning1/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:61128/coding/llm_learning1/featured.png" />
     </item>
     
   </channel>

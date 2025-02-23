@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
-  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=61128&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   
   <meta http-equiv="content-language" content="zh-cn" />
@@ -15,7 +15,7 @@
   <meta name="keywords" content="LLM, " />
   
   
-  <link rel="canonical" href="http://localhost:1313/coding/openapi/" />
+  <link rel="canonical" href="http://localhost:61128/coding/openapi/" />
   
   
   
@@ -67,7 +67,7 @@
   
   
   
-  <meta property="og:url" content="http://localhost:1313/coding/openapi/">
+  <meta property="og:url" content="http://localhost:61128/coding/openapi/">
   <meta property="og:site_name" content="QingJiu">
   <meta property="og:title" content="Openai 文档api调查学习">
   <meta property="og:description" content="blog">
@@ -77,11 +77,11 @@
     <meta property="article:published_time" content="2025-02-22T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-02-22T00:00:00+00:00">
     <meta property="article:tag" content="Llm">
-    <meta property="og:image" content="http://localhost:1313/coding/openapi/featured.png">
+    <meta property="og:image" content="http://localhost:61128/coding/openapi/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/coding/openapi/featured.png">
+  <meta name="twitter:image" content="http://localhost:61128/coding/openapi/featured.png">
   <meta name="twitter:title" content="Openai 文档api调查学习">
   <meta name="twitter:description" content="blog">
 
@@ -96,7 +96,7 @@
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
-    "url" : "http:\/\/localhost:1313\/coding\/openapi\/",
+    "url" : "http:\/\/localhost:61128\/coding\/openapi\/",
     "author" : {
       "@type": "Person",
       "name": "清酒"
@@ -110,7 +110,7 @@
     "keywords": ["LLM"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "818"
+    "wordCount": "1123"
   }]
   </script>
 
@@ -591,7 +591,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>818 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1123 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span>
   
 
   
@@ -744,8 +744,11 @@
         <li><a href="#列出文件get">列出文件GET</a></li>
         <li><a href="#检索文件get">检索文件GET</a></li>
         <li><a href="#删除文件delete">删除文件DELETE</a></li>
+        <li><a href="#检索文件内容get">检索文件内容GET</a></li>
+        <li><a href="#file-对象">file 对象</a></li>
       </ul>
     </li>
+    <li><a href="#实际尝试">实际尝试</a></li>
   </ul>
 </nav>
   </div>
@@ -766,8 +769,11 @@
         <li><a href="#列出文件get">列出文件GET</a></li>
         <li><a href="#检索文件get">检索文件GET</a></li>
         <li><a href="#删除文件delete">删除文件DELETE</a></li>
+        <li><a href="#检索文件内容get">检索文件内容GET</a></li>
+        <li><a href="#file-对象">file 对象</a></li>
       </ul>
     </li>
+    <li><a href="#实际尝试">实际尝试</a></li>
   </ul>
 </nav>
   </div>
@@ -1029,6 +1035,69 @@
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;deleted&#34;</span><span class="p">:</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+
+<h3 class="relative group">检索文件内容GET 
+    <div id="%E6%A3%80%E7%B4%A2%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9get" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A3%80%E7%B4%A2%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9get" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>返回指定文件的内容。</p>
+<p>示例请求如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+</span></span><span class="line"><span class="cl"><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">content</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="s2">&#34;file-abc123&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>路径参数：</p>
+<p><strong>file_id <em>string</em></strong>，必填，用于此请求的文件的 ID。</p>
+<p>响应：</p>
+<p>返回文件内容</p>
+
+
+<h3 class="relative group">file 对象 
+    <div id="file-%E5%AF%B9%E8%B1%A1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#file-%E5%AF%B9%E8%B1%A1" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>这File object 表示已上传到 OpenAI 的文档。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;file-abc123&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;object&#34;</span><span class="p">:</span> <span class="s2">&#34;file&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;bytes&#34;</span><span class="p">:</span> <span class="mi">120000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="mi">1677610602</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;expires_at&#34;</span><span class="p">:</span> <span class="mi">1680202602</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;filename&#34;</span><span class="p">:</span> <span class="s2">&#34;salesOverview.pdf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;purpose&#34;</span><span class="p">:</span> <span class="s2">&#34;assistants&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>id <em>string</em></strong>:文件标识符，可在 API 终端节点中引用。</p>
+<p><strong>bytes <em>integer</em></strong>:文件大小（以字节为单位）。</p>
+<p><strong>created_at <em>integer</em></strong>:创建文件时的 Unix 时间戳（以秒为单位）。</p>
+<p><strong>expires_at <em>integer</em></strong>:文件过期的 Unix 时间戳（以秒为单位）。</p>
+<p><strong>filename <em>string</em></strong>:文件名。</p>
+<p><strong>object <em>string</em></strong>:对象类型，始终为file。</p>
+<p><strong>purpose <em>string</em></strong>:文件的预期用途。支持的值包括assistants, assistants_output, batch, batch_output, fine-tune, fine-tune-results和 vision.</p>
+
+
+<h2 class="relative group">实际尝试 
+    <div id="%E5%AE%9E%E9%99%85%E5%B0%9D%E8%AF%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E9%99%85%E5%B0%9D%E8%AF%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
           
           
           
@@ -1455,7 +1524,7 @@
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="http://localhost:1313/"
+  data-url="http://localhost:61128/"
   style="z-index:500"
 >
   <div
