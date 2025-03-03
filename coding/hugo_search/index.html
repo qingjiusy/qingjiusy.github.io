@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
-  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=61128&amp;path=livereload" data-no-instant defer></script>
+  data-auto-appearance="true"><head>
   <meta charset="utf-8" />
   
   <meta http-equiv="content-language" content="zh-cn" />
@@ -15,7 +15,7 @@
   <meta name="keywords" content="hugo部署, " />
   
   
-  <link rel="canonical" href="http://localhost:61128/coding/hugo_search/" />
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/hugo_search/" />
   
   
   
@@ -67,7 +67,7 @@
   
   
   
-  <meta property="og:url" content="http://localhost:61128/coding/hugo_search/">
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/hugo_search/">
   <meta property="og:site_name" content="QingJiu">
   <meta property="og:title" content="Blowfish部署后搜索功能失效的解决办法">
   <meta property="og:description" content="blog">
@@ -77,11 +77,11 @@
     <meta property="article:published_time" content="2025-02-22T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-02-22T00:00:00+00:00">
     <meta property="article:tag" content="Hugo部署">
-    <meta property="og:image" content="http://localhost:61128/coding/hugo_search/featured.png">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/hugo_search/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:61128/coding/hugo_search/featured.png">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/hugo_search/featured.png">
   <meta name="twitter:title" content="Blowfish部署后搜索功能失效的解决办法">
   <meta name="twitter:description" content="blog">
 
@@ -96,7 +96,7 @@
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
-    "url" : "http:\/\/localhost:61128\/coding\/hugo_search\/",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/hugo_search\/",
     "author" : {
       "@type": "Person",
       "name": "清酒"
@@ -110,7 +110,7 @@
     "keywords": ["hugo部署"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "920"
+    "wordCount": "916"
   }]
   </script>
 
@@ -591,7 +591,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>920 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>916 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
   
 
   
@@ -887,7 +887,7 @@
 <p>真的挺邪门的bug，自己google半天没找到最后去找blowfish项目里的issues找到的，因为自己以前也用过mac提交，所以当时看到<a href="https://github.com/nunocoracao/blowfish/issues/964" target="_blank">这个issue</a>估计就是这个bug了。</p>
 <p>首先解释一下问题的根本原因：</p>
 <p>哈希值是基于本地文件内容计算的，而在windows中提交时，有可能会自动更改文件的换行符，导致 HTML 文件中原本的哈希值与 GitHub 上的文件哈希值不匹配，从而引发了完整性校验失败的问题。</p>
-<p>而bug中提到的**SRI（Subresource Integrity）**机制是一种安全机制，用于防止网页加载被篡改的外部资源（如 JavaScript 或 CSS 文件）。</p>
+<p>而bug中提到的<strong>SRI</strong>（Subresource Integrity）机制是一种安全机制，用于防止网页加载被篡改的外部资源（如 JavaScript 或 CSS 文件）。</p>
 <p>它的原理是计算资源（JS/CSS）的哈希值，并将其添加到 HTML 的 integrity 属性中，浏览器在加载资源时，先计算文件的哈希值，然后与 integrity 指定的哈希值对比。如果两者不匹配（资源被篡改或换行符导致哈希变化），浏览器会阻止加载该资源，防止恶意代码执行。</p>
 <p>因此问题已经很显然了，就是因为git提交的时候自动更改文件的换行符导致的，所以我们需要在windows终端中运行：</p>
 <pre tabindex="0"><code>git config --global core.autocrlf false
@@ -984,7 +984,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1123 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span>
+  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1230 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span>
   
 
   
@@ -1232,6 +1232,28 @@
         </span>
         <span>
           
+            <a class="flex text-right group ml-3" href="/coding/dify_form_email/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >利用Dify实现将问卷转变为google form和邮件发送</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-03-01T00:00:00&#43;00:00">1 March 2025</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
         </span>
       </div>
     </div>
@@ -1315,7 +1337,7 @@
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="http://localhost:61128/"
+  data-url="https://qingjiusy.github.io/"
   style="z-index:500"
 >
   <div
