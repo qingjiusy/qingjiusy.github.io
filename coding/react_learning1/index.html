@@ -111,7 +111,7 @@
     "keywords": ["react","前端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "590"
+    "wordCount": "2490"
   }]
   </script>
 
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-03T00:00:00&#43;00:00">3 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>590 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  <time datetime="2025-03-03T00:00:00&#43;00:00">3 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2490 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
   
 
   
@@ -744,6 +744,22 @@
       <ul>
         <li><a href="#受控表单绑定">受控表单绑定</a></li>
         <li><a href="#react中获取dom">React中获取DOM</a></li>
+        <li><a href="#组件通信">组件通信</a>
+          <ul>
+            <li><a href="#父传子">父传子</a></li>
+            <li><a href="#子传父">子传父</a></li>
+            <li><a href="#兄弟组件通信">兄弟组件通信</a></li>
+            <li><a href="#跨层级组件通信">跨层级组件通信</a></li>
+          </ul>
+        </li>
+        <li><a href="#useeffect的概念理解">useEffect的概念理解</a>
+          <ul>
+            <li><a href="#useeffect的依赖项参数情况">useEffect的依赖项参数情况</a></li>
+            <li><a href="#useeffect-清除副作用">useEffect 清除副作用</a></li>
+          </ul>
+        </li>
+        <li><a href="#自定义hook函数">自定义hook函数</a></li>
+        <li><a href="#reacthooks使用规则">ReactHooks使用规则</a></li>
       </ul>
     </li>
   </ul>
@@ -765,6 +781,22 @@
       <ul>
         <li><a href="#受控表单绑定">受控表单绑定</a></li>
         <li><a href="#react中获取dom">React中获取DOM</a></li>
+        <li><a href="#组件通信">组件通信</a>
+          <ul>
+            <li><a href="#父传子">父传子</a></li>
+            <li><a href="#子传父">子传父</a></li>
+            <li><a href="#兄弟组件通信">兄弟组件通信</a></li>
+            <li><a href="#跨层级组件通信">跨层级组件通信</a></li>
+          </ul>
+        </li>
+        <li><a href="#useeffect的概念理解">useEffect的概念理解</a>
+          <ul>
+            <li><a href="#useeffect的依赖项参数情况">useEffect的依赖项参数情况</a></li>
+            <li><a href="#useeffect-清除副作用">useEffect 清除副作用</a></li>
+          </ul>
+        </li>
+        <li><a href="#自定义hook函数">自定义hook函数</a></li>
+        <li><a href="#reacthooks使用规则">ReactHooks使用规则</a></li>
       </ul>
     </li>
   </ul>
@@ -881,6 +913,51 @@
 <p><strong>点击最新，评论列表按时间排序；点击最热，评论列表按点赞排序</strong>： 把评论列表状态数据进行不同的排序处理，当成新值传给set函数重新渲染视图UI（<em>可以后端来完成</em>）</p>
 <p><strong>在评论框中发布评论</strong>：分成两步完成，先<strong>获取评论内容</strong>，然后<strong>点击发布按钮发布评论</strong>。这里获取内容就用到了受控表单绑定</p>
 <p><strong>新增评论中的id处理和时间处理</strong>：主要涉及到两个字段，rpid和ctime, 可以简单用两个插件，uuid和dayjs来快速实现</p>
+<p><strong>评论发布以后，评论框中清空内容并重新聚焦</strong>：两个步骤，首先<strong>清空内容</strong>，也就是把控制input框的value状态设置为空串。然后要<strong>重新聚焦</strong>，也就是拿到input的dom元素，调用focus方法</p>
+<p><code>聚焦</code>：通常指的是使某个 <code>HTML</code> 元素（例如 <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 或 <code>button</code>）获得焦点（<code>focus</code>），即成为当前用户可以输入或操作的元素。这通常用于提升用户体验，例如：</p>
+<ul>
+<li>自动聚焦（Auto Focus）：页面加载时，自动让某个输入框获得焦点，便于用户输入。</li>
+<li>手动聚焦（Manual Focus）：用户点击按钮或触发某个事件时，让指定的元素获得焦点。</li>
+<li>表单验证：当用户提交表单时，如果某些字段不符合要求，可以让它们获得焦点以提示用户。</li>
+</ul>
+<p><strong>通过API获取评论列表</strong>:</p>
+<ol>
+<li>使用<code>json-server</code>工具模拟接口服务，通过<code>axios</code>发送接口请求</li>
+</ol>
+<blockquote>
+<p>json-server是一个快速以.json文件作为数据源模拟接口服务的工具</p>
+<p>axios是一个广泛使用的前端请求库</p>
+</blockquote>
+<ol start="2">
+<li>使用<code>useEffect</code>调用接口获取数据</li>
+</ol>
+<p><strong>封装数据请求</strong>:
+可以使用<em>自定义Hook函数</em>来实现，一般思路：</p>
+<ol>
+<li>编写一个use打头的函数</li>
+<li>函数内部编写封装的逻辑</li>
+<li>return出去组件中用到的状态和方法</li>
+<li>组件中调用函数解构赋值使用</li>
+</ol>
+<p><strong>封装评论项ltem组件</strong>
+想要实现这样的组件结构：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning1/item_hu5596784280233639682.png 330w,
+        /coding/react_learning1/item_hu4735514369907649786.png 660w,
+        /coding/react_learning1/item_hu17701653440920600684.png 1024w,
+        /coding/react_learning1/item_hu11885351331892533380.png 2x"
+        src="/coding/react_learning1/item_hu4735514369907649786.png"
+        alt="item"
+      />
+      
+    </figure>
+</p>
+<p>这样遵循了一个抽象原则：<code>App作为“智能组件”负责数据的获取，ltem作为“UI组件”负责数据的渲染</code></p>
 
 
 <h2 class="relative group">react中的重要概念 
@@ -955,6 +1032,283 @@
 </ol>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">inputRef</span><span class="p">.</span><span class="nx">current</span><span class="p">);</span>
 </span></span></code></pre></div>
+
+<h3 class="relative group">组件通信 
+    <div id="%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><strong>概念</strong>：组件通信就是组件之间的数据传递，根据组件嵌套关系的不同，有不同的通信方法。有<code>父子通信</code>，<code>兄弟通信</code>，<code>跨层通信</code>。</p>
+
+
+<h4 class="relative group">父传子 
+    <div id="%E7%88%B6%E4%BC%A0%E5%AD%90" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%88%B6%E4%BC%A0%E5%AD%90" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>父传子</strong>：把父组件中的数据传给子组件来用</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning1/father_son_hu11029310892031448171.png 330w,
+        /coding/react_learning1/father_son_hu7779112143558816976.png 660w,
+        /coding/react_learning1/father_son_hu5078786298918080011.png 1024w,
+        /coding/react_learning1/father_son_hu8720827267777198481.png 2x"
+        src="/coding/react_learning1/father_son_hu7779112143558816976.png"
+        alt="father son"
+      />
+      
+    </figure>
+</p>
+<p><strong>实现步骤</strong></p>
+<ol>
+<li>父组件传递数据-在子组件标签上绑定属性</li>
+<li>子组件接收数据-子组件通过<code>props</code>参数接收数据(<code>props</code>是一个对象，包含着父组件传递过来的所有的数据)</li>
+</ol>
+<p>有关于<code>props</code>：</p>
+<ul>
+<li><code>props</code>可传递任意的数据
+数字、字符串、布尔值、数组、对象、函数、JSX</li>
+<li><code>props</code>是只读对象
+子组件只能读取<code>props</code>中的数据，不能直接进行修改，父组件的数据只能由父组件修改</li>
+</ul>
+<p>特殊的<code>prop children</code></p>
+<p>场景：当我们把内容嵌套在子组件标签中时，父组件会自动在名为<code>children</code>的<code>prop</code>属性中接收该内容</p>
+
+
+<h4 class="relative group">子传父 
+    <div id="%E5%AD%90%E4%BC%A0%E7%88%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%90%E4%BC%A0%E7%88%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>核心思路</strong>：在子组件中调用父组件中的函数并传递参数</p>
+<p>把父组件中的函数传入到子组件后，子组件在某些事件中调用这个函数并传入参数，这样子传父就能实现</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning1/son_father_hu4858046990288204781.png 330w,
+        /coding/react_learning1/son_father_hu17547762376783728236.png 660w,
+        /coding/react_learning1/son_father_hu13700018926174918430.png 1024w,
+        /coding/react_learning1/son_father_hu11566568959258169652.png 2x"
+        src="/coding/react_learning1/son_father_hu17547762376783728236.png"
+        alt="son father"
+      />
+      
+    </figure>
+</p>
+
+
+<h4 class="relative group">兄弟组件通信 
+    <div id="%E5%85%84%E5%BC%9F%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%85%84%E5%BC%9F%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>实现思路：借助<strong>状态提升</strong>机制，通过父组件进行兄弟组件之间的数据传递</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning1/brother_hu6475159515700007884.png 330w,
+        /coding/react_learning1/brother_hu4932198660168935754.png 660w,
+        /coding/react_learning1/brother_hu369632772182823518.png 1024w,
+        /coding/react_learning1/brother_hu9120454113329582539.png 2x"
+        src="/coding/react_learning1/brother_hu4932198660168935754.png"
+        alt="brother"
+      />
+      
+    </figure>
+</p>
+
+
+<h4 class="relative group">跨层级组件通信 
+    <div id="%E8%B7%A8%E5%B1%82%E7%BA%A7%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%B7%A8%E5%B1%82%E7%BA%A7%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>使用<code>context</code>机制来实现！</p>
+<p><strong>实现步骤</strong>：</p>
+<ol>
+<li>使用<code>createContext</code>方法创建一个上下文对象Ctx</li>
+<li>在顶层组件（App）中通过<code>Ctx.Provider</code>组件提供数据</li>
+<li>在底层组件（B）中通过<code>useContext</code>钩子函数获取消费数据</li>
+</ol>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning1/overlayer_hu5522393925418798568.png 330w,
+        /coding/react_learning1/overlayer_hu10882561290976567793.png 660w,
+        /coding/react_learning1/overlayer_hu6640527383096051045.png 1024w,
+        /coding/react_learning1/overlayer_hu518789033989725865.png 2x"
+        src="/coding/react_learning1/overlayer_hu10882561290976567793.png"
+        alt="overlayer"
+      />
+      
+    </figure>
+</p>
+
+
+<h3 class="relative group">useEffect的概念理解 
+    <div id="useeffect%E7%9A%84%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#useeffect%E7%9A%84%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>useEffect是一个React Hook函数，用于在React组件中创建<strong>不是由事件引起</strong>而是<strong>由渲染本身引起</strong>的操作，比如发送AJAX请求，更改DOM等等。最常见的就是发送网络请求引起的渲染。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning1/useeffect_hu6771154689093468196.png 330w,
+        /coding/react_learning1/useeffect_hu10647145183148237869.png 660w,
+        /coding/react_learning1/useeffect_hu18246715092040618309.png 1024w,
+        /coding/react_learning1/useeffect_hu2762627799678763544.png 2x"
+        src="/coding/react_learning1/useeffect_hu10647145183148237869.png"
+        alt="useeffect的概念理解"
+      />
+      
+    </figure>
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{},</span> <span class="p">[]);</span>
+</span></span></code></pre></div><p>参数1是一个函数，可以把它叫做副作用函数，在函数内部可以放置要执行的操作参数。</p>
+<p>2是一个数组（可选参），在数组里放置依赖项，不同依赖项会影响第一个参数函数的执行，<code>当是一个空数组的时候，副作用函数只会在组件渲染完毕之后执行一次</code>。</p>
+
+
+<h4 class="relative group">useEffect的依赖项参数情况 
+    <div id="useeffect%E7%9A%84%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%8F%82%E6%95%B0%E6%83%85%E5%86%B5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#useeffect%E7%9A%84%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%8F%82%E6%95%B0%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>useEffect副作用函数的执行时机存在多种情况，根据传入依赖项的不同，会有不同的执行表现。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning1/useeffect1_hu10573041372016226326.png 330w,
+        /coding/react_learning1/useeffect1_hu14142772721692637719.png 660w,
+        /coding/react_learning1/useeffect1_hu10929375311722514917.png 1024w,
+        /coding/react_learning1/useeffect1_hu15227041506724689513.png 2x"
+        src="/coding/react_learning1/useeffect1_hu14142772721692637719.png"
+        alt="useeffect的依赖项参数情况"
+      />
+      
+    </figure>
+</p>
+
+
+<h4 class="relative group">useEffect 清除副作用 
+    <div id="useeffect-%E6%B8%85%E9%99%A4%E5%89%AF%E4%BD%9C%E7%94%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#useeffect-%E6%B8%85%E9%99%A4%E5%89%AF%E4%BD%9C%E7%94%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>在useEffect中编写的<code>由渲染本身引起的对接组件外部的操作</code>，社区也经常把它叫做<code>副作用操作</code>。</p>
+<p><strong>什么是副作用？</strong></p>
+<p>在 React 组件中，useEffect允许我们<code>执行与组件渲染无关的外部操作</code>，例如：</p>
+<ul>
+<li>订阅 WebSocket</li>
+<li>设置 setTimeout 或 setInterval</li>
+<li>监听浏览器事件（如 window.addEventListener）</li>
+</ul>
+<p>这些操作在组件渲染后执行，但如果不加清除机制，可能会导致内存泄漏或重复执行的问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 实现副作用操作逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 返回一个清理函数，组件卸载时执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 清除副作用逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">[]);</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">自定义hook函数 
+    <div id="%E8%87%AA%E5%AE%9A%E4%B9%89hook%E5%87%BD%E6%95%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%87%AA%E5%AE%9A%E4%B9%89hook%E5%87%BD%E6%95%B0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>自定义Hook是以<code>use打头的函数</code>，通过自定义Hook函数可以用来实现<code>逻辑的封装和复用</code>。</p>
+<p>封装自定义hook通用思路:</p>
+<ol>
+<li>声明一个以use打头的函数</li>
+<li>在函数体内封装可复用的逻辑（只要是可复用的逻辑）</li>
+<li>把组件中用到的状态或者回调return出去(以对象或者数组)</li>
+<li>在哪个组件中要用到这个逻辑，就执行这个函数，解构出来状态和回调进行使用|</li>
+</ol>
+
+
+<h3 class="relative group">ReactHooks使用规则 
+    <div id="reacthooks%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#reacthooks%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>使用规则:</p>
+<ol>
+<li>只能在组件中或者其他自定义Hook函数中调用</li>
+<li>只能在组件的顶层调用，不能嵌套在if、for、其他函数中</li>
+</ol>
+
           
           
           
