@@ -8,14 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>React自学 &middot; QingJiu</title>
-  <meta name="title" content="React自学 &middot; QingJiu" />
+  <title>React-Redux &middot; QingJiu</title>
+  <meta name="title" content="React-Redux &middot; QingJiu" />
   
   <meta name="description" content="blog" />
   <meta name="keywords" content="react, 前端, " />
   
   
-  <link rel="canonical" href="https://qingjiusy.github.io/coding/react_learning1/" />
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/react_learning2/" />
   
   
   
@@ -67,23 +67,23 @@
   
   
   
-  <meta property="og:url" content="https://qingjiusy.github.io/coding/react_learning1/">
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/react_learning2/">
   <meta property="og:site_name" content="QingJiu">
-  <meta property="og:title" content="React自学">
+  <meta property="og:title" content="React-Redux">
   <meta property="og:description" content="blog">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="coding">
-    <meta property="article:published_time" content="2025-03-03T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-03-03T00:00:00+00:00">
+    <meta property="article:published_time" content="2025-03-04T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-04T00:00:00+00:00">
     <meta property="article:tag" content="React">
     <meta property="article:tag" content="前端">
-    <meta property="og:image" content="https://qingjiusy.github.io/coding/react_learning1/featured.png">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/react_learning2/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/react_learning1/featured.png">
-  <meta name="twitter:title" content="React自学">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/react_learning2/featured.png">
+  <meta name="twitter:title" content="React-Redux">
   <meta name="twitter:description" content="blog">
 
   
@@ -92,26 +92,26 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Codings",
-    "name": "React自学",
-    "headline": "React自学",
+    "name": "React-Redux",
+    "headline": "React-Redux",
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/qingjiusy.github.io\/coding\/react_learning1\/",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/react_learning2\/",
     "author" : {
       "@type": "Person",
       "name": "清酒"
     },
     "copyrightYear": "2025",
-    "dateCreated": "2025-03-03T00:00:00\u002b00:00",
-    "datePublished": "2025-03-03T00:00:00\u002b00:00",
+    "dateCreated": "2025-03-04T00:00:00\u002b00:00",
+    "datePublished": "2025-03-04T00:00:00\u002b00:00",
     
-    "dateModified": "2025-03-03T00:00:00\u002b00:00",
+    "dateModified": "2025-03-04T00:00:00\u002b00:00",
     
     "keywords": ["react","前端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2490"
+    "wordCount": "1832"
   }]
   </script>
 
@@ -521,7 +521,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/react_learning1/featured_hu8366541847752758120.png);">
+    style="background-image:url(/coding/react_learning2/featured_hu8366541847752758120.png);">
     
 
 
@@ -547,7 +547,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      React自学
+      React-Redux
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-03T00:00:00&#43;00:00">3 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2490 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  <time datetime="2025-03-04T00:00:00&#43;00:00">4 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1832 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
   
 
   
@@ -738,30 +738,25 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#便捷trick">便捷trick</a></li>
-    <li><a href="#常用逻辑">常用逻辑</a></li>
-    <li><a href="#react中的重要概念">react中的重要概念</a>
+    <li><a href="#什么是redux">什么是Redux?</a></li>
+    <li><a href="#redux-核心概念">Redux 核心概念</a>
       <ul>
-        <li><a href="#受控表单绑定">受控表单绑定</a></li>
-        <li><a href="#react中获取dom">React中获取DOM</a></li>
-        <li><a href="#组件通信">组件通信</a>
-          <ul>
-            <li><a href="#父传子">父传子</a></li>
-            <li><a href="#子传父">子传父</a></li>
-            <li><a href="#兄弟组件通信">兄弟组件通信</a></li>
-            <li><a href="#跨层级组件通信">跨层级组件通信</a></li>
-          </ul>
-        </li>
-        <li><a href="#useeffect的概念理解">useEffect的概念理解</a>
-          <ul>
-            <li><a href="#useeffect的依赖项参数情况">useEffect的依赖项参数情况</a></li>
-            <li><a href="#useeffect-清除副作用">useEffect 清除副作用</a></li>
-          </ul>
-        </li>
-        <li><a href="#自定义hook函数">自定义hook函数</a></li>
-        <li><a href="#reacthooks使用规则">ReactHooks使用规则</a></li>
+        <li><a href="#store存储">Store（存储）</a></li>
+        <li><a href="#action动作">Action（动作）</a></li>
+        <li><a href="#reducer状态更新器">Reducer（状态更新器）</a></li>
+        <li><a href="#dispatch分发">Dispatch（分发）</a></li>
+        <li><a href="#subscribe订阅">Subscribe（订阅）</a></li>
+        <li><a href="#getstate获取状态">getState（获取状态）</a></li>
       </ul>
     </li>
+    <li><a href="#创建一个react-redux的开发环境">创建一个react-redux的开发环境</a>
+      <ul>
+        <li><a href="#提交action传参">提交action传参</a></li>
+        <li><a href="#redux与react的异步状态操作">redux与react的异步状态操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#redux调试">redux调试</a></li>
+    <li><a href="#其他">其他</a></li>
   </ul>
 </nav>
   </div>
@@ -775,30 +770,25 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#便捷trick">便捷trick</a></li>
-    <li><a href="#常用逻辑">常用逻辑</a></li>
-    <li><a href="#react中的重要概念">react中的重要概念</a>
+    <li><a href="#什么是redux">什么是Redux?</a></li>
+    <li><a href="#redux-核心概念">Redux 核心概念</a>
       <ul>
-        <li><a href="#受控表单绑定">受控表单绑定</a></li>
-        <li><a href="#react中获取dom">React中获取DOM</a></li>
-        <li><a href="#组件通信">组件通信</a>
-          <ul>
-            <li><a href="#父传子">父传子</a></li>
-            <li><a href="#子传父">子传父</a></li>
-            <li><a href="#兄弟组件通信">兄弟组件通信</a></li>
-            <li><a href="#跨层级组件通信">跨层级组件通信</a></li>
-          </ul>
-        </li>
-        <li><a href="#useeffect的概念理解">useEffect的概念理解</a>
-          <ul>
-            <li><a href="#useeffect的依赖项参数情况">useEffect的依赖项参数情况</a></li>
-            <li><a href="#useeffect-清除副作用">useEffect 清除副作用</a></li>
-          </ul>
-        </li>
-        <li><a href="#自定义hook函数">自定义hook函数</a></li>
-        <li><a href="#reacthooks使用规则">ReactHooks使用规则</a></li>
+        <li><a href="#store存储">Store（存储）</a></li>
+        <li><a href="#action动作">Action（动作）</a></li>
+        <li><a href="#reducer状态更新器">Reducer（状态更新器）</a></li>
+        <li><a href="#dispatch分发">Dispatch（分发）</a></li>
+        <li><a href="#subscribe订阅">Subscribe（订阅）</a></li>
+        <li><a href="#getstate获取状态">getState（获取状态）</a></li>
       </ul>
     </li>
+    <li><a href="#创建一个react-redux的开发环境">创建一个react-redux的开发环境</a>
+      <ul>
+        <li><a href="#提交action传参">提交action传参</a></li>
+        <li><a href="#redux与react的异步状态操作">redux与react的异步状态操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#redux调试">redux调试</a></li>
+    <li><a href="#其他">其他</a></li>
   </ul>
 </nav>
   </div>
@@ -882,432 +872,338 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>开始学习react，写个blog当备忘录好了（</p>
+          <p>开始学习redux部分</p>
 
 
-<h2 class="relative group">便捷trick 
-    <div id="%E4%BE%BF%E6%8D%B7trick" class="anchor"></div>
+<h2 class="relative group">什么是Redux? 
+    <div id="%E4%BB%80%E4%B9%88%E6%98%AFredux" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BE%BF%E6%8D%B7trick" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BB%80%E4%B9%88%E6%98%AFredux" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>vscode快速打出箭头函数只需要<code>an + Tab</code></p>
-
-
-<h2 class="relative group">常用逻辑 
-    <div id="%E5%B8%B8%E7%94%A8%E9%80%BB%E8%BE%91" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%B8%B8%E7%94%A8%E9%80%BB%E8%BE%91" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p><strong>删除功能思路</strong>：拿到当前项id以id为条件对评论列表做filter过滤</p>
-<p><strong>点击高亮思路</strong>：点击谁就把谁的<code>type（独一无二的标识：比如id，index）给记录</code>下来，然后和遍历时的<code>每一项的type做匹配</code>，谁匹配到就设置负责高亮的类名</p>
-<p><strong>点击最新，评论列表按时间排序；点击最热，评论列表按点赞排序</strong>： 把评论列表状态数据进行不同的排序处理，当成新值传给set函数重新渲染视图UI（<em>可以后端来完成</em>）</p>
-<p><strong>在评论框中发布评论</strong>：分成两步完成，先<strong>获取评论内容</strong>，然后<strong>点击发布按钮发布评论</strong>。这里获取内容就用到了受控表单绑定</p>
-<p><strong>新增评论中的id处理和时间处理</strong>：主要涉及到两个字段，rpid和ctime, 可以简单用两个插件，uuid和dayjs来快速实现</p>
-<p><strong>评论发布以后，评论框中清空内容并重新聚焦</strong>：两个步骤，首先<strong>清空内容</strong>，也就是把控制input框的value状态设置为空串。然后要<strong>重新聚焦</strong>，也就是拿到input的dom元素，调用focus方法</p>
-<p><code>聚焦</code>：通常指的是使某个 <code>HTML</code> 元素（例如 <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 或 <code>button</code>）获得焦点（<code>focus</code>），即成为当前用户可以输入或操作的元素。这通常用于提升用户体验，例如：</p>
-<ul>
-<li>自动聚焦（Auto Focus）：页面加载时，自动让某个输入框获得焦点，便于用户输入。</li>
-<li>手动聚焦（Manual Focus）：用户点击按钮或触发某个事件时，让指定的元素获得焦点。</li>
-<li>表单验证：当用户提交表单时，如果某些字段不符合要求，可以让它们获得焦点以提示用户。</li>
-</ul>
-<p><strong>通过API获取评论列表</strong>:</p>
-<ol>
-<li>使用<code>json-server</code>工具模拟接口服务，通过<code>axios</code>发送接口请求</li>
-</ol>
-<blockquote>
-<p>json-server是一个快速以.json文件作为数据源模拟接口服务的工具</p>
-<p>axios是一个广泛使用的前端请求库</p>
-</blockquote>
-<ol start="2">
-<li>使用<code>useEffect</code>调用接口获取数据</li>
-</ol>
-<p><strong>封装数据请求</strong>:
-可以使用<em>自定义Hook函数</em>来实现，一般思路：</p>
-<ol>
-<li>编写一个use打头的函数</li>
-<li>函数内部编写封装的逻辑</li>
-<li>return出去组件中用到的状态和方法</li>
-<li>组件中调用函数解构赋值使用</li>
-</ol>
-<p><strong>封装评论项ltem组件</strong>
-想要实现这样的组件结构：</p>
+<p><code>Redux</code>是React最常用的集中状态管理工具，类似于Vue中的Pinia（Vuex），<strong>可以独立于框架运行</strong></p>
+<p><strong>作用</strong>：通过集中管理的方式管理应用的状态</p>
 <p>
     <figure>
       <img
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/react_learning1/item_hu5596784280233639682.png 330w,
-        /coding/react_learning1/item_hu4735514369907649786.png 660w,
-        /coding/react_learning1/item_hu17701653440920600684.png 1024w,
-        /coding/react_learning1/item_hu11885351331892533380.png 2x"
-        src="/coding/react_learning1/item_hu4735514369907649786.png"
-        alt="item"
+        /coding/react_learning2/redux_hu16033804203594026447.png 330w,
+        /coding/react_learning2/redux_hu4293508462821641998.png 660w,
+        /coding/react_learning2/redux_hu6778585004207033856.png 1024w,
+        /coding/react_learning2/redux_hu18054790510996452758.png 2x"
+        src="/coding/react_learning2/redux_hu4293508462821641998.png"
+        alt="redux"
       />
       
     </figure>
 </p>
-<p>这样遵循了一个抽象原则：<code>App作为“智能组件”负责数据的获取，ltem作为“UI组件”负责数据的渲染</code></p>
+<p>为了职责清晰，数据流向明确，Redux把整个数据修改的流程分成了三个核心概念，分别是：<code>state</code>、<code>action</code>和<code>reducer</code></p>
+<ol>
+<li><code>state</code>-一个对象存放着我们管理的数据状态</li>
+<li><code>action</code>-一个对象用来描述你想怎么改数据</li>
+<li><code>reducer</code>-一个函数更具action的描述生成一个新的state</li>
+</ol>
 
 
-<h2 class="relative group">react中的重要概念 
-    <div id="react%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5" class="anchor"></div>
+<h2 class="relative group">Redux 核心概念 
+    <div id="redux-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#react%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#redux-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5" aria-label="锚点">#</a>
     </span>        
     
 </h2>
 
 
-<h3 class="relative group">受控表单绑定 
-    <div id="%E5%8F%97%E6%8E%A7%E8%A1%A8%E5%8D%95%E7%BB%91%E5%AE%9A" class="anchor"></div>
+<h3 class="relative group">Store（存储） 
+    <div id="store%E5%AD%98%E5%82%A8" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%8F%97%E6%8E%A7%E8%A1%A8%E5%8D%95%E7%BB%91%E5%AE%9A" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#store%E5%AD%98%E5%82%A8" aria-label="锚点">#</a>
     </span>        
     
 </h3>
-<p><strong>概念</strong>：使用React组件的状态（useState）控制表单的状态</p>
+<ul>
+<li>Redux 的 <strong>中央存储</strong>，存放整个应用的状态（state）。</li>
+<li>通过 <code>createStore()</code> 创建。</li>
+</ul>
+
+
+<h3 class="relative group">Action（动作） 
+    <div id="action%E5%8A%A8%E4%BD%9C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#action%E5%8A%A8%E4%BD%9C" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li>一个普通的 JavaScript 对象，<strong>描述</strong> 需要进行的状态变更。</li>
+<li>必须包含 <code>type</code> 字段，表示变更的类型，可以包含 <code>payload</code> 传递额外数据。</li>
+</ul>
+
+
+<h3 class="relative group">Reducer（状态更新器） 
+    <div id="reducer%E7%8A%B6%E6%80%81%E6%9B%B4%E6%96%B0%E5%99%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#reducer%E7%8A%B6%E6%80%81%E6%9B%B4%E6%96%B0%E5%99%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li><strong>纯函数</strong>，根据 <code>action</code> 的 <code>type</code> 计算新的 <code>state</code>，并返回 <strong>新的状态</strong>（不会修改原来的状态）。</li>
+<li>由 Redux 自动调用，决定如何更新 <code>state</code>。</li>
+</ul>
+
+
+<h3 class="relative group">Dispatch（分发） 
+    <div id="dispatch%E5%88%86%E5%8F%91" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#dispatch%E5%88%86%E5%8F%91" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li>触发 <code>action</code> 的方法，通知 <code>reducer</code> 进行状态更新。</li>
+<li>使用 <code>store.dispatch(action)</code> 来提交 <code>action</code>。</li>
+</ul>
+
+
+<h3 class="relative group">Subscribe（订阅） 
+    <div id="subscribe%E8%AE%A2%E9%98%85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#subscribe%E8%AE%A2%E9%98%85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li>监听 <code>store</code> 状态的变化，数据更新时触发回调。</li>
+<li>使用 <code>store.subscribe(listener)</code> 来订阅状态变化。</li>
+</ul>
+
+
+<h3 class="relative group">getState（获取状态） 
+    <div id="getstate%E8%8E%B7%E5%8F%96%E7%8A%B6%E6%80%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#getstate%E8%8E%B7%E5%8F%96%E7%8A%B6%E6%80%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li>通过 <code>store.getState()</code> 获取当前 <code>store</code> 的最新 <code>state</code>。</li>
+</ul>
+
+
+<h2 class="relative group">创建一个react-redux的开发环境 
+    <div id="%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAreact-redux%E7%9A%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAreact-redux%E7%9A%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<pre tabindex="0"><code>npx create-react-app XXX
+npm i @reduxjs/toolkit react-redux
+npm run start
+</code></pre><p>这样就创建了一个初始项目，并且要注意项目中常常会有一个<code>store</code>目录的结构设计，一般是这样：</p>
+<p>![store]{store.png}</p>
+<ol>
+<li>通常集中状态管理的部分都会单独创建一个单独的<code>store</code>目录</li>
+<li>应用通常会有很多个子store模块，所以创建一个<code>modules</code>目录，在内部编写业务分类的子store</li>
+<li>store中的入口文件<code>index.js</code>的作用是组合modules中所有的子模块，并导出store</li>
+</ol>
+<p>基本架构如下：</p>
 <p>
     <figure>
       <img
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/react_learning1/usestate_hu13007870481035622057.png 330w,
-        /coding/react_learning1/usestate_hu8886380931420961795.png 660w,
-        /coding/react_learning1/usestate_hu6169899695326767112.png 1024w,
-        /coding/react_learning1/usestate_hu8352380136101913674.png 2x"
-        src="/coding/react_learning1/usestate_hu8886380931420961795.png"
-        alt="usestate"
+        /coding/react_learning2/react-redux_hu4961791552817759372.png 330w,
+        /coding/react_learning2/react-redux_hu17111076992976798833.png 660w,
+        /coding/react_learning2/react-redux_hu6687168364264590335.png 1024w,
+        /coding/react_learning2/react-redux_hu9245051728222631673.png 2x"
+        src="/coding/react_learning2/react-redux_hu17111076992976798833.png"
+        alt="react-redux"
       />
       
     </figure>
 </p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="c1">//准备一个React状态值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="p">[</span><span class="nx">value</span><span class="p">,</span> <span class="nx">setValue</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//通过value属性绑定状态，通过onChange属性绑定状态同步的函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">&lt;</span><span class="nt">input</span>
-</span></span><span class="line"><span class="cl">  <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="na">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">setValue</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
-</span></span><span class="line"><span class="cl"><span class="p">/&gt;</span>
+<p>基本流程：</p>
+<ol>
+<li>在store中搭建redux</li>
+<li>为react注入store, react-redux负责把Redux和React链接起来，内置<code>Provider</code>组件通过store参数把创建好的store实例注入到应用中，链接正式建立</li>
+<li>react组件使用store中的数据。在react组件中使用store中的数据，需要用到一个钩子函数<code>-useSelector</code>，它的作用是把store中的数据映射到组件中，使用样例如下：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">count</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useSelector</span><span class="p">(</span><span class="nx">state</span> <span class="p">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span><span class="p">);</span>
+</span></span></code></pre></div><ol start="4">
+<li>react组件修改store中的数据。react组件中修改store中的数据需要借助另外一个hook函数<code>-useDispatch</code>，它的作用是生成提交action对象的dispatch函数，使用祥例如下：</li>
+</ol>
+
+
+<h3 class="relative group">提交action传参 
+    <div id="%E6%8F%90%E4%BA%A4action%E4%BC%A0%E5%8F%82" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8F%90%E4%BA%A4action%E4%BC%A0%E5%8F%82" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在reducers的同步修改方法中<strong>添加action对象参数</strong>，在<strong>调用actionCreater的时候传递参数</strong>，参数会被传递到<strong>action对象payload属性</strong>上</p>
+<p>比如在store中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="nx">addToNum</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span></code></pre></div>
 
-<h3 class="relative group">React中获取DOM 
-    <div id="react%E4%B8%AD%E8%8E%B7%E5%8F%96dom" class="anchor"></div>
+<h3 class="relative group">redux与react的异步状态操作 
+    <div id="redux%E4%B8%8Ereact%E7%9A%84%E5%BC%82%E6%AD%A5%E7%8A%B6%E6%80%81%E6%93%8D%E4%BD%9C" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#react%E4%B8%AD%E8%8E%B7%E5%8F%96dom" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#redux%E4%B8%8Ereact%E7%9A%84%E5%BC%82%E6%AD%A5%E7%8A%B6%E6%80%81%E6%93%8D%E4%BD%9C" aria-label="锚点">#</a>
     </span>        
     
 </h3>
-<p>在React组件中获取/操作DOM，需要使用useRef钩子函数，分为两步：</p>
+<p>主要思路和上面还是基本一致的：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning2/react-redux-async_hu1344251123003301671.png 330w,
+        /coding/react_learning2/react-redux-async_hu1627256114045570303.png 660w,
+        /coding/react_learning2/react-redux-async_hu4571385339566816972.png 1024w,
+        /coding/react_learning2/react-redux-async_hu9225751685192726887.png 2x"
+        src="/coding/react_learning2/react-redux-async_hu1627256114045570303.png"
+        alt="react-redux-async"
+      />
+      
+    </figure>
+</p>
 <ol>
-<li>使用useRef创建ref对象，并与JSX绑定</li>
+<li>创建<code>store</code>的写法保持不变，配置好同步修改状态的方法</li>
+<li>单独封装一个函数，在函数内部<strong>return一个新函数</strong>，在新函数中:
+<ol>
+<li>封装异步请求获取数据，比如：</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">inputRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">inputRef</span><span class="p">}</span> <span class="p">/&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;https://api.example.com/data&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
 </span></span></code></pre></div><ol start="2">
-<li>在DOM可用时，访问<code>inputRef.current</code>拿到DOM对象</li>
+<li>调用同步<code>actionCreater</code>传入异步数据生成一个action对象，并使用dispatch提交</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">inputRef</span><span class="p">.</span><span class="nx">current</span><span class="p">);</span>
-</span></span></code></pre></div>
-
-<h3 class="relative group">组件通信 
-    <div id="%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" aria-label="锚点">#</a>
-    </span>        
-    
-</h3>
-<p><strong>概念</strong>：组件通信就是组件之间的数据传递，根据组件嵌套关系的不同，有不同的通信方法。有<code>父子通信</code>，<code>兄弟通信</code>，<code>跨层通信</code>。</p>
-
-
-<h4 class="relative group">父传子 
-    <div id="%E7%88%B6%E4%BC%A0%E5%AD%90" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E7%88%B6%E4%BC%A0%E5%AD%90" aria-label="锚点">#</a>
-    </span>        
-    
-</h4>
-<p><strong>父传子</strong>：把父组件中的数据传给子组件来用</p>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/react_learning1/father_son_hu11029310892031448171.png 330w,
-        /coding/react_learning1/father_son_hu7779112143558816976.png 660w,
-        /coding/react_learning1/father_son_hu5078786298918080011.png 1024w,
-        /coding/react_learning1/father_son_hu8720827267777198481.png 2x"
-        src="/coding/react_learning1/father_son_hu7779112143558816976.png"
-        alt="father son"
-      />
-      
-    </figure>
-</p>
-<p><strong>实现步骤</strong></p>
-<ol>
-<li>父组件传递数据-在子组件标签上绑定属性</li>
-<li>子组件接收数据-子组件通过<code>props</code>参数接收数据(<code>props</code>是一个对象，包含着父组件传递过来的所有的数据)</li>
-</ol>
-<p>有关于<code>props</code>：</p>
-<ul>
-<li><code>props</code>可传递任意的数据
-数字、字符串、布尔值、数组、对象、函数、JSX</li>
-<li><code>props</code>是只读对象
-子组件只能读取<code>props</code>中的数据，不能直接进行修改，父组件的数据只能由父组件修改</li>
-</ul>
-<p>特殊的<code>prop children</code></p>
-<p>场景：当我们把内容嵌套在子组件标签中时，父组件会自动在名为<code>children</code>的<code>prop</code>属性中接收该内容</p>
-
-
-<h4 class="relative group">子传父 
-    <div id="%E5%AD%90%E4%BC%A0%E7%88%B6" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%AD%90%E4%BC%A0%E7%88%B6" aria-label="锚点">#</a>
-    </span>        
-    
-</h4>
-<p><strong>核心思路</strong>：在子组件中调用父组件中的函数并传递参数</p>
-<p>把父组件中的函数传入到子组件后，子组件在某些事件中调用这个函数并传入参数，这样子传父就能实现</p>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/react_learning1/son_father_hu4858046990288204781.png 330w,
-        /coding/react_learning1/son_father_hu17547762376783728236.png 660w,
-        /coding/react_learning1/son_father_hu13700018926174918430.png 1024w,
-        /coding/react_learning1/son_father_hu11566568959258169652.png 2x"
-        src="/coding/react_learning1/son_father_hu17547762376783728236.png"
-        alt="son father"
-      />
-      
-    </figure>
-</p>
-
-
-<h4 class="relative group">兄弟组件通信 
-    <div id="%E5%85%84%E5%BC%9F%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%85%84%E5%BC%9F%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" aria-label="锚点">#</a>
-    </span>        
-    
-</h4>
-<p>实现思路：借助<strong>状态提升</strong>机制，通过父组件进行兄弟组件之间的数据传递</p>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/react_learning1/brother_hu6475159515700007884.png 330w,
-        /coding/react_learning1/brother_hu4932198660168935754.png 660w,
-        /coding/react_learning1/brother_hu369632772182823518.png 1024w,
-        /coding/react_learning1/brother_hu9120454113329582539.png 2x"
-        src="/coding/react_learning1/brother_hu4932198660168935754.png"
-        alt="brother"
-      />
-      
-    </figure>
-</p>
-
-
-<h4 class="relative group">跨层级组件通信 
-    <div id="%E8%B7%A8%E5%B1%82%E7%BA%A7%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%B7%A8%E5%B1%82%E7%BA%A7%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1" aria-label="锚点">#</a>
-    </span>        
-    
-</h4>
-<p>使用<code>context</code>机制来实现！</p>
-<p><strong>实现步骤</strong>：</p>
-<ol>
-<li>使用<code>createContext</code>方法创建一个上下文对象Ctx</li>
-<li>在顶层组件（App）中通过<code>Ctx.Provider</code>组件提供数据</li>
-<li>在底层组件（B）中通过<code>useContext</code>钩子函数获取消费数据</li>
-</ol>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/react_learning1/overlayer_hu5522393925418798568.png 330w,
-        /coding/react_learning1/overlayer_hu10882561290976567793.png 660w,
-        /coding/react_learning1/overlayer_hu6640527383096051045.png 1024w,
-        /coding/react_learning1/overlayer_hu518789033989725865.png 2x"
-        src="/coding/react_learning1/overlayer_hu10882561290976567793.png"
-        alt="overlayer"
-      />
-      
-    </figure>
-</p>
-
-
-<h3 class="relative group">useEffect的概念理解 
-    <div id="useeffect%E7%9A%84%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#useeffect%E7%9A%84%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
-    </span>        
-    
-</h3>
-<p>useEffect是一个React Hook函数，用于在React组件中创建<strong>不是由事件引起</strong>而是<strong>由渲染本身引起</strong>的操作，比如发送AJAX请求，更改DOM等等。最常见的就是发送网络请求引起的渲染。</p>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/react_learning1/useeffect_hu6771154689093468196.png 330w,
-        /coding/react_learning1/useeffect_hu10647145183148237869.png 660w,
-        /coding/react_learning1/useeffect_hu18246715092040618309.png 1024w,
-        /coding/react_learning1/useeffect_hu2762627799678763544.png 2x"
-        src="/coding/react_learning1/useeffect_hu10647145183148237869.png"
-        alt="useeffect的概念理解"
-      />
-      
-    </figure>
-</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{},</span> <span class="p">[]);</span>
-</span></span></code></pre></div><p>参数1是一个函数，可以把它叫做副作用函数，在函数内部可以放置要执行的操作参数。</p>
-<p>2是一个数组（可选参），在数组里放置依赖项，不同依赖项会影响第一个参数函数的执行，<code>当是一个空数组的时候，副作用函数只会在组件渲染完毕之后执行一次</code>。</p>
-
-
-<h4 class="relative group">useEffect的依赖项参数情况 
-    <div id="useeffect%E7%9A%84%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%8F%82%E6%95%B0%E6%83%85%E5%86%B5" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#useeffect%E7%9A%84%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%8F%82%E6%95%B0%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
-    </span>        
-    
-</h4>
-<p>useEffect副作用函数的执行时机存在多种情况，根据传入依赖项的不同，会有不同的执行表现。</p>
-<p>
-    <figure>
-      <img
-        class="my-0 rounded-md"
-        loading="lazy"
-        srcset="
-        /coding/react_learning1/useeffect1_hu10573041372016226326.png 330w,
-        /coding/react_learning1/useeffect1_hu14142772721692637719.png 660w,
-        /coding/react_learning1/useeffect1_hu10929375311722514917.png 1024w,
-        /coding/react_learning1/useeffect1_hu15227041506724689513.png 2x"
-        src="/coding/react_learning1/useeffect1_hu14142772721692637719.png"
-        alt="useeffect的依赖项参数情况"
-      />
-      
-    </figure>
-</p>
-
-
-<h4 class="relative group">useEffect 清除副作用 
-    <div id="useeffect-%E6%B8%85%E9%99%A4%E5%89%AF%E4%BD%9C%E7%94%A8" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#useeffect-%E6%B8%85%E9%99%A4%E5%89%AF%E4%BD%9C%E7%94%A8" aria-label="锚点">#</a>
-    </span>        
-    
-</h4>
-<p>在useEffect中编写的<code>由渲染本身引起的对接组件外部的操作</code>，社区也经常把它叫做<code>副作用操作</code>。</p>
-<p><strong>什么是副作用？</strong></p>
-<p>在 React 组件中，useEffect允许我们<code>执行与组件渲染无关的外部操作</code>，例如：</p>
-<ul>
-<li>订阅 WebSocket</li>
-<li>设置 setTimeout 或 setInterval</li>
-<li>监听浏览器事件（如 window.addEventListener）</li>
-</ul>
-<p>这些操作在组件渲染后执行，但如果不加清除机制，可能会导致内存泄漏或重复执行的问题。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// 实现副作用操作逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// 返回一个清理函数，组件卸载时执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 清除副作用逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">[]);</span>
-</span></span></code></pre></div>
-
-<h3 class="relative group">自定义hook函数 
-    <div id="%E8%87%AA%E5%AE%9A%E4%B9%89hook%E5%87%BD%E6%95%B0" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%87%AA%E5%AE%9A%E4%B9%89hook%E5%87%BD%E6%95%B0" aria-label="锚点">#</a>
-    </span>        
-    
-</h3>
-<p>自定义Hook是以<code>use打头的函数</code>，通过自定义Hook函数可以用来实现<code>逻辑的封装和复用</code>。</p>
-<p>封装自定义hook通用思路:</p>
-<ol>
-<li>声明一个以use打头的函数</li>
-<li>在函数体内封装可复用的逻辑（只要是可复用的逻辑）</li>
-<li>把组件中用到的状态或者回调return出去(以对象或者数组)</li>
-<li>在哪个组件中要用到这个逻辑，就执行这个函数，解构出来状态和回调进行使用|</li>
+</li>
+<li>组件中<code>dispatch</code>的写法保持不变</li>
 </ol>
 
 
-<h3 class="relative group">ReactHooks使用规则 
-    <div id="reacthooks%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99" class="anchor"></div>
+<h2 class="relative group">redux调试 
+    <div id="redux%E8%B0%83%E8%AF%95" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#reacthooks%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#redux%E8%B0%83%E8%AF%95" aria-label="锚点">#</a>
     </span>        
     
-</h3>
-<p>使用规则:</p>
-<ol>
-<li>只能在组件中或者其他自定义Hook函数中调用</li>
-<li>只能在组件的顶层调用，不能嵌套在if、for、其他函数中</li>
-</ol>
+</h2>
+<p>常用的调试工具是扩展工具<code>redux devtools</code>，左边显示的是发生的一系列actions和当前的时间，形式为<code>模块名/action名</code>，右边可以看到<code>state,action等等</code>，并且可以点击左边的actions发现每个对应的state都是不一样的，你还可以选择数据的显示方式，比如：<code>tree</code>,<code>chart</code>,<code>raw</code>。在最下面会显示一条时间轴，进行每一个时间节点的记录，单位就是每一次action的提交。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning2/redux_dev_hu11401414332255722799.png 330w,
+        /coding/react_learning2/redux_dev_hu13090012306869931729.png 660w,
+        /coding/react_learning2/redux_dev_hu15777385532176261475.png 1024w,
+        /coding/react_learning2/redux_dev_hu4168188318465854903.png 2x"
+        src="/coding/react_learning2/redux_dev_hu13090012306869931729.png"
+        alt="redux_dev"
+      />
+      
+    </figure>
+</p>
+
+
+<h2 class="relative group">其他 
+    <div id="%E5%85%B6%E4%BB%96" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%85%B6%E4%BB%96" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在代码中我发现我明明逻辑上应该只执行了一次请求api获取数据，但是在f12的网络fetch中，是这样的：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning2/strict_mode_hu8721766036266695067.png 330w,
+        /coding/react_learning2/strict_mode_hu1786439223083872345.png 660w,
+        /coding/react_learning2/strict_mode_hu514601845852646266.png 1024w,
+        /coding/react_learning2/strict_mode_hu3393836026582805224.png 2x"
+        src="/coding/react_learning2/strict_mode_hu1786439223083872345.png"
+        alt="strict mode"
+      />
+      
+    </figure>
+</p>
+<p>这是因为react开启了<strong>严格模式</strong>（Strict Mode），它是 react提供的一种开发模式，用于检测潜在的问题，帮助开发者编写更安全、可维护的代码。<strong>它不会影响生产环境</strong>，<strong>只在开发模式下生效</strong>。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning2/react_strict_hu17463231246476055578.png 330w,
+        /coding/react_learning2/react_strict_hu8109527054902199092.png 660w,
+        /coding/react_learning2/react_strict_hu10890538501438110111.png 1024w,
+        /coding/react_learning2/react_strict_hu15727332349303889921.png 2x"
+        src="/coding/react_learning2/react_strict_hu8109527054902199092.png"
+        alt="react_strict"
+      />
+      
+    </figure>
+</p>
+<p>在这里我们可以看到代码中使用了<code>&lt;React.StrictMode&gt;</code>，也就是严格模式。</p>
+<p>在严格模式下，react自动调用<code>useEffect</code>两次（仅限开发模式）</p>
+<p>这是为了帮助开发者检测副作用是否是幂等的（即重复执行不会产生问题）。</p>
+<p>但在生产环境下，不会触发两次。</p>
 
           
           
@@ -1324,6 +1220,88 @@
 
 <h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
 <section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/react_learning1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/react_learning1/featured_hu15254357288711946470.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/react_learning1/">React自学</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-03-03T00:00:00&#43;00:00">3 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2490 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
   
   
 
@@ -1489,88 +1467,6 @@
   </a>
 
   
-  
-
-  <a href="/coding/openapi/" class="min-w-full">
-    
-    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
-        
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/openapi/featured_hu16976073456344336273.png);"></div>
-        
-      
-
-      <div class="px-6 py-4">
-
-        
-        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/coding/openapi/">Openai 文档api调查学习</div>
-        
-
-        <div class="text-sm text-neutral-500 dark:text-neutral-400">
-          
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1230 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span>
-  
-
-  
-  
-</div>
-
-
-
-
-
-
-
-
-        </div>
-
-        
-      </div>
-      <div class="px-6 pt-4 pb-2">
-
-      </div>
-    </div>
-  </a>
-
-  
 </section>
 
   
@@ -1584,8 +1480,8 @@
           
         
       <script>
-        var oid = "views_coding\\react_learning1\\index.md"
-        var oid_likes = "likes_coding\\react_learning1\\index.md"
+        var oid = "views_coding\\react_learning2\\index.md"
+        var oid_likes = "likes_coding\\react_learning2\\index.md"
       </script>
       
       
@@ -1605,7 +1501,7 @@
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/coding/dify_form_email/">
+            <a class="flex group mr-3" href="/coding/react_learning1/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -1617,11 +1513,11 @@
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >利用Dify实现将问卷转变为google form和邮件发送</span
+                  >React自学</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2025-03-01T00:00:00&#43;00:00">1 March 2025</time>
+                    <time datetime="2025-03-03T00:00:00&#43;00:00">3 March 2025</time>
                   
                 </span>
               </span>
@@ -1629,28 +1525,6 @@
           
         </span>
         <span>
-          
-            <a class="flex text-right group ml-3" href="/coding/react_learning2/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >React-Redux</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2025-03-04T00:00:00&#43;00:00">4 March 2025</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
           
         </span>
       </div>
