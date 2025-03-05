@@ -111,7 +111,7 @@
     "keywords": ["react","前端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1832"
+    "wordCount": "2114"
   }]
   </script>
 
@@ -521,7 +521,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/react_learning2/featured_hu8366541847752758120.png);">
+    style="background-image:url(/coding/react_learning2/featured_hu941849160833592409.png);">
     
 
 
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-04T00:00:00&#43;00:00">4 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1832 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
+  <time datetime="2025-03-04T00:00:00&#43;00:00">4 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2114 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
   
 
   
@@ -756,6 +756,7 @@
       </ul>
     </li>
     <li><a href="#redux调试">redux调试</a></li>
+    <li><a href="#用react-redux构建一个美团的外卖前端界面">用react-redux构建一个美团的外卖前端界面</a></li>
     <li><a href="#其他">其他</a></li>
   </ul>
 </nav>
@@ -788,6 +789,7 @@
       </ul>
     </li>
     <li><a href="#redux调试">redux调试</a></li>
+    <li><a href="#用react-redux构建一个美团的外卖前端界面">用react-redux构建一个美团的外卖前端界面</a></li>
     <li><a href="#其他">其他</a></li>
   </ul>
 </nav>
@@ -1154,6 +1156,26 @@ npm run start
       
     </figure>
 </p>
+
+
+<h2 class="relative group">用react-redux构建一个美团的外卖前端界面 
+    <div id="%E7%94%A8react-redux%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BE%8E%E5%9B%A2%E7%9A%84%E5%A4%96%E5%8D%96%E5%89%8D%E7%AB%AF%E7%95%8C%E9%9D%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%94%A8react-redux%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BE%8E%E5%9B%A2%E7%9A%84%E5%A4%96%E5%8D%96%E5%89%8D%E7%AB%AF%E7%95%8C%E9%9D%A2" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>基本就是根据上面的内容实操一遍，要注意的是，渲染的时候要处理的不仅是菜品列表，还有侧边栏也需要处理。</p>
+<p>这里的思路是，在<code>redux</code>的<code>state</code>里面维护<code>activeIndex</code>(菜单的激活项下标)。</p>
+<ul>
+<li><code>foodsList</code>：存储所有食品分类</li>
+<li><code>activeIndex</code>: 代表当前选中的分类（索引值）</li>
+</ul>
+<p>然后用<code>activeIndex</code>来实现动态显示。</p>
+<p>具体实现上，第一步就是在项目的<code>Menu</code>组件上，实现通过点击传递index，去redux里面更新<code>activeIndex</code>；第二步就是在<code>Menu</code>组件中用map函数遍历，去查找相对应的index，把这个再<code>active</code>化。</p>
 
 
 <h2 class="relative group">其他 
