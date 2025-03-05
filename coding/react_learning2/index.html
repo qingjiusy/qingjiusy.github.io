@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
-  data-auto-appearance="true"><head>
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   
   <meta http-equiv="content-language" content="zh-cn" />
@@ -15,7 +15,7 @@
   <meta name="keywords" content="react, 前端, " />
   
   
-  <link rel="canonical" href="https://qingjiusy.github.io/coding/react_learning2/" />
+  <link rel="canonical" href="http://localhost:1313/coding/react_learning2/" />
   
   
   
@@ -67,7 +67,7 @@
   
   
   
-  <meta property="og:url" content="https://qingjiusy.github.io/coding/react_learning2/">
+  <meta property="og:url" content="http://localhost:1313/coding/react_learning2/">
   <meta property="og:site_name" content="QingJiu">
   <meta property="og:title" content="React-Redux">
   <meta property="og:description" content="blog">
@@ -78,11 +78,11 @@
     <meta property="article:modified_time" content="2025-03-04T00:00:00+00:00">
     <meta property="article:tag" content="React">
     <meta property="article:tag" content="前端">
-    <meta property="og:image" content="https://qingjiusy.github.io/coding/react_learning2/featured.png">
+    <meta property="og:image" content="http://localhost:1313/coding/react_learning2/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/react_learning2/featured.png">
+  <meta name="twitter:image" content="http://localhost:1313/coding/react_learning2/featured.png">
   <meta name="twitter:title" content="React-Redux">
   <meta name="twitter:description" content="blog">
 
@@ -97,7 +97,7 @@
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/qingjiusy.github.io\/coding\/react_learning2\/",
+    "url" : "http:\/\/localhost:1313\/coding\/react_learning2\/",
     "author" : {
       "@type": "Person",
       "name": "清酒"
@@ -111,7 +111,7 @@
     "keywords": ["react","前端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2114"
+    "wordCount": "2399"
   }]
   </script>
 
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-04T00:00:00&#43;00:00">4 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2114 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  <time datetime="2025-03-04T00:00:00&#43;00:00">4 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2399 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
   
 
   
@@ -756,7 +756,12 @@
       </ul>
     </li>
     <li><a href="#redux调试">redux调试</a></li>
-    <li><a href="#用react-redux构建一个美团的外卖前端界面">用react-redux构建一个美团的外卖前端界面</a></li>
+    <li><a href="#用react-redux构建一个美团的外卖前端界面">用react-redux构建一个美团的外卖前端界面</a>
+      <ul>
+        <li><a href="#实现点菜界面">实现点菜界面</a></li>
+        <li><a href="#实现添加购物车">实现添加购物车</a></li>
+      </ul>
+    </li>
     <li><a href="#其他">其他</a></li>
   </ul>
 </nav>
@@ -789,7 +794,12 @@
       </ul>
     </li>
     <li><a href="#redux调试">redux调试</a></li>
-    <li><a href="#用react-redux构建一个美团的外卖前端界面">用react-redux构建一个美团的外卖前端界面</a></li>
+    <li><a href="#用react-redux构建一个美团的外卖前端界面">用react-redux构建一个美团的外卖前端界面</a>
+      <ul>
+        <li><a href="#实现点菜界面">实现点菜界面</a></li>
+        <li><a href="#实现添加购物车">实现添加购物车</a></li>
+      </ul>
+    </li>
     <li><a href="#其他">其他</a></li>
   </ul>
 </nav>
@@ -1168,6 +1178,18 @@ npm run start
     </span>        
     
 </h2>
+
+
+<h3 class="relative group">实现点菜界面 
+    <div id="%E5%AE%9E%E7%8E%B0%E7%82%B9%E8%8F%9C%E7%95%8C%E9%9D%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E7%82%B9%E8%8F%9C%E7%95%8C%E9%9D%A2" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
 <p>基本就是根据上面的内容实操一遍，要注意的是，渲染的时候要处理的不仅是菜品列表，还有侧边栏也需要处理。</p>
 <p>这里的思路是，在<code>redux</code>的<code>state</code>里面维护<code>activeIndex</code>(菜单的激活项下标)。</p>
 <ul>
@@ -1175,8 +1197,31 @@ npm run start
 <li><code>activeIndex</code>: 代表当前选中的分类（索引值）</li>
 </ul>
 <p>然后用<code>activeIndex</code>来实现动态显示。</p>
-<p>具体实现上，第一步就是在项目的<code>Menu</code>组件上，实现通过点击传递index，去redux里面更新<code>activeIndex</code>；第二步就是在<code>Menu</code>组件中用map函数遍历，去查找相对应的index，把这个再<code>active</code>化。</p>
+<p>具体实现上，第一步就是在项目的<code>Menu</code>组件上，实现通过点击传递index，去redux里面更新<code>activeIndex</code>；第二步就是在<code>Menu</code>组件中用map函数遍历，去查找相对应的index，把这个再<code>active</code>化。第三步操作商品界面显示也是一样的，因为用的都是一个，所以直接去理解找到对应index来进行显示即可。</p>
 
+
+<h3 class="relative group">实现添加购物车 
+    <div id="%E5%AE%9E%E7%8E%B0%E6%B7%BB%E5%8A%A0%E8%B4%AD%E7%89%A9%E8%BD%A6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E6%B7%BB%E5%8A%A0%E8%B4%AD%E7%89%A9%E8%BD%A6" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>使用RTK管理新状态<code>cartList</code>，思路主要是：如果添加过该商品，那么state中count就自加1，否则就传入1。而具体在前端页面中，用对应的dispatch方法来引起对应的变化。其中reducers中的对应action，也就是<code>addCart</code>的实现如下，可以看到就是上面的逻辑：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="nx">addCart</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//要判断是否添加过？以action.payload.id去cartList匹配查找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kr">const</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">cartList</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">item</span><span class="p">.</span><span class="nx">count</span> <span class="o">++</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//保证了count字段的存在
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nx">state</span><span class="p">.</span><span class="nx">cartList</span><span class="p">.</span><span class="nx">push</span><span class="p">({...</span><span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">count</span><span class="o">:</span><span class="mi">1</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span></code></pre></div>
 
 <h2 class="relative group">其他 
     <div id="%E5%85%B6%E4%BB%96" class="anchor"></div>
@@ -1631,7 +1676,7 @@ npm run start
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="https://qingjiusy.github.io/"
+  data-url="http://localhost:1313/"
   style="z-index:500"
 >
   <div
