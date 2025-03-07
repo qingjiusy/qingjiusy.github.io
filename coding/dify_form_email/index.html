@@ -74,8 +74,8 @@
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="coding">
-    <meta property="article:published_time" content="2025-03-01T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-03-01T00:00:00+00:00">
+    <meta property="article:published_time" content="2025-03-07T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-07T00:00:00+00:00">
     <meta property="article:tag" content="Llm">
     <meta property="og:image" content="http://localhost:1313/coding/dify_form_email/featured.png">
 
@@ -102,15 +102,15 @@
       "name": "清酒"
     },
     "copyrightYear": "2025",
-    "dateCreated": "2025-03-01T00:00:00\u002b00:00",
-    "datePublished": "2025-03-01T00:00:00\u002b00:00",
+    "dateCreated": "2025-03-07T00:00:00\u002b00:00",
+    "datePublished": "2025-03-07T00:00:00\u002b00:00",
     
-    "dateModified": "2025-03-01T00:00:00\u002b00:00",
+    "dateModified": "2025-03-07T00:00:00\u002b00:00",
     
     "keywords": ["llm"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "845"
+    "wordCount": "2490"
   }]
   </script>
 
@@ -591,7 +591,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-01T00:00:00&#43;00:00">1 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>845 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  <time datetime="2025-03-07T00:00:00&#43;00:00">7 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2490 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
   
 
   
@@ -745,7 +745,7 @@
       </ul>
     </li>
     <li><a href="#agent-相关设计和解释">agent 相关设计和解释</a></li>
-    <li><a href="#总结展望">总结/展望</a></li>
+    <li><a href="#代码与实现">代码与实现</a></li>
   </ul>
 </nav>
   </div>
@@ -767,7 +767,7 @@
       </ul>
     </li>
     <li><a href="#agent-相关设计和解释">agent 相关设计和解释</a></li>
-    <li><a href="#总结展望">总结/展望</a></li>
+    <li><a href="#代码与实现">代码与实现</a></li>
   </ul>
 </nav>
   </div>
@@ -851,7 +851,7 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>在这个星期的hackthon中，用dify实现了一个很有趣的agent，而其中自己感觉最有意思的部分果然是直接通过自然语言的对话来生成google form，并且能够生成邮件（邮件内容中包含google form url），来让用户来填写问卷</p>
+          <p>在之前的hackthon中，用dify实现了一个很有趣的agent，而其中自己感觉最有意思的部分果然是直接通过自然语言的对话来生成google form，并且能够生成邮件（邮件内容中包含google form url），来让用户来填写问卷</p>
 
 
 <h2 class="relative group">什么是Dify？ 
@@ -937,6 +937,305 @@
     </span>        
     
 </h3>
+<p>导入工作流，具体的<a href="https://github.com/qingjiusy/dify-googleform" target="_blank">repo</a>在这里。这是一条将进入的<code>markdown</code>内容的问卷转变为一个<code>google form</code>的工作流，并且会根据是否传入<code>email address</code>来决定是否发送邮件，如果发送则去调取发送邮件的工作流。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/workflow1_hu15057384767158428650.png 330w,
+        /coding/dify_form_email/workflow1_hu11443928811662117326.png 660w,
+        /coding/dify_form_email/workflow1_hu10882761422429336358.png 1024w,
+        /coding/dify_form_email/workflow1_hu3733889202194409005.png 2x"
+        src="/coding/dify_form_email/workflow1_hu11443928811662117326.png"
+        alt="workflow1"
+      />
+      
+    </figure>
+</p>
+<p>为了将这个项目实现并部署到本地，导入工作流以外还要做一些工作。首先是在dify中定义你需要的模型，这部分就是获取模型api并导入了，不再赘述。</p>
+<p>然后在<code>Google Drive</code>中创建一个文件夹，用于存放生成的<code>google form</code>，在这里，请获得<strong>文件夹的id</strong>（后面要用），也就是进入文件夹后<code>url</code>中显示的最后一串，也就是下面的XXXXXXXXX部分：</p>
+<pre tabindex="0"><code>https://drive.google.com/drive/folders/XXXXXXXXX
+</code></pre><p>然后，编写Google Apps Script，这个脚本是能够将传入的符合模式的<code>json</code>数据转变为google form并存入刚刚创建的文件夹。</p>
+<p>步骤如下：</p>
+<p>首先新建一个脚本文件。
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/1_hu6983789498146635149.png 330w,
+        /coding/dify_form_email/1_hu10858886107311306450.png 660w,
+        /coding/dify_form_email/1_hu10926409728381187374.png 1024w,
+        /coding/dify_form_email/1_hu12444152670698548097.png 2x"
+        src="/coding/dify_form_email/1_hu10858886107311306450.png"
+        alt="1"
+      />
+      
+    </figure>
+</p>
+<p>在脚本文件中编写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">createFormInFolder</span><span class="p">(</span><span class="nx">formData</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 从脚本属性中获取文件夹 ID
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">folderId</span> <span class="o">=</span> <span class="nx">PropertiesService</span><span class="p">.</span><span class="nx">getScriptProperties</span><span class="p">().</span><span class="nx">getProperty</span><span class="p">(</span><span class="s2">&#34;FOLDER_ID&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">folderId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;文件夹 ID 未设置在脚本属性中。请先执行 setFolderId()&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 获取指定的文件夹
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">folder</span> <span class="o">=</span> <span class="nx">DriveApp</span><span class="p">.</span><span class="nx">getFolderById</span><span class="p">(</span><span class="nx">folderId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 从 JSON 数据中获取标题和描述
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">formData</span><span class="p">.</span><span class="nx">title</span> <span class="o">||</span> <span class="s2">&#34;Untitled Form&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">description</span> <span class="o">=</span> <span class="nx">formData</span><span class="p">.</span><span class="nx">description</span> <span class="o">||</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 创建 Google 表单
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">form</span> <span class="o">=</span> <span class="nx">FormApp</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">title</span><span class="p">).</span><span class="nx">setDescription</span><span class="p">(</span><span class="nx">description</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 获取问题列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">questions</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">formData</span><span class="p">.</span><span class="nx">questions</span><span class="p">)</span> <span class="o">?</span> <span class="nx">formData</span><span class="p">.</span><span class="nx">questions</span> <span class="o">:</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 添加问题
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">questions</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">questionText</span> <span class="o">=</span> <span class="nx">q</span><span class="p">.</span><span class="nx">question</span> <span class="o">||</span> <span class="s2">&#34;No question text&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">questionType</span> <span class="o">=</span> <span class="p">(</span><span class="nx">q</span><span class="p">.</span><span class="nx">type</span> <span class="o">||</span> <span class="s2">&#34;TEXT&#34;</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">();</span> <span class="c1">// 转换为大写以便更容易判断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">choices</span> <span class="o">=</span> <span class="nx">q</span><span class="p">.</span><span class="nx">choices</span> <span class="o">||</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="nx">questionType</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="s2">&#34;TEXT&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">form</span><span class="p">.</span><span class="nx">addTextItem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="nx">questionText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="s2">&#34;PARAGRAPH&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">form</span><span class="p">.</span><span class="nx">addParagraphTextItem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="nx">questionText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="s2">&#34;MULTIPLE_CHOICE&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">form</span><span class="p">.</span><span class="nx">addMultipleChoiceItem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="nx">questionText</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setChoiceValues</span><span class="p">(</span><span class="nx">choices</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="s2">&#34;CHECKBOX&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">form</span><span class="p">.</span><span class="nx">addCheckboxItem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="nx">questionText</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setChoiceValues</span><span class="p">(</span><span class="nx">choices</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="s2">&#34;LIST&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">form</span><span class="p">.</span><span class="nx">addListItem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="nx">questionText</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setChoiceValues</span><span class="p">(</span><span class="nx">choices</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="s2">&#34;LINEAR_SCALE&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 处理 LINEAR_SCALE（刻度）的示例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 假设以下属性存在：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//   q.scaleMin, q.scaleMax, q.scaleMinLabel, q.scaleMaxLabel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 如果这些属性不存在，则使用默认值进行设置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">scaleMin</span> <span class="o">=</span> <span class="nx">q</span><span class="p">.</span><span class="nx">scaleMin</span> <span class="o">||</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">scaleMax</span> <span class="o">=</span> <span class="nx">q</span><span class="p">.</span><span class="nx">scaleMax</span> <span class="o">||</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">scaleMinLabel</span> <span class="o">=</span> <span class="nx">q</span><span class="p">.</span><span class="nx">scaleMinLabel</span> <span class="o">||</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">scaleMaxLabel</span> <span class="o">=</span> <span class="nx">q</span><span class="p">.</span><span class="nx">scaleMaxLabel</span> <span class="o">||</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">form</span><span class="p">.</span><span class="nx">addScaleItem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="nx">questionText</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setBounds</span><span class="p">(</span><span class="nx">scaleMin</span><span class="p">,</span> <span class="nx">scaleMax</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setLabels</span><span class="p">(</span><span class="nx">scaleMinLabel</span><span class="p">,</span> <span class="nx">scaleMaxLabel</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 未定义或未知的类型按 TEXT 处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">form</span><span class="p">.</span><span class="nx">addTextItem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">          <span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="nx">questionText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 将创建的表单移动到文件夹
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">DriveApp</span><span class="p">.</span><span class="nx">getFileById</span><span class="p">(</span><span class="nx">form</span><span class="p">.</span><span class="nx">getId</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">folder</span><span class="p">.</span><span class="nx">addFile</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 如果想从根目录（My Drive）中移除，请取消注释
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// DriveApp.removeFile(file);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">form</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">doPost</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 解析 POST 请求中的 JSON 字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">postData</span><span class="p">.</span><span class="nx">contents</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 调用 createFormInFolder 函数创建表单
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">form</span> <span class="o">=</span> <span class="nx">createFormInFolder</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取表单的提交URL（填写表单的链接）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">responseUrl</span> <span class="o">=</span> <span class="nx">form</span><span class="p">.</span><span class="nx">getPublishedUrl</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 如果这里你想要的是使用者的编辑界面的url，就用下面这段程序，然后去把output那里也改动一下
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// const editUrl = form.getEditUrl();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 以 JSON 格式返回响应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">output</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">success</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">responseUrl</span><span class="o">:</span> <span class="nx">responseUrl</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// editUrl: editUrl
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">ContentService</span><span class="p">.</span><span class="nx">createTextOutput</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">output</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">setMimeType</span><span class="p">(</span><span class="nx">ContentService</span><span class="p">.</span><span class="nx">MimeType</span><span class="p">.</span><span class="nx">JSON</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 如果发生错误，则以 JSON 格式返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">output</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">success</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="nx">error</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">ContentService</span><span class="p">.</span><span class="nx">createTextOutput</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">output</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">setMimeType</span><span class="p">(</span><span class="nx">ContentService</span><span class="p">.</span><span class="nx">MimeType</span><span class="p">.</span><span class="nx">JSON</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>保存文件</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/2_hu13829059844510613436.png 330w,
+        /coding/dify_form_email/2_hu7652032198461482131.png 660w,
+        /coding/dify_form_email/2_hu8116248519949918070.png 1024w,
+        /coding/dify_form_email/2_hu8058231085753848949.png 2x"
+        src="/coding/dify_form_email/2_hu7652032198461482131.png"
+        alt="2"
+      />
+      
+    </figure>
+</p>
+<p>接下来去<strong>设置脚本属性</strong></p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/3_hu390693220342702933.png 330w,
+        /coding/dify_form_email/3_hu13493212820912164871.png 660w,
+        /coding/dify_form_email/3_hu14113215822381510851.png 1024w,
+        /coding/dify_form_email/3_hu4418516818396111777.png 2x"
+        src="/coding/dify_form_email/3_hu13493212820912164871.png"
+        alt="3"
+      />
+      
+    </figure>
+</p>
+<p>点击项目设置</p>
+<p>在最下面的脚本属性这一栏中新建一个<code>FOLDER_ID</code>，值就是刚刚<code>url</code>的后半部分</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/4_hu11880624812936561612.png 330w,
+        /coding/dify_form_email/4_hu9451286268516766655.png 660w,
+        /coding/dify_form_email/4_hu11569077987499603322.png 1024w,
+        /coding/dify_form_email/4_hu15374419455589182401.png 2x"
+        src="/coding/dify_form_email/4_hu9451286268516766655.png"
+        alt="4"
+      />
+      
+    </figure>
+</p>
+<p>然后去部署这个脚本。选择“新建部署”。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/5_hu437894468532342692.png 330w,
+        /coding/dify_form_email/5_hu16417309167919243799.png 660w,
+        /coding/dify_form_email/5_hu15267734727275621723.png 1024w,
+        /coding/dify_form_email/5_hu182576956441896209.png 2x"
+        src="/coding/dify_form_email/5_hu16417309167919243799.png"
+        alt="5"
+      />
+      
+    </figure>
+</p>
+<p>类型选择web应用,访问权限请设置为<strong>任何人</strong>！！</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/6_hu15084782839712609217.png 330w,
+        /coding/dify_form_email/6_hu2051775874403845676.png 660w,
+        /coding/dify_form_email/6_hu277286851284979319.png 1024w,
+        /coding/dify_form_email/6_hu16579953560804123166.png 2x"
+        src="/coding/dify_form_email/6_hu2051775874403845676.png"
+        alt="6"
+      />
+      
+    </figure>
+</p>
+<p>然后进行部署，获取这里的<code>部署ID</code>，等会要用！</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/7_hu1665790715957287984.png 330w,
+        /coding/dify_form_email/7_hu589308428444427725.png 660w,
+        /coding/dify_form_email/7_hu405922520247175203.png 1024w,
+        /coding/dify_form_email/7_hu17530416467107670669.png 2x"
+        src="/coding/dify_form_email/7_hu589308428444427725.png"
+        alt="7"
+      />
+      
+    </figure>
+</p>
+<p>接下来回到刚刚的<code>workflow</code>，在这里加入我们刚刚记录的部署ID</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/8_hu17039462283754079099.png 330w,
+        /coding/dify_form_email/8_hu5341332593966677995.png 660w,
+        /coding/dify_form_email/8_hu12055519988501457704.png 1024w,
+        /coding/dify_form_email/8_hu5938010636952809096.png 2x"
+        src="/coding/dify_form_email/8_hu5341332593966677995.png"
+        alt="8"
+      />
+      
+    </figure>
+</p>
+<p>这样就全部完成了！可以直接在这里面测试一下这个<code>workflow</code>是否能正常运行！在运行前记得先发布，顺便也发布为工具方便后面的使用。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/9_hu14259022003664007566.png 330w,
+        /coding/dify_form_email/9_hu14513954265297397964.png 660w,
+        /coding/dify_form_email/9_hu9064158155492293764.png 1024w,
+        /coding/dify_form_email/9_hu11505163151117351762.png 2x"
+        src="/coding/dify_form_email/9_hu14513954265297397964.png"
+        alt="9"
+      />
+      
+    </figure>
+</p>
+<p>可见正常运行了，google form中的文件夹内也有这个新生成的文件。</p>
 
 
 <h3 class="relative group">google email相关设置和解释 
@@ -949,6 +1248,67 @@
     </span>        
     
 </h3>
+<p>接下来要去设置<code>google email</code>相关内容，首先来看看大致的工作流。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/10_hu3006800695891163918.png 330w,
+        /coding/dify_form_email/10_hu10152960758857007085.png 660w,
+        /coding/dify_form_email/10_hu923053125665458695.png 1024w,
+        /coding/dify_form_email/10_hu17329119407020056551.png 2x"
+        src="/coding/dify_form_email/10_hu10152960758857007085.png"
+        alt="10"
+      />
+      
+    </figure>
+</p>
+<p>dify中已经有发送email的相关组件了，导入之后它会提示你授权，这里我只需要进行授权即可。点击<strong>授权</strong>会弹出：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/11_hu15285289313261424574.png 330w,
+        /coding/dify_form_email/11_hu5376957207952575830.png 660w,
+        /coding/dify_form_email/11_hu13308471235607877634.png 1024w,
+        /coding/dify_form_email/11_hu17534461718619066460.png 2x"
+        src="/coding/dify_form_email/11_hu5376957207952575830.png"
+        alt="11"
+      />
+      
+    </figure>
+</p>
+<p>这里的邮件密码不是谷歌邮箱的密码，而是<strong>应用专用密码</strong>。</p>
+<p>打开<a href="https://myaccount.google.com/" target="_blank">谷歌账号</a>,选择安全性，然后开启<strong>两步验证</strong>，我这里已经开了，中间会让你绑定一个手机号。</p>
+<p>可以看到开通了之后，应用专用密码功能出现了，我们需要在此出新生成个密码，我这里已经创建了一个密码。创建过程很简单，选择适合你的设备就好了。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/dify_form_email/12_hu169735288421743480.png 330w,
+        /coding/dify_form_email/12_hu6696367629684613000.png 660w,
+        /coding/dify_form_email/12_hu13099231032442955122.png 1024w,
+        /coding/dify_form_email/12_hu11125348062015488698.png 2x"
+        src="/coding/dify_form_email/12_hu6696367629684613000.png"
+        alt="12"
+      />
+      
+    </figure>
+</p>
+<p>然后在这里新建你的应用专用密码，然后填入刚刚的地方。</p>
+<blockquote>
+<p>发信smtp服务器地址：Smtp.gmail.com</p>
+<p>发信smtp服务器端口：465</p>
+<p>加密方式：SSL加密</p>
+</blockquote>
+<p>这样你的邮件工作流也可以正常使用了！别忘了<strong>发布</strong>和<strong>发布为工具</strong>！</p>
+<p>注意，google form工作流中使用了邮件工作流，我们完成了邮件工作流的设置后要去里面重新导入一遍！</p>
 
 
 <h2 class="relative group">agent 相关设计和解释 
@@ -961,18 +1321,20 @@
     </span>        
     
 </h2>
+<p>都发布为工具以后，我们就可以在agent里面使用这些工具了，这部分在dify的教程中有很多内容，就不赘述了。</p>
 
 
-<h2 class="relative group">总结/展望 
-    <div id="%E6%80%BB%E7%BB%93%E5%B1%95%E6%9C%9B" class="anchor"></div>
+<h2 class="relative group">代码与实现 
+    <div id="%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%AE%9E%E7%8E%B0" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93%E5%B1%95%E6%9C%9B" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%AE%9E%E7%8E%B0" aria-label="锚点">#</a>
     </span>        
     
 </h2>
+<p>具体的<a href="https://github.com/qingjiusy/dify-googleform" target="_blank">repo</a>在这里，其中<code>workflow</code>这个文件夹里面放了这次介绍的两个工作流，你可以用它来搭建你想构建的agent！</p>
 
           
           
@@ -1074,11 +1436,11 @@
   
   
 
-  <a href="/coding/hugo_search/" class="min-w-full">
+  <a href="/coding/react_learning3/" class="min-w-full">
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/hugo_search/featured_hu10835896835857835186.png);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/react_learning3/featured_hu3172879871942815708.png);"></div>
         
       
 
@@ -1086,7 +1448,7 @@
 
         
         <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/coding/hugo_search/">Blowfish部署后搜索功能失效的解决办法</div>
+          href="/coding/react_learning3/">React-Redux</div>
         
 
         <div class="text-sm text-neutral-500 dark:text-neutral-400">
@@ -1129,7 +1491,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>916 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  <time datetime="2025-03-05T00:00:00&#43;00:00">5 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>615 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
   
 
   
@@ -1156,11 +1518,11 @@
   
   
 
-  <a href="/coding/openapi/" class="min-w-full">
+  <a href="/coding/react_learning2/" class="min-w-full">
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/openapi/featured_hu16976073456344336273.png);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/react_learning2/featured_hu14060589893627621244.png);"></div>
         
       
 
@@ -1168,7 +1530,7 @@
 
         
         <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/coding/openapi/">Openai 文档api调查学习</div>
+          href="/coding/react_learning2/">React-Redux</div>
         
 
         <div class="text-sm text-neutral-500 dark:text-neutral-400">
@@ -1211,7 +1573,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1230 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span>
+  <time datetime="2025-03-04T00:00:00&#43;00:00">4 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2872 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
   
 
   
@@ -1270,7 +1632,7 @@
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/coding/hugo_search/">
+            <a class="flex group mr-3" href="/coding/react_learning3/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -1282,11 +1644,11 @@
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Blowfish部署后搜索功能失效的解决办法</span
+                  >React-Redux</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2025-02-22T00:00:00&#43;00:00">22 February 2025</time>
+                    <time datetime="2025-03-05T00:00:00&#43;00:00">5 March 2025</time>
                   
                 </span>
               </span>
@@ -1294,28 +1656,6 @@
           
         </span>
         <span>
-          
-            <a class="flex text-right group ml-3" href="/coding/react_learning1/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >React自学</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2025-03-03T00:00:00&#43;00:00">3 March 2025</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
           
         </span>
       </div>
