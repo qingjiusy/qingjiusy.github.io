@@ -111,7 +111,7 @@
     "keywords": ["react","前端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2631"
+    "wordCount": "3418"
   }]
   </script>
 
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-10T00:00:00&#43;00:00">10 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2631 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  <time datetime="2025-03-10T00:00:00&#43;00:00">10 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>3418 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
   
 
   
@@ -764,6 +764,10 @@
         <li><a href="#antd-mobile主题定制">antD-mobile主题定制</a></li>
         <li><a href="#管理账目列表">管理账目列表</a></li>
         <li><a href="#实现tabbar功能实现">实现TabBar功能实现</a></li>
+        <li><a href="#实现月度账单中的统计区域">实现月度账单中的统计区域</a></li>
+        <li><a href="#控制时间显示">控制时间显示</a></li>
+        <li><a href="#账单数据按月分组实现">账单数据按月分组实现</a></li>
+        <li><a href="#计算选择月份的统计数据">计算选择月份的统计数据</a></li>
       </ul>
     </li>
   </ul>
@@ -805,6 +809,10 @@
         <li><a href="#antd-mobile主题定制">antD-mobile主题定制</a></li>
         <li><a href="#管理账目列表">管理账目列表</a></li>
         <li><a href="#实现tabbar功能实现">实现TabBar功能实现</a></li>
+        <li><a href="#实现月度账单中的统计区域">实现月度账单中的统计区域</a></li>
+        <li><a href="#控制时间显示">控制时间显示</a></li>
+        <li><a href="#账单数据按月分组实现">账单数据按月分组实现</a></li>
+        <li><a href="#计算选择月份的统计数据">计算选择月份的统计数据</a></li>
       </ul>
     </li>
   </ul>
@@ -1378,6 +1386,134 @@
 </span></span><span class="line"><span class="cl">    <span class="nx">navigate</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span></code></pre></div>
+
+<h3 class="relative group">实现月度账单中的统计区域 
+    <div id="%E5%AE%9E%E7%8E%B0%E6%9C%88%E5%BA%A6%E8%B4%A6%E5%8D%95%E4%B8%AD%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%8C%BA%E5%9F%9F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E6%9C%88%E5%BA%A6%E8%B4%A6%E5%8D%95%E4%B8%AD%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%8C%BA%E5%9F%9F" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>前端这部分长这样：
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning3/month-count_hu4519859800165047975.png 330w,
+        /coding/react_learning3/month-count_hu6901581275785325996.png 660w,
+        /coding/react_learning3/month-count_hu16710027249670084426.png 1024w,
+        /coding/react_learning3/month-count_hu2689105214077955440.png 2x"
+        src="/coding/react_learning3/month-count_hu6901581275785325996.png"
+        alt="month-count"
+      />
+      
+    </figure>
+</p>
+<p>要实现的功能：</p>
+<ol>
+<li>点击之后打开弹窗，用户可以选择时间，然后把当前选择的时间给它同步到前端界面上。</li>
+<li>有个小箭头，选择时间是向上，正常状态向下。</li>
+<li>支出，收入，结余需要做一个统计显示。</li>
+</ol>
+<p>在<strong>时间选择框</strong>中的具体功能：</p>
+<ol>
+<li>点击打开时间选择弹框</li>
+<li>点击取消/确认按钮以及蒙层区域都可以关闭弹框</li>
+<li>弹框关闭时箭头朝下，打开是箭头朝上</li>
+</ol>
+<p>那么思路就是去准备一个<strong>状态数据</strong>，通过<strong>切换状态变化</strong>来实现功能。</p>
+
+
+<h3 class="relative group">控制时间显示 
+    <div id="%E6%8E%A7%E5%88%B6%E6%97%B6%E9%97%B4%E6%98%BE%E7%A4%BA" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8E%A7%E5%88%B6%E6%97%B6%E9%97%B4%E6%98%BE%E7%A4%BA" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>一样的思路，构造一个状态，按<strong>时间选择框</strong>通过事件触发状态设置函数来更改状态。</p>
+<p><strong>注意点</strong>：一开始这里有一个疑惑，为什么这里<strong>初始值设置要使用函数返回值的形式</strong>？不能直接传入new Date()吗？</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//控制时间显示
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">[</span><span class="nx">currentDate</span><span class="p">,</span> <span class="nx">setCurrentDate</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(()=&gt;{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span></code></pre></div><p>原因是如果你直接传入<code>new Date()</code>，它会在每次组件渲染时执行<code>new Date()</code>，然后将返回的时间对象作为<code>useState</code>的初始值。这意味着即使<code>useState</code>只在初始渲染时使用该值，<code>new Date()</code>也会在每次渲染时执行一次，尽管其返回值不会被使用（仅在初始渲染时有效）。</p>
+<p>而使用<strong>函数返回值</strong>时，react只会在初次渲染时调用该函数，并使用返回值作为初始状态。这样避免不必要的计算，函数只有在第一次渲染时执行，后续渲染不会重复调用<code>new Date()</code>。</p>
+<p>同时要注意用<code>dayjs</code>去保证格式正确。</p>
+
+
+<h3 class="relative group">账单数据按月分组实现 
+    <div id="%E8%B4%A6%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8C%89%E6%9C%88%E5%88%86%E7%BB%84%E5%AE%9E%E7%8E%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%B4%A6%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8C%89%E6%9C%88%E5%88%86%E7%BB%84%E5%AE%9E%E7%8E%B0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>当前后端返回的数据是简单平铺的，不是按月份划分好的，所以我们要做的功能是实现<strong>以月为单位的统计</strong>。</p>
+<p>思路：</p>
+<ol>
+<li>从<code>Redux</code>中拿到数据</li>
+<li>使用<code>useMemo</code>数据二次处理</li>
+<li>使用<code>lodash</code>按月分组逻辑实现</li>
+</ol>
+<p>主要代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">monthGroup</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//return出去计算之后的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">groupBy</span><span class="p">(</span><span class="nx">billList</span><span class="p">,</span> <span class="p">(</span><span class="nx">item</span><span class="p">)=&gt;</span><span class="nx">dayjs</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">date</span><span class="p">).</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;YYYY-MM&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},[</span><span class="nx">billList</span><span class="p">])</span>
+</span></span></code></pre></div><p>实现了按月分组：
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning3/monthgroup_hu8814798090112922489.png 330w,
+        /coding/react_learning3/monthgroup_hu10231013881720225738.png 660w,
+        /coding/react_learning3/monthgroup_hu3435695041536384020.png 1024w,
+        /coding/react_learning3/monthgroup_hu1040999299822398188.png 2x"
+        src="/coding/react_learning3/monthgroup_hu10231013881720225738.png"
+        alt="monthgroup"
+      />
+      
+    </figure>
+</p>
+
+
+<h3 class="relative group">计算选择月份的统计数据 
+    <div id="%E8%AE%A1%E7%AE%97%E9%80%89%E6%8B%A9%E6%9C%88%E4%BB%BD%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%AE%A1%E7%AE%97%E9%80%89%E6%8B%A9%E6%9C%88%E4%BB%BD%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>通过<code>useMemo</code>实现业务逻辑：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">monthResult</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()=&gt;{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//支出/收入/结余
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">pay</span> <span class="o">=</span> <span class="nx">currentMonthList</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">item</span><span class="p">=&gt;</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span><span class="o">===</span><span class="s1">&#39;pay&#39;</span><span class="p">).</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">c</span><span class="p">)=&gt;</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">c</span><span class="p">.</span><span class="nx">money</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">income</span> <span class="o">=</span> <span class="nx">currentMonthList</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">item</span><span class="p">=&gt;</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span><span class="o">===</span><span class="s1">&#39;income&#39;</span><span class="p">).</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">c</span><span class="p">)=&gt;</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">c</span><span class="p">.</span><span class="nx">money</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pay</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">income</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">total</span><span class="o">:</span> <span class="nx">pay</span> <span class="o">+</span> <span class="nx">income</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[</span><span class="nx">currentMonthList</span><span class="p">])</span>
+</span></span></code></pre></div><p>活用<code>filter</code>和<code>reduce</code>！！！</p>
+
           
           
           
