@@ -111,7 +111,7 @@
     "keywords": ["react","前端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "4349"
+    "wordCount": "6353"
   }]
   </script>
 
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-17T00:00:00&#43;00:00">17 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>4349 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  <time datetime="2025-03-17T00:00:00&#43;00:00">17 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>6353 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">13 分钟</span>
   
 
   
@@ -775,6 +775,25 @@
         <li><a href="#echarts组件封装实现">Echarts组件封装实现</a></li>
       </ul>
     </li>
+    <li><a href="#封装api模块">封装API模块</a></li>
+    <li><a href="#文章发布">文章发布</a>
+      <ul>
+        <li><a href="#基础结构">基础结构</a></li>
+        <li><a href="#准备富文本编辑器">准备富文本编辑器</a></li>
+        <li><a href="#频道数据获取渲染">频道数据获取渲染</a></li>
+        <li><a href="#收集表单数据提交表单">收集表单数据提交表单</a></li>
+        <li><a href="#上传文章封面">上传文章封面</a></li>
+        <li><a href="#实现切换封面类型">实现切换封面类型</a></li>
+        <li><a href="#控制上传图片的数量">控制上传图片的数量</a></li>
+      </ul>
+    </li>
+    <li><a href="#文章列表">文章列表</a>
+      <ul>
+        <li><a href="#渲染频道数据">渲染频道数据</a></li>
+        <li><a href="#渲染table文章列表">渲染table文章列表</a></li>
+        <li><a href="#适配文章状态">适配文章状态</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -823,6 +842,25 @@
       <ul>
         <li><a href="#echarts基础图表实现">Echarts基础图表实现</a></li>
         <li><a href="#echarts组件封装实现">Echarts组件封装实现</a></li>
+      </ul>
+    </li>
+    <li><a href="#封装api模块">封装API模块</a></li>
+    <li><a href="#文章发布">文章发布</a>
+      <ul>
+        <li><a href="#基础结构">基础结构</a></li>
+        <li><a href="#准备富文本编辑器">准备富文本编辑器</a></li>
+        <li><a href="#频道数据获取渲染">频道数据获取渲染</a></li>
+        <li><a href="#收集表单数据提交表单">收集表单数据提交表单</a></li>
+        <li><a href="#上传文章封面">上传文章封面</a></li>
+        <li><a href="#实现切换封面类型">实现切换封面类型</a></li>
+        <li><a href="#控制上传图片的数量">控制上传图片的数量</a></li>
+      </ul>
+    </li>
+    <li><a href="#文章列表">文章列表</a>
+      <ul>
+        <li><a href="#渲染频道数据">渲染频道数据</a></li>
+        <li><a href="#渲染table文章列表">渲染table文章列表</a></li>
+        <li><a href="#适配文章状态">适配文章状态</a></li>
       </ul>
     </li>
   </ul>
@@ -1610,7 +1648,414 @@ npm run start
     
 </h3>
 <p>封装解决复用问题，把需要图表中特殊化的部分<strong>抽象成props参数</strong>做适配。</p>
+<p>就近原则，在Home文件夹下新建components文件夹来存储。构建一个柱状图组件，把功能代码都放到组件中，把可变的部分抽象成prop参数。</p>
+<p>抽象成了一个小组件，<code>title</code>是我们的参数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//柱状图组件
+</span></span></span><span class="line"><span class="cl"><span class="c1">//把功能代码都放到组件中
+</span></span></span><span class="line"><span class="cl"><span class="c1">//把可变的部分抽象成prop参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">echarts</span> <span class="nx">from</span> <span class="s1">&#39;echarts&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useRef</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">BarChart</span> <span class="o">=</span> <span class="p">({</span><span class="nx">title</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">chartRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//保证dom可用 才进行图标的渲染
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//获取渲染图表的dom节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">chartDom</span> <span class="o">=</span> <span class="nx">chartRef</span><span class="p">.</span><span class="nx">current</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//图表初始化生成图表实例对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">myChart</span> <span class="o">=</span> <span class="nx">echarts</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">chartDom</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//准备图表参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">option</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">title</span><span class="o">:</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">text</span><span class="o">:</span> <span class="nx">title</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">xAxis</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;vue&#39;</span><span class="p">,</span><span class="s1">&#39;React&#39;</span><span class="p">,</span><span class="s1">&#39;Angular&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">yAxis</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">series</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">70</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//使用图表参数完成图表的渲染
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">option</span> <span class="o">&amp;&amp;</span> <span class="nx">myChart</span><span class="p">.</span><span class="nx">setOption</span><span class="p">(</span><span class="nx">option</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},[])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span> <span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">chartRef</span><span class="p">}</span> <span class="na">style</span><span class="o">=</span><span class="p">{{</span><span class="nx">width</span><span class="o">:</span><span class="s1">&#39;500px&#39;</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="s1">&#39;400px&#39;</span><span class="p">}}&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">BarChart</span>
+</span></span></code></pre></div>
 
+<h2 class="relative group">封装API模块 
+    <div id="%E5%B0%81%E8%A3%85api%E6%A8%A1%E5%9D%97" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%81%E8%A3%85api%E6%A8%A1%E5%9D%97" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>目前为止的各种请求都是在当前功能的位置，不利于后期维护，合理的做法应该把这些分散维护的接口请求统一装到apis文件夹里面，方便维护。</p>
+<p>这里的思路是把项目中的所有接口按照业务模块以函数的形式统一封装到apis模块中。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//用户相关的所有请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">request</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;@/utils&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//登录请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="kd">function</span> <span class="nx">loginAPI</span><span class="p">(</span><span class="nx">formData</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">request</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span><span class="o">:</span><span class="s1">&#39;/authorizations&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="nx">formData</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//获取用户信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="kd">function</span> <span class="nx">getProfileAPI</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">request</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span><span class="o">:</span><span class="s1">&#39;/user/profile&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span><span class="s1">&#39;GET&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">文章发布 
+    <div id="%E6%96%87%E7%AB%A0%E5%8F%91%E5%B8%83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%96%87%E7%AB%A0%E5%8F%91%E5%B8%83" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">基础结构 
+    <div id="%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>文章发布的基础结构如下图所示：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning4/publish_hu5088562422382288429.png 330w,
+        /coding/react_learning4/publish_hu10247220577978949277.png 660w,
+        /coding/react_learning4/publish_hu11671037939498913672.png 1024w,
+        /coding/react_learning4/publish_hu12026614689746069785.png 2x"
+        src="/coding/react_learning4/publish_hu10247220577978949277.png"
+        alt="publish"
+      />
+      
+    </figure>
+</p>
+<p>其中大概应该包括：</p>
+<ol>
+<li>面包屑导航组件Breadcrumb</li>
+<li>表单组件Form</li>
+<li>输入框组件Input</li>
+<li>下拉框组件Select-Option</li>
+<li>按钮组件Button</li>
+</ol>
+
+
+<h3 class="relative group">准备富文本编辑器 
+    <div id="%E5%87%86%E5%A4%87%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%87%86%E5%A4%87%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>安装<code>react-quill</code>富文本编辑器：<code>npm i react-quill@2.0.0-beta.2</code></li>
+<li>导入编辑器组件和配套样式文件</li>
+<li>渲染编辑器组件</li>
+<li>调整编辑器组件样式</li>
+</ol>
+
+
+<h3 class="relative group">频道数据获取渲染 
+    <div id="%E9%A2%91%E9%81%93%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E6%B8%B2%E6%9F%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A2%91%E9%81%93%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E6%B8%B2%E6%9F%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>根据接口文档在APIS模块中封装接口函数</li>
+<li>使用<code>useState</code>维护数据</li>
+<li>在<code>useEffect</code>中调用接口获取数据并存入<code>state</code></li>
+<li>绑定数据到下拉框组件</li>
+</ol>
+
+
+<h3 class="relative group">收集表单数据提交表单 
+    <div id="%E6%94%B6%E9%9B%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%94%B6%E9%9B%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>流程：</p>
+<ol>
+<li>使用Form组件收集表单数据</li>
+<li>按照接口文档封装接口函数</li>
+<li>按照接口文档处理表单数据</li>
+<li>提交接口并验证是否成功</li>
+</ol>
+<p>构建好onFinish即可，重要的是接口里面的数据符合传递的形式：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">onFinish</span><span class="p">(</span><span class="nx">formValue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span><span class="nx">title</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">channel_id</span><span class="p">}</span> <span class="o">=</span> <span class="nx">formValue</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//按照接口文档格式来处理收集到的表单格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">reqData</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">content</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">cover</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">type</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">images</span><span class="o">:</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">channel_id</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//调用接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">createArticleAPI</span><span class="p">(</span><span class="nx">reqData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">上传文章封面 
+    <div id="%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>主要利用了<code>Upload</code>组件，为组件添加action属性，配置封面图片上传接口地址。还要为组件添加onChange属性，在事件中拿到当前图片数据，并存储到React状态中。</p>
+<p>在上传过程中会不断执行<code>onChange</code>函数，完成分片上传。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">Upload</span>
+</span></span><span class="line"><span class="cl">    <span class="na">listType</span><span class="o">=</span><span class="s">&#34;picture-card&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">showUploadList</span>
+</span></span><span class="line"><span class="cl">    <span class="na">action</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;http://geek.itheima.net/v1_0/upload&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="na">name</span><span class="o">=</span><span class="s">&#34;image&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">onChange</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="p">{{</span> <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">8</span> <span class="p">}}&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">PlusOutlined</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">Upload</span><span class="p">&gt;</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">实现切换封面类型 
+    <div id="%E5%AE%9E%E7%8E%B0%E5%88%87%E6%8D%A2%E5%B0%81%E9%9D%A2%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E5%88%87%E6%8D%A2%E5%B0%81%E9%9D%A2%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>要完成：只有当前模式为单图或者三图模式时才显示上传组件。</p>
+<p>所以我们要做的：</p>
+<ol>
+<li>获取到当前的封面类型</li>
+<li>对上传组件进行条件渲染</li>
+</ol>
+<p>很显然状态驱动视图，先去拿状态：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//切换图片封面类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="p">[</span><span class="nx">imageType</span><span class="p">,</span> <span class="nx">setImageType</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">onTypeChange</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setImageType</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>然后去用这个状态去驱动视图：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="p">{</span><span class="nx">imageType</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="p">&lt;</span><span class="nt">Upload</span>
+</span></span><span class="line"><span class="cl"><span class="na">listType</span><span class="o">=</span><span class="s">&#34;picture-card&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">showUploadList</span>
+</span></span><span class="line"><span class="cl"><span class="na">action</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;http://geek.itheima.net/v1_0/upload&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">name</span><span class="o">=</span><span class="s">&#34;image&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">onChange</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="p">{{</span> <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">8</span> <span class="p">}}&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">PlusOutlined</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">Upload</span><span class="p">&gt;}</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">控制上传图片的数量 
+    <div id="%E6%8E%A7%E5%88%B6%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E7%9A%84%E6%95%B0%E9%87%8F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8E%A7%E5%88%B6%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E7%9A%84%E6%95%B0%E9%87%8F" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>实现的效果：</p>
+<ol>
+<li>单图模式时，最多能上传一张图片</li>
+<li>三图模式时，最多能上传三张图片</li>
+</ol>
+<p>如何实现：</p>
+<ol>
+<li>找到限制上传数量的组件属性</li>
+<li>使用<code>imageType</code>进行绑定控制</li>
+</ol>
+<p>阅读文档，发现这时候直接利用Upload中的<code>maxCount</code>属性即可！</p>
+<p>同时，为了更完善功能，我们可以对图片数量再检查，检查图片数量是否和封面模式一致：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nx">imageList</span><span class="p">.</span><span class="nx">length</span> <span class="o">!==</span> <span class="nx">imageType</span><span class="p">)</span> <span class="k">return</span> <span class="nx">message</span><span class="p">.</span><span class="nx">warning</span><span class="p">(</span><span class="s1">&#39;封面类型和图片数量不匹配！&#39;</span><span class="p">)</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">文章列表 
+    <div id="%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">渲染频道数据 
+    <div id="%E6%B8%B2%E6%9F%93%E9%A2%91%E9%81%93%E6%95%B0%E6%8D%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B8%B2%E6%9F%93%E9%A2%91%E9%81%93%E6%95%B0%E6%8D%AE" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在文章列表模块中，同样也有一个频道相关的，因此要用到上面文章发布中的频道部分。对于这部分的实现，一般来说有三种方案：</p>
+<ol>
+<li>直接再写一遍</li>
+<li>存到redux中维护</li>
+<li>使用<strong>自定义业务hook</strong></li>
+</ol>
+<p>这次我选择自定义业务hook方法，主要流程：</p>
+<ol>
+<li>创建一个<strong>use打头的函数</strong></li>
+<li>在函数中封装业务逻辑，并return出组件中要用到的状态数据</li>
+<li>组件中导入函数执行并解构状态数据使用</li>
+</ol>
+<p>封装了一个<code>useChannel.js</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//封装获取频道列表的逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span><span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useState</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">getChannelAPI</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/apis/article&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">useChannel</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//获取频道列表中的所有逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="p">[</span><span class="nx">channelList</span><span class="p">,</span> <span class="nx">setChannelList</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">([])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//封装函数 函数内调用接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">getChannelList</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">getChannelAPI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">setChannelList</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">channels</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//调用函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">getChannelList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="p">[])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//把组件中要用到的数据return出去
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">channelList</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="p">{</span> <span class="nx">useChannel</span> <span class="p">}</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">渲染table文章列表 
+    <div id="%E6%B8%B2%E6%9F%93table%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B8%B2%E6%9F%93table%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>思路：</p>
+<ol>
+<li>封装请求接口</li>
+<li>使用useState维护状态数据</li>
+<li>使用useEffect发送请求</li>
+<li>在组件身上绑定对应属性完成渲染</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">[</span><span class="nx">list</span><span class="p">,</span> <span class="nx">setList</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">([])</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">getArticleListAPI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setList</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">results</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setCount</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">total_count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">},[])</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">适配文章状态 
+    <div id="%E9%80%82%E9%85%8D%E6%96%87%E7%AB%A0%E7%8A%B6%E6%80%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%80%82%E9%85%8D%E6%96%87%E7%AB%A0%E7%8A%B6%E6%80%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>根据文章的不同状态在状态列显示不同的Tag。</p>
+<p>实现思路：</p>
+<ol>
+<li>如果要适配的状态只有两个 -&gt; 三元条件渲染</li>
+<li>如果要适配的状态有多个 -&gt; 枚举渲染</li>
+</ol>
+<p>三元条件渲染：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="nx">render</span><span class="o">:</span> <span class="nx">data</span> <span class="p">=&gt;</span> <span class="nx">data</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">?</span> <span class="p">&lt;</span><span class="nt">Tag</span> <span class="na">color</span><span class="o">=</span><span class="s">&#39;warning&#39;</span><span class="p">&gt;</span><span class="nx">待审核</span><span class="p">&lt;/</span><span class="nt">Tag</span><span class="p">&gt;</span> <span class="o">:</span> <span class="p">&lt;</span><span class="nt">Tag</span> <span class="na">color</span><span class="o">=</span><span class="s">&#39;success&#39;</span><span class="p">&gt;</span><span class="nx">审核通过</span><span class="p">&lt;/</span><span class="nt">Tag</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>枚举渲染，显然可以适用于多情况:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">status</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">1</span><span class="o">:</span> <span class="p">&lt;</span><span class="nt">Tag</span> <span class="na">color</span><span class="o">=</span><span class="s">&#39;warning&#39;</span><span class="p">&gt;</span><span class="nx">待审核</span><span class="p">&lt;/</span><span class="nt">Tag</span><span class="p">&gt;,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="o">:</span> <span class="p">&lt;</span><span class="nt">Tag</span> <span class="na">color</span><span class="o">=</span><span class="s">&#39;success&#39;</span><span class="p">&gt;</span><span class="nx">审核通过</span><span class="p">&lt;/</span><span class="nt">Tag</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//另一部分对应代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">render</span><span class="o">:</span> <span class="nx">data</span> <span class="p">=&gt;</span> <span class="nx">status</span><span class="p">[</span><span class="nx">data</span><span class="p">]</span>
+</span></span></code></pre></div>
           
           
           
