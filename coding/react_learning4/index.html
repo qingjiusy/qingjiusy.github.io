@@ -111,7 +111,7 @@
     "keywords": ["react","前端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "6353"
+    "wordCount": "9191"
   }]
   </script>
 
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-17T00:00:00&#43;00:00">17 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>6353 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">13 分钟</span>
+  <time datetime="2025-03-17T00:00:00&#43;00:00">17 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>9191 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">19 分钟</span>
   
 
   
@@ -792,6 +792,25 @@
         <li><a href="#渲染频道数据">渲染频道数据</a></li>
         <li><a href="#渲染table文章列表">渲染table文章列表</a></li>
         <li><a href="#适配文章状态">适配文章状态</a></li>
+        <li><a href="#筛选功能实现">筛选功能实现</a></li>
+        <li><a href="#分页功能实现">分页功能实现</a></li>
+        <li><a href="#删除功能实现">删除功能实现</a></li>
+        <li><a href="#编辑文章跳转">编辑文章跳转</a></li>
+        <li><a href="#回填基础数据">回填基础数据</a></li>
+        <li><a href="#根据id适配状态">根据id适配状态</a></li>
+        <li><a href="#更新文章">更新文章</a></li>
+      </ul>
+    </li>
+    <li><a href="#最后处理">最后处理</a>
+      <ul>
+        <li><a href="#项目打包和本地预览">项目打包和本地预览</a>
+          <ul>
+            <li><a href="#本地预览模拟服务器运行项目">本地预览（模拟服务器运行项目）</a></li>
+          </ul>
+        </li>
+        <li><a href="#配置路由懒加载">配置路由懒加载</a></li>
+        <li><a href="#包体积分析">包体积分析</a></li>
+        <li><a href="#cdn优化">CDN优化</a></li>
       </ul>
     </li>
   </ul>
@@ -861,6 +880,25 @@
         <li><a href="#渲染频道数据">渲染频道数据</a></li>
         <li><a href="#渲染table文章列表">渲染table文章列表</a></li>
         <li><a href="#适配文章状态">适配文章状态</a></li>
+        <li><a href="#筛选功能实现">筛选功能实现</a></li>
+        <li><a href="#分页功能实现">分页功能实现</a></li>
+        <li><a href="#删除功能实现">删除功能实现</a></li>
+        <li><a href="#编辑文章跳转">编辑文章跳转</a></li>
+        <li><a href="#回填基础数据">回填基础数据</a></li>
+        <li><a href="#根据id适配状态">根据id适配状态</a></li>
+        <li><a href="#更新文章">更新文章</a></li>
+      </ul>
+    </li>
+    <li><a href="#最后处理">最后处理</a>
+      <ul>
+        <li><a href="#项目打包和本地预览">项目打包和本地预览</a>
+          <ul>
+            <li><a href="#本地预览模拟服务器运行项目">本地预览（模拟服务器运行项目）</a></li>
+          </ul>
+        </li>
+        <li><a href="#配置路由懒加载">配置路由懒加载</a></li>
+        <li><a href="#包体积分析">包体积分析</a></li>
+        <li><a href="#cdn优化">CDN优化</a></li>
       </ul>
     </li>
   </ul>
@@ -2056,6 +2094,461 @@ npm run start
 </span></span><span class="line"><span class="cl"><span class="c1">//另一部分对应代码
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">render</span><span class="o">:</span> <span class="nx">data</span> <span class="p">=&gt;</span> <span class="nx">status</span><span class="p">[</span><span class="nx">data</span><span class="p">]</span>
 </span></span></code></pre></div>
+
+<h3 class="relative group">筛选功能实现 
+    <div id="%E7%AD%9B%E9%80%89%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AD%9B%E9%80%89%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>筛选功能的本质：</p>
+<p>给请求列表接口传递不同的参数和后端要不同的数据。</p>
+<p>实现步骤：</p>
+<ol>
+<li>准备完整的请求参数对象</li>
+<li>获取用户选择的表单数据</li>
+<li>把表单数据放置到接口对应的字段中</li>
+<li>重新调用文章列表接口渲染Table列表</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//筛选功能
+</span></span></span><span class="line"><span class="cl"><span class="c1">//准备参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="p">[</span><span class="nx">reqData</span><span class="p">,</span> <span class="nx">setReqData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">channel_id</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">begin_pubdate</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">end_pubdate</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">page</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">per_page</span><span class="o">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">getArticleListAPI</span><span class="p">(</span><span class="nx">reqData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setList</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">results</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setCount</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">total_count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">},[</span><span class="nx">reqData</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//获取当前筛选数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">onFinish</span><span class="p">(</span><span class="nx">formValue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//把表单收集到的数据放到参数中(不可变的方式)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setReqData</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span><span class="nx">reqData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">channel_id</span><span class="o">:</span> <span class="nx">formValue</span><span class="p">.</span><span class="nx">channel_id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span><span class="o">:</span> <span class="nx">formValue</span><span class="p">.</span><span class="nx">status</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">begin_pubdate</span><span class="o">:</span> <span class="nx">formValue</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">end_pubdate</span><span class="o">:</span> <span class="nx">formValue</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//重新拉取文章列表+渲染table逻辑重复的 复用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//由reqData变化来重复执行副作用函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>重要的是利用<code>useEffect</code>在<code>reqData</code>变化时直接重新渲染的思想！</p>
+
+
+<h3 class="relative group">分页功能实现 
+    <div id="%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>要实现的效果：点击页数，在Table中显示当前页的数据列表。</p>
+<p>如何实现：</p>
+<ol>
+<li>实现分页展示（页数=总数/每页条数）</li>
+<li>点击分页拿到当前点击的页数</li>
+<li>使用页数作为请求参数重新获取文章列表渲染</li>
+</ol>
+<p>同样的，活用<code>reqData</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">onPageChange</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//获取对应分页的文章
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">//同样的修改参数依赖项
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// 由reqData变化来重复执行副作用函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">setReqData</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="p">...</span><span class="nx">reqData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">page</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">删除功能实现 
+    <div id="%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>要实现的效果：</p>
+<p>点击删除按钮删除当前文章。</p>
+<p>如何实现：</p>
+<ol>
+<li>点击删除弹出确认框</li>
+<li>得到文章id，使用id调用删除接口</li>
+<li>更新文章列表</li>
+</ol>
+<p>当然首先要构建API，进行传参id来删除指定文章：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//删除文章
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="kd">function</span> <span class="nx">delArticleAPI</span><span class="p">(</span><span class="nx">id</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">request</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span><span class="o">:</span> <span class="sb">`/mp/articles/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>构建前端中的删除逻辑：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">async</span> <span class="kd">function</span> <span class="nx">onConfirm</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//通过await保证删除之后再去更新文章列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">await</span> <span class="nx">delArticleAPI</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//删除之后更新文章列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setReqData</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span><span class="nx">reqData</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这里同样是用了<code>reqData</code>在更新后页面会因为<code>useEffect</code>自动渲染的功能。注意这里的操作！</p>
+<p>虽然reqData内的数据没有变化，但是因为这种写法<strong>导致state的引用发生了改变</strong>，于是就会更新文章列表！</p>
+<p>注意<code>setReqData(reqData)</code>这种写法不会导致引用变化，因此是没有用的！</p>
+
+
+<h3 class="relative group">编辑文章跳转 
+    <div id="%E7%BC%96%E8%BE%91%E6%96%87%E7%AB%A0%E8%B7%B3%E8%BD%AC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%BC%96%E8%BE%91%E6%96%87%E7%AB%A0%E8%B7%B3%E8%BD%AC" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>实现效果：</p>
+<p>点击编辑文章跳转到文章编辑页。</p>
+<p>如何实现：</p>
+<ol>
+<li>获取当前文章id</li>
+<li>跳转到创建（编辑）文章的路由</li>
+</ol>
+<p>结合<code>useNavigate</code>去做即可。</p>
+
+
+<h3 class="relative group">回填基础数据 
+    <div id="%E5%9B%9E%E5%A1%AB%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%9B%9E%E5%A1%AB%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>实现效果：</p>
+<p>把页面中除了封面之外的其余字段完成回填。也就是重新显示出来。</p>
+<p>如何实现：</p>
+<ol>
+<li>通过文章id获取到文章详情数据</li>
+<li>调用Form组件实例方法setFieldsValue回显数据</li>
+</ol>
+<p>代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">[</span><span class="nx">form</span><span class="p">]</span> <span class="o">=</span> <span class="nx">Form</span><span class="p">.</span><span class="nx">useForm</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getArticleDetail</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">getArticleById</span><span class="p">(</span><span class="nx">articleId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">form</span><span class="p">.</span><span class="nx">setFieldsValue</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//通过id获取数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">getArticleDetail</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//调用实例方法完成回填
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">},</span> <span class="p">[</span><span class="nx">articleId</span><span class="p">,</span> <span class="nx">form</span><span class="p">])</span>
+</span></span></code></pre></div><p>在这里我一开始有个问题：<strong>为什么useEffect的依赖项要写[articleId, form]？</strong></p>
+<blockquote>
+<p>react的规则是：<code>useEffect</code>必须显式声明它所依赖的所有变量，否则可能导致数据不同步或潜在bug。</p>
+<p>在这次的<code>useEffect</code>中，使用了两个外部变量：</p>
+<ul>
+<li>articleId（用来获取数据）</li>
+<li>form（用来设置数据）</li>
+</ul>
+<p>所以就必须写进依赖数组中。</p>
+</blockquote>
+<p>###　回填封面信息
+实现效果：</p>
+<p>回填封面的类型以及上传过的封面图片。</p>
+<p>如何实现：</p>
+<ol>
+<li>使用cover中的type字段回填封面类型</li>
+<li>使用cover中的images字段回填封面图片</li>
+</ol>
+<p>在这里回填封面类型要找好对应的写法，我们要改一下数据的结构。在回填图片列表的时候我们要先保证imageType正确，然后还要设置好imageList来进行后续的显示。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getArticleDetail</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">getArticleById</span><span class="p">(</span><span class="nx">articleId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">form</span><span class="p">.</span><span class="nx">setFieldsValue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="p">...</span><span class="nx">data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cover</span><span class="p">.</span><span class="nx">type</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//回填图片列表，根据虾米那的逻辑我们要显示图片要先保证imageType正确
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setImageType</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cover</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//显示图片
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setImageList</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cover</span><span class="p">.</span><span class="nx">images</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">url</span><span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">{</span> <span class="nx">url</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">根据id适配状态 
+    <div id="%E6%A0%B9%E6%8D%AEid%E9%80%82%E9%85%8D%E7%8A%B6%E6%80%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A0%B9%E6%8D%AEid%E9%80%82%E9%85%8D%E7%8A%B6%E6%80%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>实现效果：</p>
+<p>发布文章时显示发布文章，编辑文章状态下显示编辑文章。</p>
+<p>实现的思路：</p>
+<p>核心就是看是否有id，有文章id代表<strong>编辑状态</strong>，没有文章id代表<strong>发布状态</strong>。同时要注意到，如果是发布状态时没有文章id的，因此上面逻辑写的<code>useEffect</code>针对发布文章的情况会报错！我们要加上一个判断！</p>
+
+
+<h3 class="relative group">更新文章 
+    <div id="%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>实现效果：</p>
+<p>当用户对文章内容做修改之后，点击确认更新文章内容。</p>
+<p>很显然大部分逻辑都是一致的，<strong>稍作参数适配调用不同的接口</strong>即可。</p>
+<p>此次更新中特别要注意的是图片的格式的处理。以及针对不同的情况要调用不同的接口去完成功能：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//按照接口文档格式来处理收集到的表单格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">reqData</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">content</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cover</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="nx">imageType</span><span class="p">,</span> <span class="c1">//封面模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//这里url要针对不同的逻辑写不同的样式变换来保证正确传参
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">images</span><span class="o">:</span> <span class="nx">imageList</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">response</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">url</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span> <span class="c1">//图片列表 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">channel_id</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//调用接口
+</span></span></span><span class="line"><span class="cl"><span class="c1">//处理调用不同的接口 新增 - 新增接口 编辑状态 - 更新接口
+</span></span></span><span class="line"><span class="cl"><span class="c1">//根据有无id判断！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span><span class="p">(</span><span class="nx">articleId</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">updateArticleAPI</span><span class="p">({...</span><span class="nx">reqData</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">articleId</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">createArticleAPI</span><span class="p">(</span><span class="nx">reqData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">最后处理 
+    <div id="%E6%9C%80%E5%90%8E%E5%A4%84%E7%90%86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%9C%80%E5%90%8E%E5%A4%84%E7%90%86" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">项目打包和本地预览 
+    <div id="%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E5%92%8C%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E5%92%8C%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>打包指的是将项目中的源代码和资源文件进行处理，生成可在生产环境中运行的静态文件的过程。</p>
+<p>打包命令：<code>npm run build</code></p>
+
+
+<h4 class="relative group">本地预览（模拟服务器运行项目） 
+    <div id="%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>本地预览是指在本地通过静态服务器模拟生产服务器运行项目的过程</p>
+<ol>
+<li>安装本地服务包 <code>npm i -g serve</code></li>
+<li><code>serve -s build</code></li>
+<li>浏览器中访问<code>http://localhost:3000/</code></li>
+</ol>
+
+
+<h3 class="relative group">配置路由懒加载 
+    <div id="%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>路由懒加载是指路由的JS资源只有在被访问时才会动态获取，<strong>目的是为了优化项目首次打开的时间</strong>。</p>
+<p>说白话就是，只有用到了某个路由才去加载它的资源：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning4/lazy_route_hu18146723797468785126.png 330w,
+        /coding/react_learning4/lazy_route_hu17938974534135045625.png 660w,
+        /coding/react_learning4/lazy_route_hu14258062168149668434.png 1024w,
+        /coding/react_learning4/lazy_route_hu15117020964364896676.png 2x"
+        src="/coding/react_learning4/lazy_route_hu17938974534135045625.png"
+        alt="lazy_route"
+      />
+      
+    </figure>
+</p>
+<p>如何进行配置？</p>
+<ol>
+<li>把路由修改为由React提供的<strong>lazy函数进行动态导入</strong></li>
+<li>使用React内置的<strong>Suspense组件</strong>包裹路由中element选项对应的组件</li>
+</ol>
+<p>改进后的route代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="line"><span class="cl"><span class="c1">//路由配置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">Layout</span> <span class="nx">from</span> <span class="s2">&#34;@/pages/Layouts&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Login</span> <span class="nx">from</span> <span class="s2">&#34;@/pages/Login&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">createBrowserRouter</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-router-dom&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span><span class="nx">AuthRoute</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/components/AuthRoute&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// import Home from &#34;@/pages/Home&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// import Article from &#34;@/pages/Article&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// import Publish from &#34;@/pages/Publish&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">lazy</span><span class="p">,</span> <span class="nx">Suspense</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//借助lazy函数对组件进行导入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">Home</span> <span class="o">=</span> <span class="nx">lazy</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;@/pages/Home&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Article</span> <span class="o">=</span> <span class="nx">lazy</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;@/pages/Article&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Publish</span> <span class="o">=</span> <span class="nx">lazy</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;@/pages/Publish&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//配置路由实例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">createBrowserRouter</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">path</span><span class="o">:</span><span class="s2">&#34;/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">element</span><span class="o">:</span><span class="p">&lt;</span><span class="nt">AuthRoute</span><span class="p">&gt;&lt;</span><span class="nt">Layout</span> <span class="p">/&gt;&lt;/</span><span class="nt">AuthRoute</span><span class="p">&gt;,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">children</span><span class="o">:</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">index</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">element</span><span class="o">:</span><span class="p">&lt;</span><span class="nt">Suspense</span> <span class="na">fallback</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;加载中...&#39;</span><span class="p">}&gt;&lt;</span><span class="nt">Home</span><span class="p">/&gt;&lt;/</span><span class="nt">Suspense</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;article&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">element</span><span class="o">:</span><span class="p">&lt;</span><span class="nt">Suspense</span> <span class="na">fallback</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;加载中...&#39;</span><span class="p">}&gt;&lt;</span><span class="nt">Article</span><span class="p">/&gt;&lt;/</span><span class="nt">Suspense</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;publish&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">element</span><span class="o">:</span><span class="p">&lt;</span><span class="nt">Suspense</span> <span class="na">fallback</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;加载中...&#39;</span><span class="p">}&gt;&lt;</span><span class="nt">Publish</span><span class="p">/&gt;&lt;/</span><span class="nt">Suspense</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">path</span><span class="o">:</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">element</span><span class="o">:</span><span class="p">&lt;</span><span class="nt">Login</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">包体积分析 
+    <div id="%E5%8C%85%E4%BD%93%E7%A7%AF%E5%88%86%E6%9E%90" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8C%85%E4%BD%93%E7%A7%AF%E5%88%86%E6%9E%90" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>什么是包体积分析？</p>
+<p>通过可视化的方式，直观的体现项目中各种包打包之后的体积大小，方便做优化。因此我们需要用到插件<strong>source-map-explorer</strong>。然后：</p>
+<ol>
+<li>安装包: <code>npm i source-map-explorer</code></li>
+<li>配置命令指定要分析的js文件</li>
+</ol>
+<p>最后在<code>packect.json</code>里面加上新的指令<code>&quot;analyze&quot;: &quot;source-map-explorer 'build/static/js/*.js'&quot;</code>以后，可以运行直观的看到结果：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/react_learning4/analyze_hu9495453701716621958.png 330w,
+        /coding/react_learning4/analyze_hu17019321280029501568.png 660w,
+        /coding/react_learning4/analyze_hu16926357128678768657.png 1024w,
+        /coding/react_learning4/analyze_hu11502540559658968172.png 2x"
+        src="/coding/react_learning4/analyze_hu17019321280029501568.png"
+        alt="analyze"
+      />
+      
+    </figure>
+</p>
+<p>这样我们可以在开发的时候去优化我们的包，缩小空间。</p>
+
+
+<h3 class="relative group">CDN优化 
+    <div id="cdn%E4%BC%98%E5%8C%96" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#cdn%E4%BC%98%E5%8C%96" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><strong>什么是CDN？</strong></p>
+<p>CDN是一种内容分发网络服务，当用户请求网站内容时，由离用户最近的服务器将缓存的资源内容传递给用户。</p>
+<p><strong>哪些资源可以放到CDN服务器？</strong></p>
+<p>体积较大的非业务JS文件，比如react、react-dom：</p>
+<ol>
+<li>体积较大，需要利用CDN文件在浏览器的缓存特性，加快加载时间</li>
+<li>非业务JS文件，不需要经常做变动，CDN不用频繁更新缓存</li>
+</ol>
+<p><strong>项目中怎么做？</strong></p>
+<ol>
+<li>把需要做CDN缓存的文件排除在打包之外（react、react-dom）</li>
+<li>以CDN的方式重新引入资源（react、react-dom）</li>
+</ol>
+
           
           
           
