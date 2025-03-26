@@ -1,0 +1,2605 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>TypeScript初步学习 &middot; QingJiu</title>
+  <meta name="title" content="TypeScript初步学习 &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="TypeScript, 前端, " />
+  
+  
+  <link rel="canonical" href="http://localhost:1313/coding/ts_learning1/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.930a7c6a69224a9dc067fbe56035893295d7d83b892c265af91a4fa70d5428caf70cd14538bd83dfa4a867905c07bfd20884f698d9be1127676af1de53796eff.css"
+    integrity="sha512-kwp8amkiSp3AZ/vlYDWJMpXX2DuJLCZa&#43;RpPpw1UKMr3DNFFOL2D36SoZ5BcB7/SCIT2mNm&#43;ESdnavHeU3lu/w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/coding/ts_learning1/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="TypeScript初步学习">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2025-03-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-24T00:00:00+00:00">
+    <meta property="article:tag" content="TypeScript">
+    <meta property="article:tag" content="前端">
+    <meta property="og:image" content="http://localhost:1313/coding/ts_learning1/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/coding/ts_learning1/featured.png">
+  <meta name="twitter:title" content="TypeScript初步学习">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "TypeScript初步学习",
+    "headline": "TypeScript初步学习",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "http:\/\/localhost:1313\/coding\/ts_learning1\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-03-24T00:00:00\u002b00:00",
+    "datePublished": "2025-03-24T00:00:00\u002b00:00",
+    
+    "dateModified": "2025-03-24T00:00:00\u002b00:00",
+    
+    "keywords": ["TypeScript","前端"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "7813"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/ts_learning1/featured_hu3801384228122929919.png);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      TypeScript初步学习
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-03-24T00:00:00&#43;00:00">24 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>7813 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#相比于js的好处">相比于js的好处</a></li>
+    <li><a href="#使用ts">使用ts</a>
+      <ul>
+        <li><a href="#命令行编译">命令行编译</a></li>
+        <li><a href="#自动化编译">自动化编译</a></li>
+        <li><a href="#对象声明">对象声明</a></li>
+      </ul>
+    </li>
+    <li><a href="#类型总览">类型总览</a>
+      <ul>
+        <li><a href="#注意点">注意点</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用类型">常用类型</a>
+      <ul>
+        <li><a href="#any">any</a></li>
+        <li><a href="#unknown">unknown</a></li>
+        <li><a href="#never">never</a></li>
+        <li><a href="#void">void</a></li>
+        <li><a href="#理解void与undefined">理解void与undefined</a></li>
+        <li><a href="#object">object</a></li>
+        <li><a href="#tuple">tuple</a></li>
+        <li><a href="#enum">enum</a></li>
+        <li><a href="#type">type</a></li>
+        <li><a href="#一个特殊情况">一个特殊情况</a></li>
+        <li><a href="#类相关的知识">类相关的知识</a></li>
+        <li><a href="#属性修饰符">属性修饰符</a>
+          <ul>
+            <li><a href="#protected-private修饰符">protected private修饰符</a></li>
+            <li><a href="#readonly修饰符">readonly修饰符</a></li>
+          </ul>
+        </li>
+        <li><a href="#抽象类">抽象类</a>
+          <ul>
+            <li><a href="#总结何时使用抽象类">总结：何时使用抽象类？</a></li>
+          </ul>
+        </li>
+        <li><a href="#接口">接口</a>
+          <ul>
+            <li><a href="#定义类结构">定义类结构</a></li>
+            <li><a href="#定义对象结构">定义对象结构：</a></li>
+            <li><a href="#定义函数结构">定义函数结构：</a></li>
+            <li><a href="#接口之间是可以继承的">接口之间是可以继承的</a></li>
+            <li><a href="#接口的可合并性">接口的可合并性</a></li>
+            <li><a href="#总结何时使用接口">总结：何时使用接口？</a></li>
+          </ul>
+        </li>
+        <li><a href="#一些相似类型的区别">一些相似类型的区别</a>
+          <ul>
+            <li><a href="#interface和type的区别">interface和type的区别</a></li>
+            <li><a href="#interface与抽象类的区别">interface与抽象类的区别</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#泛型">泛型</a></li>
+    <li><a href="#类型声明文件">类型声明文件</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#相比于js的好处">相比于js的好处</a></li>
+    <li><a href="#使用ts">使用ts</a>
+      <ul>
+        <li><a href="#命令行编译">命令行编译</a></li>
+        <li><a href="#自动化编译">自动化编译</a></li>
+        <li><a href="#对象声明">对象声明</a></li>
+      </ul>
+    </li>
+    <li><a href="#类型总览">类型总览</a>
+      <ul>
+        <li><a href="#注意点">注意点</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用类型">常用类型</a>
+      <ul>
+        <li><a href="#any">any</a></li>
+        <li><a href="#unknown">unknown</a></li>
+        <li><a href="#never">never</a></li>
+        <li><a href="#void">void</a></li>
+        <li><a href="#理解void与undefined">理解void与undefined</a></li>
+        <li><a href="#object">object</a></li>
+        <li><a href="#tuple">tuple</a></li>
+        <li><a href="#enum">enum</a></li>
+        <li><a href="#type">type</a></li>
+        <li><a href="#一个特殊情况">一个特殊情况</a></li>
+        <li><a href="#类相关的知识">类相关的知识</a></li>
+        <li><a href="#属性修饰符">属性修饰符</a>
+          <ul>
+            <li><a href="#protected-private修饰符">protected private修饰符</a></li>
+            <li><a href="#readonly修饰符">readonly修饰符</a></li>
+          </ul>
+        </li>
+        <li><a href="#抽象类">抽象类</a>
+          <ul>
+            <li><a href="#总结何时使用抽象类">总结：何时使用抽象类？</a></li>
+          </ul>
+        </li>
+        <li><a href="#接口">接口</a>
+          <ul>
+            <li><a href="#定义类结构">定义类结构</a></li>
+            <li><a href="#定义对象结构">定义对象结构：</a></li>
+            <li><a href="#定义函数结构">定义函数结构：</a></li>
+            <li><a href="#接口之间是可以继承的">接口之间是可以继承的</a></li>
+            <li><a href="#接口的可合并性">接口的可合并性</a></li>
+            <li><a href="#总结何时使用接口">总结：何时使用接口？</a></li>
+          </ul>
+        </li>
+        <li><a href="#一些相似类型的区别">一些相似类型的区别</a>
+          <ul>
+            <li><a href="#interface和type的区别">interface和type的区别</a></li>
+            <li><a href="#interface与抽象类的区别">interface与抽象类的区别</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#泛型">泛型</a></li>
+    <li><a href="#类型声明文件">类型声明文件</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<h2 class="relative group">简介 
+    <div id="%E7%AE%80%E4%BB%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AE%80%E4%BB%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>首先明确：<code>TypeScript</code>是<code>JavaScript</code>的超集。
+<code>TypeScript</code>增加了：静志类型检查、接口、泛型等很多现代开发特性，因此更适合大型项目的开发。TypeScript需要编译为JavaScript，然后交给浏览器或其他JavaScript运行环境执行。</p>
+
+
+<h2 class="relative group">相比于js的好处 
+    <div id="%E7%9B%B8%E6%AF%94%E4%BA%8Ejs%E7%9A%84%E5%A5%BD%E5%A4%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%9B%B8%E6%AF%94%E4%BA%8Ejs%E7%9A%84%E5%A5%BD%E5%A4%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>相比于js有许多不清不楚的问题，没有很好的代码错误提示的情况下，ts有静态类型检查（<strong>代码运行前</strong>进行检查，发现代码的错误和不合理之处，减少运行时异常出现的概率，简言之就是把<strong>运行时的错误前置</strong>）。</p>
+<p>同样的功能，ts的代码量要大于js，但是ts的代码结构更加清晰，后期维护中ts要远胜于js。</p>
+
+
+<h2 class="relative group">使用ts 
+    <div id="%E4%BD%BF%E7%94%A8ts" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%BF%E7%94%A8ts" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>为了使用ts，首先需要全局安装一个包：<code>npm i typescript -g</code>。</p>
+
+
+<h3 class="relative group">命令行编译 
+    <div id="%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%BC%96%E8%AF%91" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%BC%96%E8%AF%91" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>然后我们就可以用<code>tsc</code>命令来编译ts文件了。</p>
+<p>运行后可以看到编译后的js把中文进行了转码，这是为了中文字符能够在任何平台都正确的显示。但是这种方法实际上每改一次ts文件，要自己手动去编译生成新的对应的js，还是十分麻烦的，所以实际不常用。</p>
+
+
+<h3 class="relative group">自动化编译 
+    <div id="%E8%87%AA%E5%8A%A8%E5%8C%96%E7%BC%96%E8%AF%91" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E7%BC%96%E8%AF%91" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>使用命令<code>tsc --init</code>，这个会生成一个配置文件，规定了ts如何转化成为js。</p>
+<p>然后使用命令<code>tsc --watch</code>，表示监控文件夹中所有的ts文件，任何变化都会快速反应到js文件中。我们可以通过在配置文件中，打开<code>&quot;noEmitOnError&quot;: true</code>，这样ts如果有问题，则不会生成对应js。</p>
+
+
+<h3 class="relative group">对象声明 
+    <div id="%E5%AF%B9%E8%B1%A1%E5%A3%B0%E6%98%8E" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AF%B9%E8%B1%A1%E5%A3%B0%E6%98%8E" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>写法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">a</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">b</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">c</span>: <span class="kt">boolean</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">99</span>
+</span></span><span class="line"><span class="cl"><span class="nx">c</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//返回的数据是string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">count</span><span class="p">(</span><span class="nx">x</span>:<span class="kt">number</span><span class="p">,</span> <span class="nx">y</span>:<span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span></code></pre></div><p>同时ts会进行聪明的类型推断，通过代码推断变量的类型。</p>
+
+
+<h2 class="relative group">类型总览 
+    <div id="%E7%B1%BB%E5%9E%8B%E6%80%BB%E8%A7%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%B1%BB%E5%9E%8B%E6%80%BB%E8%A7%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p><strong>javascript中的数据类型：</strong></p>
+<ol>
+<li>string</li>
+<li>number</li>
+<li>boolean</li>
+<li>null</li>
+<li>undefined</li>
+<li>bigint</li>
+<li>symbol</li>
+<li>object</li>
+</ol>
+<p><strong>typescript中的数据类型：</strong></p>
+<ol>
+<li>上述中<strong>所有</strong>的javascript的数据类型</li>
+<li>六个新类型
+<ol>
+<li>any</li>
+<li>unknown</li>
+<li>never</li>
+<li>void</li>
+<li>tuple</li>
+<li>enum</li>
+</ol>
+</li>
+<li>两个用于自定义类型的方法：
+<ol>
+<li>type</li>
+<li>interface</li>
+</ol>
+</li>
+</ol>
+
+
+<h3 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在TS的类型中，<code>string</code>和<code>String</code>并不是同一种东西，需要进行区分。<code>string</code>是就是字符串，是TS官方推荐的写法，因此它不能切换到String类型。而<code>String</code>是一个字符串的包装对象，它既可以写string（字符串类型），也可以写String（字符串的包装对象）。</p>
+<p>但是一般都不写String，麻烦而且更加消耗内存。</p>
+<p>在JavaScript中的这些内置构造函数：Number、String、Boolean，它们用于创建对应的包装对象，在日常开发时很少使用，在TypeScript中也是同理，所以在TypeScript中进行类型声明时，通常都是用小写的number、string、boolean。</p>
+<p>这个东西的存在意义是JS和TS底层在自动装箱使用。</p>
+
+
+<h2 class="relative group">常用类型 
+    <div id="%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">any 
+    <div id="any" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#any" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>any的含义是任意类型。一旦设置为any，就意味着放弃对该变量的类型检查。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">//显式声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">a</span>: <span class="kt">any</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//隐式声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">b</span>
+</span></span></code></pre></div><p>要注意，any的变量可以<strong>赋值给任意类型的变量</strong>。</p>
+
+
+<h3 class="relative group">unknown 
+    <div id="unknown" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#unknown" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>意思就是未知类型。</p>
+<p>可以理解为一个类型安全的any，适用于：不确定数据的具体类型。</p>
+<p>在这种情况下直接把unknown类型赋值给别的特定类型的变量会报错。第一种手段是加上判断，可以不报错；第二种方法是使用断言。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">a</span>: <span class="kt">unknown</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">x</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//第一种
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">a</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//第二种
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="kr">as</span> <span class="kt">string</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">never 
+    <div id="never" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#never" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>never的含义是：任何值都不是，简言之就是不能有值，undefined.null都不行！</p>
+<p>返回“never”的函数不能具有可访问的终结点。意思就是说这个函数就不能正常结束！可以<code>throw new error</code>这种不正常的抛出一个异常结束。</p>
+<p>never一般是TS主动推断出来的。</p>
+
+
+<h3 class="relative group">void 
+    <div id="void" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#void" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>void通常用于函数返回值声明，含义：函数不返回任何值，<strong>调用者也不应依赖其返回值进行任何操作</strong>。</p>
+<p>但是在语法层面上，void，空，在TS中就是<strong>undefined</strong>。</p>
+
+
+<h3 class="relative group">理解void与undefined 
+    <div id="%E7%90%86%E8%A7%A3void%E4%B8%8Eundefined" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%90%86%E8%A7%A3void%E4%B8%8Eundefined" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li>void是一个广泛的概念，用来表达”空”，undefined则是这种“空”的具体实现之一。</li>
+<li>因此可以说undefined是void能接受的“空”状态的一种具体形式。</li>
+<li>换句话说：void包含undefined，但void表达的语义超越了单纯的undefined，它是一种意图上的约定，而不仅仅是特定值的限制。</li>
+</ul>
+<p><strong>总结</strong>：若函数返回类型为void，那么：</p>
+<ol>
+<li>从语法上讲：函数是可以返回undefined的，至于显示返回，还是隐式返回，这无所谓！</li>
+<li>从语义上讲：函数调用者不应关心函数返回的值，也不应依赖返回值进行任何操作！即使返回了undefined值。</li>
+</ol>
+
+
+<h3 class="relative group">object 
+    <div id="object" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#object" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>实际开发中用的少，因为范围太大了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">//a能存储的类型是 非原始类型
+</span></span></span><span class="line"><span class="cl"><span class="c1">//原始类型就存不了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">a</span>: <span class="kt">object</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;tom&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="s1">&#39;123&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 以下代码，是将【原始类型】赋给a，有警告
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>           <span class="c1">// 警告：不能将类型“number”分配给类型“object”
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">=</span> <span class="kc">true</span>        <span class="c1">// 警告：不能将类型“boolean”分配给类型“object”
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;你好&#39;</span>      <span class="c1">// 警告：不能将类型“string”分配给类型“object”
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">=</span> <span class="kc">null</span>        <span class="c1">// 警告：不能将类型“null”分配给类型“object”
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">=</span> <span class="kc">undefined</span>   <span class="c1">// 警告：不能将类型“undefined”分配给类型“object”
+</span></span></span></code></pre></div><p>可以看到限制的太宽泛了，不好实现。</p>
+<p><strong>Object</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">//b能存储的类型是可以调用到Object方法的类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">b</span>: <span class="kt">Object</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;tom&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="s1">&#39;123&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span>           
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="kc">true</span>        
+</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="o">=</span> <span class="s1">&#39;你好&#39;</span>    
+</span></span></code></pre></div><p>也就是Object除了<code>null</code>，除了<code>undefined</code>都能存。</p>
+<p><strong>声明对象类型</strong>：
+实际开发中，限制一般对象通常使用以下形式:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">// 限制person1对象必须有name属性，age为可选属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">person1</span><span class="o">:</span> <span class="p">{</span> <span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">age?</span>: <span class="kt">number</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 含义同上，也能用分号做分隔
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">person2</span><span class="o">:</span> <span class="p">{</span> <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span> <span class="nx">age?</span>: <span class="kt">number</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 含义同上，也能用换行做分隔
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">person3</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age?</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 如下赋值均可以
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">person1</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;李四&#39;</span><span class="p">,</span> <span class="nx">age</span>: <span class="kt">18</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">person2</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;张三&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">person3</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;王五&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 如下赋值不合法，因为person3的类型限制中，没有对gender属性的说明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">person3</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;王五&#39;</span><span class="p">,</span> <span class="nx">gender</span><span class="o">:</span> <span class="s1">&#39;男&#39;</span> <span class="p">}</span>
+</span></span></code></pre></div><p>还有一种声明方法是用索引签名的形式，允许定义对象可以具有<strong>任意数量的属性</strong>，这些属性的<strong>键</strong>和<strong>类型</strong>是<strong>可变的</strong>，常用于：描述类型不确定的属性，（具有动态属性的对象）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">// 限制person对象必须有name属性，可选age属性但值必须是数字，同时可以有任意数量、任意类型的其他属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">person</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age?</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">any</span> <span class="c1">// 索引签名，完全可以不用key这个单词，换成其他的也可以
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 赋值合法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;张三&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">gender</span><span class="o">:</span> <span class="s1">&#39;男&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>声明函数类型</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">//注意这里的函数不是箭头函数，只是分隔符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">count</span><span class="o">:</span> <span class="p">(</span><span class="nx">a</span>: <span class="kt">number</span><span class="p">,</span> <span class="nx">b</span>: <span class="kt">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">count</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>备注：</p>
+<ul>
+<li>TypeScript中的 <strong>=&gt;</strong> 在函数类型声明时表示函数类型，描述其参数类型和返回类型。</li>
+<li>JavaScript中的 <strong>=&gt;</strong> 是一种定义函数的语法，是具体的函数实现。</li>
+<li>函数类型声明还可以使用：接口、自定义类型等方式，正文中会详细讲解。</li>
+</ul>
+<p><strong>声明数组类型</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">arr1</span>: <span class="kt">string</span><span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">arr2</span>: <span class="kt">Array</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p>备注：</p>
+<p>上述代码中的**Array<string>**属于泛型，下文会详细讲解。</p>
+
+
+<h3 class="relative group">tuple 
+    <div id="tuple" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tuple" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>元组是一种特殊的数组类型，可以存储<strong>固定数量</strong>的元素，并且每个元素的类型是<strong>已知的</strong>并且<strong>可以不同</strong>。元组用于精确描述一组值得类型。<code>?</code>表示可选元素。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">// 第一个元素必须是 string 类型，第二个元素必须是 number 类型。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">arr1</span><span class="o">:</span> <span class="p">[</span><span class="kt">string</span><span class="p">,</span> <span class="kt">number</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 第一个元素必须是 number 类型，第二个元素是可选的，如果存在，必须是 boolean 类型。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">arr2</span><span class="o">:</span> <span class="p">[</span><span class="kt">number</span><span class="p">,</span> <span class="kr">boolean</span><span class="o">?</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 第一个元素必须是 number 类型，后面的元素可以是任意数量的 string 类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">arr3</span><span class="o">:</span> <span class="p">[</span><span class="kt">number</span><span class="p">,</span> <span class="p">...</span><span class="kt">string</span><span class="p">[]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 可以赋值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="mi">123</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="kc">false</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 不可以赋值，arr1声明时是两个元素，赋值的是三个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="kc">false</span><span class="p">]</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">enum 
+    <div id="enum" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#enum" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<blockquote>
+<p>枚举（enum）可以定义一组命名常量，它能增强代码的可读性，也让代码更好维护。</p>
+</blockquote>
+<p>下面代码的功能是：根据调用<code>walk</code>时传入的不同参数，执行不同的逻辑。</p>
+<p>但存在的问题是：</p>
+<ul>
+<li>用walk时传参没有任何提示，容易写错字符串；</li>
+<li>字符串up、down、left、right是连续且相关的一组值，此时特别适合使用枚举（enum）。</li>
+</ul>
+<p>示例代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">walk</span><span class="p">(</span><span class="nx">str</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">str</span> <span class="o">===</span> <span class="s1">&#39;up&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;向【上】走&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">str</span> <span class="o">===</span> <span class="s1">&#39;down&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;向【下】走&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">str</span> <span class="o">===</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;向【左】走&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">str</span> <span class="o">===</span> <span class="s1">&#39;right&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;向【右】走&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;未知方向&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">walk</span><span class="p">(</span><span class="s1">&#39;up&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">walk</span><span class="p">(</span><span class="s1">&#39;down&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">walk</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">walk</span><span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>数字枚举</strong>：
+数字枚举是一种最常见的枚举类型，其成员的值会<strong>自动递增</strong>，且数字枚举还具备<strong>反向映射</strong>的特点。</p>
+<p>在下图代码的打印中，可以发现：可以通过<strong>值</strong>来获取对应的枚举<strong>成员名称</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Direction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Up</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Down</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Left</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Right</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Direction</span><span class="p">)</span> <span class="c1">// 打印 Direction 会看到如下内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">{
+</span></span></span><span class="line"><span class="cl"><span class="cm">  0: &#39;Up&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="cm">  1: &#39;Down&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="cm">  2: &#39;Left&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="cm">  3: &#39;Right&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Up: 0,
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Down: 1,
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Left: 2,
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Right: 3
+</span></span></span><span class="line"><span class="cl"><span class="cm">}
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 反向映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Direction</span><span class="p">.</span><span class="nx">Up</span><span class="p">)</span>     <span class="c1">// 输出：0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Direction</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>     <span class="c1">// 输出：&#39;Up&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 此行代码报错，枚举中的属性是只读的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Direction</span><span class="p">.</span><span class="nx">Up</span> <span class="o">=</span> <span class="s1">&#39;shang&#39;</span>
+</span></span></code></pre></div><p>也可以指定初始值，会自动递增：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Direction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Up</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Down</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Left</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Right</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Direction</span><span class="p">.</span><span class="nx">Up</span><span class="p">);</span>   <span class="c1">// 输出: 6
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Direction</span><span class="p">.</span><span class="nx">Down</span><span class="p">);</span> <span class="c1">// 输出: 7
+</span></span></span></code></pre></div><p>使用数字枚举完成刚才<code>walk</code>函数中的逻辑，此时我们发现：代码更加直观易读，而且类型安全，同时也更易于维护。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Direction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Up</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Down</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Left</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Right</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">walk</span><span class="p">(</span><span class="nx">n</span>: <span class="kt">Direction</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="nx">Direction</span><span class="p">.</span><span class="nx">Up</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;向【上】走&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="nx">Direction</span><span class="p">.</span><span class="nx">Down</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;向【下】走&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="nx">Direction</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;向【左】走&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="nx">Direction</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;向【右】走&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;未知方向&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">walk</span><span class="p">(</span><span class="nx">Direction</span><span class="p">.</span><span class="nx">Up</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">walk</span><span class="p">(</span><span class="nx">Direction</span><span class="p">.</span><span class="nx">Down</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>字符串枚举</strong>
+枚举成员的值是字符串。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">Direction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Up</span> <span class="o">=</span> <span class="s2">&#34;up&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Down</span> <span class="o">=</span> <span class="s2">&#34;down&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Left</span> <span class="o">=</span> <span class="s2">&#34;left&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Right</span> <span class="o">=</span> <span class="s2">&#34;right&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">dir</span>: <span class="kt">Direction</span> <span class="o">=</span> <span class="nx">Direction</span><span class="p">.</span><span class="nx">Up</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dir</span><span class="p">);</span> <span class="c1">// 输出: &#34;up&#34;
+</span></span></span></code></pre></div><p><strong>常量枚举</strong>
+官方描述：常量枚举是一种特殊枚举类型，它使用const关键字定义，在编译时会被内联，<strong>避免生成一些额外的代码</strong>。</p>
+<p>何为<strong>编译时内联</strong>？</p>
+<p>所谓“内联”其实就是TypeScript在编译时，会将枚举成员引用替换为它们的实际值，而不是生成额外的枚举对象。这可以减少生成的JavaScript代码量，并提高运行时性能。</p>
+
+
+<h3 class="relative group">type 
+    <div id="type" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#type" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>type可以为任意类型创建别名，让代码更简洁、可读性更强，同时能更方便地进行类型复用和扩展。</p>
+<p><strong>基本用法：</strong>
+类型别名使用<code>type</code>关键字定义，<code>type</code>后跟类型名称，例如下面代码中<code>num</code>是类型别名。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">num</span> <span class="o">=</span> <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">price</span>: <span class="kt">num</span>
+</span></span><span class="line"><span class="cl"><span class="nx">price</span> <span class="o">=</span> <span class="mi">100</span>
+</span></span></code></pre></div><p><strong>联合类型：</strong>
+<strong>联合类型</strong>是一种高级类型，它表示一个值可以是几种不同类型之一。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Status</span> <span class="o">=</span> <span class="kt">number</span> <span class="o">|</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Gender</span> <span class="o">=</span> <span class="s1">&#39;男&#39;</span> <span class="o">|</span> <span class="s1">&#39;女&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">printStatus</span><span class="p">(</span><span class="nx">status</span>: <span class="kt">Status</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">status</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">logGender</span><span class="p">(</span><span class="nx">str</span>: <span class="kt">Gender</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">printStatus</span><span class="p">(</span><span class="mi">404</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">printStatus</span><span class="p">(</span><span class="s1">&#39;200&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">printStatus</span><span class="p">(</span><span class="s1">&#39;501&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">logGender</span><span class="p">(</span><span class="s1">&#39;男&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">logGender</span><span class="p">(</span><span class="s1">&#39;女&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>交叉类型：</strong>
+**交叉类型（Intersection Types）**允许将多个类型合并为一个类型。合并后的类型将拥有所有被合并类型的成员。交叉类型通常用于对象类型。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">// 面积
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Area</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span>: <span class="kt">number</span><span class="p">;</span> <span class="c1">// 高
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">width</span>: <span class="kt">number</span><span class="p">;</span>  <span class="c1">// 宽
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">Address</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">num</span>: <span class="kt">number</span><span class="p">;</span>   <span class="c1">// 楼号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">cell</span>: <span class="kt">number</span><span class="p">;</span>  <span class="c1">// 单元号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">room</span>: <span class="kt">string</span><span class="p">;</span>  <span class="c1">// 房间号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义类型 House，且 House 是 Area 和 Address 组成的交叉类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">House</span> <span class="o">=</span> <span class="nx">Area</span> <span class="o">&amp;</span> <span class="nx">Address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">house</span>: <span class="kt">House</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span>: <span class="kt">180</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span>: <span class="kt">75</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">num</span>: <span class="kt">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cell</span>: <span class="kt">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">room</span><span class="o">:</span> <span class="s1">&#39;702&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">一个特殊情况 
+    <div id="%E4%B8%80%E4%B8%AA%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%80%E4%B8%AA%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>其实是为了箭头函数的简写成立，于是会有下面这个特殊情况的存在：</p>
+<ul>
+<li>代码段1（正常）：
+在函数定义时，限制函数返回值为<code>void</code>，那么函数的返回值就必须是<strong>空</strong>。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">demo</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 返回 undefined 合法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="kc">undefined</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 以下返回均不合法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">demo</span><span class="p">()</span>
+</span></span></code></pre></div><ul>
+<li>代码段2（特殊）:
+使用<strong>类型声明</strong>限制函数返回值为<code>void</code>时，<strong>TypeScript并不会严格要求函数返回空值</strong>。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">LogFunc</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">f1</span>: <span class="kt">LogFunc</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// ✅ 允许返回非空值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">f2</span>: <span class="kt">LogFunc</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">;</span> <span class="c1">// ✅ 允许返回非空值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">f3</span>: <span class="kt">LogFunc</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">300</span><span class="p">;</span> <span class="c1">// ✅ 允许返回非空值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><p><strong>为什么会这样？</strong></p>
+<blockquote>
+<p>是为了保证以下代码能成立：</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">src</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">dst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">src</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">el</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">dst</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">el</span><span class="p">));</span> 
+</span></span></code></pre></div><ul>
+<li><code>Array.prototype.push</code>的返回值是一个数字；</li>
+<li>但<code>forEach</code>期望其回调函数的返回类型是void；</li>
+<li>所以TS在类型上放宽限制：函数类型写<code>(): void</code>也可以返回值。</li>
+</ul>
+
+
+<h3 class="relative group">类相关的知识 
+    <div id="%E7%B1%BB%E7%9B%B8%E5%85%B3%E7%9A%84%E7%9F%A5%E8%AF%86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%B1%BB%E7%9B%B8%E5%85%B3%E7%9A%84%E7%9F%A5%E8%AF%86" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>类：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 属性声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">name</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">constructor</span><span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">age</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">speak() {</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`我叫：</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">, 今年</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="si">}</span><span class="sb">岁`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Person 实例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s1">&#39;周杰伦&#39;</span><span class="p">,</span> <span class="mi">38</span><span class="p">)</span>
+</span></span></code></pre></div><p>子类继承父类：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Student</span> <span class="kr">extends</span> <span class="nx">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">grade</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">constructor</span><span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">age</span>: <span class="kt">number</span><span class="p">,</span> <span class="nx">grade</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">grade</span> <span class="o">=</span> <span class="nx">grade</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 重写从父类继承的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">override</span> <span class="nx">speak() {</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`我是学生，我叫：</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">, 今年</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="si">}</span><span class="sb">岁, 在读</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">grade</span><span class="si">}</span><span class="sb">年级~`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 子类自己的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">study() {</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> 正在努力学习中……`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">属性修饰符 
+    <div id="%E5%B1%9E%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B1%9E%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/ts_learning1/shuxing_hu15724760734789829667.png 330w,
+        /coding/ts_learning1/shuxing_hu2697602921995245276.png 660w,
+        /coding/ts_learning1/shuxing_hu12696219625555080261.png 1024w,
+        /coding/ts_learning1/shuxing_hu2615906612432332049.png 2x"
+        src="/coding/ts_learning1/shuxing_hu2697602921995245276.png"
+        alt="shuxing"
+      />
+      
+    </figure>
+</p>
+<p>属性的最初完整写法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">public</span> <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">public</span> <span class="nx">age</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">age</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>属性的简写形式：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nx">age</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在TypeScript中，构造函数参数前加上访问修饰符（如 public / private / readonly），可以自动声明并初始化为成员属性，简化写法。效果与完整写法一致。</p>
+
+
+<h4 class="relative group">protected private修饰符 
+    <div id="protected-private%E4%BF%AE%E9%A5%B0%E7%AC%A6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#protected-private%E4%BF%AE%E9%A5%B0%E7%AC%A6" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>用protected修饰符修饰以后的属性和方法：类内部和子类中可以访问，但类外部不能访问。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// name 和 age 是受保护属性，不能在类外部访问，但可以在【类】与【子类】中访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">constructor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">protected</span> <span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">protected</span> <span class="nx">age</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// getDetails 是受保护方法，不能在类外部访问，但可以在【类】与【子类】中访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">protected</span> <span class="nx">getDetails</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 类中能访问受保护的 name 和 age 属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="sb">`我叫：</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">, 年龄是：</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// introduce 是公开方法，类、子类、类外部都能使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">introduce() {</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 类中能访问受保护的 getDetails 方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getDetails</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s1">&#39;杨超越&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 可以在类外部访问 introduce
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">p1</span><span class="p">.</span><span class="nx">introduce</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 以下代码均报错
+</span></span></span><span class="line"><span class="cl"><span class="c1">// p1.getDetails()
+</span></span></span><span class="line"><span class="cl"><span class="c1">// p1.name
+</span></span></span><span class="line"><span class="cl"><span class="c1">// p1.age
+</span></span></span></code></pre></div><p>同理，很容易理解private修饰符。</p>
+
+
+<h4 class="relative group">readonly修饰符 
+    <div id="readonly%E4%BF%AE%E9%A5%B0%E7%AC%A6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#readonly%E4%BF%AE%E9%A5%B0%E7%AC%A6" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>只读不改。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Car</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="kr">readonly</span> <span class="nx">vin</span>: <span class="kt">string</span><span class="p">,</span>   <span class="c1">// 车辆识别码，为只读属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">public</span> <span class="kr">readonly</span> <span class="nx">year</span>: <span class="kt">number</span><span class="p">,</span>  <span class="c1">// 出厂年份，为只读属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">public</span> <span class="nx">color</span>: <span class="kt">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nx">sound</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 打印车辆信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">displayInfo() {</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`
+</span></span></span><span class="line"><span class="cl"><span class="sb">识别码: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">vin</span><span class="si">}</span><span class="sb">,
+</span></span></span><span class="line"><span class="cl"><span class="sb">出厂年份: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">year</span><span class="si">}</span><span class="sb">,
+</span></span></span><span class="line"><span class="cl"><span class="sb">颜色: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="si">}</span><span class="sb">,
+</span></span></span><span class="line"><span class="cl"><span class="sb">音响: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">sound</span><span class="si">}</span><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">    `</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="s1">&#39;1HGCM82633A123456&#39;</span><span class="p">,</span> <span class="mi">2018</span><span class="p">,</span> <span class="s1">&#39;黑色&#39;</span><span class="p">,</span> <span class="s1">&#39;Bose音响&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">car</span><span class="p">.</span><span class="nx">displayInfo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 以下代码均错误：不能修改 readonly 属性
+</span></span></span><span class="line"><span class="cl"><span class="c1">// car.vin = &#39;897WYE87HA8SGDD8SDGHF&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// car.year = 2020;
+</span></span></span></code></pre></div>
+
+<h3 class="relative group">抽象类 
+    <div id="%E6%8A%BD%E8%B1%A1%E7%B1%BB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>概述：抽象类是⼀种<strong>无法被实例化</strong>的类，专门用来定义类的结构和⾏为，类中可以写<strong>抽象方法</strong>，也可以写<strong>具体实现</strong>。抽象类主要用来为其派生类提供⼀个<strong>基础结构</strong>，要求其派生类<strong>必须实现</strong>其中的抽象方法。</p>
+<p>简记：抽象类<strong>不能实例化</strong>，其意义是<strong>可以被继承</strong>，抽象类里可以有<strong>普通方法</strong>、也可以有<strong>抽象方法</strong>。</p>
+<p>通过以下场景，理解抽象类：</p>
+<blockquote>
+<p>我们定义一个抽象类<code>Package</code>，表示所有包裏的基本结构，任何包裏都有重量属性<code>weight</code>，包裏都需计算运费。但不同类型的包裏（如：标准速度、特快专递）都有不同的运费计算方式，因此用于计算运费的<code>calculate</code>方法是一个抽象方法，必须由具体的子类来实现。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">abstract</span> <span class="kr">class</span> <span class="nx">Package</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">weight</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 抽象方法：用来计算运费，不同类型包裹有不同的计算方式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">abstract</span> <span class="nx">calculate</span><span class="p">()</span><span class="o">:</span> <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 通用方法：打印包裹详情，可以被调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">printPackage() {</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`包裹重量为：</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">weight</span><span class="si">}</span><span class="sb">kg，运费为：</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">calculate</span><span class="p">()</span><span class="si">}</span><span class="sb">元`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>StandardPackage</code>类继承了<code>Package</code>，实现了<code>calculate</code>方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">// 标准包裹
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">class</span> <span class="nx">StandardPackage</span> <span class="kr">extends</span> <span class="nx">Package</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">weight</span>: <span class="kt">number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nx">unitPrice</span>: <span class="kt">number</span>  <span class="c1">// 每公斤的固定费率
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 实现抽象方法：计算运费
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">calculate</span><span class="p">()</span><span class="o">:</span> <span class="kt">number</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">weight</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">unitPrice</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建标准包裹实例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StandardPackage</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">s1</span><span class="p">.</span><span class="nx">printPackage</span><span class="p">()</span>
+</span></span></code></pre></div><p><code>ExpressPackage</code>类继承了<code>Package</code>，实现了<code>calculate</code>方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">ExpressPackage</span> <span class="kr">extends</span> <span class="nx">Package</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">weight</span>: <span class="kt">number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">private</span> <span class="nx">unitPrice</span>: <span class="kt">number</span><span class="p">,</span>     <span class="c1">// 每公斤的固定费率（快捷包裹更高）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">private</span> <span class="nx">additional</span>: <span class="kt">number</span>     <span class="c1">// 超出 10kg 以后的附加费
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 实现抽象方法：计算运费
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">calculate</span><span class="p">()</span><span class="o">:</span> <span class="kt">number</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">weight</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 超出 10kg 的部分，每公斤多收 additional 对应的价格
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="mi">10</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">unitPrice</span> <span class="o">+</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">weight</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">additional</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">weight</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">unitPrice</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建特快包裹实例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">e1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ExpressPackage</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">e1</span><span class="p">.</span><span class="nx">printPackage</span><span class="p">()</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">总结：何时使用抽象类？ 
+    <div id="%E6%80%BB%E7%BB%93%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E6%8A%BD%E8%B1%A1%E7%B1%BB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E6%8A%BD%E8%B1%A1%E7%B1%BB" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<ol>
+<li>定义通用接口：为一组相关的类定义通用的行为（方法或属性）时。</li>
+<li>提供基础实现：在抽象类中提供一些方法或其默认实现，子类可继承使用。</li>
+<li>确保关键实现：强制子类实现一些关键行为（如<code>abstract</code>方法）。</li>
+<li>共享代码和逻辑：当多个类共享部分代码时，用抽象类可以避免重复。</li>
+</ol>
+
+
+<h3 class="relative group">接口 
+    <div id="%E6%8E%A5%E5%8F%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8E%A5%E5%8F%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><code>interface</code>是一种<strong>定义结构</strong>的方式，主要作用是为：类、对象、函数等规定<strong>一种契约</strong>，这样可以确保代码的一致性和类型安全，但要注意<code>interface</code><strong>只能</strong>定义<strong>格式</strong>，<strong>不能</strong>包含<strong>任何实现</strong>！</p>
+
+
+<h4 class="relative group">定义类结构 
+    <div id="%E5%AE%9A%E4%B9%89%E7%B1%BB%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9A%E4%B9%89%E7%B1%BB%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">// PersonInterface 接口，用于限制 Person 类的格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">interface</span> <span class="nx">PersonInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">speak</span><span class="p">(</span><span class="nx">n</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义一个类 Person，实现 PersonInterface 接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">class</span> <span class="nx">Person</span> <span class="kr">implements</span> <span class="nx">PersonInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nx">age</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 实现接口中的 speak 方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">speak</span><span class="p">(</span><span class="nx">n</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 打印出包含名字和年龄的问候语句
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`你好，我叫</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">，我的年龄是</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建一个 Person 类的实例 p1，传入名字 &#39;tom&#39; 和年龄 18
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s1">&#39;tom&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">p1</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">定义对象结构： 
+    <div id="%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">UserInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">readonly</span> <span class="nx">gender</span>: <span class="kt">string</span>  <span class="c1">// 只读属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">age?</span>: <span class="kt">number</span>             <span class="c1">// 可选属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">run</span><span class="o">:</span> <span class="p">(</span><span class="nx">n</span>: <span class="kt">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//在这里接口当作类在用了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">user</span>: <span class="kt">UserInterface</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;张三&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">gender</span><span class="o">:</span> <span class="s1">&#39;男&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">run</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`奔跑了</span><span class="si">${</span><span class="nx">n</span><span class="si">}</span><span class="sb">米`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">定义函数结构： 
+    <div id="%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">CountInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">a</span>: <span class="kt">number</span><span class="p">,</span> <span class="nx">b</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">count</span>: <span class="kt">CountInterface</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">接口之间是可以继承的 
+    <div id="%E6%8E%A5%E5%8F%A3%E4%B9%8B%E9%97%B4%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%BB%A7%E6%89%BF%E7%9A%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8E%A5%E5%8F%A3%E4%B9%8B%E9%97%B4%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%BB%A7%E6%89%BF%E7%9A%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">PersonInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span>   <span class="c1">// 姓名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">age</span>: <span class="kt">number</span>    <span class="c1">// 年龄
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">StudentInterface</span> <span class="kr">extends</span> <span class="nx">PersonInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">grade</span>: <span class="kt">string</span>  <span class="c1">// 年级
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//在用的时候既要满足PersonInterface，又要满足StudentInterface
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">stu</span>: <span class="kt">StudentInterface</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;张三&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">25</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">grade</span><span class="o">:</span> <span class="s1">&#39;高三&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">接口的可合并性 
+    <div id="%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8F%AF%E5%90%88%E5%B9%B6%E6%80%A7" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8F%AF%E5%90%88%E5%B9%B6%E6%80%A7" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>可以定义两个相同名字的接口，接口会在里面自动合并！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="c1">// PersonInterface 接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">interface</span> <span class="nx">PersonInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 属性声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">name</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 给 PersonInterface 接口添加新属性（方法声明）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">interface</span> <span class="nx">PersonInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">speak</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Person 类实现 PersonInterface
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">class</span> <span class="nx">Person</span> <span class="kr">implements</span> <span class="nx">PersonInterface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">constructor</span><span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">age</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">speak() {</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;你好! 我是老师:&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">总结：何时使用接口？ 
+    <div id="%E6%80%BB%E7%BB%93%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<ol>
+<li>
+<p>定义对象的格式
+描述数据模型、API 响应格式、配置对象……等等，是开发中用的最多的场景。</p>
+</li>
+<li>
+<p>类的契约
+规定一个类需要实现哪些属性和方法。</p>
+</li>
+<li>
+<p>扩展已有接口
+一般用于扩展第三方库的类型，这种特性在大型项目中可能会用到。</p>
+</li>
+</ol>
+
+
+<h3 class="relative group">一些相似类型的区别 
+    <div id="%E4%B8%80%E4%BA%9B%E7%9B%B8%E4%BC%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8C%BA%E5%88%AB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%80%E4%BA%9B%E7%9B%B8%E4%BC%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8C%BA%E5%88%AB" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">interface和type的区别 
+    <div id="interface%E5%92%8Ctype%E7%9A%84%E5%8C%BA%E5%88%AB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#interface%E5%92%8Ctype%E7%9A%84%E5%8C%BA%E5%88%AB" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>相同点：</p>
+<ul>
+<li><code>interface</code> 和 <code>type</code> 都可以用于定义<strong>对象结构</strong>，两者在许多场景中是可以<strong>互换</strong>的。</li>
+</ul>
+<p>不同点：</p>
+<p>interface：</p>
+<ul>
+<li>更专注于定义<strong>对象和类</strong>的结构；</li>
+<li>支持 <strong>继承</strong> 和 <strong>合并声明</strong>。</li>
+</ul>
+<p>type：</p>
+<ul>
+<li>可以定义<strong>类型别名</strong>、<strong>联合类型</strong>、<strong>交叉类型</strong>；</li>
+<li><strong>不支持继承和自动合并</strong>。</li>
+</ul>
+
+
+<h4 class="relative group">interface与抽象类的区别 
+    <div id="interface%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#interface%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>相同点：</p>
+<ul>
+<li>都能定义一个<strong>类的格式</strong>（定义类应遵循的契约）</li>
+</ul>
+<p>不同点：</p>
+<p>接口：</p>
+<ul>
+<li><strong>只能描述结构</strong>，<strong>不能有任何实现代码</strong>；</li>
+<li>一个类可以<strong>实现多个接口</strong>。</li>
+</ul>
+<p>抽象类：</p>
+<ul>
+<li>可以包含<strong>抽象方法</strong>，也可以包含<strong>具体方法</strong>；</li>
+<li>一个类<strong>只能继承一个抽象类</strong>。</li>
+</ul>
+
+
+<h2 class="relative group">泛型 
+    <div id="%E6%B3%9B%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%9B%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>泛型允许我们在定义函数、类或接口时，使用类型参数来表示<strong>未指定的类型</strong>，这些参数在具体使用时，才被指定为<strong>具体的类型</strong>。</p>
+<p>泛型能让同一段代码适用于多种类型，同时仍然保持类型的安全性。</p>
+<p>举例：如下代码中<code>&lt;T&gt;</code>就是泛型（不一定非叫T），设置泛型后即可在函数中使用T来表示该类型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-TS" data-lang="TS"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">logData</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;(</span><span class="nx">data</span>: <span class="kt">T</span><span class="p">)</span><span class="o">:</span> <span class="nx">T</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">data</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">logData</span><span class="p">&lt;</span><span class="nt">number</span><span class="p">&gt;(</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">logData</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">类型声明文件 
+    <div id="%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>类型声明文件是TypeScript中的一种特殊文件，通常以<code>.d.ts</code>作为扩展名。它的主要作用是为现有的JavaScript 代码提供类型信息，使得TypeScript能够在使用这些JavaScript库或模块时进行类型检查和提示。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/react_learning5/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/react_learning5/featured_hu17431012385939304633.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/react_learning5/">React一些钩子函数</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-03-23T00:00:00&#43;00:00">23 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2966 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/react_learning4/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/react_learning4/featured_hu3122590500888769519.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/react_learning4/">React小项目</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-03-22T00:00:00&#43;00:00">22 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>9203 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">19 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/react_learning3/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/react_learning3/featured_hu3172879871942815708.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/react_learning3/">React-Redux</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-03-10T00:00:00&#43;00:00">10 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>4032 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\\ts_learning1\\index.md"
+        var oid_likes = "likes_coding\\ts_learning1\\index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/react_learning5/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >React一些钩子函数</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-03-23T00:00:00&#43;00:00">23 March 2025</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2025 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
