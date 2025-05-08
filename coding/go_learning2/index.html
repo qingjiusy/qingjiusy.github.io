@@ -74,8 +74,8 @@
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="coding">
-    <meta property="article:published_time" content="2025-03-31T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-03-31T00:00:00+00:00">
+    <meta property="article:published_time" content="2025-04-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-04-22T00:00:00+00:00">
     <meta property="article:tag" content="Go">
     <meta property="article:tag" content="后端">
     <meta property="og:image" content="http://localhost:1313/coding/go_learning2/featured.png">
@@ -103,15 +103,15 @@
       "name": "清酒"
     },
     "copyrightYear": "2025",
-    "dateCreated": "2025-03-31T00:00:00\u002b00:00",
-    "datePublished": "2025-03-31T00:00:00\u002b00:00",
+    "dateCreated": "2025-04-22T00:00:00\u002b00:00",
+    "datePublished": "2025-04-22T00:00:00\u002b00:00",
     
-    "dateModified": "2025-03-31T00:00:00\u002b00:00",
+    "dateModified": "2025-04-22T00:00:00\u002b00:00",
     
     "keywords": ["Go","后端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2"
+    "wordCount": "7258"
   }]
   </script>
 
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-03-31T00:00:00&#43;00:00">31 March 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span>
+  <time datetime="2025-04-22T00:00:00&#43;00:00">22 April 2025</time><span class="px-2 text-primary-500">&middot;</span><span>7258 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span>
   
 
   
@@ -738,7 +738,66 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#struct">struct</a></li>
+    <li><a href="#struct">struct</a>
+      <ul>
+        <li><a href="#type">type</a></li>
+      </ul>
+    </li>
+    <li><a href="#面向对象">面向对象</a>
+      <ul>
+        <li><a href="#面向对象类的表示与封装">面向对象类的表示与封装</a></li>
+        <li><a href="#面向对象继承">面向对象继承</a></li>
+        <li><a href="#面向对象多态">面向对象多态</a></li>
+        <li><a href="#通用万能类型">通用万能类型</a>
+          <ul>
+            <li><a href="#类型断言">类型断言</a></li>
+          </ul>
+        </li>
+        <li><a href="#变量的内置pair结构">变量的内置pair结构</a></li>
+        <li><a href="#reflect反射机制">reflect反射机制</a></li>
+        <li><a href="#结构体标签">结构体标签</a>
+          <ul>
+            <li><a href="#反射解析结构体标签tag">反射解析结构体标签Tag</a></li>
+            <li><a href="#结构体标签在json中的应用">结构体标签在json中的应用</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#goroutine">goroutine</a>
+      <ul>
+        <li><a href="#由来">由来</a>
+          <ul>
+            <li><a href="#mn模型">M:N模型</a></li>
+            <li><a href="#golang对协程的处理">golang对协程的处理</a></li>
+          </ul>
+        </li>
+        <li><a href="#创建goroutine">创建goroutine</a>
+          <ul>
+            <li><a href="#go函数中退出go协程">go函数中退出go协程</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#channel">channel</a>
+      <ul>
+        <li><a href="#channel的基本定义与使用">channel的基本定义与使用</a></li>
+        <li><a href="#channel有无缓存同步问题">channel有无缓存同步问题</a>
+          <ul>
+            <li><a href="#无缓存channel">无缓存channel</a></li>
+            <li><a href="#有缓存channel">有缓存channel</a></li>
+          </ul>
+        </li>
+        <li><a href="#channel的关闭">channel的关闭</a></li>
+        <li><a href="#channel与range">channel与range</a></li>
+        <li><a href="#channel与select">channel与select</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-modules">GO Modules</a>
+      <ul>
+        <li><a href="#gopath弊端">GOPATH弊端</a></li>
+        <li><a href="#gomodules模式">GoModules模式</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -752,7 +811,66 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#struct">struct</a></li>
+    <li><a href="#struct">struct</a>
+      <ul>
+        <li><a href="#type">type</a></li>
+      </ul>
+    </li>
+    <li><a href="#面向对象">面向对象</a>
+      <ul>
+        <li><a href="#面向对象类的表示与封装">面向对象类的表示与封装</a></li>
+        <li><a href="#面向对象继承">面向对象继承</a></li>
+        <li><a href="#面向对象多态">面向对象多态</a></li>
+        <li><a href="#通用万能类型">通用万能类型</a>
+          <ul>
+            <li><a href="#类型断言">类型断言</a></li>
+          </ul>
+        </li>
+        <li><a href="#变量的内置pair结构">变量的内置pair结构</a></li>
+        <li><a href="#reflect反射机制">reflect反射机制</a></li>
+        <li><a href="#结构体标签">结构体标签</a>
+          <ul>
+            <li><a href="#反射解析结构体标签tag">反射解析结构体标签Tag</a></li>
+            <li><a href="#结构体标签在json中的应用">结构体标签在json中的应用</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#goroutine">goroutine</a>
+      <ul>
+        <li><a href="#由来">由来</a>
+          <ul>
+            <li><a href="#mn模型">M:N模型</a></li>
+            <li><a href="#golang对协程的处理">golang对协程的处理</a></li>
+          </ul>
+        </li>
+        <li><a href="#创建goroutine">创建goroutine</a>
+          <ul>
+            <li><a href="#go函数中退出go协程">go函数中退出go协程</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#channel">channel</a>
+      <ul>
+        <li><a href="#channel的基本定义与使用">channel的基本定义与使用</a></li>
+        <li><a href="#channel有无缓存同步问题">channel有无缓存同步问题</a>
+          <ul>
+            <li><a href="#无缓存channel">无缓存channel</a></li>
+            <li><a href="#有缓存channel">有缓存channel</a></li>
+          </ul>
+        </li>
+        <li><a href="#channel的关闭">channel的关闭</a></li>
+        <li><a href="#channel与range">channel与range</a></li>
+        <li><a href="#channel与select">channel与select</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-modules">GO Modules</a>
+      <ul>
+        <li><a href="#gopath弊端">GOPATH弊端</a></li>
+        <li><a href="#gomodules模式">GoModules模式</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -848,6 +966,1190 @@
     </span>        
     
 </h2>
+
+
+<h3 class="relative group">type 
+    <div id="type" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#type" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>go语言中的type可以用来定义别名类型，给已有类型起一个新名字。比如<code>type myint int</code>，意思就是声明一种行的数据类型<code>myint</code>， 是int的一个别名。</p>
+<p>同时也<strong>经常用来定义一个结构体</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Book</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">title</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">auth</span>  <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>注意，如果构建一个其他函数，然后传入一个结构体作为参数，那么函数执行后，原来的结构体内数据**不会受到影响！**因为函数会自己创造出一个结构体的副本，而非直接修改原来的结构体。</p>
+<p>为了修改原来的结构体，需要使用<strong>结构体指针</strong>作为传入的参数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">changeBook</span><span class="p">(</span><span class="nx">book</span> <span class="nx">Book</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//传递一个book的副本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">book</span><span class="p">.</span><span class="nx">auth</span> <span class="p">=</span> <span class="s">&#34;666&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">changeBook2</span><span class="p">(</span><span class="nx">book</span> <span class="o">*</span><span class="nx">Book</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//指针传递
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">book</span><span class="p">.</span><span class="nx">auth</span> <span class="p">=</span> <span class="s">&#34;777&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">面向对象 
+    <div id="%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">面向对象类的表示与封装 
+    <div id="%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E4%B8%8E%E5%B0%81%E8%A3%85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%B1%BB%E7%9A%84%E8%A1%A8%E7%A4%BA%E4%B8%8E%E5%B0%81%E8%A3%85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>有关于对象中方法的实现，我们可以这样去做：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Hero</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//如果说类的属性首字母大写, 表示该属性是对外能够访问的，否则的话只能够类的内部访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Name</span>  <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Ad</span>    <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">level</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="nx">Hero</span><span class="p">)</span> <span class="nf">Show</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Name = &#34;</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Ad = &#34;</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Ad</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Level = &#34;</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Level</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="nx">Hero</span><span class="p">)</span> <span class="nf">GetName</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Name</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="nx">Hero</span><span class="p">)</span> <span class="nf">SetName</span><span class="p">(</span><span class="nx">newName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//this 是调用该方法的对象的一个副本（拷贝）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">newName</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>但是仍然要注意，这种方式虽然没错，但是SetName方法还是没有实现我们要去做的目的。</p>
+<p>因此我们在创建类的方法的时候通常都应该使用指针来创建，这样可以保证之后this可以正确的实现我们的目的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Hero</span><span class="p">)</span> <span class="nf">Show</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Name = &#34;</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Ad = &#34;</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Ad</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Level = &#34;</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">level</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Hero</span><span class="p">)</span> <span class="nf">GetName</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Name</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Hero</span><span class="p">)</span> <span class="nf">SetName</span><span class="p">(</span><span class="nx">newName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//this 是调用该方法的对象的一个副本（拷贝）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">newName</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>注意：<strong>如果说类的属性首字母大写, 表示该属性是对外能够访问的，否则的话只能够类的内部访问</strong></p>
+
+
+<h3 class="relative group">面向对象继承 
+    <div id="%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BB%A7%E6%89%BF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BB%A7%E6%89%BF" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在这里举一个例子，一个超人类<code>SuperMan</code>继承人类<code>Human</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Human</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sex</span>  <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Human</span><span class="p">)</span> <span class="nf">Eat</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Human.Eat()...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Human</span><span class="p">)</span> <span class="nf">Walk</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Human.Walk()...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//=================
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">SuperMan</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Human</span> <span class="c1">//SuperMan类继承了Human类的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">level</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>当然可以重定义父类的方法，也可以创建子类新方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//重定义父类的方法Eat()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">SuperMan</span><span class="p">)</span> <span class="nf">Eat</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;SuperMan.Eat()...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//子类的新方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">SuperMan</span><span class="p">)</span> <span class="nf">Fly</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;SuperMan.Fly()...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这个子类定义的两种方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//方法一
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">s</span> <span class="o">:=</span> <span class="nx">SuperMan</span><span class="p">{</span><span class="nx">Human</span><span class="p">{</span><span class="s">&#34;li4&#34;</span><span class="p">,</span> <span class="s">&#34;female&#34;</span><span class="p">},</span> <span class="mi">88</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//方法二
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">s</span> <span class="nx">SuperMan</span>
+</span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="p">.</span><span class="nx">name</span> <span class="p">=</span> <span class="s">&#34;li4&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="p">.</span><span class="nx">sex</span> <span class="p">=</span> <span class="s">&#34;male&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="p">.</span><span class="nx">level</span> <span class="p">=</span> <span class="mi">88</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">面向对象多态 
+    <div id="%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%A4%9A%E6%80%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%A4%9A%E6%80%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>接口体现多态的关键点：</p>
+<ol>
+<li>定义统一的接口（Interface）。</li>
+<li>多个类实现该接口，各自定义不同的行为。</li>
+<li>通过接口类型调用，不关心具体实现类是谁。</li>
+<li>在运行时，根据实际对象类型决定调用哪个方法 —— 这就是多态。</li>
+</ol>
+<p>定义一个接口：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//本质是一个指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">AnimalIF</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Sleep</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">GetColor</span><span class="p">()</span> <span class="kt">string</span> <span class="c1">//获取动物的颜色
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">GetType</span><span class="p">()</span> <span class="kt">string</span>  <span class="c1">//获取动物的种类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>这意思是：任何实现了Sleep、GetColor、GetType这三个方法的类型，都是AnimalIF类型，不需要显式地“继承”这个<code>interface</code>。</p>
+<p>具体实现接口的两个类：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//具体的类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Cat</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">color</span> <span class="kt">string</span> <span class="c1">//猫的颜色
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Cat</span><span class="p">)</span> <span class="nf">Sleep</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Cat is Sleep&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Cat</span><span class="p">)</span> <span class="nf">GetColor</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">this</span><span class="p">.</span><span class="nx">color</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Cat</span><span class="p">)</span> <span class="nf">GetType</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s">&#34;Cat&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//具体的类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Dog</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">color</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Dog</span><span class="p">)</span> <span class="nf">Sleep</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Dog is Sleep&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Dog</span><span class="p">)</span> <span class="nf">GetColor</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">this</span><span class="p">.</span><span class="nx">color</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Dog</span><span class="p">)</span> <span class="nf">GetType</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s">&#34;Dog&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>接口多态的体现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">animal</span> <span class="nx">AnimalIF</span> <span class="c1">//接口的数据类型， 父类指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">animal</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Cat</span><span class="p">{</span><span class="s">&#34;Green&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">animal</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">()</span> <span class="c1">//调用的就是Cat的Sleep()方法 , 多态的现象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">animal</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Dog</span><span class="p">{</span><span class="s">&#34;Yellow&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">animal</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">()</span> <span class="c1">// 调用Dog的Sleep方法，多态的现象
+</span></span></span></code></pre></div><p>多态基本的要素：</p>
+<ol>
+<li>有一个父类（接口）</li>
+<li>有子类（实现了父类的<strong>全部接口方法</strong>）</li>
+<li>父类类型的变量（指针）指向（引用）子类的具体数据变量</li>
+</ol>
+
+
+<h3 class="relative group">通用万能类型 
+    <div id="%E9%80%9A%E7%94%A8%E4%B8%87%E8%83%BD%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%80%9A%E7%94%A8%E4%B8%87%E8%83%BD%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>go语言中的通用万能类型是<code>interface{}</code>。</p>
+<p>其中go语言中的空接口，int，string，float32等等都实现了interface{}。可以用interface{}类型引用任意的数据类型。</p>
+
+
+<h4 class="relative group">类型断言 
+    <div id="%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>我们可以给<code>interface{}</code>提供 “类型断言” 的机制，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">myFunc</span><span class="p">(</span><span class="nx">arg</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//类型断言
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">value</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">arg</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;arg is not string type&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;arg is string type, value = &#34;</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;value type is %T\n&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在这里，我们用的<strong>arg.(string)<strong>就是一个类型断言。判断arg参数是不是一个</strong>string</strong>。</p>
+
+
+<h3 class="relative group">变量的内置pair结构 
+    <div id="%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E7%BD%AEpair%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E7%BD%AEpair%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>golang中任何一个变量应该时包含type和value的，其中type可以具体分为两种类型：一种是<code>static type</code>，一种是<code>concrete type</code>。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/pair_hu11226354629839883683.png 330w,
+        /coding/go_learning2/pair_hu15385601451071453819.png 660w,
+        /coding/go_learning2/pair_hu6876827492012419216.png 1024w,
+        /coding/go_learning2/pair_hu13087637764548069135.png 2x"
+        src="/coding/go_learning2/pair_hu15385601451071453819.png"
+        alt="pair"
+      />
+      
+    </figure>
+</p>
+<p>在这里，a的pair是<code>pair&lt;statictype:string, value:&quot;aceld&quot;&gt;</code>，allType的pair也是如此（因为被a赋值，传递了）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//pair&lt;statictype:string, value:&#34;aceld&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;aceld&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//pair&lt;type:string, value:&#34;aceld&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">var</span> <span class="nx">allType</span> <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">allType</span> <span class="p">=</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">str</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">allType</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>再看这段代码，注意这里为什么<code>r.(Writer)</code>这个断言会成功？<strong>因为w和r其实具体的type是一致的。</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Reader</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">ReadBook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">WriteBook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//具体类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Book</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Book</span><span class="p">)</span> <span class="nf">ReadBook</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Read a Book&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Book</span><span class="p">)</span> <span class="nf">WriteBook</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Write a Book&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//b: pair&lt;type:Book, value:book{}地址&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">b</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Book</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:, value:&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">var</span> <span class="nx">r</span> <span class="nx">Reader</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:Book, value:book{}地址&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">r</span> <span class="p">=</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">ReadBook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">w</span> <span class="nx">Writer</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:Book, value:book{}地址&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">w</span> <span class="p">=</span> <span class="nx">r</span><span class="p">.(</span><span class="nx">Writer</span><span class="p">)</span> <span class="c1">//此处的断言为什么会成功？ 因为w r 具体的type是一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">w</span><span class="p">.</span><span class="nf">WriteBook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">reflect反射机制 
+    <div id="reflect%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#reflect%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>直观的来说就是把变量里面的东西给“照出来”。</p>
+<p>reflect机制中有两个重要的接口：<code>Valueof</code>和<code>Typeof</code>。如果Valueof接收的值为空（非法），那么返回为0。如果Typeof接收的值为非法，那么返回null。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;reflect&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">reflectNum</span><span class="p">(</span><span class="nx">arg</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;type : &#34;</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">arg</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;value : &#34;</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="nx">arg</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">num</span> <span class="kt">float64</span> <span class="p">=</span> <span class="mf">1.2345</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nf">reflectNum</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">结构体标签 
+    <div id="%E7%BB%93%E6%9E%84%E4%BD%93%E6%A0%87%E7%AD%BE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E6%A0%87%E7%AD%BE" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">反射解析结构体标签Tag 
+    <div id="%E5%8F%8D%E5%B0%84%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E4%BD%93%E6%A0%87%E7%AD%BEtag" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8F%8D%E5%B0%84%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E4%BD%93%E6%A0%87%E7%AD%BEtag" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>在下面这段代码中，是定义结构体（struct）时使用 tag（标签）的示例。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">resume</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Name</span> <span class="kt">string</span> <span class="s">`info:&#34;name&#34; doc:&#34;我的名字&#34;`</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Sex</span>  <span class="kt">string</span> <span class="s">`info:&#34;sex&#34;`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这是定义了一个名为<code>resume</code>的结构体，包含两个字段。</p>
+<p>每个字段后面的<code>info:&quot;...&quot; doc:&quot;...&quot;</code>是结构体标签（Tag），它是Go的语法特性，用来给字段添加元信息（Metadata），可在运行时通过反射（reflect包）读取。</p>
+<p>比如在这里，我们就可以用<code>.Tag</code>去具体Get到对应的内容：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">findTag</span><span class="p">(</span><span class="nx">str</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">t</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">str</span><span class="p">).</span><span class="nf">Elem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NumField</span><span class="p">();</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">taginfo</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Field</span><span class="p">(</span><span class="nx">i</span><span class="p">).</span><span class="nx">Tag</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;info&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">tagdoc</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Field</span><span class="p">(</span><span class="nx">i</span><span class="p">).</span><span class="nx">Tag</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;doc&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;info: &#34;</span><span class="p">,</span> <span class="nx">taginfo</span><span class="p">,</span> <span class="s">&#34; doc: &#34;</span><span class="p">,</span> <span class="nx">tagdoc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">re</span> <span class="nx">resume</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">findTag</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">re</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">结构体标签在json中的应用 
+    <div id="%E7%BB%93%E6%9E%84%E4%BD%93%E6%A0%87%E7%AD%BE%E5%9C%A8json%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E6%A0%87%E7%AD%BE%E5%9C%A8json%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>那么想当然，我们想知道tag具体的应用。实际上在json上就常被应用！</p>
+<p>其中先知道有这个标准库<code>encoding/json</code>，可以把结构体转变为json文件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;encoding/json&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Movie</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Title</span>  <span class="kt">string</span>   <span class="s">`json:&#34;title&#34;`</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Year</span>   <span class="kt">int</span>      <span class="s">`json:&#34;year&#34;`</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Price</span>  <span class="kt">int</span>      <span class="s">`json:&#34;rmb&#34;`</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Actors</span> <span class="p">[]</span><span class="kt">string</span> <span class="s">`json:&#34;actors&#34;`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">movie</span> <span class="o">:=</span> <span class="nx">Movie</span><span class="p">{</span><span class="s">&#34;喜剧之王&#34;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;xingye&#34;</span><span class="p">,</span> <span class="s">&#34;zhangbozhi&#34;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//编码的过程  结构体---&gt; json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">jsonStr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">movie</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;json marshal error&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;jsonStr = %s\n&#34;</span><span class="p">,</span> <span class="nx">jsonStr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在这段代码中，我们通过tag对json中的字段名进行了规定。这样的结果是，在后续代码中我们使用了json转换的方法<code>json.Marshal</code>，可以看到原来的结构体对应生成的json是：<code>jsonStr = {&quot;title&quot;:&quot;喜剧之王&quot;,&quot;year&quot;:2000,&quot;rmb&quot;:10,&quot;actors&quot;:[&quot;xingye&quot;,&quot;zhangbozhi&quot;]}</code>。</p>
+<p>当然这里代码也可以实现把json字符串变成了结构体：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//解码的过程 jsonstr ---&gt; 结构体
+</span></span></span><span class="line"><span class="cl"><span class="c1">//jsonStr = {&#34;title&#34;:&#34;喜剧之王&#34;,&#34;year&#34;:2000,&#34;rmb&#34;:10,&#34;actors&#34;:[&#34;xingye&#34;,&#34;zhangbozhi&#34;]}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">myMovie</span> <span class="o">:=</span> <span class="nx">Movie</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">jsonStr</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">myMovie</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;json unmarshal error &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%v\n&#34;</span><span class="p">,</span> <span class="nx">myMovie</span><span class="p">)</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">goroutine 
+    <div id="goroutine" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#goroutine" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">由来 
+    <div id="%E7%94%B1%E6%9D%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%94%B1%E6%9D%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>早期的单进程操作系统，就是在顺序执行进程：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/1_hu15466535496256111985.png 330w,
+        /coding/go_learning2/1_hu511646747972374108.png 660w,
+        /coding/go_learning2/1_hu13915594161643323287.png 1024w,
+        /coding/go_learning2/1_hu16880851739059077443.png 2x"
+        src="/coding/go_learning2/1_hu511646747972374108.png"
+        alt="1.png"
+      />
+      
+    </figure>
+</p>
+<p><strong>单进程时代的两个问题？</strong></p>
+<ol>
+<li>单一执行流程、计算机智能一个任务一个任务处理</li>
+<li>进程阻塞所带来的的CPU浪费时间</li>
+</ol>
+<p>所<strong>以能不能宏观的执行多个任务呢？</strong></p>
+<p>于是就有了多线程/多进程的操作系统！</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/2_hu1685298005643675267.png 330w,
+        /coding/go_learning2/2_hu13479416221775486557.png 660w,
+        /coding/go_learning2/2_hu9485468696430545698.png 1024w,
+        /coding/go_learning2/2_hu1744849667186331966.png 2x"
+        src="/coding/go_learning2/2_hu13479416221775486557.png"
+        alt="2.png"
+      />
+      
+    </figure>
+</p>
+<p>所以多线程/多进程解决了<strong>阻塞问题</strong>！但是又面临新问题：cpu的浪费时间成本。</p>
+<p>进程/线程的数量越多，切换成本就越大，也就越浪费。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/3_hu4991071462052331362.png 330w,
+        /coding/go_learning2/3_hu10481888225994568955.png 660w,
+        /coding/go_learning2/3_hu17713807214614678470.png 1024w,
+        /coding/go_learning2/3_hu9401220389479455424.png 2x"
+        src="/coding/go_learning2/3_hu10481888225994568955.png"
+        alt="3.png"
+      />
+      
+    </figure>
+</p>
+<p>多线程随着<strong>同步竞争</strong>（如锁、竞争资源冲突等），开发设计变得越来越复杂。</p>
+<p>接下来解释一下协程（Coroutine）与线程（Thread）在计算机系统中所处的位置：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/4_hu18265070927339736737.png 330w,
+        /coding/go_learning2/4_hu11270029433664982002.png 660w,
+        /coding/go_learning2/4_hu12849212708841458706.png 1024w,
+        /coding/go_learning2/4_hu5300027829129005573.png 2x"
+        src="/coding/go_learning2/4_hu11270029433664982002.png"
+        alt="4.png"
+      />
+      
+    </figure>
+</p>
+<p><strong>用户空间 vs 内核空间：</strong></p>
+<ol>
+<li>用户空间（User Space）：运行用户程序的区域，比如你写的 Python、Go、Java 代码就跑在用户空间。</li>
+<li>内核空间（Kernel Space）：由操作系统控制的区域，负责资源调度、进程管理等。线程是由操作系统调度的，因此在线程层面需要内核支持。</li>
+</ol>
+<p><strong>CPU视野：</strong></p>
+<ol>
+<li>CPU只能看到线程，不能直接看到协程，因为协程调度在用户空间完成，不进入内核。</li>
+<li>从CPU的角度，执行的还是线程（即蓝色区域）。</li>
+</ol>
+<p>我们通过协程调度器，可以让一个线程对应多个协程。这样就省去了线程调度所要消耗的时间，这我们称为<strong>N比1的协程对应关系</strong>。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/5_hu13281788093358852874.png 330w,
+        /coding/go_learning2/5_hu11242279221679568049.png 660w,
+        /coding/go_learning2/5_hu5476601819654756868.png 1024w,
+        /coding/go_learning2/5_hu11079610026742728616.png 2x"
+        src="/coding/go_learning2/5_hu11242279221679568049.png"
+        alt="5.png"
+      />
+      
+    </figure>
+</p>
+<p><strong>那么为什么协程调度器的存在就可以节省开支？协程本身不还是要切换？</strong></p>
+<p><em>关键问题：协程调度器到底省了什么开支？</em></p>
+<p>回顾一下<strong>线程上下文切换</strong>的成本：</p>
+<p>当线程之间切换时，操作系统需要执行以下操作：</p>
+<ul>
+<li>保存/恢复 CPU 寄存器</li>
+<li>切换内存页表（上下文）</li>
+<li>切换线程栈</li>
+<li>涉及用户态 ↔ 内核态切换（系统调用）</li>
+</ul>
+<p>这些操作是<strong>重量级的开销</strong>，特别频繁时会严重影响性能。</p>
+<p>而<strong>协程的切换</strong>是纯用户空间的操作</p>
+<p>协程之间共享同一个线程，不需要进入内核</p>
+<p>协程调度器只需要：</p>
+<ul>
+<li>保存/恢复程序计数器（PC）</li>
+<li>切换栈指针（或者 coroutine 的状态对象）</li>
+<li>调整协程状态（就绪、运行、挂起等）</li>
+</ul>
+<p>这就是<strong>轻量级调度</strong>，所以开销极低。</p>
+
+
+<h4 class="relative group">M:N模型 
+    <div id="mn%E6%A8%A1%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#mn%E6%A8%A1%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>目前在<strong>N比1</strong>的模式下，如果一个协程阻塞了，因为是轮询，所以会影响我下一个协程的调度。如果仍然是<strong>1比1</strong>，和之前直接切换线程没有区别，仍然不是好方法。</p>
+<p>因此我们考虑使用<strong>M比N模型</strong>：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/6_hu9916153488222018381.png 330w,
+        /coding/go_learning2/6_hu18349331539738476713.png 660w,
+        /coding/go_learning2/6_hu4756916512739080264.png 1024w,
+        /coding/go_learning2/6_hu17573019152872520024.png 2x"
+        src="/coding/go_learning2/6_hu18349331539738476713.png"
+        alt="6.png"
+      />
+      
+    </figure>
+</p>
+<p>显然可以看出这里的核心是<strong>优化这个协程调度器</strong>，调度器越好，cpu的利用率越高。</p>
+
+
+<h4 class="relative group">golang对协程的处理 
+    <div id="golang%E5%AF%B9%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%A4%84%E7%90%86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#golang%E5%AF%B9%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%A4%84%E7%90%86" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>将协程（co-routine）改成Goroutine。内存仅几KB，并且可以灵活调度。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/7_hu14442283796630289041.png 330w,
+        /coding/go_learning2/7_hu17490293941578484274.png 660w,
+        /coding/go_learning2/7_hu4268857722057648969.png 1024w,
+        /coding/go_learning2/7_hu15110406060511580491.png 2x"
+        src="/coding/go_learning2/7_hu17490293941578484274.png"
+        alt="7.png"
+      />
+      
+    </figure>
+</p>
+<p>老调度器有几个缺点：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/8_hu4235329863664404730.png 330w,
+        /coding/go_learning2/8_hu7548824316127361740.png 660w,
+        /coding/go_learning2/8_hu13661346346332009791.png 1024w,
+        /coding/go_learning2/8_hu1660770893086642026.png 2x"
+        src="/coding/go_learning2/8_hu7548824316127361740.png"
+        alt="8.png"
+      />
+      
+    </figure>
+</p>
+<ol>
+<li>创建、销毁、调度G都需要每个M获取锁，这就形成了激烈的锁竞争。</li>
+<li>M转移G会造成延迟和额外的系统负载。</li>
+<li>系统调用（CPU在M之间的切换）导致频繁的线程阻塞和取消阻塞操作增加了系统开销。</li>
+</ol>
+<p>接下来了解一下GMP：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/9_hu2290896482028569118.png 330w,
+        /coding/go_learning2/9_hu15792802932122905247.png 660w,
+        /coding/go_learning2/9_hu9381066099637946894.png 1024w,
+        /coding/go_learning2/9_hu15365287564112741038.png 2x"
+        src="/coding/go_learning2/9_hu15792802932122905247.png"
+        alt="9.png"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/10_hu14442197011194055088.png 330w,
+        /coding/go_learning2/10_hu12640852997893594109.png 660w,
+        /coding/go_learning2/10_hu1196292841198877576.png 1024w,
+        /coding/go_learning2/10_hu14160341342857931516.png 2x"
+        src="/coding/go_learning2/10_hu12640852997893594109.png"
+        alt="10.png"
+      />
+      
+    </figure>
+</p>
+<p>在这里，显然，我们的最多并行数量就是我们GOMAXPROC中设定的数量，具体执行某一个G时我们需要把它拿到P中。</p>
+<p>多个P会并发调度goroutine，且<strong>只要CPU核心数允许，就是真正的“并行”执行，而不是仅仅依靠线程切换实现的“并发”</strong>。</p>
+<p><strong>调度过程</strong></p>
+<ol>
+<li>协程创建与入队</li>
+</ol>
+<ul>
+<li>每当你调用go someFunc()，就会创建一个新的G（goroutine）。</li>
+<li>G会被放入某个P的本地队列，或者全局队列中等待执行。</li>
+</ul>
+<ol start="2">
+<li>P和M的绑定</li>
+</ol>
+<ul>
+<li>一个P（Processor）绑定一个M（线程），共同工作。</li>
+<li>一个时刻最多有GOMAXPROCS个活跃的P。</li>
+<li>没有空闲的P，新的M就不能运行任何G。</li>
+</ul>
+<ol start="3">
+<li>执行goroutine</li>
+</ol>
+<ul>
+<li>M从P的本地队列中取出G并执行。</li>
+<li>本地队列为空时，P可以从全局队列或别的P那里“偷”G。</li>
+</ul>
+<ol start="4">
+<li>线程复用与休眠</li>
+</ol>
+<ul>
+<li>如果M执行的G阻塞了（如 I/O），则会释放P，M 可以被挂起或回收。</li>
+<li>P会寻找空闲M来继续执行其他G。</li>
+</ul>
+
+
+<h3 class="relative group">创建goroutine 
+    <div id="%E5%88%9B%E5%BB%BAgoroutine" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%88%9B%E5%BB%BAgoroutine" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>只需要用<code>go</code>关键字就能来创建一个go协程。</p>
+<p>来看一个简单的并发情况：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//子goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">newTask</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">i</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;new Goroutine : i = %d\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//主goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//创建一个go程 去执行newTask() 流程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">go</span> <span class="nf">newTask</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(&#34;main goroutine exit&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">i</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;main goroutine: i = %d\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在这里，我们有一个main goroutine和一个new goroutine。在这里两个goroutine是并发的。</p>
+<p>注意这里，如果我们不在主goroutine（即main()函数）中执行那个循环，而是直接退出。那么<strong>子goroutine也会直接结束</strong>。</p>
+<p>这是因为<strong>主goroutine（即 main() 函数）执行完毕并退出时，整个程序就会结束，无论是否还有其他goroutine（比如子goroutine）正在运行</strong>。</p>
+
+
+<h4 class="relative group">go函数中退出go协程 
+    <div id="go%E5%87%BD%E6%95%B0%E4%B8%AD%E9%80%80%E5%87%BAgo%E5%8D%8F%E7%A8%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#go%E5%87%BD%E6%95%B0%E4%B8%AD%E9%80%80%E5%87%BAgo%E5%8D%8F%E7%A8%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>在一个go协程中，有时候return不能满足我们的需求，我们需要一个特定的退出协程的函数。</p>
+<p>在这里我们常常使用<code>runtime.Goexit()</code>。</p>
+<p>但是如果我们的主go程需要某个go协程的返回值，直接通过返回值来拿是拿不到的，比如下面的代码就是不行的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">return</span> <span class="o">:=</span> <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="s">&#34;, b = &#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</span></span></code></pre></div><p>因为go协程在执行完以后不会把它抛给上一层。</p>
+
+
+<h2 class="relative group">channel 
+    <div id="channel" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#channel" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">channel的基本定义与使用 
+    <div id="channel%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89%E4%B8%8E%E4%BD%BF%E7%94%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#channel%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89%E4%B8%8E%E4%BD%BF%E7%94%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>也就是<strong>管道</strong>。两个goroutine之间通过channel进行通信。</p>
+<p>定义一个channel：<code>c := make(chan int)</code></p>
+<p>比如在下面的代码中，两个协程就是通过channel c来相互通信：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//定义一个channel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;goroutine结束&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;goroutine 正在运行...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">666</span> <span class="c1">//将666 发送给c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">num</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span> <span class="c1">//从c中接受数据，并赋值给num
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;num = &#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main goroutine 结束...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在管道通信中，常常会有接受方已经执行到接受的步骤，在这里就是<code>num := &lt;-c</code>，而发送方还没有，也就是<code>c &lt;- 666</code>。</p>
+<p>这时候接受方会用阻塞来让自己等待接受channel中的结果。这样就在无形之中达到了一个同步的结果。</p>
+
+
+<h3 class="relative group">channel有无缓存同步问题 
+    <div id="channel%E6%9C%89%E6%97%A0%E7%BC%93%E5%AD%98%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#channel%E6%9C%89%E6%97%A0%E7%BC%93%E5%AD%98%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">无缓存channel 
+    <div id="%E6%97%A0%E7%BC%93%E5%AD%98channel" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%97%A0%E7%BC%93%E5%AD%98channel" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>下面是一个无缓存的channel的示意图：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/11_hu13371687932207665594.png 330w,
+        /coding/go_learning2/11_hu13440185370779428422.png 660w,
+        /coding/go_learning2/11_hu82780075001128046.png 1024w,
+        /coding/go_learning2/11_hu12922702340517922042.png 2x"
+        src="/coding/go_learning2/11_hu13440185370779428422.png"
+        alt="11.png"
+      />
+      
+    </figure>
+</p>
+<p>在第1步，两个goroutine都到达通道，但哪个都没有开始执行发送或者接收。</p>
+<p>在第2步，左侧的goroutine将它的手伸进了通道，这模拟了向通道发送数据的行为。这时，<strong>这个goroutine会在通道中被锁住</strong>，直到交换完成。</p>
+<p>在第3步，右侧的goroutine将它的手放入通道，这模拟了从通道里接收数据。<strong>这个goroutine一样也会在通道中被锁住，直到交换完成</strong>。</p>
+<p>在第4步和第5步，进行交换，并最终，在第6步，两个goroutine都将它们的手从通道里拿出来，这模拟了被锁住的goroutine得到释放。两个goroutine现在都可以去做其他事情了。</p>
+
+
+<h4 class="relative group">有缓存channel 
+    <div id="%E6%9C%89%E7%BC%93%E5%AD%98channel" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%9C%89%E7%BC%93%E5%AD%98channel" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>与之对应的就是有缓存的channel。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/12_hu17861524428447846190.png 330w,
+        /coding/go_learning2/12_hu15910820460832359061.png 660w,
+        /coding/go_learning2/12_hu14297455689553882139.png 1024w,
+        /coding/go_learning2/12_hu12909478900075378509.png 2x"
+        src="/coding/go_learning2/12_hu15910820460832359061.png"
+        alt="12.png"
+      />
+      
+    </figure>
+</p>
+<p>在第1步，右侧的goroutine正在从通道接收一个值。</p>
+<p>在第2步，右侧的这个goroutine独立完成了接收值的动作，而左侧的goroutine正在发送一个新值到通道里。</p>
+<p>在第3步，左侧的goroutine还在向通道发送新值，而右侧的 goroutine 正在从通道接收另外一个值。<strong>这个步骤里的两个操作既不是同步的，也不会互相阻塞。</strong></p>
+<p>最后，在第4步，所有的发送和接收都完成，而通道里还有几个值，也有一些空间可以存更多的值。</p>
+<p>接下来我们看一段使用有缓存channel的代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">//带有缓冲的channel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;len(c) = &#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">),</span> <span class="s">&#34;, cap(c)&#34;</span><span class="p">,</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;子go程结束&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">i</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;子go程正在运行, 发送的元素=&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="s">&#34; len(c)=&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">),</span> <span class="s">&#34;, cap(c)=&#34;</span><span class="p">,</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">num</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span> <span class="c1">//从c中接收数据，并赋值给num
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;num = &#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main 结束&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在这里我们子go程发第四个元素的时候就会被阻塞，但是一旦缓存有空余后，仍然可以正常的去发送。但是我们不能保证这几个print最后哪个先被执行。</p>
+<p>可以看到运行的结果：</p>
+<pre tabindex="0"><code>len(c) =  0 , cap(c) 3
+子go程正在运行, 发送的元素= 0  len(c)= 1 , cap(c)= 3
+子go程正在运行, 发送的元素= 1  len(c)= 2 , cap(c)= 3
+子go程正在运行, 发送的元素= 2  len(c)= 3 , cap(c)= 3
+num =  0
+num =  1
+num =  2
+num =  3
+main 结束
+</code></pre>
+
+<h3 class="relative group">channel的关闭 
+    <div id="channel%E7%9A%84%E5%85%B3%E9%97%AD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#channel%E7%9A%84%E5%85%B3%E9%97%AD" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>channel不像文件一样需要经常去关闭，只有当你确实没有任何发送数据了，或者你想显式的结束range循环之类收才关闭。</li>
+<li>关闭channel后，无法向channel，再发送数据（引发panic错误后导致接收立即返回零值）；</li>
+<li>关闭channel后，可以继续从channel接收数据；</li>
+<li>对于nil channel，无论收发都会被阻塞</li>
+</ol>
+
+
+<h3 class="relative group">channel与range 
+    <div id="channel%E4%B8%8Erange" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#channel%E4%B8%8Erange" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>典型的就是下面这段代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">data</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这段代码是用Go(Golang)编写的一个for循环，用于从channel(c)中接收数据并打印。具体解释如下：</p>
+<ol>
+<li>for &hellip; range语法</li>
+</ol>
+<p>这是 Go 语言中特有的一种用于遍历集合类型（如array、slice、map、channel）的简洁语法。</p>
+<p>对于channel，range会不断从channel中接收数据，直到channel被关闭。</p>
+<ol start="2">
+<li>data := range c</li>
+</ol>
+<p>每次从channel c中接收到的数据会被赋值给 data，然后执行循环体中的代码。</p>
+<ol start="3">
+<li>fmt.Println(data)</li>
+</ol>
+<p>将每次接收到的数据打印到控制台。</p>
+<p><strong>关键特性</strong>：</p>
+<ol>
+<li>阻塞特性</li>
+</ol>
+<p>如果channel c中没有数据可读，循环会阻塞等待，直到有新的数据写入c或c被关闭。</p>
+<ol start="2">
+<li>自动退出</li>
+</ol>
+<p>当channel c被关闭且数据完全读取后，循环会自动结束，无需显式break。</p>
+
+
+<h3 class="relative group">channel与select 
+    <div id="channel%E4%B8%8Eselect" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#channel%E4%B8%8Eselect" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><strong>单流程下一个go只能监控一个channel的状态</strong>，select可以完成监控多个channel的状态。</p>
+<p>写一个小案例，有关于斐波那契数列</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">fibonacii</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">quit</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">x</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//如果c可写，则该case就会进来
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">x</span> <span class="p">=</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">y</span> <span class="p">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">quit</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;quit&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">quit</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//sub go
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&lt;-</span><span class="nx">c</span><span class="p">)</span> <span class="c1">//这个goroutine会一直等待，直到c有数据传入。 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">quit</span> <span class="o">&lt;-</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//main go
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">fibonacii</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">quit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>所以说select可以<strong>同时监控多路channel的状态</strong>。</p>
+
+
+<h2 class="relative group">GO Modules 
+    <div id="go-modules" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#go-modules" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>GO MOdules是Go语言的依赖解决方案。</p>
+<p>Go moudles目前集成在Go的工具链中，只要安装了Go，自然而然也就可以使用Go moudles了，而Go modules的出现也解决了在Go1.11前的几个常见争议问题：</p>
+<ol>
+<li>Go语言长久以来的依赖管理问题。</li>
+<li>“淘汰”现有的GOPATH的使用模式。</li>
+<li>统一社区中的其它的依赖管理工具（提供迁移功能）。</li>
+</ol>
+
+
+<h3 class="relative group">GOPATH弊端 
+    <div id="gopath%E5%BC%8A%E7%AB%AF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#gopath%E5%BC%8A%E7%AB%AF" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>没有版本控制概念</li>
+</ol>
+<p>不知道自己当前什么版本，也不能拉取自己希望的版本。</p>
+<ol start="2">
+<li>无法同步一致第三方版本号</li>
+<li>无法指定当前项目引用的第三方版本号</li>
+</ol>
+
+
+<h3 class="relative group">GoModules模式 
+    <div id="gomodules%E6%A8%A1%E5%BC%8F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#gomodules%E6%A8%A1%E5%BC%8F" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>go version在11版本以上的话，我们可以使用<code>go mod help</code>来知道目前所有支持的指令。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/13_hu3559953345049389468.png 330w,
+        /coding/go_learning2/13_hu326125233721784829.png 660w,
+        /coding/go_learning2/13_hu15954254191940786430.png 1024w,
+        /coding/go_learning2/13_hu4510781795613703058.png 2x"
+        src="/coding/go_learning2/13_hu326125233721784829.png"
+        alt="13.png"
+      />
+      
+    </figure>
+</p>
+<p>同时还有一系列特殊的go mod环境变量，我们可以通过go env来查看环境变量。</p>
+<p>有关于GoModules初始化项目：</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/go_learning2/14_hu14281400976125266752.png 330w,
+        /coding/go_learning2/14_hu95003422368277054.png 660w,
+        /coding/go_learning2/14_hu8516362418397618847.png 1024w,
+        /coding/go_learning2/14_hu10967330000934265784.png 2x"
+        src="/coding/go_learning2/14_hu95003422368277054.png"
+        alt="14.png"
+      />
+      
+    </figure>
+</p>
 
           
           
@@ -1145,7 +2447,7 @@
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/coding/ts_learning1/">
+            <a class="flex group mr-3" href="/coding/go_learning1/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -1157,23 +2459,6 @@
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >TypeScript初步学习</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2025-03-26T00:00:00&#43;00:00">26 March 2025</time>
-                  
-                </span>
-              </span>
-            </a>
-          
-        </span>
-        <span>
-          
-            <a class="flex text-right group ml-3" href="/coding/go_learning1/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
                   >Golang基础内容</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
@@ -1182,15 +2467,10 @@
                   
                 </span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+          
+        </span>
+        <span>
           
         </span>
       </div>
