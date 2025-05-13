@@ -111,7 +111,7 @@
     "keywords": ["Go","后端"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2416"
+    "wordCount": "5332"
   }]
   </script>
 
@@ -592,7 +592,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-05-07T00:00:00&#43;00:00">7 May 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2416 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  <time datetime="2025-05-07T00:00:00&#43;00:00">7 May 2025</time><span class="px-2 text-primary-500">&middot;</span><span>5332 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
   
 
   
@@ -752,6 +752,13 @@
         <li><a href="#服务端部分代码">服务端部分代码</a></li>
       </ul>
     </li>
+    <li><a href="#用户消息广播功能">用户消息广播功能</a></li>
+    <li><a href="#用户业务层封装">用户业务层封装</a></li>
+    <li><a href="#在线用户查询">在线用户查询</a></li>
+    <li><a href="#修改用户名">修改用户名</a></li>
+    <li><a href="#超时强踢功能">超时强踢功能</a></li>
+    <li><a href="#私聊功能">私聊功能</a></li>
+    <li><a href="#所有消息在客户端自动显示的原因">所有消息在客户端自动显示的原因</a></li>
   </ul>
 </nav>
   </div>
@@ -779,6 +786,13 @@
         <li><a href="#服务端部分代码">服务端部分代码</a></li>
       </ul>
     </li>
+    <li><a href="#用户消息广播功能">用户消息广播功能</a></li>
+    <li><a href="#用户业务层封装">用户业务层封装</a></li>
+    <li><a href="#在线用户查询">在线用户查询</a></li>
+    <li><a href="#修改用户名">修改用户名</a></li>
+    <li><a href="#超时强踢功能">超时强踢功能</a></li>
+    <li><a href="#私聊功能">私聊功能</a></li>
+    <li><a href="#所有消息在客户端自动显示的原因">所有消息在客户端自动显示的原因</a></li>
   </ul>
 </nav>
   </div>
@@ -1153,7 +1167,344 @@
 <p>this.mapLock.Unlock()则是释放互斥锁，允许其他Goroutine继续访问OnlineMap。
 结束临界区(critical section)，减少锁竞争，提高程序并发性能。</p>
 </blockquote>
+<p>还有要注意这里的**select {}**部分，这是一种简单偷懒的写法（实际工作不那么写），是为了不使这个goroutine结束，强行让它存活才那么写的。</p>
+<p>理由是因为一旦这个go程结束，会导致**这个客户端对应的conn关闭，客户端也会断开连接。**无法实现后续的广播。</p>
 <p>同时注意到，既然已经有了Message管道，那么肯定得有监听这个管道的go程来实现广播数据的最后一步。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 监听Message广播消息channel的goroutine，一旦有消息就发送给全部的在线user
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Server</span><span class="p">)</span> <span class="nf">ListenMessager</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">this</span><span class="p">.</span><span class="nx">Message</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//将msg发送给全部的在线User
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">this</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">cli</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">this</span><span class="p">.</span><span class="nx">OnlineMap</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">cli</span><span class="p">.</span><span class="nx">C</span> <span class="o">&lt;-</span> <span class="nx">msg</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">this</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>就这样实现了广播用户上线消息。</p>
+
+
+<h2 class="relative group">用户消息广播功能 
+    <div id="%E7%94%A8%E6%88%B7%E6%B6%88%E6%81%AF%E5%B9%BF%E6%92%AD%E5%8A%9F%E8%83%BD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%94%A8%E6%88%B7%E6%B6%88%E6%81%AF%E5%B9%BF%E6%92%AD%E5%8A%9F%E8%83%BD" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在这里我们在handle函数里面实现了一个用户消息广播功能。主要是下面这一段：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">buf</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">4096</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">this</span><span class="p">.</span><span class="nf">BroadCast</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="s">&#34;offline&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Conn Read err:&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//提取用户的消息（同时靠切片来去除\n）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">msg</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">buf</span><span class="p">[:</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//将得到的消息进行广播
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">this</span><span class="p">.</span><span class="nf">BroadCast</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span></code></pre></div><p>在这里，利用了缓冲区(buf)和<code>conn.Read</code>来从客户端读取数据。</p>
+<blockquote>
+<p>在Go的网络编程中，缓冲区(buf)是一个用于临时存储从网络连接(conn)读取到的数据的内存区域。它的作用主要是提高数据传输效率，减少系统调用次数，并简化数据处理。</p>
+<p>在代码中，缓冲区的定义如下:
+buf := make([]byte, 4096)
+make([]byte, 4096)创建了一个长度为4096字节的字节切片（byte slice）。
+[]byte是Go中最常见的二进制数据结构，用于存储原始数据（例如网络数据、文件数据）。</p>
+<p>conn.Read(buf)是一个阻塞函数，尝试从TCP连接conn读取数据，并将数据填充到缓冲区buf中
+conn.Read(buf)是一个阻塞调用，但它并不会立即读取你输入的每一个字符，而是基于TCP数据流的缓冲机制。</p>
+<p>假设你在客户端输入 123456\n，以下是典型的数据传输过程：</p>
+<p>缓冲区等待：</p>
+<p>你输入 1 后，数据并不会立即发送到服务端，而是暂存在客户端的发送缓冲区。</p>
+<p>只有当缓冲区满了，或者你输入了换行（Enter）或手动发送时，数据才会被发送到服务器。</p>
+<p>数据到达服务端：</p>
+<p>服务端的TCP缓冲区接收到数据，触发conn.Read(buf) 读取该缓冲区的数据。</p>
+<p>一次性读取：</p>
+<p>如果缓冲区内的数据小于buf的大小（4096），那么一次Read调用会读取所有可用的数据，例如 123456。</p>
+</blockquote>
+
+
+<h2 class="relative group">用户业务层封装 
+    <div id="%E7%94%A8%E6%88%B7%E4%B8%9A%E5%8A%A1%E5%B1%82%E5%B0%81%E8%A3%85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%94%A8%E6%88%B7%E4%B8%9A%E5%8A%A1%E5%B1%82%E5%B0%81%E8%A3%85" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>将用户有关的业务代码放到user.go中。</p>
+<p>其中注意目前user中是没关联上server的，因此没法从user找到server，需要补全这一块。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Addr</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">C</span>    <span class="kd">chan</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">conn</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span> <span class="c1">//表示当前user可以和server通信的一个客户端链接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">server</span> <span class="o">*</span><span class="nx">Server</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>当然同时相应的也要在server中补全。</p>
+<p>以及相关业务封装：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//用户的上线业务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="nf">Online</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//用户上线,将用户加入到onlineMap中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OnlineMap</span><span class="p">[</span><span class="nx">this</span><span class="p">.</span><span class="nx">Name</span><span class="p">]</span> <span class="p">=</span> <span class="nx">this</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//广播当前用户上线消息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nf">BroadCast</span><span class="p">(</span><span class="nx">this</span><span class="p">,</span> <span class="s">&#34;online&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//用户的下线业务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="nf">Offline</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//用户下线,将用户从onlineMap中删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">delete</span><span class="p">(</span><span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OnlineMap</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//广播当前用户上线消息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nf">BroadCast</span><span class="p">(</span><span class="nx">this</span><span class="p">,</span> <span class="s">&#34;offline&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//用户处理消息的业务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="nf">DoMessage</span><span class="p">(</span><span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nf">BroadCast</span><span class="p">(</span><span class="nx">this</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">在线用户查询 
+    <div id="%E5%9C%A8%E7%BA%BF%E7%94%A8%E6%88%B7%E6%9F%A5%E8%AF%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%9C%A8%E7%BA%BF%E7%94%A8%E6%88%B7%E6%9F%A5%E8%AF%A2" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>用户查询目前所有在线的用户，并且只在希望查询用户的那个client显示查询结果，假设我们用&quot;who&quot;指令表示查询：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//给当前User对应的客户端发送消息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="nf">SendMsg</span><span class="p">(</span><span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">this</span><span class="p">.</span><span class="nx">conn</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">msg</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//用户处理消息的业务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="nf">DoMessage</span><span class="p">(</span><span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">msg</span> <span class="o">==</span> <span class="s">&#34;who&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//查询当前在线用户都有哪些
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">user</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OnlineMap</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">onlineMsg</span> <span class="o">:=</span> <span class="s">&#34;[&#34;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">Addr</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">Name</span> <span class="o">+</span> <span class="s">&#34;:&#34;</span> <span class="o">+</span> <span class="s">&#34;在线...\n&#34;</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nf">SendMsg</span><span class="p">(</span><span class="nx">onlineMsg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nf">BroadCast</span><span class="p">(</span><span class="nx">this</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">修改用户名 
+    <div id="%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%90%8D" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%90%8D" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>简单假定修改用户名的命令格式是&quot;rename|jack&quot;，就是会把用户名改成jack。同时还要所有用户是不同名的。主要是这一段代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">7</span> <span class="o">&amp;&amp;</span> <span class="nx">msg</span><span class="p">[:</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#34;rename|&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//消息格式: rename|张三
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">newName</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="s">&#34;|&#34;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//判断name是否存在
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OnlineMap</span><span class="p">[</span><span class="nx">newName</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nf">SendMsg</span><span class="p">(</span><span class="s">&#34;当前用户名被使用\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="nb">delete</span><span class="p">(</span><span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OnlineMap</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OnlineMap</span><span class="p">[</span><span class="nx">newName</span><span class="p">]</span> <span class="p">=</span> <span class="nx">this</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">mapLock</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">newName</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nf">SendMsg</span><span class="p">(</span><span class="s">&#34;您已经更新用户名:&#34;</span> <span class="o">+</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="o">+</span> <span class="s">&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nf">BroadCast</span><span class="p">(</span><span class="nx">this</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span></code></pre></div><p>也是就直接利用user和server的相互联系去修改。</p>
+
+
+<h2 class="relative group">超时强踢功能 
+    <div id="%E8%B6%85%E6%97%B6%E5%BC%BA%E8%B8%A2%E5%8A%9F%E8%83%BD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%B6%85%E6%97%B6%E5%BC%BA%E8%B8%A2%E5%8A%9F%E8%83%BD" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在这里我们运用定时器来实现超时强踢功能，使用的关键代码就是：<code>time.After(time.Second * 10)</code></p>
+<p>改进后的handler函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Server</span><span class="p">)</span> <span class="nf">Handler</span><span class="p">(</span><span class="nx">conn</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//...当前链接的业务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// fmt.Println(&#34;链接建立成功&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//首先有了conn应该先创建一个user
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">user</span> <span class="o">:=</span> <span class="nf">NewUser</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span> <span class="nx">this</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">user</span><span class="p">.</span><span class="nf">Online</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//监听用户是否活跃的channel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">isLive</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//接受客户端发送的消息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">buf</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">4096</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">user</span><span class="p">.</span><span class="nf">Offline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Conn Read err:&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//提取用户的消息（同时靠切片来去除\n）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">msg</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">buf</span><span class="p">[:</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//将得到的消息进行广播
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">user</span><span class="p">.</span><span class="nf">DoMessage</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//用户的任意消息，代表当前用户是一个活跃的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">isLive</span> <span class="o">&lt;-</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//当前handler阻塞
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//当前handler阻塞
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">isLive</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//当前用户是活跃的，应该重置定时器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//不做任何事情，为了激活select，更新下面的定时器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">10</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//已经超时
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//将当前的User强制的关闭
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">			<span class="nx">user</span><span class="p">.</span><span class="nf">SendMsg</span><span class="p">(</span><span class="s">&#34;你被踢了&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//销毁用的资源
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nb">close</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">C</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//关闭连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//退出当前Handler
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">return</span> <span class="c1">//runtime.Goexit()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在这里可以看到有两个for，对应着两个go程。它们是并发执行的。</p>
+<p><strong>goroutine 1（接收消息）：</strong></p>
+<ul>
+<li>持续监听客户端消息。</li>
+<li>处理消息并发送活跃信号到<code>isLive</code>。</li>
+<li>如果客户端断开连接或发生读取错误，会<strong>终止自己</strong>。</li>
+</ul>
+<p><strong>goroutine 2（活跃检测）：</strong></p>
+<ul>
+<li>主要是一个<strong>select 循环</strong>，不断监听活跃信号和超时事件。</li>
+<li><code>&lt;-isLive</code>: 只要有活跃信号，就什么都不做，只是<strong>重置定时器</strong>。</li>
+<li><code>&lt;-time.After()</code>: 超时后执行<strong>踢出和连接清理</strong>。</li>
+</ul>
+
+
+<h2 class="relative group">私聊功能 
+    <div id="%E7%A7%81%E8%81%8A%E5%8A%9F%E8%83%BD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%A7%81%E8%81%8A%E5%8A%9F%E8%83%BD" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>只用对应的user的sendMsg就可以解决了：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">msg</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#34;to|&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//消息格式:  to|张三|消息内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//1 获取对方的用户名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">remoteName</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="s">&#34;|&#34;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">remoteName</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nf">SendMsg</span><span class="p">(</span><span class="s">&#34;消息格式不正确，请使用 \&#34;to|张三|你好啊\&#34;格式。\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//2 根据用户名 得到对方User对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">remoteUser</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OnlineMap</span><span class="p">[</span><span class="nx">remoteName</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nf">SendMsg</span><span class="p">(</span><span class="s">&#34;该用户名不不存在\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//3 获取消息内容，通过对方的User对象将消息内容发送过去
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">content</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="s">&#34;|&#34;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">content</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">this</span><span class="p">.</span><span class="nf">SendMsg</span><span class="p">(</span><span class="s">&#34;无消息内容，请重发\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">remoteUser</span><span class="p">.</span><span class="nf">SendMsg</span><span class="p">(</span><span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="o">+</span> <span class="s">&#34;对您说:&#34;</span> <span class="o">+</span> <span class="nx">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">所有消息在客户端自动显示的原因 
+    <div id="%E6%89%80%E6%9C%89%E6%B6%88%E6%81%AF%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%8A%A8%E6%98%BE%E7%A4%BA%E7%9A%84%E5%8E%9F%E5%9B%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%89%80%E6%9C%89%E6%B6%88%E6%81%AF%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%8A%A8%E6%98%BE%E7%A4%BA%E7%9A%84%E5%8E%9F%E5%9B%A0" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>PowerShell 客户端实际上是一个TCP客户端，当它连接到服务器时，服务器会通过conn.Write()直接将消息写入这个TCP连接，PowerShell会自动将接收到的数据显示到终端上。</p>
+<p>虽然没有在服务器端显式调用Read()来处理客户端的回应，但客户端会自动显示来自服务器的消息，因为消息是直接通过Write()发送到TCP连接的，PowerShell终端会自动显示这些传入的数据。</p>
+<p>你看到消息在PowerShell终端显示的流程是：</p>
+<ol>
+<li>Server通过BroadCast()将消息发送到每个User的C channel。</li>
+<li>每个User在独立的ListenMessage() goroutine中不断监听C channel并将消息写入客户端的TCP连接(conn.Write()).</li>
+<li>PowerShell作为TCP客户端会自动显示收到的消息数据。</li>
+</ol>
 
           
           
