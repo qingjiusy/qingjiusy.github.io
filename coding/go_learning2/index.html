@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
-  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  data-auto-appearance="true"><head>
   <meta charset="utf-8" />
   
   <meta http-equiv="content-language" content="zh-cn" />
@@ -15,7 +15,7 @@
   <meta name="keywords" content="Go, 后端, " />
   
   
-  <link rel="canonical" href="http://localhost:1313/coding/go_learning2/" />
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/go_learning2/" />
   
   
   
@@ -67,7 +67,7 @@
   
   
   
-  <meta property="og:url" content="http://localhost:1313/coding/go_learning2/">
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/go_learning2/">
   <meta property="og:site_name" content="QingJiu">
   <meta property="og:title" content="Golang面向对象">
   <meta property="og:description" content="blog">
@@ -78,11 +78,11 @@
     <meta property="article:modified_time" content="2025-04-22T00:00:00+00:00">
     <meta property="article:tag" content="Go">
     <meta property="article:tag" content="后端">
-    <meta property="og:image" content="http://localhost:1313/coding/go_learning2/featured.png">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/go_learning2/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/coding/go_learning2/featured.png">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/go_learning2/featured.png">
   <meta name="twitter:title" content="Golang面向对象">
   <meta name="twitter:description" content="blog">
 
@@ -97,7 +97,7 @@
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
-    "url" : "http:\/\/localhost:1313\/coding\/go_learning2\/",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/go_learning2\/",
     "author" : {
       "@type": "Person",
       "name": "清酒"
@@ -238,14 +238,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Lives">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Codings">
             code
           </p>
         </a>
@@ -446,7 +446,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Lives">
             生活
         </p>
     </a>
@@ -455,7 +455,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Codings">
             code
         </p>
     </a>
@@ -521,7 +521,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/go_learning2/featured_hu10007987117447638262.png);">
+    style="background-image:url(/coding/go_learning2/featured_hu_cf7fd3533a835b66.png);">
     
 
 
@@ -632,7 +632,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
     
   
   <div class="place-self-center">
@@ -987,13 +987,13 @@
 </span></span></code></pre></div><p>注意，如果构建一个其他函数，然后传入一个结构体作为参数，那么函数执行后，原来的结构体内数据**不会受到影响！**因为函数会自己创造出一个结构体的副本，而非直接修改原来的结构体。</p>
 <p>为了修改原来的结构体，需要使用<strong>结构体指针</strong>作为传入的参数：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">changeBook</span><span class="p">(</span><span class="nx">book</span> <span class="nx">Book</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//传递一个book的副本
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">book</span><span class="p">.</span><span class="nx">auth</span> <span class="p">=</span> <span class="s">&#34;666&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//传递一个book的副本</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">book</span><span class="p">.</span><span class="nx">auth</span> <span class="p">=</span> <span class="s">&#34;666&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">changeBook2</span><span class="p">(</span><span class="nx">book</span> <span class="o">*</span><span class="nx">Book</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//指针传递
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">book</span><span class="p">.</span><span class="nx">auth</span> <span class="p">=</span> <span class="s">&#34;777&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//指针传递</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">book</span><span class="p">.</span><span class="nx">auth</span> <span class="p">=</span> <span class="s">&#34;777&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 
@@ -1021,8 +1021,8 @@
 </h3>
 <p>有关于对象中方法的实现，我们可以这样去做：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Hero</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//如果说类的属性首字母大写, 表示该属性是对外能够访问的，否则的话只能够类的内部访问
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Name</span>  <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//如果说类的属性首字母大写, 表示该属性是对外能够访问的，否则的话只能够类的内部访问</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Name</span>  <span class="kt">string</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">Ad</span>    <span class="kt">int</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">level</span> <span class="kt">int</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1038,8 +1038,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="nx">Hero</span><span class="p">)</span> <span class="nf">SetName</span><span class="p">(</span><span class="nx">newName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//this 是调用该方法的对象的一个副本（拷贝）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">newName</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//this 是调用该方法的对象的一个副本（拷贝）</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">newName</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>但是仍然要注意，这种方式虽然没错，但是SetName方法还是没有实现我们要去做的目的。</p>
 <p>因此我们在创建类的方法的时候通常都应该使用指针来创建，这样可以保证之后this可以正确的实现我们的目的：</p>
@@ -1054,8 +1054,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Hero</span><span class="p">)</span> <span class="nf">SetName</span><span class="p">(</span><span class="nx">newName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//this 是调用该方法的对象的一个副本（拷贝）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">newName</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//this 是调用该方法的对象的一个副本（拷贝）</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">this</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">newName</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>注意：<strong>如果说类的属性首字母大写, 表示该属性是对外能够访问的，否则的话只能够类的内部访问</strong></p>
 
@@ -1084,28 +1084,28 @@
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Human.Walk()...&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//=================
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//=================</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">SuperMan</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">Human</span> <span class="c1">//SuperMan类继承了Human类的方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Human</span> <span class="c1">//SuperMan类继承了Human类的方法</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">level</span> <span class="kt">int</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>当然可以重定义父类的方法，也可以创建子类新方法：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//重定义父类的方法Eat()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">SuperMan</span><span class="p">)</span> <span class="nf">Eat</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//重定义父类的方法Eat()</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">SuperMan</span><span class="p">)</span> <span class="nf">Eat</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;SuperMan.Eat()...&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//子类的新方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">SuperMan</span><span class="p">)</span> <span class="nf">Fly</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//子类的新方法</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">SuperMan</span><span class="p">)</span> <span class="nf">Fly</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;SuperMan.Fly()...&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>这个子类定义的两种方法：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//方法一
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">s</span> <span class="o">:=</span> <span class="nx">SuperMan</span><span class="p">{</span><span class="nx">Human</span><span class="p">{</span><span class="s">&#34;li4&#34;</span><span class="p">,</span> <span class="s">&#34;female&#34;</span><span class="p">},</span> <span class="mi">88</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//方法二
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">s</span> <span class="nx">SuperMan</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//方法一</span>
+</span></span><span class="line"><span class="cl"><span class="nx">s</span> <span class="o">:=</span> <span class="nx">SuperMan</span><span class="p">{</span><span class="nx">Human</span><span class="p">{</span><span class="s">&#34;li4&#34;</span><span class="p">,</span> <span class="s">&#34;female&#34;</span><span class="p">},</span> <span class="mi">88</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//方法二</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">s</span> <span class="nx">SuperMan</span>
 </span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="p">.</span><span class="nx">name</span> <span class="p">=</span> <span class="s">&#34;li4&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="p">.</span><span class="nx">sex</span> <span class="p">=</span> <span class="s">&#34;male&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="p">.</span><span class="nx">level</span> <span class="p">=</span> <span class="mi">88</span>
@@ -1129,18 +1129,18 @@
 <li>在运行时，根据实际对象类型决定调用哪个方法 —— 这就是多态。</li>
 </ol>
 <p>定义一个接口：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//本质是一个指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">AnimalIF</span> <span class="kd">interface</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//本质是一个指针</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">AnimalIF</span> <span class="kd">interface</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">Sleep</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">GetColor</span><span class="p">()</span> <span class="kt">string</span> <span class="c1">//获取动物的颜色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">GetType</span><span class="p">()</span> <span class="kt">string</span>  <span class="c1">//获取动物的种类
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">GetColor</span><span class="p">()</span> <span class="kt">string</span> <span class="c1">//获取动物的颜色</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">GetType</span><span class="p">()</span> <span class="kt">string</span>  <span class="c1">//获取动物的种类</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>这意思是：任何实现了Sleep、GetColor、GetType这三个方法的类型，都是AnimalIF类型，不需要显式地“继承”这个<code>interface</code>。</p>
 <p>具体实现接口的两个类：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//具体的类
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Cat</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">color</span> <span class="kt">string</span> <span class="c1">//猫的颜色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//具体的类</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Cat</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">color</span> <span class="kt">string</span> <span class="c1">//猫的颜色</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Cat</span><span class="p">)</span> <span class="nf">Sleep</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Cat is Sleep&#34;</span><span class="p">)</span>
@@ -1154,8 +1154,8 @@
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s">&#34;Cat&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//具体的类
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Dog</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//具体的类</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Dog</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">color</span> <span class="kt">string</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1171,12 +1171,12 @@
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s">&#34;Dog&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>接口多态的体现：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">animal</span> <span class="nx">AnimalIF</span> <span class="c1">//接口的数据类型， 父类指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">animal</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Cat</span><span class="p">{</span><span class="s">&#34;Green&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">animal</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">()</span> <span class="c1">//调用的就是Cat的Sleep()方法 , 多态的现象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">animal</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Dog</span><span class="p">{</span><span class="s">&#34;Yellow&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">animal</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">()</span> <span class="c1">// 调用Dog的Sleep方法，多态的现象
-</span></span></span></code></pre></div><p>多态基本的要素：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">animal</span> <span class="nx">AnimalIF</span> <span class="c1">//接口的数据类型， 父类指针</span>
+</span></span><span class="line"><span class="cl"><span class="nx">animal</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Cat</span><span class="p">{</span><span class="s">&#34;Green&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">animal</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">()</span> <span class="c1">//调用的就是Cat的Sleep()方法 , 多态的现象</span>
+</span></span><span class="line"><span class="cl"><span class="nx">animal</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Dog</span><span class="p">{</span><span class="s">&#34;Yellow&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">animal</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">()</span> <span class="c1">// 调用Dog的Sleep方法，多态的现象</span>
+</span></span></code></pre></div><p>多态基本的要素：</p>
 <ol>
 <li>有一个父类（接口）</li>
 <li>有子类（实现了父类的<strong>全部接口方法</strong>）</li>
@@ -1210,8 +1210,8 @@
 </h4>
 <p>我们可以给<code>interface{}</code>提供 “类型断言” 的机制，比如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">myFunc</span><span class="p">(</span><span class="nx">arg</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//类型断言
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">value</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">arg</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//类型断言</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">value</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">arg</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;arg is not string type&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1240,11 +1240,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/pair_hu11226354629839883683.png 330w,
-        /coding/go_learning2/pair_hu15385601451071453819.png 660w,
-        /coding/go_learning2/pair_hu6876827492012419216.png 1024w,
-        /coding/go_learning2/pair_hu13087637764548069135.png 2x"
-        src="/coding/go_learning2/pair_hu15385601451071453819.png"
+        /coding/go_learning2/pair_hu_f7792f0b73cf8db5.png 330w,
+        /coding/go_learning2/pair_hu_8e4befeb7e208ccf.png 660w,
+        /coding/go_learning2/pair_hu_3555760decab2e4.png 1024w,
+        /coding/go_learning2/pair_hu_c20d768cb2c16b1.png 2x"
+        src="/coding/go_learning2/pair_hu_8e4befeb7e208ccf.png"
         alt="pair"
       />
       
@@ -1254,11 +1254,11 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//pair&lt;statictype:string, value:&#34;aceld&#34;&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;aceld&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//pair&lt;statictype:string, value:&#34;aceld&#34;&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;aceld&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//pair&lt;type:string, value:&#34;aceld&#34;&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">var</span> <span class="nx">allType</span> <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//pair&lt;type:string, value:&#34;aceld&#34;&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">allType</span> <span class="kd">interface</span><span class="p">{}</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">allType</span> <span class="p">=</span> <span class="nx">a</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">str</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">allType</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
@@ -1272,8 +1272,8 @@
 </span></span><span class="line"><span class="cl">	<span class="nf">WriteBook</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//具体类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Book</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//具体类型</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Book</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Book</span><span class="p">)</span> <span class="nf">ReadBook</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Read a Book&#34;</span><span class="p">)</span>
@@ -1283,19 +1283,19 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//b: pair&lt;type:Book, value:book{}地址&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">b</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Book</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//b: pair&lt;type:Book, value:book{}地址&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">b</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Book</span><span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:, value:&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">var</span> <span class="nx">r</span> <span class="nx">Reader</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:Book, value:book{}地址&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">r</span> <span class="p">=</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:, value:&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">r</span> <span class="nx">Reader</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:Book, value:book{}地址&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">r</span> <span class="p">=</span> <span class="nx">b</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nf">ReadBook</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">w</span> <span class="nx">Writer</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:Book, value:book{}地址&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">w</span> <span class="p">=</span> <span class="nx">r</span><span class="p">.(</span><span class="nx">Writer</span><span class="p">)</span> <span class="c1">//此处的断言为什么会成功？ 因为w r 具体的type是一致
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">w</span><span class="p">.</span><span class="nf">WriteBook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//r: pair&lt;type:Book, value:book{}地址&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">w</span> <span class="p">=</span> <span class="nx">r</span><span class="p">.(</span><span class="nx">Writer</span><span class="p">)</span> <span class="c1">//此处的断言为什么会成功？ 因为w r 具体的type是一致</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">w</span><span class="p">.</span><span class="nf">WriteBook</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 
@@ -1403,8 +1403,8 @@
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">movie</span> <span class="o">:=</span> <span class="nx">Movie</span><span class="p">{</span><span class="s">&#34;喜剧之王&#34;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;xingye&#34;</span><span class="p">,</span> <span class="s">&#34;zhangbozhi&#34;</span><span class="p">}}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//编码的过程  结构体---&gt; json
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">jsonStr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">movie</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//编码的过程  结构体---&gt; json</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">jsonStr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">movie</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;json marshal error&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span>
@@ -1414,9 +1414,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>在这段代码中，我们通过tag对json中的字段名进行了规定。这样的结果是，在后续代码中我们使用了json转换的方法<code>json.Marshal</code>，可以看到原来的结构体对应生成的json是：<code>jsonStr = {&quot;title&quot;:&quot;喜剧之王&quot;,&quot;year&quot;:2000,&quot;rmb&quot;:10,&quot;actors&quot;:[&quot;xingye&quot;,&quot;zhangbozhi&quot;]}</code>。</p>
 <p>当然这里代码也可以实现把json字符串变成了结构体：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//解码的过程 jsonstr ---&gt; 结构体
-</span></span></span><span class="line"><span class="cl"><span class="c1">//jsonStr = {&#34;title&#34;:&#34;喜剧之王&#34;,&#34;year&#34;:2000,&#34;rmb&#34;:10,&#34;actors&#34;:[&#34;xingye&#34;,&#34;zhangbozhi&#34;]}
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">myMovie</span> <span class="o">:=</span> <span class="nx">Movie</span><span class="p">{}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//解码的过程 jsonstr ---&gt; 结构体</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//jsonStr = {&#34;title&#34;:&#34;喜剧之王&#34;,&#34;year&#34;:2000,&#34;rmb&#34;:10,&#34;actors&#34;:[&#34;xingye&#34;,&#34;zhangbozhi&#34;]}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myMovie</span> <span class="o">:=</span> <span class="nx">Movie</span><span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">jsonStr</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">myMovie</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;json unmarshal error &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
@@ -1455,11 +1455,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/1_hu15466535496256111985.png 330w,
-        /coding/go_learning2/1_hu511646747972374108.png 660w,
-        /coding/go_learning2/1_hu13915594161643323287.png 1024w,
-        /coding/go_learning2/1_hu16880851739059077443.png 2x"
-        src="/coding/go_learning2/1_hu511646747972374108.png"
+        /coding/go_learning2/1_hu_d7d6fc3be77016dc.png 330w,
+        /coding/go_learning2/1_hu_e9789c463f6b32f1.png 660w,
+        /coding/go_learning2/1_hu_c1995ed45c0b22a3.png 1024w,
+        /coding/go_learning2/1_hu_9605ef75f9b83c4d.png 2x"
+        src="/coding/go_learning2/1_hu_e9789c463f6b32f1.png"
         alt="1.png"
       />
       
@@ -1478,11 +1478,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/2_hu1685298005643675267.png 330w,
-        /coding/go_learning2/2_hu13479416221775486557.png 660w,
-        /coding/go_learning2/2_hu9485468696430545698.png 1024w,
-        /coding/go_learning2/2_hu1744849667186331966.png 2x"
-        src="/coding/go_learning2/2_hu13479416221775486557.png"
+        /coding/go_learning2/2_hu_798b1b7199f979ee.png 330w,
+        /coding/go_learning2/2_hu_ea9d6456aaa24dd1.png 660w,
+        /coding/go_learning2/2_hu_354af1ca4cd21960.png 1024w,
+        /coding/go_learning2/2_hu_b5bc2f49a3c2fa53.png 2x"
+        src="/coding/go_learning2/2_hu_ea9d6456aaa24dd1.png"
         alt="2.png"
       />
       
@@ -1496,11 +1496,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/3_hu4991071462052331362.png 330w,
-        /coding/go_learning2/3_hu10481888225994568955.png 660w,
-        /coding/go_learning2/3_hu17713807214614678470.png 1024w,
-        /coding/go_learning2/3_hu9401220389479455424.png 2x"
-        src="/coding/go_learning2/3_hu10481888225994568955.png"
+        /coding/go_learning2/3_hu_66457d27b3a8f17b.png 330w,
+        /coding/go_learning2/3_hu_1977412e438469f2.png 660w,
+        /coding/go_learning2/3_hu_924a47b050e5cf29.png 1024w,
+        /coding/go_learning2/3_hu_842ed0791476ba03.png 2x"
+        src="/coding/go_learning2/3_hu_1977412e438469f2.png"
         alt="3.png"
       />
       
@@ -1514,11 +1514,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/4_hu18265070927339736737.png 330w,
-        /coding/go_learning2/4_hu11270029433664982002.png 660w,
-        /coding/go_learning2/4_hu12849212708841458706.png 1024w,
-        /coding/go_learning2/4_hu5300027829129005573.png 2x"
-        src="/coding/go_learning2/4_hu11270029433664982002.png"
+        /coding/go_learning2/4_hu_9dd6d623b758a9e0.png 330w,
+        /coding/go_learning2/4_hu_12a3dc71131d19c.png 660w,
+        /coding/go_learning2/4_hu_591014f632cac30f.png 1024w,
+        /coding/go_learning2/4_hu_7e9f154058a00b13.png 2x"
+        src="/coding/go_learning2/4_hu_12a3dc71131d19c.png"
         alt="4.png"
       />
       
@@ -1541,11 +1541,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/5_hu13281788093358852874.png 330w,
-        /coding/go_learning2/5_hu11242279221679568049.png 660w,
-        /coding/go_learning2/5_hu5476601819654756868.png 1024w,
-        /coding/go_learning2/5_hu11079610026742728616.png 2x"
-        src="/coding/go_learning2/5_hu11242279221679568049.png"
+        /coding/go_learning2/5_hu_9bd8e30ca09536bf.png 330w,
+        /coding/go_learning2/5_hu_b586c2acf4f4bd9d.png 660w,
+        /coding/go_learning2/5_hu_2d0e186fe55f8076.png 1024w,
+        /coding/go_learning2/5_hu_aa9c57d8b5d07947.png 2x"
+        src="/coding/go_learning2/5_hu_b586c2acf4f4bd9d.png"
         alt="5.png"
       />
       
@@ -1591,11 +1591,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/6_hu9916153488222018381.png 330w,
-        /coding/go_learning2/6_hu18349331539738476713.png 660w,
-        /coding/go_learning2/6_hu4756916512739080264.png 1024w,
-        /coding/go_learning2/6_hu17573019152872520024.png 2x"
-        src="/coding/go_learning2/6_hu18349331539738476713.png"
+        /coding/go_learning2/6_hu_f12b6b021758963a.png 330w,
+        /coding/go_learning2/6_hu_2209c124a3d10ca1.png 660w,
+        /coding/go_learning2/6_hu_7aa2dfcc41ef0926.png 1024w,
+        /coding/go_learning2/6_hu_6fbf93661dce7c02.png 2x"
+        src="/coding/go_learning2/6_hu_2209c124a3d10ca1.png"
         alt="6.png"
       />
       
@@ -1621,11 +1621,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/7_hu14442283796630289041.png 330w,
-        /coding/go_learning2/7_hu17490293941578484274.png 660w,
-        /coding/go_learning2/7_hu4268857722057648969.png 1024w,
-        /coding/go_learning2/7_hu15110406060511580491.png 2x"
-        src="/coding/go_learning2/7_hu17490293941578484274.png"
+        /coding/go_learning2/7_hu_8db3d82d4ccd3f1.png 330w,
+        /coding/go_learning2/7_hu_e52df85f351e0545.png 660w,
+        /coding/go_learning2/7_hu_d48920767076bfeb.png 1024w,
+        /coding/go_learning2/7_hu_f2b288d0344f537e.png 2x"
+        src="/coding/go_learning2/7_hu_e52df85f351e0545.png"
         alt="7.png"
       />
       
@@ -1638,11 +1638,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/8_hu4235329863664404730.png 330w,
-        /coding/go_learning2/8_hu7548824316127361740.png 660w,
-        /coding/go_learning2/8_hu13661346346332009791.png 1024w,
-        /coding/go_learning2/8_hu1660770893086642026.png 2x"
-        src="/coding/go_learning2/8_hu7548824316127361740.png"
+        /coding/go_learning2/8_hu_b6b5c1a682c0f81.png 330w,
+        /coding/go_learning2/8_hu_991954e124a7791e.png 660w,
+        /coding/go_learning2/8_hu_55a55e9e55ecb24b.png 1024w,
+        /coding/go_learning2/8_hu_85b7578ca0324e37.png 2x"
+        src="/coding/go_learning2/8_hu_991954e124a7791e.png"
         alt="8.png"
       />
       
@@ -1660,11 +1660,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/9_hu2290896482028569118.png 330w,
-        /coding/go_learning2/9_hu15792802932122905247.png 660w,
-        /coding/go_learning2/9_hu9381066099637946894.png 1024w,
-        /coding/go_learning2/9_hu15365287564112741038.png 2x"
-        src="/coding/go_learning2/9_hu15792802932122905247.png"
+        /coding/go_learning2/9_hu_465987f1c58fbcd9.png 330w,
+        /coding/go_learning2/9_hu_efe6d77a7d084c24.png 660w,
+        /coding/go_learning2/9_hu_66bf5c074967dc69.png 1024w,
+        /coding/go_learning2/9_hu_766f58e21d866b84.png 2x"
+        src="/coding/go_learning2/9_hu_efe6d77a7d084c24.png"
         alt="9.png"
       />
       
@@ -1676,11 +1676,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/10_hu14442197011194055088.png 330w,
-        /coding/go_learning2/10_hu12640852997893594109.png 660w,
-        /coding/go_learning2/10_hu1196292841198877576.png 1024w,
-        /coding/go_learning2/10_hu14160341342857931516.png 2x"
-        src="/coding/go_learning2/10_hu12640852997893594109.png"
+        /coding/go_learning2/10_hu_d33e3179a285cacf.png 330w,
+        /coding/go_learning2/10_hu_42376088d81e5f3f.png 660w,
+        /coding/go_learning2/10_hu_3d5a41e41e756c89.png 1024w,
+        /coding/go_learning2/10_hu_a8096e0af18d2272.png 2x"
+        src="/coding/go_learning2/10_hu_42376088d81e5f3f.png"
         alt="10.png"
       />
       
@@ -1739,8 +1739,8 @@
 </span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//子goroutine
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">newTask</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//子goroutine</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">newTask</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">i</span><span class="o">++</span>
@@ -1749,13 +1749,13 @@
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//主goroutine
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//创建一个go程 去执行newTask() 流程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">go</span> <span class="nf">newTask</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//主goroutine</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//创建一个go程 去执行newTask() 流程</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="nf">newTask</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(&#34;main goroutine exit&#34;)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//fmt.Println(&#34;main goroutine exit&#34;)</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">i</span><span class="o">++</span>
@@ -1818,19 +1818,19 @@
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//定义一个channel
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//定义一个channel</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;goroutine结束&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;goroutine 正在运行...&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">666</span> <span class="c1">//将666 发送给c
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">666</span> <span class="c1">//将666 发送给c</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">num</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span> <span class="c1">//从c中接受数据，并赋值给num
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">num</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span> <span class="c1">//从c中接受数据，并赋值给num</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;num = &#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main goroutine 结束...&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1867,11 +1867,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/11_hu13371687932207665594.png 330w,
-        /coding/go_learning2/11_hu13440185370779428422.png 660w,
-        /coding/go_learning2/11_hu82780075001128046.png 1024w,
-        /coding/go_learning2/11_hu12922702340517922042.png 2x"
-        src="/coding/go_learning2/11_hu13440185370779428422.png"
+        /coding/go_learning2/11_hu_8de425f5d6559040.png 330w,
+        /coding/go_learning2/11_hu_636fac977f2f0477.png 660w,
+        /coding/go_learning2/11_hu_c356da5602c613a5.png 1024w,
+        /coding/go_learning2/11_hu_619539a5c71c94a8.png 2x"
+        src="/coding/go_learning2/11_hu_636fac977f2f0477.png"
         alt="11.png"
       />
       
@@ -1900,11 +1900,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/12_hu17861524428447846190.png 330w,
-        /coding/go_learning2/12_hu15910820460832359061.png 660w,
-        /coding/go_learning2/12_hu14297455689553882139.png 1024w,
-        /coding/go_learning2/12_hu12909478900075378509.png 2x"
-        src="/coding/go_learning2/12_hu15910820460832359061.png"
+        /coding/go_learning2/12_hu_dd6b6421c90d2008.png 330w,
+        /coding/go_learning2/12_hu_5bcd005dd7ee4db.png 660w,
+        /coding/go_learning2/12_hu_2b3b5544cf52a94b.png 1024w,
+        /coding/go_learning2/12_hu_71641fd4f291fcd5.png 2x"
+        src="/coding/go_learning2/12_hu_5bcd005dd7ee4db.png"
         alt="12.png"
       />
       
@@ -1923,8 +1923,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">//带有缓冲的channel
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">//带有缓冲的channel</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;len(c) = &#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">),</span> <span class="s">&#34;, cap(c)&#34;</span><span class="p">,</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
@@ -1939,8 +1939,8 @@
 </span></span><span class="line"><span class="cl">	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">num</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span> <span class="c1">//从c中接收数据，并赋值给num
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;num = &#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">num</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span> <span class="c1">//从c中接收数据，并赋值给num</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;num = &#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main 结束&#34;</span><span class="p">)</span>
@@ -2037,8 +2037,8 @@ main 结束
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">x</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">			<span class="c1">//如果c可写，则该case就会进来
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">x</span> <span class="p">=</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//如果c可写，则该case就会进来</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">x</span> <span class="p">=</span> <span class="nx">y</span>
 </span></span><span class="line"><span class="cl">			<span class="nx">y</span> <span class="p">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span>
 </span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">quit</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;quit&#34;</span><span class="p">)</span>
@@ -2051,17 +2051,17 @@ main 结束
 </span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">quit</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//sub go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//sub go</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&lt;-</span><span class="nx">c</span><span class="p">)</span> <span class="c1">//这个goroutine会一直等待，直到c有数据传入。 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&lt;-</span><span class="nx">c</span><span class="p">)</span> <span class="c1">//这个goroutine会一直等待，直到c有数据传入。 </span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="nx">quit</span> <span class="o">&lt;-</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">//main go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">fibonacii</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">quit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//main go</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">fibonacii</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">quit</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>所以说select可以<strong>同时监控多路channel的状态</strong>。</p>
 
@@ -2122,11 +2122,11 @@ main 结束
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/13_hu3559953345049389468.png 330w,
-        /coding/go_learning2/13_hu326125233721784829.png 660w,
-        /coding/go_learning2/13_hu15954254191940786430.png 1024w,
-        /coding/go_learning2/13_hu4510781795613703058.png 2x"
-        src="/coding/go_learning2/13_hu326125233721784829.png"
+        /coding/go_learning2/13_hu_3fa978ff8807fba2.png 330w,
+        /coding/go_learning2/13_hu_1987c2fc92d0fdd4.png 660w,
+        /coding/go_learning2/13_hu_a81bcf7c319e0abc.png 1024w,
+        /coding/go_learning2/13_hu_9b65eefb20cbca98.png 2x"
+        src="/coding/go_learning2/13_hu_1987c2fc92d0fdd4.png"
         alt="13.png"
       />
       
@@ -2140,11 +2140,11 @@ main 结束
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/go_learning2/14_hu14281400976125266752.png 330w,
-        /coding/go_learning2/14_hu95003422368277054.png 660w,
-        /coding/go_learning2/14_hu8516362418397618847.png 1024w,
-        /coding/go_learning2/14_hu10967330000934265784.png 2x"
-        src="/coding/go_learning2/14_hu95003422368277054.png"
+        /coding/go_learning2/14_hu_cde24d2eb5fcc4dc.png 330w,
+        /coding/go_learning2/14_hu_20230f429dea07bd.png 660w,
+        /coding/go_learning2/14_hu_2b4c9938839a7ba4.png 1024w,
+        /coding/go_learning2/14_hu_8d08c1088e1bbafd.png 2x"
+        src="/coding/go_learning2/14_hu_20230f429dea07bd.png"
         alt="14.png"
       />
       
@@ -2173,7 +2173,7 @@ main 结束
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/go_learning1/featured_hu1229524118248504870.png);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/go_learning1/featured_hu_71338f694bf57602.png);"></div>
         
       
 
@@ -2255,7 +2255,7 @@ main 结束
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/ts_learning1/featured_hu14369546507884962827.png);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/ts_learning1/featured_hu_4f17555043b099de.png);"></div>
         
       
 
@@ -2337,7 +2337,7 @@ main 结束
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/react_learning5/featured_hu17431012385939304633.jpg);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/react_learning5/featured_hu_5d18974c3d0d21d9.jpg);"></div>
         
       
 
@@ -2426,8 +2426,8 @@ main 结束
           
         
       <script>
-        var oid = "views_coding\\go_learning2\\index.md"
-        var oid_likes = "likes_coding\\go_learning2\\index.md"
+        var oid = "views_coding\/go_learning2\/index.md"
+        var oid_likes = "likes_coding\/go_learning2\/index.md"
       </script>
       
       
@@ -2520,7 +2520,7 @@ main 结束
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="">
+            title="Tags">
             
             Tags
           </a>
@@ -2528,7 +2528,7 @@ main 结束
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="">
+            title="Categories">
             
             Categories
           </a>
@@ -2543,7 +2543,7 @@ main 结束
     
     
     <p class="text-sm text-neutral-500 dark:text-neutral-400">
-      2025 清酒 转载请标明出处
+      2026 清酒 转载请标明出处
     </p>
     
 
@@ -2577,7 +2577,7 @@ main 结束
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="http://localhost:1313/"
+  data-url="https://qingjiusy.github.io/"
   style="z-index:500"
 >
   <div
