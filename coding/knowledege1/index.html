@@ -108,7 +108,7 @@
     "keywords": ["LLM"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "452"
+    "wordCount": "716"
   }]
   </script>
 
@@ -595,7 +595,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-07-30T00:00:00&#43;00:00">30 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>452 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span>
+  <time datetime="2026-07-30T00:00:00&#43;00:00">30 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>716 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
   
 
   
@@ -744,6 +744,7 @@
     <li><a href="#llm推理阶段">llm推理阶段</a>
       <ul>
         <li><a href="#prefix-cache为什么是匹配prefix而不是去匹配子串">prefix cache为什么是匹配prefix，而不是去匹配子串</a></li>
+        <li><a href="#rmsnorm的eps-放在哪为什么">RMSNorm的eps 放在哪？为什么？</a></li>
       </ul>
     </li>
   </ul>
@@ -762,6 +763,7 @@
     <li><a href="#llm推理阶段">llm推理阶段</a>
       <ul>
         <li><a href="#prefix-cache为什么是匹配prefix而不是去匹配子串">prefix cache为什么是匹配prefix，而不是去匹配子串</a></li>
+        <li><a href="#rmsnorm的eps-放在哪为什么">RMSNorm的eps 放在哪？为什么？</a></li>
       </ul>
     </li>
   </ul>
@@ -875,6 +877,19 @@
 <p>然后再明确什么是KV Cache：<strong>KV Cache 会在Prefill 阶段会一次性计算并存下 Prompt 中所有 token 的 K、V；Decode 阶段不仅会使用这些 KV Cache，还会为每个新生成的 token 继续计算新的 K、V，并追加到 Cache 里。</strong></p>
 <p>本来最朴素的KV cache只发生在一次问答中，但是明显，别的问答的时候肯定有可以利用的cache，我们想要做的就是用这种方法提高效率。因此就有了Prefix Cache，但是为什么是去匹配相同前缀而不是子串？</p>
 <p>主要原因还是因为子串前面的上下文不同。在第一层中，K、V 主要由当前 token 的输入表示计算，但 K 通常还会经过RoPE。而且通过一系列的attention计算后，<strong>这一层的 attention output 已经是当前 token 与所有可见历史 token 的 Value 的加权和，显然会受到前文（context）的影响</strong>。因此从第二层开始，它们的K和V都会不同，不能使用。</p>
+
+
+<h3 class="relative group">RMSNorm的eps 放在哪？为什么？ 
+    <div id="rmsnorm%E7%9A%84eps-%E6%94%BE%E5%9C%A8%E5%93%AA%E4%B8%BA%E4%BB%80%E4%B9%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#rmsnorm%E7%9A%84eps-%E6%94%BE%E5%9C%A8%E5%93%AA%E4%B8%BA%E4%BB%80%E4%B9%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>放在开方里面，首先本身 eps（一个极小正数）的存在就是为了避免 mean_sq 为 0 或者接近 0 的时候，RMS 为 0，从而保证数值稳定。假设 eps = 1e-5，如果放在根号里面，当 mean_sq = 0 时，算出来的 RMS 为 sqrt(1e-5) ≈ 0.00316；若放在根号外面，则 RMS 变成了 1e-5，两者相差约 316 倍。虽然当 x = torch.zeros(8) 时，两种写法最后输出都是 0，但是当输入接近 0 而不等于 0 时，x / RMS 去做缩放的话，两者输出的量级会相差很大。所以放在里面不仅可以避免分母为 0，也是为了避免分母在接近 0 时变化过于剧烈，使数值和梯度更加稳定。这也是 PyTorch 官方实现采用的写法。</p>
 
           
           
