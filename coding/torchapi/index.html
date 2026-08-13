@@ -112,7 +112,7 @@
     "keywords": ["PyTorch","Torch","深度学习"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "992"
+    "wordCount": "2081"
   }]
   </script>
 
@@ -584,7 +584,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>992 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>2081 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
   
 
   
@@ -732,15 +732,25 @@
   <ul>
     <li><a href="#张量创建">张量创建</a>
       <ul>
+        <li><a href="#从-python-list--数字创建张量">从 Python list / 数字创建张量</a>
+          <ul>
+            <li><a href="#torchtensor">torch.tensor</a></li>
+          </ul>
+        </li>
         <li><a href="#创建指定值的张量">创建指定值的张量</a>
           <ul>
             <li><a href="#torchzeros">torch.zeros</a></li>
+            <li><a href="#torchzeros_like">torch.zeros_like</a></li>
             <li><a href="#torchones">torch.ones</a></li>
+            <li><a href="#torchones_like">torch.ones_like</a></li>
+            <li><a href="#torchfull">torch.full</a></li>
+            <li><a href="#torchfull_like">torch.full_like</a></li>
           </ul>
         </li>
         <li><a href="#创建随机值的张量">创建随机值的张量</a>
           <ul>
             <li><a href="#torchrandn">torch.randn</a></li>
+            <li><a href="#torchrandint">torch.randint</a></li>
           </ul>
         </li>
         <li><a href="#创建空张量">创建空张量</a>
@@ -755,7 +765,11 @@
         </li>
       </ul>
     </li>
-    <li><a href="#张量属性类型和设备">张量属性、类型和设备</a></li>
+    <li><a href="#张量属性类型和设备">张量属性、类型和设备</a>
+      <ul>
+        <li><a href="#heading"></a></li>
+      </ul>
+    </li>
     <li><a href="#张量的形状改变">张量的形状改变</a></li>
     <li><a href="#张量的索引操作">张量的索引操作</a></li>
     <li><a href="#张量的拼接和拆分">张量的拼接和拆分</a></li>
@@ -776,15 +790,25 @@
   <ul>
     <li><a href="#张量创建">张量创建</a>
       <ul>
+        <li><a href="#从-python-list--数字创建张量">从 Python list / 数字创建张量</a>
+          <ul>
+            <li><a href="#torchtensor">torch.tensor</a></li>
+          </ul>
+        </li>
         <li><a href="#创建指定值的张量">创建指定值的张量</a>
           <ul>
             <li><a href="#torchzeros">torch.zeros</a></li>
+            <li><a href="#torchzeros_like">torch.zeros_like</a></li>
             <li><a href="#torchones">torch.ones</a></li>
+            <li><a href="#torchones_like">torch.ones_like</a></li>
+            <li><a href="#torchfull">torch.full</a></li>
+            <li><a href="#torchfull_like">torch.full_like</a></li>
           </ul>
         </li>
         <li><a href="#创建随机值的张量">创建随机值的张量</a>
           <ul>
             <li><a href="#torchrandn">torch.randn</a></li>
+            <li><a href="#torchrandint">torch.randint</a></li>
           </ul>
         </li>
         <li><a href="#创建空张量">创建空张量</a>
@@ -799,7 +823,11 @@
         </li>
       </ul>
     </li>
-    <li><a href="#张量属性类型和设备">张量属性、类型和设备</a></li>
+    <li><a href="#张量属性类型和设备">张量属性、类型和设备</a>
+      <ul>
+        <li><a href="#heading"></a></li>
+      </ul>
+    </li>
     <li><a href="#张量的形状改变">张量的形状改变</a></li>
     <li><a href="#张量的索引操作">张量的索引操作</a></li>
     <li><a href="#张量的拼接和拆分">张量的拼接和拆分</a></li>
@@ -888,7 +916,13 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          
+          <!-- 
+##### 作用
+##### 输入输出 / 形状变化
+##### 注意点
+##### 例子 
+-->
+
 
 <h2 class="relative group">张量创建 
     <div id="%E5%BC%A0%E9%87%8F%E5%88%9B%E5%BB%BA" class="anchor"></div>
@@ -900,6 +934,89 @@
     </span>        
     
 </h2>
+
+
+<h3 class="relative group">从 Python list / 数字创建张量 
+    <div id="%E4%BB%8E-python-list--%E6%95%B0%E5%AD%97%E5%88%9B%E5%BB%BA%E5%BC%A0%E9%87%8F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BB%8E-python-list--%E6%95%B0%E5%AD%97%E5%88%9B%E5%BB%BA%E5%BC%A0%E9%87%8F" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">torch.tensor 
+    <div id="torchtensor" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#torchtensor" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用来根据已有数据创建一个新的张量。
+比如可以把 Python 的数字、列表、嵌套列表，转换成 PyTorch 里的 <code>Tensor</code>。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>最重要的参数是 <code>data</code>，也就是要转换成张量的数据。输出张量的 shape 会根据torch.tensor(data)中的 <code>data</code> 的结构自动推断。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>torch.tensor</code> 会复制一份数据，创建一个新的 Tensor。如果没有指定 <code>dtype</code>，PyTorch 会根据传入的数据自动推断类型：</p>
+<ul>
+<li>全是整数时，通常是 <code>torch.int64</code>。</li>
+<li>有小数时，通常是 <code>torch.float32</code>。</li>
+</ul>
+<p>如果想手动指定类型，可以传入 <code>dtype</code>。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>torch.tensor(1)</code> 会创建一个 0 维标量张量。内容是1。
+<code>torch.tensor([1, 2, 3])</code> 会创建 shape 为 <code>(3,)</code> 的一维张量。内容就是tensor([1, 2, 3])。</p>
 
 
 <h3 class="relative group">创建指定值的张量 
@@ -927,12 +1044,12 @@
 
 
 <h5 class="relative group">作用 
-    <div id="%E4%BD%9C%E7%94%A8" class="anchor"></div>
+    <div id="%E4%BD%9C%E7%94%A8-1" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-1" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -940,12 +1057,12 @@
 
 
 <h5 class="relative group">输入输出 / 形状变化 
-    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96" class="anchor"></div>
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-1" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-1" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -954,12 +1071,12 @@
 
 
 <h5 class="relative group">注意点 
-    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9" class="anchor"></div>
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-1" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-1" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -967,17 +1084,70 @@
 
 
 <h5 class="relative group">例子 
-    <div id="%E4%BE%8B%E5%AD%90" class="anchor"></div>
+    <div id="%E4%BE%8B%E5%AD%90-1" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-1" aria-label="锚点">#</a>
     </span>        
     
 </h5>
 <p><code>torch.zeros(3)</code> 会创建 shape 为 <code>(3,)</code> 的一维张量。
 <code>torch.zeros(2, 3)</code> 会创建 shape 为 <code>(2, 3)</code> 的二维张量。</p>
+
+
+<h4 class="relative group">torch.zeros_like 
+    <div id="torchzeros_like" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#torchzeros_like" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-2" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>torch.zeros_like(x)</code> 用来创建一个和 <code>x</code> 形状一样的新张量，里面的值全是 0。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-2" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>输入是一个已有的张量 <code>x</code>。输出是一个新的张量，shape 默认和 <code>x</code> 完全一样。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-2" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>它们不会复制 x 里面的具体数值，只是借用 x 的形状、dtype、device 等信息。
+默认情况下，创建出来的新张量和 x 的 dtype、device 一样。
+如果想改类型，也可以手动指定。</p>
 
 
 <h4 class="relative group">torch.ones 
@@ -993,16 +1163,145 @@
 
 
 <h5 class="relative group">作用 
-    <div id="%E4%BD%9C%E7%94%A8-1" class="anchor"></div>
+    <div id="%E4%BD%9C%E7%94%A8-3" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-1" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-3" aria-label="锚点">#</a>
     </span>        
     
 </h5>
 <p>用来创建一个全是 1 的张量。别的和<code>torch.zeros</code>一样。</p>
+
+
+<h4 class="relative group">torch.ones_like 
+    <div id="torchones_like" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#torchones_like" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-4" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-4" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>torch.ones_like(x)</code> 用来创建一个和 <code>x</code> 形状一样的新张量，里面的值全是 1。别的和<code>torch.zeros_like</code>一样。</p>
+
+
+<h4 class="relative group">torch.full 
+    <div id="torchfull" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#torchfull" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-5" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用来创建一个指定 shape 的张量，并且把里面所有元素都填成同一个值。</p>
+<p>可以理解为：<code>torch.zeros</code> 是全填 0，<code>torch.ones</code> 是全填 1，而 <code>torch.full</code> 可以自己决定填什么。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-3" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>常见写法是：<code>torch.full(size, fill_value)</code></p>
+<p>其中 size 表示输出张量的形状，fill_value 表示要填充的值。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-3" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>如果不指定 dtype，PyTorch 会根据 fill_value 推断类型。也可以手动传入 dtype 或 device。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-2" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>torch.full((2, 3), 7)</code>的输出是tensor([[7, 7, 7],[7, 7, 7]])。</p>
+
+
+<h4 class="relative group">torch.full_like 
+    <div id="torchfull_like" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#torchfull_like" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-6" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用来创建一个和已有张量 <code>x</code> 形状一样的新张量，并把里面所有元素都填成指定值。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-4" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-4" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>常见写法是：<code>torch.full_like(x, fill_value)</code></p>
 
 
 <h3 class="relative group">创建随机值的张量 
@@ -1030,12 +1329,12 @@
 
 
 <h5 class="relative group">作用 
-    <div id="%E4%BD%9C%E7%94%A8-2" class="anchor"></div>
+    <div id="%E4%BD%9C%E7%94%A8-7" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-2" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-7" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -1044,12 +1343,12 @@
 
 
 <h5 class="relative group">输入输出 / 形状变化 
-    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-1" class="anchor"></div>
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-5" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-1" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-5" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -1057,12 +1356,12 @@
 
 
 <h5 class="relative group">注意点 
-    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-1" class="anchor"></div>
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-4" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-1" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-4" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -1071,17 +1370,87 @@
 
 
 <h5 class="relative group">例子 
-    <div id="%E4%BE%8B%E5%AD%90-1" class="anchor"></div>
+    <div id="%E4%BE%8B%E5%AD%90-3" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-1" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-3" aria-label="锚点">#</a>
     </span>        
     
 </h5>
 <p><code>torch.randn(3)</code> 会创建 shape 为 <code>(3,)</code> 的一维张量；
 <code>torch.randn(2, 3)</code> 会创建 shape 为 <code>(2, 3)</code> 的二维张量。</p>
+
+
+<h4 class="relative group">torch.randint 
+    <div id="torchrandint" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#torchrandint" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-8" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用来创建一个随机整数张量。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-6" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>常见写法有两种：</p>
+<ol>
+<li>torch.randint(high, size)</li>
+<li>torch.randint(low, high, size)</li>
+</ol>
+<p>其中范围是 [low, high)，包含 low，不包含 high。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-5" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>high 是不包含的，这点和 torch.arange 很像。默认情况下，torch.randint 返回的 dtype 是 torch.int64。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-4" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-4" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>torch.randint(10, (3,))</code>会从 [0, 10) 里随机生成 3 个整数。
+<code>torch.randint(3, 10, (2, 2))</code> 会从 [3, 10) 里随机生成 shape 为 (2, 2) 的张量。</p>
 
 
 <h3 class="relative group">创建空张量 
@@ -1109,12 +1478,12 @@
 
 
 <h5 class="relative group">作用 
-    <div id="%E4%BD%9C%E7%94%A8-3" class="anchor"></div>
+    <div id="%E4%BD%9C%E7%94%A8-9" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-3" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-9" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -1123,12 +1492,12 @@
 
 
 <h5 class="relative group">输入输出 / 形状变化 
-    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-2" class="anchor"></div>
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-7" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-2" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-7" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -1136,12 +1505,12 @@
 
 
 <h5 class="relative group">注意点 
-    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-2" class="anchor"></div>
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-6" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-2" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-6" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -1152,12 +1521,12 @@
 
 
 <h5 class="relative group">例子 
-    <div id="%E4%BE%8B%E5%AD%90-2" class="anchor"></div>
+    <div id="%E4%BE%8B%E5%AD%90-5" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-2" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-5" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -1190,26 +1559,27 @@
 
 
 <h5 class="relative group">作用 
-    <div id="%E4%BD%9C%E7%94%A8-4" class="anchor"></div>
+    <div id="%E4%BD%9C%E7%94%A8-10" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-4" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-10" aria-label="锚点">#</a>
     </span>        
     
 </h5>
 <p>用来创建一个一维张量，里面的值按照固定步长递增或递减。</p>
 <p>可以理解为 Tensor 版本的 <code>range</code>。</p>
+<p><strong>常用来生成连续编号，最典型就是位置索引、batch 索引、时间步索引。</strong></p>
 
 
 <h5 class="relative group">输入输出 / 形状变化 
-    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-3" class="anchor"></div>
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-8" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-3" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-8" aria-label="锚点">#</a>
     </span>        
     
 </h5>
@@ -1222,17 +1592,31 @@
 
 
 <h5 class="relative group">注意点 
-    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-3" class="anchor"></div>
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-7" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-3" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-7" aria-label="锚点">#</a>
     </span>        
     
 </h5>
 <p>如果传入的都是整数，默认 dtype 通常会是 torch.int64。
 如果 start、end 或 step 里有小数，dtype 会变成默认浮点类型，通常是 torch.float32。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-6" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>torch.arange(1, 10, 2)；结果是tensor([1, 3, 5, 7, 9])</p>
+<p>torch.arange(1, 2.5, 0.5)；结果是tensor([1.0000, 1.5000, 2.0000])</p>
 
 
 <h2 class="relative group">张量属性、类型和设备 
@@ -1245,6 +1629,18 @@
     </span>        
     
 </h2>
+
+
+<h3 class="relative group"> 
+    <div id="heading" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#heading" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
 
 
 <h2 class="relative group">张量的形状改变 
