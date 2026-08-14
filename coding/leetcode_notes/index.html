@@ -74,8 +74,8 @@
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="coding">
-    <meta property="article:published_time" content="2026-07-28T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-07-28T00:00:00+00:00">
+    <meta property="article:published_time" content="2026-08-14T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-14T00:00:00+00:00">
     <meta property="article:tag" content="LeetCode">
     <meta property="article:tag" content="算法">
     <meta property="article:tag" content="Python">
@@ -104,15 +104,15 @@
       "name": "清酒"
     },
     "copyrightYear": "2026",
-    "dateCreated": "2026-07-28T00:00:00\u002b00:00",
-    "datePublished": "2026-07-28T00:00:00\u002b00:00",
+    "dateCreated": "2026-08-14T00:00:00\u002b00:00",
+    "datePublished": "2026-08-14T00:00:00\u002b00:00",
     
-    "dateModified": "2026-07-28T00:00:00\u002b00:00",
+    "dateModified": "2026-08-14T00:00:00\u002b00:00",
     
     "keywords": ["LeetCode","算法","Python"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "42368"
+    "wordCount": "44548"
   }]
   </script>
 
@@ -584,7 +584,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-07-28T00:00:00&#43;00:00">28 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>42368 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">85 分钟</span>
+  <time datetime="2026-08-14T00:00:00&#43;00:00">14 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>44548 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">89 分钟</span>
   
 
   
@@ -2240,7 +2240,7 @@
     </span>        
     
 </h3>
-<p>C</p>
+<p>B</p>
 
 
 <h3 class="relative group">题型 
@@ -3406,7 +3406,7 @@ prefix[3] = 6
     </span>        
     
 </h3>
-<p>C</p>
+<p>B</p>
 
 
 <h3 class="relative group">题型 
@@ -3454,7 +3454,8 @@ prefix[3] = 6
 首先实现大根堆，每次要计算窗口中最大值时，就用看大根堆的heap[0]。但是堆虽然找最大值比较好找，删除一个任意元素则要花较长时间。因此我们在堆中存放的不仅是数字，应该是一个元组，是（index位置的数字，index），这样我们在试图提取最大值时，假如此时的右边界是right，窗口左边界就是right-k+1，先去判定一下这个元素还在不在我们的窗口里面，如果不在就直接pop就好，然后继续提取我们的最大值。</p>
 <p>做法二：
 首先要想明白，对于一个窗口中的index i和j来说，我们假设i &lt; j，如果nums[i] &lt; nums[j]的情况下，只要窗口中的index包含了j，那么起码一定不会去取nums[i]，它是可以直接被丢弃的。从这个角度出发，我们需要维护一个单调递减队列。一旦新加入的元素大于单调队列中的尾部元素，我们就可以直接丢弃尾部元素，因为它绝对不会被使用。
-同时我们最后在获取答案时是从单调递减队列的左边（也就是队列的最大值）来找，我们在这个时候去判断这个最左端的元素还在不在我们的窗口内，如果不在了就pop它，继续检查我们单调队列的新的最左端元素。</p>
+同时我们最后在获取答案时是从单调递减队列的左边（也就是队列的最大值）来找，我们在这个时候去判断这个最左端的元素还在不在我们的窗口内，如果不在了就popleft它，继续检查我们单调队列的新的最左端元素。</p>
+<p><strong>以后看到“固定长度滑动窗口 + 每个窗口求最大/最小值”，考虑单调队列。求最大值维护递减队列，求最小值维护递增队列；新元素进入时删除队尾所有比它更差的元素，因为这些元素更早离开且数值也更差，以后不可能成为答案。（本题算是单调队列经典场景）</strong></p>
 
 
 <h3 class="relative group">实现要点 
@@ -4861,7 +4862,7 @@ top, bottom, left, right = 0, m - 1, 0, n - 1</p>
     </span>        
     
 </h3>
-<p>C</p>
+<p>B</p>
 
 
 <h3 class="relative group">题型 
@@ -5028,7 +5029,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>C</p>
+<p>B</p>
 
 
 <h3 class="relative group">题型 
@@ -6584,7 +6585,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>C</p>
+<p>B</p>
 
 
 <h3 class="relative group">题型 
@@ -7155,7 +7156,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>C</p>
+<p>B</p>
 
 
 <h3 class="relative group">题型 
@@ -8552,7 +8553,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>小根堆/top K 或者 快速排序</p>
+<p>小根堆/top K 或者 快速选择 Quickselect + Hoare partition</p>
 
 
 <h3 class="relative group">识别信号 
@@ -8567,7 +8568,8 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </h3>
 <p>做法一：
 这题很像下一题 347. 前 K 个高频元素，通过大小为K的小根堆去找第K或者前K大的元素。</p>
-<p>做法二：</p>
+<p>做法二：
+只需要第 K 大，不需要完整排序；partition 后能判断目标下标在哪一侧，所以用快速选择。</p>
 
 
 <h3 class="relative group">核心思路 
@@ -8582,6 +8584,8 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </h3>
 <p>做法一：
 我们要找第K个最大的数，其实就可以去维护一个K大小的小根堆，遍历我们的数组去更新这个小根堆，小根堆堆顶的元素就是最后的答案。堆顶不是当前最大值，而是当前保留下来的 K 个最大值中最小的，所以最终正好是第 K 大。</p>
+<p>做法二：
+我们在这里由于case中有大量重复元素的case，因此考虑使用hoare partition做法的快速搜索。另外题目中只需要找到第K大的元素，因此当我们此次搜索中找到的边界比K大时，我们只去划分寻找有可能的左半边区间；如果比K小，寻找右半边区间。</p>
 
 
 <h3 class="relative group">实现要点 
@@ -8596,6 +8600,19 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </h3>
 <p>做法一：
 我们去构造一个k大小的小根堆：如果小根堆还没有满，直接加入；如果小根堆满了，则去让新元素去和堆顶元素进行大小的对比。如果新元素更大，则pop堆顶元素，新元素push入堆。</p>
+<p>做法二：
+把“第 K 大”先转成升序下标：target = len(nums) - k。</p>
+<p>主要思路和hoare partition一样，可以参考 912. 排序数组 的写法。主要是要选择一个有可能有答案的区间进行搜索，而不是一味的归并两边。</p>
+<p>也就是在 Hoare 分区后：<code>j = partition(left, right)</code>；如果 target &lt;= j，搜[left, j]；否则搜[j+1, right]。</p>
+<p>额外做法：
+三路partition和二路partition不同。二路的关键是：<strong>左右各找一个放错位置的元素，然后交换</strong>。三路的关键是：<strong>拿 i 逐个扫描未知元素，把每个元素分配到三个区域之一</strong>。因此，在三路partition的排序过程中，我们维护四块区域：</p>
+<ol>
+<li>[left, less-1]   &lt; pivot</li>
+<li>[less, i-1]      == pivot</li>
+<li>[i, greater]        未处理</li>
+<li>[greater+1, right]  &gt; pivot</li>
+</ol>
+<p>然后每次只看 nums[i]。这里可以用三路partition来处理这里的重复元素。</p>
 
 
 <h3 class="relative group">易错点 
@@ -8610,6 +8627,9 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </h3>
 <p>做法一：
 注意这题其实有点反直觉，就是明明是要找第K大的数，构造的是一个小根堆而不是一个大根堆。因为如果采用大根堆的做法，我们就是维护一个N大小的大根堆，然后连续弹出K次，每次弹出的复杂度都是O(logN)，算法的总时间复杂度是O(N + KlogN)，相当耗时。而使用小根堆就很自然，首先只需要一个K大小的小根堆，且最后堆顶元素就是我们要找的第K大的元素。</p>
+<p>做法二：
+注意区分hoare partition做法的快排和普通做法的快排，这里用hoare partition做法是因为对于一些有很多重复数字的case，它的效率更好，更能分成大小长度相接近的两边。</p>
+<p>注意！j不是就是我们的target，hoare partition的做法只是分成了两个区间，区间边界不是固定就是这个位置的答案！</p>
 
 
 <h3 class="relative group">复杂度 
@@ -8625,6 +8645,9 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 <p>做法一：
 时间复杂度 O(NlogK)；每个元素入堆heappush耗时O(logK)，元素出堆heappop耗时O(logK)
 空间复杂度 O(K)</p>
+<p>做法二：
+时间复杂度 O(N)；每次quick_select后只进行其中的一边进行下一次quick_select，所以是O(N)+O(N/2)+O(N/4)+O(N/8)+&hellip;，平均时间复杂度就是O(N)
+空间复杂度 O(logN)</p>
 
 
 <h2 class="relative group">347. 前 K 个高频元素 Top K Frequent Elements 
@@ -8662,7 +8685,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>堆 或者 快速排序</p>
+<p>堆 或者 Hoare partition 快速排序</p>
 
 
 <h3 class="relative group">识别信号 
@@ -8677,7 +8700,8 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </h3>
 <p>做法一：
 找频率前k高的元素，其实我们可以想到就是对频率进行排序。题目又说找前k个大的频率，且返回不在意顺序，我们可以想到构造一个k大小的小根堆，让所有“元素-频率”对试图来更新这个小根堆，最后小根堆内存着的元素就是我们的答案。</p>
-<p>做法二：</p>
+<p>做法二：
+这题和之前的 215. 数组中的第K个最大元素 一样，也是类似的，去求前K个高频元素，可以先快排以后找前K个高频元素。</p>
 
 
 <h3 class="relative group">核心思路 
@@ -8693,6 +8717,8 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 <p>做法一：
 首先我们用一个哈希表，获得“元素-频率”对；然后我们开始去构建我们期望的一个k大小的小根堆（堆内存的是一个tuple，为（频率，元素））：如果小根堆还没有满，直接加入；如果小根堆满了，则去让新元素去和堆顶元素进行频率大小的对比，如果新元素频率更大，则pop堆顶元素的tuple，新元素的tuple入堆。</p>
 <p>完成遍历后，我们最后得到的这个k大小的小根堆中的元素就是我们的答案。</p>
+<p>做法二：
+我们做法和 215. 数组中的第K个最大元素 类似，先构造一个哈希表，获得“元素-频率”对，然后用哈希表构造一个list，里面的元素是tuple（数字，数字出现频率）。然后我们用快速排序的思路对list中的数字出现频率进行排序。同样的也是只需要找到前K个高频的元素，因此当我们此次搜索中找到的边界比len(num_count) - k大时，我们只去划分寻找有可能的左半边区间；如果比len(num_count) - k小，寻找右半边区间。当我们不断细分找到len(num_count) - k位置时，就可以保证右半边就是前K个高频元素。</p>
 
 
 <h3 class="relative group">实现要点 
@@ -8707,6 +8733,8 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </h3>
 <p>做法一：
 注意为了对比的方便，我们要存的应该是一个tuple，方便我们进行对比。</p>
+<p>做法二：
+注意题目中写明了可以按任意顺序返回答案，所以我们才可以不断划分区间来检查，由于我们进行排序的是一个内部元素为tuple的list，因此最后我们return时应该是：<code>return [pair[0] for pair in num_count[left:]]</code></p>
 
 
 <h3 class="relative group">易错点 
@@ -8721,7 +8749,8 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </h3>
 <p>做法一：
 如果我们在heap里面存tuple，Python 的 heapq 对 tuple 会先比较第 0 个元素。原来我是这么写的<code>heapq.heappush(heap, (num, count))</code>，所以你现在这个堆实际上是按照 num 排序的，不是按照 count 排序。这会导致堆顶不是我们想要的出现次数最少的数字，堆排序出了问题。我们应该写<code>heapq.heappush(heap, (count, num))</code>。</p>
-<p>做法二：</p>
+<p>做法二：
+注意我们的list里面的元素应该是tuple，因此我们去排序时要注意是对tuple中的频率进行排序。</p>
 
 
 <h3 class="relative group">复杂度 
@@ -8737,6 +8766,9 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 <p>做法一：
 时间复杂度 O(NlogK)；其中nums长为N，堆大小为K，M是不同数字的个数：统计频率需要O(N)，之后遍历M个不同元素，每次最多进行一次堆的插入/删除，复杂度是O(logK)，所以时间复杂度应该是O(N + MlogK)，由于M &lt;= N，所以可以简写成O(NlogK)
 空间复杂度 O(M + K)</p>
+<p>做法二：
+时间复杂度 平均O(N)，最坏O(N²)
+空间复杂度 O(N)</p>
 
 
 <h2 class="relative group">295. 数据流的中位数 Find Median from Data Stream 
@@ -8936,7 +8968,11 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     
 </h3>
 <p>做法一：
+使用方法是<strong>双指针二路 partition（非标准 Hoare/Lomuto）</strong>
 记住快排的关键思路：<strong>pivot 放左边 &mdash;&gt; 右边找小 &mdash;&gt; 左边找大 &mdash;&gt; 交换 &mdash;&gt; 直到相遇 &mdash;&gt; pivot 归位 &mdash;&gt; 递归左右</strong>。</p>
+<p>做法二：
+使用<strong>Hoare partition的快速排序。它交换次数更少、通常常数更小，而且对重复元素处理得比较自然。</strong>
+记住 Hoare 快排的关键思路：<strong>pivot 取一个值 —&gt; 左边找 ≥ pivot —&gt; 右边找 ≤ pivot —&gt; 交换 —&gt; 直到指针相遇或交叉 —&gt; 得到左右分界线（j被选作分界线！！） —&gt; 递归 [left, j] 和 [j+1, right]</strong></p>
 
 
 <h3 class="relative group">实现要点 
@@ -8988,6 +9024,52 @@ pivot 已经归位，不再参与递归：</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">quick_sort</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">nums</span>
+</span></span></code></pre></div><p>做法二：
+Hoare做法的partition(left, right) 不负责把 pivot 放到最终位置，而是把当前区间切成两部分：</p>
+<ol>
+<li>[left &hellip; j] &lt;= pivot</li>
+<li>[j + 1 &hellip; right] &gt;= pivot</li>
+</ol>
+<p>最后返回的 j 是<strong>左半区最后一个位置</strong>（也就是左右分界线），不是 pivot 的最终下标。</p>
+<p>双指针移动思路：</p>
+<ol>
+<li>左指针 i 从左往右，跳过所有 &lt; pivot 的数，找到第一个 &gt;= pivot 的数；</li>
+<li>右指针 j 从右往左，跳过所有 &gt; pivot 的数，找到第一个 &lt;= pivot 的数；</li>
+<li>当 i &gt;= j 时，说明左右指针已经相遇或交叉，当前区间已经完成划分。直接return j。</li>
+<li>如果 i &lt; j，说明这两个数放错边了，交换它们。</li>
+</ol>
+<p>递归范围：
+因为 j 只是分界线，不是已经归位的 pivot，所以 j 仍然属于左区间</p>
+<p>具体代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">sortArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pivot</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">left</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="k">while</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="k">while</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">j</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">j</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">quick_sort</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mid</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">quick_sort</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">quick_sort</span><span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="n">quick_sort</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">nums</span>
 </span></span></code></pre></div>
 
 <h3 class="relative group">易错点 
@@ -9007,6 +9089,9 @@ pivot 已经归位，不再参与递归：</p>
 <li>pivot 取左端时，要先移动右指针。</li>
 <li>固定取 nums[left] 在有序数组上可能退化到 O(n^2)，如果要更稳，可以随机选 pivot。</li>
 </ol>
+<p>做法二：
+注意在partition的while中使用的是<strong>严格 &lt; 和 &gt;</strong>，所以遇到 == pivot 时指针会停下来，这使得<strong>大量重复元素时左右指针也能一起向中间收缩</strong>。</p>
+<p>和第一个基础的快排相比，之前的每次partition中pivot已归位，也就是找到了它应该在的位置；而我们这个hoare partition的做法只是去把一个区间正确的分成了两个部分，因此在递归的时候，不可以忽视return回来的位置j，要把它放入下一次进行的递归区间中！</p>
 
 
 <h3 class="relative group">复杂度 
@@ -9021,6 +9106,9 @@ pivot 已经归位，不再参与递归：</p>
 </h3>
 <p>做法一：
 时间复杂度 O(nlogn)，最坏情况下为O(n^2)（最坏情况为数组本身有序）
+空间复杂度 O(logn)，最坏情况下O(n)</p>
+<p>做法二：
+时间复杂度 O(nlogn)，最坏情况下为O(n^2)
 空间复杂度 O(logn)，最坏情况下O(n)</p>
 
           
@@ -9038,6 +9126,170 @@ pivot 已经归位，不再参与递归：</p>
 
 <h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
 <section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/torchapi/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/torchapi/featured_hu_8b2a8a9a2e2ed690.PNG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/torchapi/">PyTorch API 速查笔记</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>2528 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/knowledege1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/knowledege1/featured_hu_afbd216f444a1af.PNG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/knowledege1/">一些llm中的问题</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-07-30T00:00:00&#43;00:00">30 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>716 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
   
   
 
@@ -9121,170 +9373,6 @@ pivot 已经归位，不再参与递归：</p>
   </a>
 
   
-  
-
-  <a href="/coding/go_learning3/" class="min-w-full">
-    
-    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
-        
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/go_learning3/featured_hu_51941e3940097983.png);"></div>
-        
-      
-
-      <div class="px-6 py-4">
-
-        
-        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/coding/go_learning3/">Golang项目案例-即时通信项目</div>
-        
-
-        <div class="text-sm text-neutral-500 dark:text-neutral-400">
-          
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2025-05-07T00:00:00&#43;00:00">7 May 2025</time><span class="px-2 text-primary-500">&middot;</span><span>5332 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
-  
-
-  
-  
-</div>
-
-
-
-
-
-
-
-
-        </div>
-
-        
-      </div>
-      <div class="px-6 pt-4 pb-2">
-
-      </div>
-    </div>
-  </a>
-
-  
-  
-
-  <a href="/coding/go_learning2/" class="min-w-full">
-    
-    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
-        
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/go_learning2/featured_hu_ed3a6d6c18a1047c.png);"></div>
-        
-      
-
-      <div class="px-6 py-4">
-
-        
-        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/coding/go_learning2/">Golang面向对象</div>
-        
-
-        <div class="text-sm text-neutral-500 dark:text-neutral-400">
-          
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2025-04-22T00:00:00&#43;00:00">22 April 2025</time><span class="px-2 text-primary-500">&middot;</span><span>7258 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span>
-  
-
-  
-  
-</div>
-
-
-
-
-
-
-
-
-        </div>
-
-        
-      </div>
-      <div class="px-6 pt-4 pb-2">
-
-      </div>
-    </div>
-  </a>
-
-  
 </section>
 
   
@@ -9319,7 +9407,7 @@ pivot 已经归位，不再参与递归：</p>
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/coding/harness_learning1/">
+            <a class="flex group mr-3" href="/coding/torchapi/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -9331,11 +9419,11 @@ pivot 已经归位，不再参与递归：</p>
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Harness 学习路线：为什么我想从 Mini Coding Agent 开始</span
+                  >PyTorch API 速查笔记</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2026-07-04T00:00:00&#43;00:00">4 July 2026</time>
+                    <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time>
                   
                 </span>
               </span>
@@ -9343,28 +9431,6 @@ pivot 已经归位，不再参与递归：</p>
           
         </span>
         <span>
-          
-            <a class="flex text-right group ml-3" href="/coding/knowledege1/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >一些llm中的问题</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2026-07-30T00:00:00&#43;00:00">30 July 2026</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
           
         </span>
       </div>

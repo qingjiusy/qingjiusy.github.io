@@ -112,7 +112,7 @@
     "keywords": ["PyTorch","Torch","深度学习"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2081"
+    "wordCount": "2528"
   }]
   </script>
 
@@ -584,7 +584,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>2081 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>2528 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
   
 
   
@@ -767,7 +767,32 @@
     </li>
     <li><a href="#张量属性类型和设备">张量属性、类型和设备</a>
       <ul>
-        <li><a href="#heading"></a></li>
+        <li><a href="#检查张量形状">检查张量形状</a>
+          <ul>
+            <li><a href="#tensorshape">tensor.shape</a></li>
+          </ul>
+        </li>
+        <li><a href="#检查张量数据类型">检查张量数据类型</a>
+          <ul>
+            <li><a href="#tensordtype">tensor.dtype</a></li>
+          </ul>
+        </li>
+        <li><a href="#检查张量在哪个设备上">检查张量在哪个设备上</a>
+          <ul>
+            <li><a href="#tensordevice">tensor.device</a></li>
+          </ul>
+        </li>
+        <li><a href="#转变张量数据类型或者设备">转变张量数据类型或者设备</a>
+          <ul>
+            <li><a href="#tensorto">tensor.to(&hellip;)</a></li>
+          </ul>
+        </li>
+        <li><a href="#快速转变数据类型">快速转变数据类型</a>
+          <ul>
+            <li><a href="#tensorlong">tensor.long()</a></li>
+            <li><a href="#tensorfloat">tensor.float()</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#张量的形状改变">张量的形状改变</a></li>
@@ -825,7 +850,32 @@
     </li>
     <li><a href="#张量属性类型和设备">张量属性、类型和设备</a>
       <ul>
-        <li><a href="#heading"></a></li>
+        <li><a href="#检查张量形状">检查张量形状</a>
+          <ul>
+            <li><a href="#tensorshape">tensor.shape</a></li>
+          </ul>
+        </li>
+        <li><a href="#检查张量数据类型">检查张量数据类型</a>
+          <ul>
+            <li><a href="#tensordtype">tensor.dtype</a></li>
+          </ul>
+        </li>
+        <li><a href="#检查张量在哪个设备上">检查张量在哪个设备上</a>
+          <ul>
+            <li><a href="#tensordevice">tensor.device</a></li>
+          </ul>
+        </li>
+        <li><a href="#转变张量数据类型或者设备">转变张量数据类型或者设备</a>
+          <ul>
+            <li><a href="#tensorto">tensor.to(&hellip;)</a></li>
+          </ul>
+        </li>
+        <li><a href="#快速转变数据类型">快速转变数据类型</a>
+          <ul>
+            <li><a href="#tensorlong">tensor.long()</a></li>
+            <li><a href="#tensorfloat">tensor.float()</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#张量的形状改变">张量的形状改变</a></li>
@@ -1631,16 +1681,164 @@
 </h2>
 
 
-<h3 class="relative group"> 
-    <div id="heading" class="anchor"></div>
+<h3 class="relative group">检查张量形状 
+    <div id="%E6%A3%80%E6%9F%A5%E5%BC%A0%E9%87%8F%E5%BD%A2%E7%8A%B6" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#heading" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%E6%A3%80%E6%9F%A5%E5%BC%A0%E9%87%8F%E5%BD%A2%E7%8A%B6" aria-label="锚点">#</a>
     </span>        
     
 </h3>
+
+
+<h4 class="relative group">tensor.shape 
+    <div id="tensorshape" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensorshape" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>用来查看张量的形状，也就是每个维度分别有多长。比如一个二维张量的 shape 是 <code>(2, 3)</code>，就表示它有 2 行、3 列。</p>
+
+
+<h3 class="relative group">检查张量数据类型 
+    <div id="%E6%A3%80%E6%9F%A5%E5%BC%A0%E9%87%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A3%80%E6%9F%A5%E5%BC%A0%E9%87%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor.dtype 
+    <div id="tensordtype" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensordtype" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>用来查看张量中元素的数据类型。比如这个张量里的元素是整数、浮点数，还是布尔值，都可以通过 <code>dtype</code> 看出来。</p>
+
+
+<h3 class="relative group">检查张量在哪个设备上 
+    <div id="%E6%A3%80%E6%9F%A5%E5%BC%A0%E9%87%8F%E5%9C%A8%E5%93%AA%E4%B8%AA%E8%AE%BE%E5%A4%87%E4%B8%8A" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A3%80%E6%9F%A5%E5%BC%A0%E9%87%8F%E5%9C%A8%E5%93%AA%E4%B8%AA%E8%AE%BE%E5%A4%87%E4%B8%8A" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor.device 
+    <div id="tensordevice" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensordevice" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>用来查看张量当前存放在哪个设备上。比如张量是在 CPU 上，还是在 GPU 上。
+常见结果有：</p>
+<ul>
+<li><code>cpu</code>：张量在 CPU 上。</li>
+<li><code>cuda:0</code>：张量在第 0 张 NVIDIA GPU 上。</li>
+<li><code>mps</code>：张量在 Apple 芯片的 GPU 后端上。</li>
+</ul>
+
+
+<h3 class="relative group">转变张量数据类型或者设备 
+    <div id="%E8%BD%AC%E5%8F%98%E5%BC%A0%E9%87%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%88%96%E8%80%85%E8%AE%BE%E5%A4%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BD%AC%E5%8F%98%E5%BC%A0%E9%87%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%88%96%E8%80%85%E8%AE%BE%E5%A4%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor.to(&hellip;) 
+    <div id="tensorto" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensorto" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>用来转换张量的 <code>dtype</code> 或 <code>device</code>。比如把整数张量转成浮点张量，或者把 CPU 上的张量移动到 GPU 上。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-8" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>tensor.to(...)</code> 通常不会原地修改原来的张量，而是返回一个转换后的新张量。</p>
+<p>所以一般要写成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&#34;cuda&#34;</span><span class="p">)</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">快速转变数据类型 
+    <div id="%E5%BF%AB%E9%80%9F%E8%BD%AC%E5%8F%98%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%BF%AB%E9%80%9F%E8%BD%AC%E5%8F%98%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor.long() 
+    <div id="tensorlong" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensorlong" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>用来把张量转换成 <code>torch.int64</code> 类型。<code>long</code> 在 PyTorch 里通常指的就是 64 位整数类型，也就是 <code>torch.int64</code>。<code>tensor.long()</code> 不会原地修改原来的张量，而是返回一个转换后的新张量。</p>
+
+
+<h4 class="relative group">tensor.float() 
+    <div id="tensorfloat" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensorfloat" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>类似于<code>tensor.long()</code>，只是它是把张量转换成 torch.float32 类型。</p>
 
 
 <h2 class="relative group">张量的形状改变 
@@ -1884,11 +2082,11 @@
   
   
 
-  <a href="/coding/leetcode_notes/" class="min-w-full">
+  <a href="/coding/harness_learning1/" class="min-w-full">
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/leetcode_notes/featured_hu_bf13710d312af7e3.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/miku2_hu_7e4fde868397b60f.png);"></div>
         
       
 
@@ -1896,7 +2094,7 @@
 
         
         <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/coding/leetcode_notes/">LeetCode 刷题笔记</div>
+          href="/coding/harness_learning1/">Harness 学习路线：为什么我想从 Mini Coding Agent 开始</div>
         
 
         <div class="text-sm text-neutral-500 dark:text-neutral-400">
@@ -1939,7 +2137,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-07-28T00:00:00&#43;00:00">28 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>42368 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">85 分钟</span>
+  <time datetime="2026-07-04T00:00:00&#43;00:00">4 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4124 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
   
 
   
@@ -2022,6 +2220,28 @@
           
         </span>
         <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/leetcode_notes/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >LeetCode 刷题笔记</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-14T00:00:00&#43;00:00">14 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
           
         </span>
       </div>
