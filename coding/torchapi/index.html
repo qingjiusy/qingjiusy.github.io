@@ -112,7 +112,7 @@
     "keywords": ["PyTorch","Torch","深度学习"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2528"
+    "wordCount": "5686"
   }]
   </script>
 
@@ -584,7 +584,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>2528 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5686 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -795,11 +795,67 @@
         </li>
       </ul>
     </li>
-    <li><a href="#张量的形状改变">张量的形状改变</a></li>
-    <li><a href="#张量的索引操作">张量的索引操作</a></li>
+    <li><a href="#张量的形状改变">张量的形状改变</a>
+      <ul>
+        <li><a href="#简单二维矩阵转置">简单二维矩阵转置</a>
+          <ul>
+            <li><a href="#tensort">tensor.T</a></li>
+          </ul>
+        </li>
+        <li><a href="#复杂形状变化">复杂形状变化</a>
+          <ul>
+            <li><a href="#einopsrearrange">einops.rearrange</a></li>
+          </ul>
+        </li>
+        <li><a href="#归约后的维度保留">归约后的维度保留</a>
+          <ul>
+            <li><a href="#keepdimtruefalse">keepdim=True/False</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#张量的索引操作">张量的索引操作</a>
+      <ul>
+        <li><a href="#普通索引--切片">普通索引 / 切片</a>
+          <ul>
+            <li><a href="#tensori">tensor[i]</a></li>
+            <li><a href="#tensor-j">tensor[:, j]</a></li>
+            <li><a href="#tensor--1">tensor[&hellip;, -1]</a></li>
+          </ul>
+        </li>
+        <li><a href="#整数张量索引">整数张量索引</a>
+          <ul>
+            <li><a href="#tensorindex_tensor">tensor[index_tensor]</a></li>
+          </ul>
+        </li>
+        <li><a href="#高级索引按位置配对取值">高级索引，按位置配对取值</a>
+          <ul>
+            <li><a href="#tensorrows-cols">tensor[rows, cols]</a></li>
+          </ul>
+        </li>
+        <li><a href="#用布尔-mask-筛选元素">用布尔 mask 筛选元素</a>
+          <ul>
+            <li><a href="#tensorbool_mask">tensor[bool_mask]</a></li>
+          </ul>
+        </li>
+        <li><a href="#mask-替换">mask 替换</a>
+          <ul>
+            <li><a href="#tensormasked_fillmask-value">tensor.masked_fill(mask, value)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
     <li><a href="#张量的拼接和拆分">张量的拼接和拆分</a></li>
     <li><a href="#张量的逐元素运算广播和矩阵乘法">张量的逐元素运算、广播和矩阵乘法</a></li>
-    <li><a href="#张量常用的数学运算函数">张量常用的数学运算函数</a></li>
+    <li><a href="#张量常用的数学运算函数">张量常用的数学运算函数</a>
+      <ul>
+        <li><a href="#归约操作">归约操作</a>
+          <ul>
+            <li><a href="#einopsreduce">einops.reduce</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -878,11 +934,67 @@
         </li>
       </ul>
     </li>
-    <li><a href="#张量的形状改变">张量的形状改变</a></li>
-    <li><a href="#张量的索引操作">张量的索引操作</a></li>
+    <li><a href="#张量的形状改变">张量的形状改变</a>
+      <ul>
+        <li><a href="#简单二维矩阵转置">简单二维矩阵转置</a>
+          <ul>
+            <li><a href="#tensort">tensor.T</a></li>
+          </ul>
+        </li>
+        <li><a href="#复杂形状变化">复杂形状变化</a>
+          <ul>
+            <li><a href="#einopsrearrange">einops.rearrange</a></li>
+          </ul>
+        </li>
+        <li><a href="#归约后的维度保留">归约后的维度保留</a>
+          <ul>
+            <li><a href="#keepdimtruefalse">keepdim=True/False</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#张量的索引操作">张量的索引操作</a>
+      <ul>
+        <li><a href="#普通索引--切片">普通索引 / 切片</a>
+          <ul>
+            <li><a href="#tensori">tensor[i]</a></li>
+            <li><a href="#tensor-j">tensor[:, j]</a></li>
+            <li><a href="#tensor--1">tensor[&hellip;, -1]</a></li>
+          </ul>
+        </li>
+        <li><a href="#整数张量索引">整数张量索引</a>
+          <ul>
+            <li><a href="#tensorindex_tensor">tensor[index_tensor]</a></li>
+          </ul>
+        </li>
+        <li><a href="#高级索引按位置配对取值">高级索引，按位置配对取值</a>
+          <ul>
+            <li><a href="#tensorrows-cols">tensor[rows, cols]</a></li>
+          </ul>
+        </li>
+        <li><a href="#用布尔-mask-筛选元素">用布尔 mask 筛选元素</a>
+          <ul>
+            <li><a href="#tensorbool_mask">tensor[bool_mask]</a></li>
+          </ul>
+        </li>
+        <li><a href="#mask-替换">mask 替换</a>
+          <ul>
+            <li><a href="#tensormasked_fillmask-value">tensor.masked_fill(mask, value)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
     <li><a href="#张量的拼接和拆分">张量的拼接和拆分</a></li>
     <li><a href="#张量的逐元素运算广播和矩阵乘法">张量的逐元素运算、广播和矩阵乘法</a></li>
-    <li><a href="#张量常用的数学运算函数">张量常用的数学运算函数</a></li>
+    <li><a href="#张量常用的数学运算函数">张量常用的数学运算函数</a>
+      <ul>
+        <li><a href="#归约操作">归约操作</a>
+          <ul>
+            <li><a href="#einopsreduce">einops.reduce</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -1853,6 +1965,210 @@
 </h2>
 
 
+<h3 class="relative group">简单二维矩阵转置 
+    <div id="%E7%AE%80%E5%8D%95%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AE%80%E5%8D%95%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor.T 
+    <div id="tensort" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensort" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-11" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-11" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用来对二维矩阵做转置。简单理解就是：把原来的行和列交换。</p>
+<p>比如原来 shape 是 <code>(2, 3)</code>，转置以后就会变成 <code>(3, 2)</code>。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-9" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>.T</code> 是属性，不是函数，所以写 <code>x.T</code>，不是 <code>x.T()</code>。.T 最适合简单二维矩阵转置。对于高维张量，不建议随便用 .T，更推荐明确写 transpose、permute 或 einops.rearrange</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-7" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-7" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>比如在自己手搓nn.Linear的时候，我们要把 (d_out, d_in)的 weight 变成 (d_in, d_out)，方便进行矩阵乘法，也就是<code>y = x @ weight.T</code>。</p>
+
+
+<h3 class="relative group">复杂形状变化 
+    <div id="%E5%A4%8D%E6%9D%82%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%8D%E6%9D%82%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">einops.rearrange 
+    <div id="einopsrearrange" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#einopsrearrange" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-12" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-12" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>它使用einops这个包，从而实现用一行可读的模式字符串描述 shape 怎么变。可以做轴重排、reshape、squeeze、unsqueeze、stack、concat 等操作；输入可以是 PyTorch Tensor，输出也保持同类 Tensor，可能的话会返回 view （不复制底层数据，只是用另一种“形状 / 索引方式”来看同一块数据）。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-9" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>常见的写法是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">einops</span> <span class="kn">import</span> <span class="n">rearrange</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&#34;b c h w -&gt; b h w c&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>左边表示输入张量的维度含义，右边表示输出张量的维度顺序。比如输入 shape 是 (batch, channel, height, width)，也就是 (b, c, h, w)。输出 shape 就会变成 (batch, height, width, channel)。</p>
+<p>同时我们可以用括号来<strong>拆分或合并维度</strong>：<code>rearrange(x, &quot;b c h w -&gt; b (c h w)&quot;)</code>表示把 c、h、w 合并成一个维度。</p>
+<p>如果要拆分维度，需要额外告诉 einops 某些维度的长度：<code>rearrange(x, &quot;b (h w) c -&gt; b h w c&quot;, h=2, w=3)</code></p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-10" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-10" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>rearrange 只改变元素的排列方式，不会做求和、平均这类聚合操作。如果要聚合，应该用 einops.reduce。</p>
+
+
+<h3 class="relative group">归约后的维度保留 
+    <div id="%E5%BD%92%E7%BA%A6%E5%90%8E%E7%9A%84%E7%BB%B4%E5%BA%A6%E4%BF%9D%E7%95%99" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%BD%92%E7%BA%A6%E5%90%8E%E7%9A%84%E7%BB%B4%E5%BA%A6%E4%BF%9D%E7%95%99" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">keepdim=True/False 
+    <div id="keepdimtruefalse" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#keepdimtruefalse" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-13" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-13" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>keepdim</code> 用来控制归约之后，要不要保留被归约的维度。</p>
+<p>简单说：</p>
+<ul>
+<li><code>keepdim=False</code>：删掉被归约的维度，也是很多函数的默认值。</li>
+<li><code>keepdim=True</code>：保留被归约的维度，但是这个维度的长度会变成 <code>1</code>。</li>
+</ul>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-11" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-11" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>keepdim</code> 不影响计算结果的数值，只影响输出张量的 shape。<code>keepdim=True</code>很常用在后续还要和原张量做广播运算的时候。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-8" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>比如一个张量 <code>x</code> 的 shape 是 <code>(2, 3)</code>：</p>
+<ol>
+<li><code>x.sum(dim=1, keepdim=False)</code>的输出 shape 是 (2,)，因为第 1 维被压缩掉了。</li>
+<li><code>x.sum(dim=1, keepdim=True)</code>输出 shape 是 (2, 1)，第 1 维还在，只是长度变成了 1。</li>
+</ol>
+
+
 <h2 class="relative group">张量的索引操作 
     <div id="%E5%BC%A0%E9%87%8F%E7%9A%84%E7%B4%A2%E5%BC%95%E6%93%8D%E4%BD%9C" class="anchor"></div>
     
@@ -1863,6 +2179,565 @@
     </span>        
     
 </h2>
+
+
+<h3 class="relative group">普通索引 / 切片 
+    <div id="%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95--%E5%88%87%E7%89%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95--%E5%88%87%E7%89%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor[i] 
+    <div id="tensori" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensori" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-14" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-14" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用来取第 <code>i</code> 个位置的数据。对于一维张量，<code>tensor[i]</code> 取的是第 <code>i</code> 个元素；对于二维或更高维张量，<code>tensor[i]</code> 通常取的是第 0 维上的第 <code>i</code> 个子张量。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-12" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-12" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>索引从 <code>0</code> 开始。也可以使用负数索引，比如 <code>tensor[-1]</code> 表示取最后一个。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-9" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># tensor([1, 2, 3])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># tensor([4, 5, 6])</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">tensor[:, j] 
+    <div id="tensor-j" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensor-j" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-15" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-15" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用来取二维张量的第 j 列。</p>
+<p>这里的 : 表示第 0 维全部保留，j 表示只取第 1 维的第 j 个位置。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-13" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-13" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>对于二维张量来说，可以理解为：<code>tensor[所有行, 第 j 列]</code>。</p>
+<p>取出来以后，原来的列维度会被压缩掉。如果原来 shape 是 (2, 3)，那么 tensor[:, 1] 的 shape 会是 (2,)。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-10" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-10" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>       <span class="c1"># tensor([2, 5])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># torch.Size([2])</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">tensor[&hellip;, -1] 
+    <div id="tensor--1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensor--1" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-16" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-16" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用来取最后一个维度上的最后一个元素。&hellip; 表示前面的维度全部保留，-1 表示最后一个位置。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-14" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-14" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>tensor[&hellip;, -1] 特别适合高维张量。它的意思可以理解为：<code>tensor[前面所有维度, 最后一个维度的最后一个]</code>。如果 x 的 shape 是 (2, 3, 4)，那么 x[&hellip;, -1] 的 shape 会变成 (2, 3)。</p>
+
+
+<h3 class="relative group">整数张量索引 
+    <div id="%E6%95%B4%E6%95%B0%E5%BC%A0%E9%87%8F%E7%B4%A2%E5%BC%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%95%B4%E6%95%B0%E5%BC%A0%E9%87%8F%E7%B4%A2%E5%BC%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor[index_tensor] 
+    <div id="tensorindex_tensor" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensorindex_tensor" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-17" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-17" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用一个整数张量作为索引，一次性从 tensor 里取出多个位置的数据。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-10" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-10" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>输入张量，也就是<code>index_tensor</code> 里的每个整数，都会被当成位置索引，用来从原张量的第 0 维取数据。输出张量的前面形状通常来自 <code>index_tensor.shape</code>，后面再接上原张量除第 0 维以外的剩余形状。</p>
+<p>简单理解：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">index_tensor</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tensor</span><span class="p">[</span><span class="n">index_tensor</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">index_tensor</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span></span></code></pre></div><p>也就是说，index_tensor 不是只取一个位置，而是按自己的形状批量取很多位置。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-15" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-15" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>index_tensor 里面的值必须是合法索引。比如 embedding_table 有 vocab_size 行，那么 token id 通常应该在 [0, vocab_size) 之间。</p>
+<p>索引张量的 dtype 一般用 torch.long，也就是 torch.int64。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-11" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-11" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>最常见的直觉例子就是 embedding 查表：<code>embedding_table[token_ids]</code>。token_ids 这个张量里每个数字都是一个词的编号，然后去 embedding_table 里取出对应编号的向量。</p>
+<p>其中它们索引取值以后对应的形状变化：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">embedding_table</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">token_ids</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">embedding_table</span><span class="p">[</span><span class="n">token_ids</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">高级索引，按位置配对取值 
+    <div id="%E9%AB%98%E7%BA%A7%E7%B4%A2%E5%BC%95%E6%8C%89%E4%BD%8D%E7%BD%AE%E9%85%8D%E5%AF%B9%E5%8F%96%E5%80%BC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%AB%98%E7%BA%A7%E7%B4%A2%E5%BC%95%E6%8C%89%E4%BD%8D%E7%BD%AE%E9%85%8D%E5%AF%B9%E5%8F%96%E5%80%BC" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor[rows, cols] 
+    <div id="tensorrows-cols" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensorrows-cols" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-18" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-18" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用两个整数张量 <code>rows</code> 和 <code>cols</code>，从张量的第 0 维和第 1 维按位置配对取值。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-11" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-11" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>这里有三个东西：</p>
+<ul>
+<li><code>tensor</code>：被取值的张量。维度是二维或更高维度。</li>
+<li><code>rows</code>：行索引张量，里面放的是要取第几行。</li>
+<li><code>cols</code>：列索引张量，里面放的是要取第几列。</li>
+</ul>
+<p><code>rows</code> 和 <code>cols</code> 的 shape 要能对应起来。一般都是<code>rows.shape == cols.shape</code>。tensor[rows, cols]表示rows 索引第 0 维，cols 索引第 1 维，结果就是按 (row, col) 配对取值。也就是说它只索引了前两个维度，后面没写的维度会保留下来。</p>
+<p>如果原张量只有二维：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rows</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">cols</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">N</span><span class="p">,)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">tensor</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">N</span><span class="p">,)</span>
+</span></span></code></pre></div><p>如果原张量有更多维度，后面没有被索引到的维度会保留下来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rows</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">cols</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">N</span><span class="p">,)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">tensor</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+</span></span></code></pre></div>
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-16" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-16" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>tensor[rows, cols] 是配对取值，不是取一个行列组成的矩形区域。rows 和 cols 一般要是 torch.long 类型。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-12" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-12" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>分类任务里很常见的写法是：<code>logits[torch.arange(batch_size), targets]</code>，这里就用到了这种索引。</p>
+<p>假设:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">logits</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">targets</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,)</span>
+</span></span></code></pre></div><p>那么这里的结果就是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">logits</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">batch_size</span><span class="p">),</span> <span class="n">targets</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,)</span>
+</span></span></code></pre></div><p>意思是：对 batch 里的每一条样本，取出它对应真实类别 target 上的 logit。</p>
+<p>具体代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">targets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">batch_size</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">picked</span> <span class="o">=</span> <span class="n">logits</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">batch_size</span><span class="p">),</span> <span class="n">targets</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">picked</span><span class="p">)</span> <span class="c1"># tensor([0.7000, 0.8000, 0.6000])</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">用布尔 mask 筛选元素 
+    <div id="%E7%94%A8%E5%B8%83%E5%B0%94-mask-%E7%AD%9B%E9%80%89%E5%85%83%E7%B4%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%94%A8%E5%B8%83%E5%B0%94-mask-%E7%AD%9B%E9%80%89%E5%85%83%E7%B4%A0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor[bool_mask] 
+    <div id="tensorbool_mask" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensorbool_mask" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-19" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-19" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用布尔张量作为 mask，从 <code>tensor</code> 里筛选出满足条件的位置。<code>bool_mask</code> 里是 <code>True</code> 的位置会被保留，<code>False</code> 的位置会被过滤掉。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-12" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-12" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>如果 <code>bool_mask</code> 和 <code>tensor</code> 的 shape 完全一样，那么会按元素筛选。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">bool_mask</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">tensor</span><span class="p">[</span><span class="n">bool_mask</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="kc">True</span> <span class="n">的数量</span><span class="p">,)</span>
+</span></span></code></pre></div><p>这种情况下，输出是一维张量，里面放着所有被选中的元素。</p>
+<p>另一种常见情况是，bool_mask 只对应第 0 维：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">bool_mask</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">tensor</span><span class="p">[</span><span class="n">bool_mask</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="kc">True</span> <span class="n">的数量</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+</span></span></code></pre></div><p>也就是按行筛选，后面的维度会保留下来。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-17" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-17" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>bool_mask 的 dtype 必须是 torch.bool。布尔索引不是保留原来的完整 shape，而是把 True 的位置筛出来，所以输出 shape 经常会变。如果想保留原来的 shape，只是把不满足条件的位置改成某个值，可以用我们接下来会讲到的 masked_fill。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-13" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-13" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>比如这个例子，按元素筛选：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>   <span class="c1"># tensor([[False, False, False],</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">#        [ True,  True,  True]])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span> <span class="c1"># tensor([4, 5, 6])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># torch.Size([3])</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">mask 替换 
+    <div id="mask-%E6%9B%BF%E6%8D%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#mask-%E6%9B%BF%E6%8D%A2" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">tensor.masked_fill(mask, value) 
+    <div id="tensormasked_fillmask-value" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tensormasked_fillmask-value" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+
+
+<h5 class="relative group">作用 
+    <div id="%E4%BD%9C%E7%94%A8-20" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BD%9C%E7%94%A8-20" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>用 <code>mask</code> 指定要替换的位置，把这些位置的值填成 <code>value</code>。<code>mask</code> 里为 <code>True</code> 的位置会被替换，<code>False</code> 的位置会保持原来的值。</p>
+
+
+<h5 class="relative group">输入输出 / 形状变化 
+    <div id="%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-13" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA--%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8C%96-13" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p><code>mask</code> 是一个布尔张量，shape 要和 <code>tensor</code> 相同，或者能广播到 <code>tensor</code> 的 shape。</p>
+<p>输出张量的 shape 和原来的 <code>tensor</code> 一样。</p>
+
+
+<h5 class="relative group">注意点 
+    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9-18" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-18" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>masked_fill 不会像 tensor[bool_mask] 那样把元素筛出来，所以不会压成一维。它会保留原来的整体 shape，只是把 mask=True 的位置改成指定值。</p>
+<p>masked_fill 不是原地修改，会返回一个新张量，所以一般要接住返回值：<code>x = x.masked_fill(mask, value)</code></p>
+<p>如果想原地修改，可以用<code>masked_fill_</code>。</p>
+
+
+<h5 class="relative group">例子 
+    <div id="%E4%BE%8B%E5%AD%90-14" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BE%8B%E5%AD%90-14" aria-label="锚点">#</a>
+    </span>        
+    
+</h5>
+<p>在 attention 里有一个很常见的应用场景：我们把不允许看的位置填成 -inf，就获得了我们的attention logits，这样后面算attention weight做 softmax 时，这些位置的概率就会接近 0。</p>
+<p>这里假设 mask=True 表示“允许看”，所以 ~mask 表示“不允许看”的位置。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&#34;-inf&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p>给出一个更完整的例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&#34;-inf&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>  <span class="c1"># tensor([[1., 2., -inf],</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#         [4., -inf, -inf]])</span>
+</span></span></code></pre></div><p>和之前的<code>tensor[bool_mask]</code>相比，<strong><code>tensor[bool_mask]</code> 是筛选元素，<code>masked_fill(mask, value)</code> 是保留形状并替换位置。</strong></p>
 
 
 <h2 class="relative group">张量的拼接和拆分 
@@ -1899,6 +2774,31 @@
     </span>        
     
 </h2>
+
+
+<h3 class="relative group">归约操作 
+    <div id="%E5%BD%92%E7%BA%A6%E6%93%8D%E4%BD%9C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%BD%92%E7%BA%A6%E6%93%8D%E4%BD%9C" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>归约操作就是<strong>沿着某些维度，把多个元素聚合成一个值</strong>，比如求和、平均、最大值、最小值。</p>
+
+
+<h4 class="relative group">einops.reduce 
+    <div id="einopsreduce" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#einopsreduce" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
 
           
           
@@ -2220,28 +3120,6 @@
           
         </span>
         <span>
-          
-            <a class="flex text-right group ml-3" href="/coding/leetcode_notes/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >LeetCode 刷题笔记</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2026-08-15T00:00:00&#43;00:00">15 August 2026</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
           
         </span>
       </div>
