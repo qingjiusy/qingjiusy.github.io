@@ -112,7 +112,7 @@
     "keywords": ["PyTorch","Torch","深度学习"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "7922"
+    "wordCount": "8744"
   }]
   </script>
 
@@ -584,7 +584,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>7922 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span>
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8744 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
   
 
   
@@ -876,6 +876,17 @@
             <li><a href="#----">+ - * /</a></li>
           </ul>
         </li>
+        <li><a href="#矩阵乘法">矩阵乘法</a>
+          <ul>
+            <li><a href="#heading">@</a></li>
+          </ul>
+        </li>
+        <li><a href="#矩阵相关操作">矩阵相关操作</a>
+          <ul>
+            <li><a href="#torchtril">torch.tril</a></li>
+            <li><a href="#torchtriu">torch.triu</a></li>
+          </ul>
+        </li>
         <li><a href="#生成或反转-mask">生成或反转 mask</a>
           <ul>
             <li><a href="#------mask">&gt; / &lt; / == / ~mask</a></li>
@@ -1060,6 +1071,17 @@
         <li><a href="#逐元素加减乘除">逐元素加减乘除</a>
           <ul>
             <li><a href="#----">+ - * /</a></li>
+          </ul>
+        </li>
+        <li><a href="#矩阵乘法">矩阵乘法</a>
+          <ul>
+            <li><a href="#heading">@</a></li>
+          </ul>
+        </li>
+        <li><a href="#矩阵相关操作">矩阵相关操作</a>
+          <ul>
+            <li><a href="#torchtril">torch.tril</a></li>
+            <li><a href="#torchtriu">torch.triu</a></li>
           </ul>
         </li>
         <li><a href="#生成或反转-mask">生成或反转 mask</a>
@@ -1260,6 +1282,14 @@
 返回值是一个新的 <code>Tensor</code>，里面的每个元素都是0。</p>
 <p><strong>注意点：</strong>
 默认情况下，创建的是<code>torch.float32</code>。如果想创建整数类型，可以手动传入 <code>dtype</code>来规定。另外它也可以指定 <code>device</code>，比如把张量直接创建到 GPU 上。</p>
+<p>也可以通过 <code>dtype=torch.bool</code> 直接创建布尔张量：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="c1"># tensor([[False, False, False], [False, False, False]])</span>
+</span></span></code></pre></div><p>这里并不是先生成数字 <code>0</code>，再转换成 <code>torch.bool</code>。PyTorch 会直接创建一个 dtype 为 <code>torch.bool</code> 的张量，所以里面的值就是 <code>False</code>。如果是把已有数值张量转换成 <code>torch.bool</code>，规则是：</p>
+<ul>
+<li><code>0</code> -&gt; <code>False</code></li>
+<li>任何非 <code>0</code> 的值（正数、负数、小数）-&gt; <code>True</code></li>
+</ul>
 <p><strong>例子：</strong>
 <code>torch.zeros(3)</code> 会创建 shape 为 <code>(3,)</code> 的一维张量。
 <code>torch.zeros(2, 3)</code> 会创建 shape 为 <code>(2, 3)</code> 的二维张量。</p>
@@ -1297,6 +1327,8 @@
 </h4>
 <p><strong>作用：</strong>
 用来创建一个全是 1 的张量。别的和<code>torch.zeros</code>一样。</p>
+<p><strong>注意点：</strong>
+也可以通过 <code>dtype=torch.bool</code> 直接创建布尔张量！attention mask的创建中常用。</p>
 
 
 <h4 class="relative group">torch.ones_like 
@@ -2296,6 +2328,111 @@ unbind 返回的是一个 tuple，不是一个 Tensor。unbind 会去掉被拆�
 </h4>
 <p>用来对张量做逐元素的加、减、乘、除。也就是说，两个张量对应位置上的元素会分别进行计算。</p>
 <p><strong>shape 相同就对应位置计算，shape 不同则可能触发广播。</strong></p>
+
+
+<h3 class="relative group">矩阵乘法 
+    <div id="%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">@ 
+    <div id="heading" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#heading" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>作用：</strong><br>
+用来做矩阵乘法。</p>
+<p>和 <code>*</code> 不一样，<code>*</code> 是逐元素乘法，<code>@</code> 是线性代数里的矩阵乘法。</p>
+<p><strong>输入输出 / 形状变化：</strong><br>
+<code>@</code> 的规则可以理解为：最后两个维度做矩阵乘法，前面的维度当作 batch 维度。常见情况有几种：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1. 向量 @ 向量：点积，输出是标量</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">k</span><span class="p">,)</span> <span class="o">@</span> <span class="p">(</span><span class="n">k</span><span class="p">,)</span> <span class="o">-&gt;</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 矩阵 @ 向量：输出是向量</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">k</span><span class="p">,)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">m</span><span class="p">,)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 向量 @ 矩阵：输出是向量</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">k</span><span class="p">,)</span> <span class="o">@</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">n</span><span class="p">,)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 矩阵 @ 矩阵：输出是矩阵</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. batch 矩阵乘法：前面的 batch 维度会保留</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 6. 如果前面的 batch 维度不同，只要能广播，也可以计算：</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>注意点：</strong>
+最关键的规则是：<strong>左边最后一维 k 要和右边倒数第二维 k 对上。</strong></p>
+
+
+<h3 class="relative group">矩阵相关操作 
+    <div id="%E7%9F%A9%E9%98%B5%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%9F%A9%E9%98%B5%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">torch.tril 
+    <div id="torchtril" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#torchtril" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>作用：</strong><br>
+用来取矩阵的下三角部分。简单理解就是：保留主对角线以及主对角线下面的元素，把上三角部分变成 <code>0</code>。</p>
+<p><strong>输入输出 / 形状变化：</strong><br>
+<code>torch.tril(input, diagonal=0)</code> 不会改变张量的 shape。diagonal 用来控制保留哪条对角线（0 表示保留主对角线以及下面的元素，1 表示额外保留主对角线上面一条对角线）。</p>
+<p>如果输入是二维矩阵：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">seq_len</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">seq_len</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">)</span>
+</span></span></code></pre></div><p>如果输入是 batch 矩阵，torch.tril 会对最后两个维度做下三角处理，前面的 batch 维度保留：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>例子：</strong>
+<code>torch.tril</code>常用于构造 causal mask，也就是让当前位置只能看自己和之前的位置，不能看未来的位置。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">seq_len</span> <span class="o">=</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">seq_len</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="c1">#   tensor([[ True, False, False, False],</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#           [ True,  True, False, False],</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#           [ True,  True,  True, False],</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#           [ True,  True,  True,  True]])</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">torch.triu 
+    <div id="torchtriu" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#torchtriu" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>作用：</strong><br>
+用来取矩阵的上三角部分。简单理解就是：保留主对角线以及主对角线上面的元素，把下三角部分变成 <code>0</code>。</p>
+<p>其余部分和<code>torch.tril</code>类似。</p>
 
 
 <h3 class="relative group">生成或反转 mask 
