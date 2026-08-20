@@ -147,6 +147,139 @@
 
 
 
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1481,13 +1614,6 @@
         <li><a href="#识别信号-67">识别信号</a></li>
         <li><a href="#核心思路-67">核心思路</a></li>
         <li><a href="#实现要点-66">实现要点</a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li>
-      <ul>
         <li><a href="#易错点-67">易错点</a></li>
         <li><a href="#复杂度-27">复杂度</a></li>
       </ul>
@@ -2263,13 +2389,6 @@
         <li><a href="#识别信号-67">识别信号</a></li>
         <li><a href="#核心思路-67">核心思路</a></li>
         <li><a href="#实现要点-66">实现要点</a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li>
-      <ul>
         <li><a href="#易错点-67">易错点</a></li>
         <li><a href="#复杂度-27">复杂度</a></li>
       </ul>
@@ -2364,7 +2483,9 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <!-- # 题号 + 题目名
+          
+
+<!-- # 题号 + 题目名
 ## 熟悉程度
 ## 题型
 ## 识别信号
@@ -10460,20 +10581,8 @@ $$</p>
 i - j = a_2 + \cdots + a_k
 $$</p>
 <p>于是有：</p>
-
-
-<h1 class="relative group">$$
-j \times dp[i-j] 
-    <div id="j-times-dpi-j" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#j-times-dpi-j" aria-label="锚点">#</a>
-    </span>        
-    
-</h1>
-<p>a_1 \times dp[a_2 + \cdots + a_k]
+<p>$$
+j \times dp[i-j] = a_1 \times dp[a_2 + \cdots + a_k]
 $$</p>
 <p>由于 <code>dp[i-j]</code> 表示将 <code>i-j</code> 拆分后能够得到的最大乘积，因此它至少能够得到：</p>
 <p>$$
@@ -10485,25 +10594,11 @@ dp[i-j] \geq a_2a_3\cdots a_k
 $$</p>
 <p>因此：</p>
 <p>$$
-j \times dp[i-j]
-\geq
-a_1a_2\cdots a_k
+j \times dp[i-j] \geq a_1a_2\cdots a_k
 $$</p>
 <p>而 <code>a_1a_2\cdots a_k</code> 本身已经是 <code>i</code> 的最优拆分结果，所以最终实际上有：</p>
-
-
-<h1 class="relative group">$$
-j \times dp[i-j] 
-    <div id="j-times-dpi-j-1" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#j-times-dpi-j-1" aria-label="锚点">#</a>
-    </span>        
-    
-</h1>
-<p>a_1a_2\cdots a_k
+<p>$$
+j \times dp[i-j] = a_1a_2\cdots a_k
 $$</p>
 <p>也就是说，最优解一定可以表示成：</p>
 <p>$$
