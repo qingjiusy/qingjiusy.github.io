@@ -112,7 +112,7 @@
     "keywords": ["LeetCode","算法","Python"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "65484"
+    "wordCount": "70907"
   }]
   </script>
 
@@ -717,7 +717,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>65484 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">131 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>70907 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">142 分钟</span>
   
 
   
@@ -1407,7 +1407,12 @@
         <li><a href="#复杂度-8">复杂度</a></li>
       </ul>
     </li>
-    <li><a href="#二分查找总结">二分查找总结</a></li>
+    <li><a href="#二分查找总结">二分查找总结</a>
+      <ul>
+        <li><a href="#一般二分思路">一般二分思路</a></li>
+        <li><a href="#边界二分思路">边界二分思路</a></li>
+      </ul>
+    </li>
     <li><a href="#20-有效的括号-valid-parentheses">20. 有效的括号 Valid Parentheses</a>
       <ul>
         <li><a href="#熟悉程度-49">熟悉程度</a></li>
@@ -1790,6 +1795,50 @@
         <li><a href="#实现要点-80">实现要点</a></li>
         <li><a href="#易错点-81">易错点</a></li>
         <li><a href="#复杂度-41">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#188买卖股票的最佳时机iv-best-time-to-buy-and-sell-stock-iv">188.买卖股票的最佳时机IV Best Time to Buy and Sell Stock IV</a>
+      <ul>
+        <li><a href="#熟悉程度-82">熟悉程度</a></li>
+        <li><a href="#题型-82">题型</a></li>
+        <li><a href="#识别信号-83">识别信号</a></li>
+        <li><a href="#核心思路-82">核心思路</a></li>
+        <li><a href="#实现要点-81">实现要点</a></li>
+        <li><a href="#易错点-82">易错点</a></li>
+        <li><a href="#复杂度-42">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#309最佳买卖股票时机含冷冻期-best-time-to-buy-and-sell-stock-with-cooldown">309.最佳买卖股票时机含冷冻期 Best Time to Buy and Sell Stock with Cooldown</a>
+      <ul>
+        <li><a href="#熟悉程度-83">熟悉程度</a></li>
+        <li><a href="#题型-83">题型</a></li>
+        <li><a href="#识别信号-84">识别信号</a></li>
+        <li><a href="#核心思路-83">核心思路</a></li>
+        <li><a href="#实现要点-82">实现要点</a></li>
+        <li><a href="#易错点-83">易错点</a></li>
+        <li><a href="#复杂度-43">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#714买卖股票的最佳时机含手续费-best-time-to-buy-and-sell-stock-with-transaction-fee">714.买卖股票的最佳时机含手续费 Best Time to Buy and Sell Stock with Transaction Fee</a>
+      <ul>
+        <li><a href="#熟悉程度-84">熟悉程度</a></li>
+        <li><a href="#题型-84">题型</a></li>
+        <li><a href="#识别信号-85">识别信号</a></li>
+        <li><a href="#核心思路-84">核心思路</a></li>
+        <li><a href="#实现要点-83">实现要点</a></li>
+        <li><a href="#易错点-84">易错点</a></li>
+        <li><a href="#复杂度-44">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#300最长递增子序列-longest-increasing-subsequence">300.最长递增子序列 Longest Increasing Subsequence</a>
+      <ul>
+        <li><a href="#熟悉程度-85">熟悉程度</a></li>
+        <li><a href="#题型-85">题型</a></li>
+        <li><a href="#识别信号-86">识别信号</a></li>
+        <li><a href="#核心思路-85">核心思路</a></li>
+        <li><a href="#实现要点-84">实现要点</a></li>
+        <li><a href="#易错点-85">易错点</a></li>
+        <li><a href="#复杂度-45">复杂度</a></li>
       </ul>
     </li>
     <li><a href="#动态规划">动态规划</a></li>
@@ -2350,7 +2399,12 @@
         <li><a href="#复杂度-8">复杂度</a></li>
       </ul>
     </li>
-    <li><a href="#二分查找总结">二分查找总结</a></li>
+    <li><a href="#二分查找总结">二分查找总结</a>
+      <ul>
+        <li><a href="#一般二分思路">一般二分思路</a></li>
+        <li><a href="#边界二分思路">边界二分思路</a></li>
+      </ul>
+    </li>
     <li><a href="#20-有效的括号-valid-parentheses">20. 有效的括号 Valid Parentheses</a>
       <ul>
         <li><a href="#熟悉程度-49">熟悉程度</a></li>
@@ -2733,6 +2787,50 @@
         <li><a href="#实现要点-80">实现要点</a></li>
         <li><a href="#易错点-81">易错点</a></li>
         <li><a href="#复杂度-41">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#188买卖股票的最佳时机iv-best-time-to-buy-and-sell-stock-iv">188.买卖股票的最佳时机IV Best Time to Buy and Sell Stock IV</a>
+      <ul>
+        <li><a href="#熟悉程度-82">熟悉程度</a></li>
+        <li><a href="#题型-82">题型</a></li>
+        <li><a href="#识别信号-83">识别信号</a></li>
+        <li><a href="#核心思路-82">核心思路</a></li>
+        <li><a href="#实现要点-81">实现要点</a></li>
+        <li><a href="#易错点-82">易错点</a></li>
+        <li><a href="#复杂度-42">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#309最佳买卖股票时机含冷冻期-best-time-to-buy-and-sell-stock-with-cooldown">309.最佳买卖股票时机含冷冻期 Best Time to Buy and Sell Stock with Cooldown</a>
+      <ul>
+        <li><a href="#熟悉程度-83">熟悉程度</a></li>
+        <li><a href="#题型-83">题型</a></li>
+        <li><a href="#识别信号-84">识别信号</a></li>
+        <li><a href="#核心思路-83">核心思路</a></li>
+        <li><a href="#实现要点-82">实现要点</a></li>
+        <li><a href="#易错点-83">易错点</a></li>
+        <li><a href="#复杂度-43">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#714买卖股票的最佳时机含手续费-best-time-to-buy-and-sell-stock-with-transaction-fee">714.买卖股票的最佳时机含手续费 Best Time to Buy and Sell Stock with Transaction Fee</a>
+      <ul>
+        <li><a href="#熟悉程度-84">熟悉程度</a></li>
+        <li><a href="#题型-84">题型</a></li>
+        <li><a href="#识别信号-85">识别信号</a></li>
+        <li><a href="#核心思路-84">核心思路</a></li>
+        <li><a href="#实现要点-83">实现要点</a></li>
+        <li><a href="#易错点-84">易错点</a></li>
+        <li><a href="#复杂度-44">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#300最长递增子序列-longest-increasing-subsequence">300.最长递增子序列 Longest Increasing Subsequence</a>
+      <ul>
+        <li><a href="#熟悉程度-85">熟悉程度</a></li>
+        <li><a href="#题型-85">题型</a></li>
+        <li><a href="#识别信号-86">识别信号</a></li>
+        <li><a href="#核心思路-85">核心思路</a></li>
+        <li><a href="#实现要点-84">实现要点</a></li>
+        <li><a href="#易错点-85">易错点</a></li>
+        <li><a href="#复杂度-45">复杂度</a></li>
       </ul>
     </li>
     <li><a href="#动态规划">动态规划</a></li>
@@ -8652,6 +8750,18 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h2>
+
+
+<h3 class="relative group">一般二分思路 
+    <div id="%E4%B8%80%E8%88%AC%E4%BA%8C%E5%88%86%E6%80%9D%E8%B7%AF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%80%E8%88%AC%E4%BA%8C%E5%88%86%E6%80%9D%E8%B7%AF" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
 <p>二分查找一般就是针对两个任务：用O(logN)的复杂度去查找某个元素和插入某个元素。
 下面给出一个二分找到最终插入位置的模板代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Class</span> <span class="n">Solution</span><span class="p">:</span>
@@ -8679,6 +8789,51 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> 
 </span></span></code></pre></div>
+
+<h3 class="relative group">边界二分思路 
+    <div id="%E8%BE%B9%E7%95%8C%E4%BA%8C%E5%88%86%E6%80%9D%E8%B7%AF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BE%B9%E7%95%8C%E4%BA%8C%E5%88%86%E6%80%9D%E8%B7%AF" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>对于一个非递减有序数组来说，我们去找第一个 “第一个 &gt;= target，第一个 &gt; target，最后一个 &lt;= target，最后一个 &lt; target”。<strong>核心不是找某个值，而是找满足条件区间和不满足条件区间的分界线</strong>。</p>
+<p>在结束的时候，我们一定会把数组分成两块，大概是 &ldquo;right | left&rdquo; 这种样子，一定有<code>right + 1 == left</code>（因为一定只有这样才会出我们的while循环）。所以：</p>
+<ul>
+<li>找右边这段的第一个元素 → return left</li>
+<li>找左边这段的最后一个元素 → return right</li>
+</ul>
+<p>而针对找 大于 还是 大于等于（亦或是 小于 和 小于等于 的区别），我们通过if条件来进行区别。来看我们找第一个 &gt;= target的代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>      <span class="c1"># mid 满足，但继续往左找更早的</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">left</span>
+</span></span></code></pre></div><p>如果<code>nums[mid] &lt; target</code>，我们显然知道左边是我们不需要的，一定可以直接更新<code>left = mid + 1</code>，这没有问题；但是对于<code>nums[mid] &gt;= target</code>，我们已经知道mid是一个合法的答案候选了，但你还想继续检查左边有没有更早的合法位置。而mid我们已经检查过了，所以应该更新<code>right = mid - 1</code>。通过不断重复这个过程后，搜索区间最终会被压缩到分界线两侧，也就找到了我们希望的边界。</p>
+<p>同理，找第一个 &gt; target，只需要改判断：<code>if nums[mid] &gt; target:</code></p>
+<p>找最后一个 &lt;= target，我们的代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">target</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>       <span class="c1"># mid 满足，但继续往右找更晚的</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">right</span>
+</span></span></code></pre></div><p>同理，找最后一个 &lt; target，只需要改判断：<code>if nums[mid] &lt; target:</code>。</p>
+
 
 <h2 class="relative group">20. 有效的括号 Valid Parentheses 
     <div id="20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7-valid-parentheses" class="anchor"></div>
@@ -9842,7 +9997,7 @@ Hoare做法的partition(left, right) 不负责把 pivot 放到最终位置，而
     </span>        
     
 </h3>
-<p>3B</p>
+<p>4B</p>
 
 
 <h3 class="relative group">题型 
@@ -12426,7 +12581,7 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] 
     </span>        
     
 </h3>
-<p>0B</p>
+<p>1B</p>
 
 
 <h3 class="relative group">题型 
@@ -12655,7 +12810,7 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] 
     </span>        
     
 </h3>
-<p>0B</p>
+<p>1B</p>
 
 
 <h3 class="relative group">题型 
@@ -12780,7 +12935,7 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] 
     </span>        
     
 </h3>
-<p>0B</p>
+<p>1B</p>
 
 
 <h3 class="relative group">题型 
@@ -12904,6 +13059,566 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
 </h3>
 <p>时间复杂度 O(N)
 空间复杂度 O(1)</p>
+
+
+<h2 class="relative group">188.买卖股票的最佳时机IV Best Time to Buy and Sell Stock IV 
+    <div id="188%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiv-best-time-to-buy-and-sell-stock-iv" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#188%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiv-best-time-to-buy-and-sell-stock-iv" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">熟悉程度 
+    <div id="%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-82" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-82" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>1B</p>
+
+
+<h3 class="relative group">题型 
+    <div id="%E9%A2%98%E5%9E%8B-82" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A2%98%E5%9E%8B-82" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>dp/股票状态机</p>
+
+
+<h3 class="relative group">识别信号 
+    <div id="%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>同其他 股票买卖的题目一样，每天的现金和状态是由前一天的现金和状态转移而来，因此我们可以想到用动态规划的递推方程来做。</p>
+
+
+<h3 class="relative group">核心思路 
+    <div id="%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-82" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-82" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>这题和 123. 买卖股票的最佳时机 III 非常类似，只是这里从只能进行2次交易变成了只能进行k次交易，但是我们发现它依旧是有有限个状态的。如果能交易k次，就会有最多 2k+1 个状态，我们就构造可以包含这些状态的dp数组。</p>
+
+
+<h3 class="relative group">实现要点 
+    <div id="%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-81" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>这里我们先用最基础的思路，也就是二维dp数组，这里我们首先明确，第一个状态，也就是如果什么操作都没有进行，手里现金一直是0，那么我们可以不储存这个状态，只去储存剩下2k个状态。我们可以构造一个行数为 len(prices)，列数为 2k 的二维dp矩阵。</p>
+<ol>
+<li>
+<p>dp的定义：如果j为偶数，dp[i][j] 表示第i天第 j//2 + 1 次持有股票所得最多现金；如果j为奇数，dp[i][j] 表示第i天第 j//2 + 1 次空仓所得最多现金</p>
+</li>
+<li>
+<p>递推公式：同之前的 股票题目 基本一样。针对第i天持有股票（也就是j是偶数）的状态dp[i][j]，有两种情况：</p>
+<ul>
+<li>第i-1天就持有股票，那么就保持现状，所得现金就是昨天持有股票的所得现金 即：dp[i - 1][j]</li>
+<li>第i天买入股票，那么今天一开始就是空仓：dp[i][j-1] - prices[i]
+我们取最大的：<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - 1] - prices[i])</code></li>
+</ul>
+<p>注意这里要对第一次持有股票进行分类讨论，因为这时候我们的递推方程不同：<code>dp[i][j] = max(dp[i - 1][j], -prices[i])</code>。</p>
+<p>针对第i天空仓（也就是j是奇数）的状态dp[i][j]，也有两种情况：</p>
+<ul>
+<li>第i-1天就空仓，那么就保持现状，即：dp[i - 1][j]</li>
+<li>第i天卖出股票，那么今天一开始就是持有股票：dp[i][j-1] + prices[i]
+我们取最大的：<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - 1] + prices[i])</code></li>
+</ul>
+</li>
+<li>
+<p>初始化：由递推公式我们可以知道dp[0]的 2k 个状态很重要，和上一题 123. 买卖股票的最佳时机 III 的思路一样，我们可以理解为在第0天进行了多次交易来初始化更新。第 0 天所有持有状态初始化为 -prices[0]，所有不持有状态初始化为 0。</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span></code></pre></div><ol start="4">
+<li>遍历顺序：从前向后遍历</li>
+<li>举例推导：略。</li>
+</ol>
+<p>同样的，从递推公式我们可以看出，每天的状态只和前一天有关，可以<strong>使用滚动数组来优化</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># dp</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="k">elif</span><span class="p">(</span><span class="n">j</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">易错点 
+    <div id="%E6%98%93%E9%94%99%E7%82%B9-82" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%98%93%E9%94%99%E7%82%B9-82" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>注意我们要对第一次持有股票进行分类讨论！</p>
+
+
+<h3 class="relative group">复杂度 
+    <div id="%E5%A4%8D%E6%9D%82%E5%BA%A6-42" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6-42" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>时间复杂度 O(N*K)
+空间复杂度 O(K)</p>
+
+
+<h2 class="relative group">309.最佳买卖股票时机含冷冻期 Best Time to Buy and Sell Stock with Cooldown 
+    <div id="309%E6%9C%80%E4%BD%B3%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F-best-time-to-buy-and-sell-stock-with-cooldown" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#309%E6%9C%80%E4%BD%B3%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F-best-time-to-buy-and-sell-stock-with-cooldown" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">熟悉程度 
+    <div id="%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>1B</p>
+
+
+<h3 class="relative group">题型 
+    <div id="%E9%A2%98%E5%9E%8B-83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A2%98%E5%9E%8B-83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>dp/股票状态机</p>
+
+
+<h3 class="relative group">识别信号 
+    <div id="%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>同其他 股票买卖的题目一样，每天的现金和状态是由前一天的现金和状态转移而来，因此我们可以想到用动态规划的递推方程来做。</p>
+
+
+<h3 class="relative group">核心思路 
+    <div id="%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>这题的思路其实还是和前面的一样，核心就是，想明白各个状态之间怎么变化，然后构造递推方程。注意卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。所以我们的状态中会多出一个冷冻期的状态，另外，这题没有交易数量的限制，只是只能同时持有一股。</p>
+<p>因此，这题，每天一共有五个状态：</p>
+<ol>
+<li>什么操作都还没有进行，手里现金一定为0。</li>
+<li>持有股票中（注意，持有不等于买入）。</li>
+<li>空仓，今天卖出股票。</li>
+<li>冷冻期（前一天卖出了股票）</li>
+<li>空仓中，今天没有卖出股票（注意空仓不等于卖出），注意这个状态是可以交易的！</li>
+</ol>
+<p><strong>注意这里的空仓需要有两个状态，分别对应今天是否卖出股票</strong>！另外，什么操作都没有进行的话，因为现金一直是0，我们根本不用去用dp存储它。</p>
+
+
+<h3 class="relative group">实现要点 
+    <div id="%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-82" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-82" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>dp的定义为：dp[i][0] 表示第i天持有股票所得最多现金，在第i天买入股票现金就是 当前手里的现金 -prices[i]。dp[i][1] 表示第i天空仓且<strong>今天卖出股票</strong>的状态下，所得最多现金。dp[i][2] 表示第i天处于冷冻期的状态下，手里的最多的现金。dp[i][3] 表示第i天处于空仓且没有卖出股票的情况下，手里最多的现金</li>
+<li>递推公式：针对dp[i][0]，也就是第i天持有股票，有两种情况：
+<ul>
+<li>第i-1天就持有股票，那么就保持现状，所得现金就是昨天持有股票的所得现金 即：dp[i - 1][0]</li>
+<li>第i天买入股票，<strong>所得现金就是 之前一天没持有股票手里的现金 - 今天的股票价格</strong>：max(dp[i - 1][2] - prices[i], dp[i - 1][3] - prices[i])
+那么dp[i][0]应该选所得现金最大的，所以<code>dp[i][0] = max(dp[i - 1][0], dp[i - 1][2] - prices[i], dp[i - 1][3] - prices[i])</code></li>
+</ul>
+</li>
+</ol>
+<p>针对dp[i][1]，也就是在第i天卖出，只有一种情况：<code>dp[i][1] = dp[i - 1][0] + prices[i]</code></p>
+<p>针对dp[i][2]，也就是在第i天处于冷冻期，也只有一种情况：<code>dp[i][2] = dp[i - 1][1]</code></p>
+<p>针对dp[i][3]，也就是表示第i天处于空仓且没有卖出股票，有两种情况：</p>
+<ul>
+<li>第i-1天就处于空仓且没有卖出股票，那么就保持现状，所得现金就是昨天的所得现金 即：dp[i - 1][3]</li>
+<li>第i天刚刚进入这个状态，也就是从第i-1天的冷冻期转变而来：dp[i - 1][2]
+也应该选择现金最大的，也就是：<code>dp[i][3] = max(dp[i - 1][3], dp[i - 1][2])</code></li>
+</ul>
+<ol>
+<li>初始化：由递推公式我们可以知道dp[0]的四个状态很重要，别的可以任意取。dp[0][0]表示第0天持有股票了，那么就应该是-prices[0]；别的三个状态都应该初始化为0（将不可达状态设为 0 是一种简化，利用了本题利润不会低于 0）。</li>
+<li>遍历顺序：从前向后遍历</li>
+<li>举例推导：略。</li>
+</ol>
+<p>同样的，这里可以使用滚动数组来进行优化。</p>
+
+
+<h3 class="relative group">易错点 
+    <div id="%E6%98%93%E9%94%99%E7%82%B9-83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%98%93%E9%94%99%E7%82%B9-83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>最后在return的时候，应该<code>return max(dp[-1][1], dp[-1][2], dp[-1][3])</code>，因为最大值有可能发生在这三种状态中的某个状态。</p>
+
+
+<h3 class="relative group">复杂度 
+    <div id="%E5%A4%8D%E6%9D%82%E5%BA%A6-43" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6-43" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>时间复杂度 O(N)
+空间复杂度 O(1)</p>
+
+
+<h2 class="relative group">714.买卖股票的最佳时机含手续费 Best Time to Buy and Sell Stock with Transaction Fee 
+    <div id="714%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9-best-time-to-buy-and-sell-stock-with-transaction-fee" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#714%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9-best-time-to-buy-and-sell-stock-with-transaction-fee" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">熟悉程度 
+    <div id="%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>1B</p>
+
+
+<h3 class="relative group">题型 
+    <div id="%E9%A2%98%E5%9E%8B-84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A2%98%E5%9E%8B-84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>dp/股票状态机</p>
+
+
+<h3 class="relative group">识别信号 
+    <div id="%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>同其他 股票买卖的题目一样，每天的现金和状态是由前一天的现金和状态转移而来，因此我们可以想到用动态规划的递推方程来做。</p>
+
+
+<h3 class="relative group">核心思路 
+    <div id="%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>可以重复进行多次交易，和 122. 买卖股票的最佳时机 II，只是这里进行一个手续费的缴纳，注意这里一笔完整交易（买 + 卖）只需要缴纳一次手续费。我们可以在买入或者卖出的时候，直接进行手续费的缴纳即可。</p>
+
+
+<h3 class="relative group">实现要点 
+    <div id="%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-83" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>我们这里使用在买入的时候进行手续费的缴纳的思路。其他思路和 122. 买卖股票的最佳时机 II 基本一样。</p>
+<ol>
+<li>dp的定义为：dp[i][0] 表示第i天持有股票所得最多现金，在第i天买入股票现金就是 当前手里的现金 -prices[i]。dp[i][1] 表示第i天不持有股票所得最多现金。注意这里是持有，不是买入！也可能之前就买入了，今天在持有。</li>
+<li>递推公式：针对dp[i][0]，也就是第i天持有股票，有两种情况：
+<ul>
+<li>第i-1天就持有股票，那么就保持现状，所得现金就是昨天持有股票的所得现金 即：dp[i - 1][0]</li>
+<li>第i天买入股票，<strong>所得现金就是 之前一天没持有股票手里的现金 - 今天的股票价格 - 手续费</strong>：dp[i - 1][1] - prices[i] - fee
+那么dp[i][0]应该选所得现金最大的，所以<code>dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] - prices[i] - fee)</code></li>
+</ul>
+</li>
+</ol>
+<p>针对dp[i][1]，有两种情况：</p>
+<ul>
+<li>第i-1天就不持有股票，那么就保持现状，所得现金就是昨天不持有股票的所得现金 即：dp[i - 1][1]</li>
+<li>第i-1天就持有股票，然后第i天卖出，就是：dp[i - 1][0] + prices[i]
+同样dp[i][1]取最大的，<code>dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i])</code></li>
+</ul>
+<ol>
+<li>初始化：由递推公式我们可以知道dp[0][0]和dp[0][1]很重要，别的可以任意取。dp[0][0]表示第0天持有股票了，那么就应该是 - prices[0] - fee；dp[0][1]表示第0天不持有股票，那么就应该是0</li>
+<li>遍历顺序：从前向后遍历</li>
+<li>举例推导：略。</li>
+</ol>
+<p>同样的，这里可以使用滚动数组来优化空间复杂度。</p>
+
+
+<h3 class="relative group">易错点 
+    <div id="%E6%98%93%E9%94%99%E7%82%B9-84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%98%93%E9%94%99%E7%82%B9-84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>注意，这里一笔完整交易（买 + 卖）只需要缴纳一次手续费。</p>
+<p>而且在初始化的时候，第0天持有股票的时候应该初始化为 - prices[0] - fee，因为我们这里的做法是在买入的时候进行手续费的缴纳，不要忘记。</p>
+
+
+<h3 class="relative group">复杂度 
+    <div id="%E5%A4%8D%E6%9D%82%E5%BA%A6-44" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6-44" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>时间复杂度 O(N)
+空间复杂度 O(1)</p>
+
+
+<h2 class="relative group">300.最长递增子序列 Longest Increasing Subsequence 
+    <div id="300%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-longest-increasing-subsequence" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#300%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-longest-increasing-subsequence" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">熟悉程度 
+    <div id="%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>0B</p>
+
+
+<h3 class="relative group">题型 
+    <div id="%E9%A2%98%E5%9E%8B-85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A2%98%E5%9E%8B-85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>dp + 子序列 或者 贪心 + 二分查找</p>
+
+
+<h3 class="relative group">识别信号 
+    <div id="%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-86" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+子序列（是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序）是动态规划解决的经典问题。</p>
+<p>做法二：
+由于我们要去找一个最长递增子序列，如果我们要使上升子序列尽可能的长，则我们需要让序列上升得尽可能慢，因此我们希望每个子序列的结尾元素尽可能的小。</p>
+
+
+<h3 class="relative group">核心思路 
+    <div id="%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+因为我们要去找的是子序列，为了dp中递推公式的进行，我们的dp定义要精确定位。同时，递推的思路也很清晰：长一点的子序列长度 = 短的子序列长度 + 1</p>
+<p>做法二：
+贪心的思想是维护一个数组min_end，里面下标i的位置存放的元素表示：长度为i + 1的子序列的最小结尾元素。然后我们去遍历nums数组，对于每个元素num，我们首先判断它是不是比min_end的最后一个元素还要大（严格递增），如果是的话我们就直接把它 append 到 min_end 数组中，同时也表示我们的子序列最长长度 + 1了；如果小于等于最后一个元素，则意味着这个元素可以替换数组min_end中的某一个位置的元素，即<strong>要去贪心的让每个子序列的结尾元素尽可能的小</strong>。我们的目标是找到 min_end 数组中从左到右<strong>第一个大于等于</strong>（严格递增）的下标位置，然后把这个下标中的元素替换为 num。由于我们的min_end数组也是一个严格单调递增的数组，因此我们可以使用二分查找来找到我们需要的下标位置。</p>
+
+
+<h3 class="relative group">实现要点 
+    <div id="%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：</p>
+<ol>
+<li>dp[i]的定义为：dp[i]表示以nums[i]结尾的最长递增子序列的长度。（为什么一定表示 “以nums[i]结尾的最长递增子序” ，因为我们在做递增比较的时候，两个递增子序列<strong>一定分别以nums[j]为结尾 和 nums[i]为结尾， 要不然我们都不知道尾部元素，如何进行比较得知是否符不符合递增条件呢</strong>）</li>
+<li>递推公式：以nums[i]结尾的最长升序子序列长度 等于 j从0到i-1各个位置的最长升序子序列（尾部元素小于nums[i]） + 1 的最大值。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">     <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div></li>
+<li>初始化：每个位置的最长递增子序列长度起码为1，因为它们至少可以取自己，所以全部初始化为1。</li>
+<li>遍历顺序：根据题意，我们就知道是从前往后遍历。</li>
+<li>举例推导：略。</li>
+</ol>
+<p>做法二：
+明确我们这里的二分，是要在 min_end 数组中找到第一个大于等于 num 的下标位置。所以转换为代码就是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_end</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span><span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;=</span> <span class="n">min_end</span><span class="p">[</span><span class="n">mid</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">min_end</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span>
+</span></span></code></pre></div><p>如果<code>num &gt; min_end[mid]</code>，我们显然知道左边是我们不需要的，一定可以直接更新<code>left = mid + 1</code>，这没有问题；但是对于<code>num &lt;= min_end[mid]</code>，我们已经知道mid是一个合法的答案候选了，但你还想继续检查左边有没有更早的合法位置。而mid我们已经检查过了，所以应该更新<code>right = mid - 1</code>。而在循环结束时，我们的l 和 r 恰好会落在分界线两侧，也就是：<strong>r 最后指向最后一个 &lt; n 的位置，l 最后指向第一个 &gt;= n 的位置</strong>。因此我们取<code>min_end[left] = num</code>。</p>
+<p>这其实是边界二分，普通二分常见目标是：<code>nums[mid] == target</code>，但边界二分找的是这种位置：第一个 &gt;= target，第一个 &gt; target，最后一个 &lt;= target，最后一个 &lt; target。所以对边界来说，我们可以想成把有序数组切成两块，<strong>边界二分结束后，right 和 left 会夹在分界线两边：想找分界线右边第一个元素，就看 left；想找分界线左边最后一个元素，就看 right</strong>。</p>
+
+
+<h3 class="relative group">易错点 
+    <div id="%E6%98%93%E9%94%99%E7%82%B9-85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%98%93%E9%94%99%E7%82%B9-85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+注意这个的dp的定义我们需要理解清楚，dp[i]对应的一定得是以nums[i]结尾的序列。</p>
+<p>一开始初始化的时候应该全部定义为1.</p>
+<p>做法二：
+注意这里首先要明确 min_end 的含义是去维护 每个长度的子序列对应的最小结尾元素。</p>
+<p>还要注意边界二分的做法，特别是if的条件和最终我们期望元素在的位置对应的是left还是right。</p>
+
+
+<h3 class="relative group">复杂度 
+    <div id="%E5%A4%8D%E6%9D%82%E5%BA%A6-45" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6-45" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+时间复杂度 O(N^2)
+空间复杂度 O(N)</p>
+<p>做法二：
+时间复杂度 O(NlogN)
+空间复杂度 O(N)</p>
 
 
 <h2 class="relative group">动态规划 
