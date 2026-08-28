@@ -112,7 +112,7 @@
     "keywords": ["LeetCode","算法","Python"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "70907"
+    "wordCount": "74062"
   }]
   </script>
 
@@ -717,7 +717,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>70907 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">142 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>74062 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">148 分钟</span>
   
 
   
@@ -1841,6 +1841,39 @@
         <li><a href="#复杂度-45">复杂度</a></li>
       </ul>
     </li>
+    <li><a href="#674-最长连续递增序列-longest-continuous-increasing-subsequence">674. 最长连续递增序列 Longest Continuous Increasing Subsequence</a>
+      <ul>
+        <li><a href="#熟悉程度-86">熟悉程度</a></li>
+        <li><a href="#题型-86">题型</a></li>
+        <li><a href="#识别信号-87">识别信号</a></li>
+        <li><a href="#核心思路-86">核心思路</a></li>
+        <li><a href="#实现要点-85">实现要点</a></li>
+        <li><a href="#易错点-86">易错点</a></li>
+        <li><a href="#复杂度-46">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#718-最长重复子数组-maximum-length-of-repeated-subarray">718. 最长重复子数组 Maximum Length of Repeated Subarray</a>
+      <ul>
+        <li><a href="#熟悉程度-87">熟悉程度</a></li>
+        <li><a href="#题型-87">题型</a></li>
+        <li><a href="#识别信号-88">识别信号</a></li>
+        <li><a href="#核心思路-87">核心思路</a></li>
+        <li><a href="#实现要点-86">实现要点</a></li>
+        <li><a href="#易错点-87">易错点</a></li>
+        <li><a href="#复杂度-47">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#1143最长公共子序列-longest-common-subsequence">1143.最长公共子序列 Longest Common Subsequence</a>
+      <ul>
+        <li><a href="#熟悉程度-88">熟悉程度</a></li>
+        <li><a href="#题型-88">题型</a></li>
+        <li><a href="#识别信号-89">识别信号</a></li>
+        <li><a href="#核心思路-88">核心思路</a></li>
+        <li><a href="#实现要点-87">实现要点</a></li>
+        <li><a href="#易错点-88">易错点</a></li>
+        <li><a href="#复杂度-48">复杂度</a></li>
+      </ul>
+    </li>
     <li><a href="#动态规划">动态规划</a></li>
   </ul>
 </nav>
@@ -2833,6 +2866,39 @@
         <li><a href="#复杂度-45">复杂度</a></li>
       </ul>
     </li>
+    <li><a href="#674-最长连续递增序列-longest-continuous-increasing-subsequence">674. 最长连续递增序列 Longest Continuous Increasing Subsequence</a>
+      <ul>
+        <li><a href="#熟悉程度-86">熟悉程度</a></li>
+        <li><a href="#题型-86">题型</a></li>
+        <li><a href="#识别信号-87">识别信号</a></li>
+        <li><a href="#核心思路-86">核心思路</a></li>
+        <li><a href="#实现要点-85">实现要点</a></li>
+        <li><a href="#易错点-86">易错点</a></li>
+        <li><a href="#复杂度-46">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#718-最长重复子数组-maximum-length-of-repeated-subarray">718. 最长重复子数组 Maximum Length of Repeated Subarray</a>
+      <ul>
+        <li><a href="#熟悉程度-87">熟悉程度</a></li>
+        <li><a href="#题型-87">题型</a></li>
+        <li><a href="#识别信号-88">识别信号</a></li>
+        <li><a href="#核心思路-87">核心思路</a></li>
+        <li><a href="#实现要点-86">实现要点</a></li>
+        <li><a href="#易错点-87">易错点</a></li>
+        <li><a href="#复杂度-47">复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#1143最长公共子序列-longest-common-subsequence">1143.最长公共子序列 Longest Common Subsequence</a>
+      <ul>
+        <li><a href="#熟悉程度-88">熟悉程度</a></li>
+        <li><a href="#题型-88">题型</a></li>
+        <li><a href="#识别信号-89">识别信号</a></li>
+        <li><a href="#核心思路-88">核心思路</a></li>
+        <li><a href="#实现要点-87">实现要点</a></li>
+        <li><a href="#易错点-88">易错点</a></li>
+        <li><a href="#复杂度-48">复杂度</a></li>
+      </ul>
+    </li>
     <li><a href="#动态规划">动态规划</a></li>
   </ul>
 </nav>
@@ -3147,7 +3213,7 @@
     </span>        
     
 </h3>
-<p>2C</p>
+<p>4B</p>
 
 
 <h3 class="relative group">题型 
@@ -6526,7 +6592,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>2C</p>
+<p>4B</p>
 
 
 <h3 class="relative group">题型 
@@ -7271,7 +7337,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>4A</p>
+<p>5B</p>
 
 
 <h3 class="relative group">题型 
@@ -7344,6 +7410,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     
 </h3>
 <p>注意在for循环中，每用一个新数字的时候，我们就要用<code>used[nums[i] + 100] = 1</code>进行标记，但是在做完回溯操作以后，该标记不应该被撤销。</p>
+<p>注意这里的判断，应该是要保证这个数首先没有被使用过，然后再去判断path为空，或者是不是非递减。我有一次错误写了<code>if(not path or (nums[i] &gt;= path[-1] and used[nums[i] + 100] == 1))):</code>，会导致一些case在path第0位的时候选取一样的数组，导致重复。</p>
 
 
 <h3 class="relative group">复杂度（可选） 
@@ -7679,7 +7746,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>2C</p>
+<p>4B</p>
 
 
 <h3 class="relative group">题型 
@@ -7718,7 +7785,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>在这里，我们虽然知道要用回溯，但是明显和之前有点不同。这里我们要对这个二维数组里面的每一个元素递归检查，其实是一个二维递归。在回溯函数中我们传递一个space参数来标记目前还剩下几个空位需要填写，我们先遍历行，再遍历列的来取元素进行数字的赋值尝试。对一个新数字来说，我们要检查这个选择是否合法。主要就是判断同行，同列和同九宫格有没有相同的数字。我们这里很巧妙的构造了三个标记数组来快速的检查是不是合法：</p>
+<p>在这里，我们虽然知道要用回溯，但是明显和之前有点不同。这里我们要对这个二维数组里面的每一个元素递归检查，其实是一个二维递归。在回溯函数中我们传递一个space参数来标记目前还剩下几个空位需要填写，同时我们还可以存下来这些点的位置，这样我们在之后遍历了的时候就不用一个个的查找点在哪里！我们先遍历行，再遍历列的来取元素进行数字的赋值尝试。对一个新数字来说，我们要检查这个选择是否合法。主要就是判断同行，同列和同九宫格有没有相同的数字。我们这里很巧妙的构造了三个标记数组来快速的检查是不是合法：</p>
 <ol>
 <li>行的标记数组[x][y]形状是 9*9，表示在第x行，数字y是否被使用过；</li>
 <li>列的标记数组[x][y]形状是 9*9，表示在第x列，数字y是否被使用过；</li>
@@ -7814,6 +7881,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">backtrack</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
 </span></span></code></pre></div><p>原因是因为我们的return的位置写的不对，我们在对一个位置去找可能的数字时，如果1~9全部不满足条件，我们就应该返回上一层递归去尝试新的数字了，因为目前的选择是解不开我们的数独的。而一开始的写的return是直到遍历完整个9*9表格再return False，显然有问题。</p>
+<p><strong>同时，我们还需要在一开始初始化space和标记数组的时候，来记录我们点的位置，这样我们在后续的回溯中就不用每次都去遍历数独矩阵找下一个要去赋值的点在哪里了，提高我们的计算效率。渐进复杂度没有变化，仍然是指数级，但每个递归节点的额外开销变小了</strong>。</p>
 
 
 <h3 class="relative group">复杂度 
@@ -13499,7 +13567,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>0B</p>
+<p>1B</p>
 
 
 <h3 class="relative group">题型 
@@ -13619,6 +13687,410 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
 <p>做法二：
 时间复杂度 O(NlogN)
 空间复杂度 O(N)</p>
+
+
+<h2 class="relative group">674. 最长连续递增序列 Longest Continuous Increasing Subsequence 
+    <div id="674-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97-longest-continuous-increasing-subsequence" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#674-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97-longest-continuous-increasing-subsequence" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">熟悉程度 
+    <div id="%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-86" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>0B</p>
+
+
+<h3 class="relative group">题型 
+    <div id="%E9%A2%98%E5%9E%8B-86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A2%98%E5%9E%8B-86" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>贪心 / dp + 子序列</p>
+
+
+<h3 class="relative group">识别信号 
+    <div id="%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-87" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+这里我们要找最长连续递增序列，我们可以贪心的去找每个序列可以最长连续递增多久，通过寻找每个点的局部最优，然后就可以计算出全局最优，也就是最长连续递增序列。</p>
+<p>做法二：
+子序列是动态规划解决的经典问题。</p>
+
+
+<h3 class="relative group">核心思路 
+    <div id="%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-86" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+因为需要连续的严格单调递增，我们可以构造一个 start 参数，记录序列中每一段连续递增序列的开头位置。如果新遍历到的数 &gt; 前一个数，说明符合单调递增，start 参数不变，此段递增序列长度增加1，尝试去更新 ans；如果新遍历到的数 &lt;= 前一个数，说明不符合单调递增，start 参数变化，将这个新遍历到的数作为 start。</p>
+<p>做法二：
+思路和 300.最长递增子序列 类似，只是这里要求的是连续，尤其是dp[i]的定义。</p>
+
+
+<h3 class="relative group">实现要点 
+    <div id="%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+每次尝试去更新ans时，我们的数组尾部下标是 i，头部下标是 start，所以应该是<code>ans = max(ans, i - start + 1)</code></p>
+<p>做法二：</p>
+<ol>
+<li>dp[i]的定义为：dp[i]表示<strong>以nums[i]结尾</strong>的连续最长递增子序列的长度。</li>
+<li>递推公式：如果前一个数小于目前的数，那么现在的dp[i]就应该在原来的长度上 + 1。如果不是，dp[i] = 1，保持原状
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">     <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span></code></pre></div></li>
+<li>初始化：每个位置的最长递增子序列长度起码为1，因为它们至少可以取自己，所以全部初始化为1。</li>
+<li>遍历顺序：根据题意，我们就知道是从前往后遍历。</li>
+<li>举例推导：略。</li>
+</ol>
+<p>同样的，我们注意到这里每个dp[i]只会去利用dp[i-1]，可以使用滚动数组来优化空间。</p>
+
+
+<h3 class="relative group">易错点 
+    <div id="%E6%98%93%E9%94%99%E7%82%B9-86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%98%93%E9%94%99%E7%82%B9-86" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+为了避免数组越界，我们的判断应该是<code>if(i &gt; 0 and nums[i] &lt;= nums[i - 1]):</code></p>
+<p>做法二：
+如果使用的是一维基础dp，最后 ans 应该是 dp 中最大的元素。</p>
+<p>注意这里我们可以用滚动数组来优化空间。</p>
+
+
+<h3 class="relative group">复杂度 
+    <div id="%E5%A4%8D%E6%9D%82%E5%BA%A6-46" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6-46" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>做法一：
+时间复杂度 O(N)
+空间复杂度 O(1)</p>
+<p>做法二：
+时间复杂度 O(N)
+空间复杂度 O(1)</p>
+
+
+<h2 class="relative group">718. 最长重复子数组 Maximum Length of Repeated Subarray 
+    <div id="718-%E6%9C%80%E9%95%BF%E9%87%8D%E5%A4%8D%E5%AD%90%E6%95%B0%E7%BB%84-maximum-length-of-repeated-subarray" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#718-%E6%9C%80%E9%95%BF%E9%87%8D%E5%A4%8D%E5%AD%90%E6%95%B0%E7%BB%84-maximum-length-of-repeated-subarray" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">熟悉程度 
+    <div id="%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-87" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>0B</p>
+
+
+<h3 class="relative group">题型 
+    <div id="%E9%A2%98%E5%9E%8B-87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A2%98%E5%9E%8B-87" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>dp + 子数组</p>
+
+
+<h3 class="relative group">识别信号 
+    <div id="%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-88" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>此题属于用dp解决子数组问题的经典题；我们注意到如果知道某一段nums1的子数组和某一段nums2的子数组的最长重复子数组，我们就可以去检查他们长度加1的最长重复子数组，来递推的计算。</p>
+
+
+<h3 class="relative group">核心思路 
+    <div id="%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-87" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>要注意一点，子数组和子序列的定义是不一样的。子数组其实是连续的子序列！我们在这里可以用二维数组可以记录两个字符串的所有比较情况，这样就比较好推出递推公式了。</p>
+
+
+<h3 class="relative group">实现要点 
+    <div id="%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-86" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>dp[i][j]的定义为：以下标i - 1为结尾的数组A（其中A是nums1的子数组），和以下标j - 1为结尾的B（B是nums2的子数组），最长重复子数组长度为dp[i][j]。 （特别注意： “以下标i - 1为结尾的A” 标明<strong>一定是 以A[i-1]为结尾的字符串</strong>，这里用 i-1 来结尾是为了简化初始化部分，不然要单独初始化第0行第0列）</li>
+<li>递推公式：显然dp[i][j]可以由dp[i - 1][j - 1]递推得到，当 nums1[i - 1] 和 nums2[j - 1] 相等的时候，dp就应该在之前的基础上累加1：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"> <span class="k">if</span><span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">     <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span></code></pre></div></li>
+<li>初始化：把dp全部初始化为0即可，注意这里dp的第0行和第0列其实是没有含义的。他们的存在只是为了简化初始化。</li>
+<li>遍历顺序：由于我们的定义，dp[i][j]对应的是下标 i - 1 和 j - 1，因此我们的遍历对dp的遍历要从下标1开始，这样才有意义。</li>
+<li>举例推导：略。</li>
+</ol>
+<p>由我们的递推公式注意到，其实每个位置的dp值只和斜左上的dp值有关，我们明白可以用滚动数组来优化空间复杂度。可以不要i这个维度，只保留j这个维度。</p>
+<p>但是这里我们要注意到，dp[i][j]都是由dp[i - 1][j - 1]推出，<strong>因此我们在遍历 nums2 数组的时候，就要从后向前遍历，先更新 j 更大的部分，这样避免重复覆盖</strong>。同时还要记得如果结尾元素不等，我们要去更新 dp[j] 为 0。</p>
+<p>这个是滚动数组的做法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">findLength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums1</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">nums2</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ans</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">易错点 
+    <div id="%E6%98%93%E9%94%99%E7%82%B9-87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%98%93%E9%94%99%E7%82%B9-87" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>注意这里我们应该返回dp中最大数，就是我们的公共的，长度最长的子数组的长度。</p>
+<p>使用滚动数组时，要注意这里的遍历顺序，并且要注意如果 nums1[i - 1] != nums2[j - 1] 的话，dp[j]应该主动赋值为0，避免后续更新出错。</p>
+
+
+<h3 class="relative group">复杂度 
+    <div id="%E5%A4%8D%E6%9D%82%E5%BA%A6-47" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6-47" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>时间复杂度 O(N * M)
+空间复杂度 O(min(N, M)) 使用滚动数组</p>
+
+
+<h2 class="relative group">1143.最长公共子序列 Longest Common Subsequence 
+    <div id="1143%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97-longest-common-subsequence" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1143%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97-longest-common-subsequence" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">熟悉程度 
+    <div id="%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%86%9F%E6%82%89%E7%A8%8B%E5%BA%A6-88" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>0B</p>
+
+
+<h3 class="relative group">题型 
+    <div id="%E9%A2%98%E5%9E%8B-88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%A2%98%E5%9E%8B-88" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>dp + 子序列</p>
+
+
+<h3 class="relative group">识别信号 
+    <div id="%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-89" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%AF%86%E5%88%AB%E4%BF%A1%E5%8F%B7-89" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>这道题是典型的动态规划问题，并且子序列很多问题都可以使用 dp 来解决。</p>
+
+
+<h3 class="relative group">核心思路 
+    <div id="%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-88" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>本题和 718. 最长重复子数组 的区别就是这里是求的公共子序列，子序列不强制要求连续了。而dp数组的定义可以从前一题中获得思路，只是这里的递推公式有较大不同，需要进行区分。</p>
+
+
+<h3 class="relative group">实现要点 
+    <div id="%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E8%A6%81%E7%82%B9-87" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>dp[i][j]的定义为：[0, &hellip;, i - 1]的字符串text1与[0, &hellip;, j - 1]的字符串text2的最长公共子序列为dp[i][j] （特别注意： 这里用 i-1 来结尾是为了简化初始化部分，不然要单独初始化第0行第0列）</li>
+<li>递推公式：由于公共子序列不要求元素在原来的数组中连续，因此我们的递推公式较上一题 718. 最长重复子数组 有较大变化。如果新的要检查的text1尾部元素和text2尾部元素一样的话，那么他们的最长公共子序列长度就显然是 dp[i - 1][j - 1] + 1，如果不一样的话，由于公共子序列本身就不要求连续，因此新进来的 text1尾部元素 如果和 text2之前的某个元素一样的话，他们的最长公共子序列长度不一样，我们这里应该去取 text1[0, &hellip;, i - 1]与text2[0, &hellip;, j - 2]的最长公共子序列 和 text1[0, &hellip;, i - 2]与text2[0, &hellip;, j - 1]的最长公共子序列中的最大值。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">text1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">text2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">     <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"> <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">     <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"> <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+</span></span></code></pre></div></li>
+<li>初始化：把dp全部初始化为0即可，注意这里dp的第0行和第0列其实是取text1的空字符串和取text2的空字符串，显然和他们有关的最长公共子序列为0。他们的存在是为了后续递推的顺利进行。</li>
+<li>遍历顺序：由于我们的定义，dp[i][j]对应的是下标 i - 1 和 j - 1，因此我们的遍历对dp的遍历要从下标1开始，这样才有意义。两个都是正向遍历。</li>
+<li>举例推导：略。</li>
+</ol>
+<p>同样的，这里可以使用滚动数组优化。只是这里的滚动数组优化有点特殊，从递推公式我们可以看出，dp[i][j] 的更新同时需要知道 dp[i - 1][j - 1]，dp[i][j - 1]， dp[i - 1][j]。由于需要同时知道dp[i - 1][j - 1] 和 dp[i][j - 1]，单纯改变遍历顺序没有办法完成这一点。因此我们可以<strong>使用两个变量 temp 和 pre 来存储dp[i - 1][j - 1]</strong>，推进滚动数组的遍历。遍历顺序依旧是两个都是正向遍历。</p>
+<p>注意这里的两个变量 temp 和 pre！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">longestCommonSubsequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pre</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">temp</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">text1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">text2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">pre</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="n">pre</span> <span class="o">=</span> <span class="n">temp</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ans</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">易错点 
+    <div id="%E6%98%93%E9%94%99%E7%82%B9-88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%98%93%E9%94%99%E7%82%B9-88" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>这里的一维滚动数组中，我们要注意到 pre 是相当于这次更新中原来二维数组的 dp[i - 1][j - 1]，你可以理解为“是去用的”，而 temp 是存这次的dp[i - 1][j]，也就是下一轮的dp[i - 1][j - 1]，“是去存的”。同时还要注意对于每个i的遍历，我们要去让 pre = 0，这才符合定义。</p>
+
+
+<h3 class="relative group">复杂度 
+    <div id="%E5%A4%8D%E6%9D%82%E5%BA%A6-48" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6-48" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>二维dp：
+时间复杂度 O(M * N)
+空间复杂度 O(M * N)</p>
+<p>一维dp + 滚动数组优化：
+时间复杂度 O(M * N)
+空间复杂度 O(min(M, N))</p>
 
 
 <h2 class="relative group">动态规划 
