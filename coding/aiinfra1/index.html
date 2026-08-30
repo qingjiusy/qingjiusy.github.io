@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>ai infra &middot; QingJiu</title>
-  <meta name="title" content="ai infra &middot; QingJiu" />
+  <title>python基础知识坑 &middot; QingJiu</title>
+  <meta name="title" content="python基础知识坑 &middot; QingJiu" />
   
   <meta name="description" content="blog" />
   <meta name="keywords" content="ai infra, " />
@@ -69,20 +69,20 @@
   
   <meta property="og:url" content="https://qingjiusy.github.io/coding/aiinfra1/">
   <meta property="og:site_name" content="QingJiu">
-  <meta property="og:title" content="ai infra">
+  <meta property="og:title" content="python基础知识坑">
   <meta property="og:description" content="blog">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="coding">
-    <meta property="article:published_time" content="2026-08-21T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-08-21T00:00:00+00:00">
+    <meta property="article:published_time" content="2026-08-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-29T00:00:00+00:00">
     <meta property="article:tag" content="Ai Infra">
     <meta property="og:image" content="https://qingjiusy.github.io/coding/aiinfra1/featured.PNG">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://qingjiusy.github.io/coding/aiinfra1/featured.PNG">
-  <meta name="twitter:title" content="ai infra">
+  <meta name="twitter:title" content="python基础知识坑">
   <meta name="twitter:description" content="blog">
 
   
@@ -91,8 +91,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Codings",
-    "name": "ai infra",
-    "headline": "ai infra",
+    "name": "python基础知识坑",
+    "headline": "python基础知识坑",
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
@@ -102,15 +102,15 @@
       "name": "清酒"
     },
     "copyrightYear": "2026",
-    "dateCreated": "2026-08-21T00:00:00\u002b00:00",
-    "datePublished": "2026-08-21T00:00:00\u002b00:00",
+    "dateCreated": "2026-08-29T00:00:00\u002b00:00",
+    "datePublished": "2026-08-29T00:00:00\u002b00:00",
     
-    "dateModified": "2026-08-21T00:00:00\u002b00:00",
+    "dateModified": "2026-08-29T00:00:00\u002b00:00",
     
     "keywords": ["ai infra"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "4165"
+    "wordCount": "6801"
   }]
   </script>
 
@@ -537,7 +537,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      ai infra
+      python基础知识坑
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -582,7 +582,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-21T00:00:00&#43;00:00">21 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4165 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  <time datetime="2026-08-29T00:00:00&#43;00:00">29 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6801 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span>
   
 
   
@@ -952,7 +952,8 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">xs</span> <span class="o">=</span> <span class="p">[]</span>
 </span></span><span class="line"><span class="cl"><span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="n">xs</span> <span class="o">=</span> <span class="n">another_list</span>
-</span></span></code></pre></div>
+</span></span></code></pre></div><p>同时还要记住：<strong>Python 对象的生命周期取决于“还有没有引用指向它”，而不是创建它的那个函数是否已经结束</strong>。</p>
+
 
 <h3 class="relative group">2.2 可变对象、不可变对象与拷贝 
     <div id="22-%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E4%B8%8E%E6%8B%B7%E8%B4%9D" class="anchor"></div>
@@ -965,6 +966,7 @@
     
 </h3>
 <p>常见不可变对象包括 <code>int</code>、<code>float</code>、<code>bool</code>、<code>str</code>、<code>bytes</code> 和元素均不可变时的 <code>tuple</code>；常见可变对象包括 <code>list</code>、<code>dict</code>、<code>set</code> 和大多数自定义实例。</p>
+<p><strong>如果 x 和 y 引用同一个可变对象，那么通过其中一个变量原地修改对象时，另一个变量也能看到变化；但重新赋值只会改变变量自己的引用</strong>。</p>
 
 
 <h4 class="relative group">默认参数只创建一次 
@@ -1033,7 +1035,7 @@
     
 </h3>
 <p>Python 按 <strong>LEGB</strong> 顺序查找名字：Local（局部）→ Enclosing（外层函数）→ Global（模块）→ Builtins（内置）。</p>
-<p>闭包会保存外层作用域中的变量：</p>
+<p>闭包(闭包 = 一个函数 + 它所保存的外层作用域变量)会保留对其所需外层变量的引用，因此即使外层函数已经执行结束，这些变量仍然可以被内部函数访问：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">make_multiplier</span><span class="p">(</span><span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
@@ -1043,15 +1045,67 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">double</span> <span class="o">=</span> <span class="n">make_multiplier</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">double</span><span class="p">(</span><span class="mf">3.0</span><span class="p">))</span>  <span class="c1"># 6.0</span>
-</span></span></code></pre></div><p>循环中创建闭包时要注意<strong>延迟绑定</strong>：闭包在调用时才读取外层名字。</p>
+</span></span></code></pre></div><p>从上面这段代码我们就看出：函数 <code>multiply</code> 被返回以后，虽然 <code>make_multiplier</code> 已经执行结束了，但 <code>multiply</code> 仍然“记得”当时外层函数里的 <code>scale</code>。
+在这里，返回出来的 multiply 就是一个闭包。<code>double = make_multiplier(2.0)</code>得到的是一个“带着 scale=2.0 环境的函数”。</p>
+<p>闭包最重要的意义，就是函数可以“携带状态”。</p>
+<p>循环中创建闭包时要注意<strong>延迟绑定</strong>：闭包在调用时才读取外层名字。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 三个函数最终都读取同一个 i，结果都是 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 在这里，bad里面放了三个lambda函数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># bad[0]是“取出第一个函数”，bad[0]()是“调用第一个函数”</span>
 </span></span><span class="line"><span class="cl"><span class="n">bad</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">([</span><span class="n">fn</span><span class="p">()</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">bad</span><span class="p">])</span>  <span class="c1"># [2, 2, 2]</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 用默认参数在每轮定义时保存当前值</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 这里成功的关键就在 “默认参数是在函数创建时就确定的”</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 所以这里使用默认参数，相当于“把当前值冻结下来”。</span>
 </span></span><span class="line"><span class="cl"><span class="n">good</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">([</span><span class="n">fn</span><span class="p">()</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">good</span><span class="p">])</span>  <span class="c1"># [0, 1, 2]</span>
-</span></span></code></pre></div><p>如果需要在内层函数中重新绑定外层函数的名字，使用 <code>nonlocal</code>；重新绑定模块全局名字则使用 <code>global</code>。优先通过参数和返回值传递状态，通常更易测试。</p>
-
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">([</span><span class="n">fn</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">good</span><span class="p">])</span> <span class="c1"># [1, 1, 1]</span>
+</span></span></code></pre></div><p>对于列表中放函数这件事，你可以理解为函数本身就是对象，所以当然可以放进列表。</p>
+<p>对于上面的代码的现象的解释：<code>lambda: i</code> 创建函数时，并不会把“当前的 i 的值”复制进去；它只是记住“以后调用时去找这个 i”。但是真正调用的时候（也就是<code>[fn() for fn in bad]</code>），循环早就结束了，那个被三个函数共同引用的 i 已经变成 2。这就是所谓的：<strong>延迟绑定（late binding）</strong></p>
+<p>而这里的 good 函数则等价于：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">good</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="k">lambda</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">lambda</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">lambda</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>之后<code>print([fn() for fn in good])</code>每次都是空参数调用 fn()，因此会使用各自保存的默认参数。</p>
+<blockquote>
+<p>岔开来介绍一下lambda函数：你可以把它理解为一种用一行代码写“小函数”的方式。</p>
+<p>基本语法是：<code>lambda 参数1, 参数2, ...: 返回的表达式</code></p>
+<p>再举个例子，<code>lambda i=i: i</code>就等价于：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">i</span>
+</span></span></code></pre></div></blockquote>
+<p>平时如果函数只是读取外层变量，直接读取即可（因为有闭包）。但是如果需要重新绑定外层函数作用域里的名字，使用<code>nonlocal</code>（因为如果外层变量指向的是可变对象，比如 list/dict，只是 append 或修改内容，则不需要 nonlocal）；要更改全局变量则使用 <code>global</code>。虽然 nonlocal 和 global 可以改外部状态，但不要滥用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 会报错，因为这里在 inner 里写 count = ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Python 会把 count 视为 inner 自己的局部变量。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 但是由于它还没在 inner 里被赋值，所以报错。</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 正确写法</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 通过nonlocal count</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 说明这个 count 不是我 inner 自己新建的局部变量，我要修改的是外层函数里的那个 count</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="k">nonlocal</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">        <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">inner</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="n">outer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">())</span>  <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">())</span>  <span class="c1"># 2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">())</span>  <span class="c1"># 3</span>
+</span></span></code></pre></div>
 
 <h3 class="relative group">2.4 类、数据模型与协议 
     <div id="24-%E7%B1%BB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%8D%8F%E8%AE%AE" class="anchor"></div>
@@ -1063,10 +1117,26 @@
     </span>        
     
 </h3>
-<p>Python 的特殊方法让对象接入语言协议。例如，实现 <code>__len__</code> 后可调用 <code>len(obj)</code>，实现 <code>__iter__</code> 后可被 <code>for</code> 遍历。</p>
+<p>Python 的特殊方法让对象接入语言协议（让自己定义的对象，支持 Python 原生的操作方式）。例如，实现 <code>__len__</code> 后可调用 <code>len(obj)</code>，实现 <code>__iter__</code> 后可被 <code>for</code> 遍历。<strong>Python 不是要求你的对象必须属于某个具体类型，而是看它有没有实现对应的行为。</strong></p>
+<p>因此举一个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 在这里 A 实现了 Python 关于“长度”这件事的协议</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># A() 是“根据这个类创建出来的实例对象”</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 所以 a 可以被 len(a) 这样使用</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="c1"># 5</span>
+</span></span></code></pre></div><p>再来看一个例子：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这里的 @dataclass 帮你自动写了初始化代码</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 近似于：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># class Batch:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   def __init__(self, samples: list[list[float]]):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       self.samples = samples</span>
 </span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Batch</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">samples</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>
@@ -1074,14 +1144,17 @@
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 这个 __iter__() 方法会返回一个迭代器对象，而这个迭代器每次取出来的元素类型是 list[float]</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span> <span class="c1"># iter 真正创建并返回迭代器</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
-</span></span></code></pre></div><p>常见特殊方法及用途：</p>
+</span></span></code></pre></div><p>其中 @dataclass 是 Python 提供的类装饰器，主要用于简化“以保存数据为主的类”的写法。它根据类中声明的字段，自动生成 <strong>init</strong>、<strong>repr</strong>、<strong>eq</strong> 等常用特殊方法，减少样板代码。</p>
+<p><code>Iterator[T]</code> 表示“迭代器类型”，其中 T 是每次调用 <code>next()</code> 时返回的元素类型。Batch 本身更准确地说是“可迭代对象”，因为它实现了 <strong>iter</strong>；真正的迭代器是 iter(self.samples) 返回的对象。具体关于这一块我们在 2.5 中介绍。</p>
+<p>常见特殊方法及用途：</p>
 <table>
   <thead>
       <tr>
@@ -1135,23 +1208,35 @@
     </span>        
     
 </h4>
+<p>定义在类里面的方法，并不都是同一种方法。</p>
 <ul>
-<li>实例方法的第一个参数是 <code>self</code>，操作具体对象；</li>
-<li><code>@classmethod</code> 的第一个参数是 <code>cls</code>，常用于备选构造器；</li>
-<li><code>@staticmethod</code> 不接收隐式对象，仅用于把相关工具函数组织在类命名空间中。</li>
+<li>实例方法：操作某一个具体对象，第一参数通常是 <code>self</code>；</li>
+<li>类方法<code>@classmethod</code>：操作“这个类本身”，第一个参数通常是 <code>cls</code>，常用于备选构造器；</li>
+<li>静态方法<code>@staticmethod</code>既不自动拿实例，也不自动拿类，更像是“放在类里面的普通函数”</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@dataclass</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># @dataclass 帮你自动写了初始化代码</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 近似于：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># class Device:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   def __init__(self, kind: str, index: int):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       self.kind = kind</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       self.index = index</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Device</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span>
 </span></span><span class="line"><span class="cl">    <span class="n">index</span><span class="p">:</span> <span class="nb">int</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 类方法</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 对于用 @classmethod 定义的方法，第一个参数会由 Python 自动传入“当前类本身”</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># cls 不是 Python 关键字，可以改名，但按照惯例类方法的第一个参数都写成 cls，用于接收当前类本身</span>
 </span></span><span class="line"><span class="cl">    <span class="nd">@classmethod</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&#34;Device&#34;</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="n">kind</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;:&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;cuda:0&#34;</span><span class="p">)</span>
-</span></span></code></pre></div>
+</span></span></code></pre></div><p><code>@classmethod</code>表示这是一个类方法。调用 <code>Device.parse(...)</code> 时，Python 会自动把 Device 类本身传给第一个参数<code>cls</code>。</p>
+<p><code>parse()</code> 的作用是把类似 &ldquo;cuda:0&rdquo; 的字符串解析成 kind=&ldquo;cuda&rdquo; 和 index=0，然后通过 <code>cls(...)</code> 创建并返回一个新的 Device 实例，因此它属于一种备选构造器。</p>
+
 
 <h3 class="relative group">2.5 迭代器与生成器：按需生产数据 
     <div id="25-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8%E6%8C%89%E9%9C%80%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE" class="anchor"></div>
@@ -1163,7 +1248,18 @@
     </span>        
     
 </h3>
-<p><strong>可迭代对象</strong>能返回迭代器；<strong>迭代器</strong>保存遍历状态，并通过 <code>__next__</code> 逐个返回元素。生成器函数是编写迭代器的简洁方式：</p>
+<p><strong>可迭代对象</strong>能返回迭代器；<strong>迭代器</strong>保存遍历状态，并通过 <code>__next__</code> 逐个返回元素。</p>
+<p>比如<code>nums = [10, 20, 30]</code>就是一个可迭代对象，它提供“从头开始遍历”的能力；而<code>iter(nums)</code>会返回一个迭代器，它保存遍历状态，知道“上一次取到哪里了，下一次应该取哪个”；然后这个迭代器可以被<code>next(iterator)</code>一步一步消费，底层会调用<code>__next__()</code>逐个返回元素(<code>__next__()</code>是迭代器对象内部实现的特殊方法)，元素耗尽时抛出 StopIteration：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">it1</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">it2</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">it1</span><span class="p">))</span>  <span class="c1"># 10</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">it1</span><span class="p">))</span>  <span class="c1"># 20</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">it2</span><span class="p">))</span>  <span class="c1"># 10</span>
+</span></span></code></pre></div><p>生成器函数是编写迭代器的简洁方式。调用生成器函数不会立刻执行函数体，而是返回一个生成器对象；这个生成器对象本身就是一种迭代器。：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">read_batches</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
@@ -1172,17 +1268,62 @@
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">==</span> <span class="n">batch_size</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># yield：把当前的 batch 交出去，但不要结束函数</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 这时候调用方拿到了数据，但是函数会暂停在这里</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 这和 return 有本质区别</span>
 </span></span><span class="line"><span class="cl">                <span class="k">yield</span> <span class="n">batch</span>
 </span></span><span class="line"><span class="cl">                <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 这个if的存在是因为文件行数不一定刚好能被 batch_size 整除</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 这是为了把最后不足一个完整 batch 的数据也交出去</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">batch</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="n">batch</span>
-</span></span></code></pre></div><p><code>yield</code> 返回一个值后暂停函数，下一次迭代从暂停位置继续。与一次性构造完整列表相比，生成器的峰值内存通常只与一个批次相关，适合流式数据管线。</p>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 一个具体的使用例子</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">read_batches</span><span class="p">(</span><span class="s2">&#34;data.txt&#34;</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 一个不好的做法，因为这样会把每个batch都存下来，根本就没有起到节省内存的作用</span>
+</span></span><span class="line"><span class="cl"><span class="n">batches</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">read_batches</span><span class="p">(</span><span class="s2">&#34;data.txt&#34;</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">batches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="c1"># batches[idx]会指向每一个batch，这样最终会把所有 batch 都累积到内存里，失去了流式处理的主要优势。</span>
+</span></span></code></pre></div><p><strong>只要函数里出现 yield，这个函数就不再是普通函数，而是“生成器函数”</strong>。以前如果你想自己写一个迭代器，可能要自己实现：<strong>iter</strong>()，<strong>next</strong>()。还要自己保存：“我现在遍历到哪里了？”而使用生成器函数的话，每次 <code>next()</code> 执行到 <code>yield</code> 时返回一个值并暂停，下次 <code>next()</code> 从暂停位置继续。生成器因此可以按需逐个产生数据。</p>
+<p>由于<code>yield</code> 返回一个值后暂停函数，下一次迭代从暂停位置继续。与一次性构造完整列表相比，生成器的峰值内存通常只与一个批次相关（生成器不会一次性把所有数据都放进内存，内存里通常只需要同时保留当前这一批），适合流式数据管线，比如：</p>
+<ul>
+<li>大文件读取</li>
+<li>数据集训练</li>
+<li>日志处理</li>
+<li>网络数据流</li>
+<li>AI / ML 数据管线</li>
+</ul>
 <p>需要记住：</p>
 <ul>
-<li>生成器通常只能消费一次；</li>
-<li>惰性求值会把异常推迟到迭代时；</li>
-<li>把生成器转成 <code>list</code> 会重新物化所有元素，失去节省内存的优势。</li>
+<li>生成器通常只能消费一次，遍历结束不会自动回到开头。；</li>
+<li>惰性求值会把异常推迟到迭代时；
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">g</span> <span class="o">=</span> <span class="n">gen</span><span class="p">()</span> <span class="c1"># 不报错</span>
+</span></span><span class="line"><span class="cl"><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="c1"># 得到 1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="c1"># 报错</span>
+</span></span></code></pre></div></li>
+<li>把生成器转成 <code>list</code> 会重新物化所有元素，list(generator) 操作会一次性取出并保存所有元素，失去节省内存的优势。</li>
 </ul>
+<p>另外，来说明一下<code>for 循环的底层逻辑</code>和如果不用 yield，自己去写一个可迭代对象的做法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 下面的逻辑就等于：for i in x:</span>
+</span></span><span class="line"><span class="cl"><span class="n">iterator</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>       <span class="c1"># 调用 x.__iter__()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>  <span class="c1"># 调用 iterator.__next__()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span></code></pre></div><p>意味着如果不用生成器函数，一个对象 x 想要被 for 循环遍历，就需要支持迭代协议：<code>iter(x)</code> 能返回一个迭代器。这个迭代器再通过 <code>__next__()</code> 逐个返回元素。</p>
+<p>list 能被 for 遍历，是因为它能返回一个迭代器；真正负责 <strong>next</strong>() 的是这个 list 迭代器。</p>
 
 
 <h3 class="relative group">2.6 装饰器：在调用边界附加行为 
