@@ -1323,7 +1323,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="o">...</span>
 </span></span></code></pre></div><p>意味着如果不用生成器函数，一个对象 x 想要被 for 循环遍历，就需要支持迭代协议：<code>iter(x)</code> 能返回一个迭代器。这个迭代器再通过 <code>__next__()</code> 逐个返回元素。</p>
-<p>list 能被 for 遍历，是因为它能返回一个迭代器；真正负责 <strong>next</strong>() 的是这个 list 迭代器。</p>
+<p>list 能被 for 遍历，是因为它能返回一个迭代器；真正负责 <code>__next__()</code> 的是这个 list 迭代器。</p>
 
 
 <h3 class="relative group">2.6 装饰器：在调用边界附加行为 
