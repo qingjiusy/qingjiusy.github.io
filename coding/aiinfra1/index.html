@@ -110,7 +110,7 @@
     "keywords": ["ai infra"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "6801"
+    "wordCount": "14253"
   }]
   </script>
 
@@ -582,7 +582,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-29T00:00:00&#43;00:00">29 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6801 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span>
+  <time datetime="2026-08-29T00:00:00&#43;00:00">29 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>14253 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">29 分钟</span>
   
 
   
@@ -747,7 +747,11 @@
         <li><a href="#26-装饰器在调用边界附加行为">2.6 装饰器：在调用边界附加行为</a></li>
         <li><a href="#27-上下文管理器让资源必定释放">2.7 上下文管理器：让资源必定释放</a></li>
         <li><a href="#28-异常处理只捕获能够处理的错误">2.8 异常处理：只捕获能够处理的错误</a></li>
-        <li><a href="#29-类型标注与数据类">2.9 类型标注与数据类</a></li>
+        <li><a href="#29-类型标注与数据类">2.9 类型标注与数据类</a>
+          <ul>
+            <li><a href="#protocol-和鸭子类型">Protocol 和鸭子类型</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#3-python-并发与性能分析">3. Python 并发与性能分析</a>
@@ -794,7 +798,11 @@
         <li><a href="#26-装饰器在调用边界附加行为">2.6 装饰器：在调用边界附加行为</a></li>
         <li><a href="#27-上下文管理器让资源必定释放">2.7 上下文管理器：让资源必定释放</a></li>
         <li><a href="#28-异常处理只捕获能够处理的错误">2.8 异常处理：只捕获能够处理的错误</a></li>
-        <li><a href="#29-类型标注与数据类">2.9 类型标注与数据类</a></li>
+        <li><a href="#29-类型标注与数据类">2.9 类型标注与数据类</a>
+          <ul>
+            <li><a href="#protocol-和鸭子类型">Protocol 和鸭子类型</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#3-python-并发与性能分析">3. Python 并发与性能分析</a>
@@ -1336,21 +1344,28 @@
     </span>        
     
 </h3>
-<p>装饰器接收一个可调用对象，并返回另一个可调用对象。下面的计时器保留了原函数的元信息：</p>
+<p>装饰器接收一个可调用对象，并返回另一个可调用对象。
+简单的理解装饰器就是：传入一个函数，返回一个新函数，用新函数把原函数包起来。
+下面的计时器保留了原函数的元信息：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">perf_counter</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ParamSpec</span><span class="p">,</span> <span class="n">TypeVar</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&#34;P&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">R</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&#34;R&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&#34;P&#34;</span><span class="p">)</span> <span class="c1"># 表示一个函数的整套参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">R</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&#34;R&#34;</span><span class="p">)</span> <span class="c1"># 表示一个暂时不知道是什么的返回类型</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 包装函数，实现了计时功能</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">timed</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">]:</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># @wraps(fn)可以删掉 功能依旧能跑 只是可能最后print打印名字的时候会出错</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span> <span class="c1"># 把原函数的一些信息复制给 wrapper，比如__name__，__doc__等等</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">R</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="c1"># 记录当前时间</span>
 </span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 一个典型的闭包，因为fn是外层函数 timed 的局部变量</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 在python语法中，在真正返回之前，一定先执行 finally</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 使用 try/finally 后，即使 preprocess() 报错，依然可以打印，然后 Error 继续向外抛。所以写 finally 更加稳健</span>
 </span></span><span class="line"><span class="cl">        <span class="k">finally</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">elapsed_ms</span> <span class="o">=</span> <span class="p">(</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1_000</span>
 </span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">elapsed_ms</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ms&#34;</span><span class="p">)</span>
@@ -1359,8 +1374,30 @@
 </span></span><span class="line"><span class="cl"><span class="nd">@timed</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">value</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
-</span></span></code></pre></div><p><code>@timed</code> 等价于 <code>preprocess = timed(preprocess)</code>。<code>functools.wraps</code> 会保留函数名、文档字符串等属性，这对日志、测试和框架反射很重要。</p>
-<p>装饰器适合日志、缓存、权限检查和性能观测；如果只是单个调用点需要计时，一个普通的 <code>with timer():</code> 往往更直白，不必为了“高级”而使用装饰器。</p>
+</span></span></code></pre></div><p>当python看到：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@xxx</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span></code></pre></div><p>它就理解成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">foo</span> <span class="o">=</span> <span class="n">xxx</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>另外注意，<code>xxx(foo)</code>是在定义 <code>foo</code> 的时候就执行的，而 foo 函数体本身，要等到后面真正调用 <code>foo()</code> 时才执行</strong>。</p>
+<p>所以这里的<code>@timed</code> 等价于 <code>preprocess = timed(preprocess)</code>。<code>functools.wraps</code> 会保留函数名、文档字符串等属性，这对日志、测试和框架反射很重要。</p>
+<p><code>def wrapper(*args: P.args, **kwargs: P.kwargs) -&gt; R:</code>表示了 wrapper 接收的参数，和 fn 接收的参数一致；wrapper 返回的类型，也和 fn 一致。</p>
+<p>这一段其实就是包装原函数的核心：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">timed</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">wrapper</span>
+</span></span></code></pre></div><blockquote>
+<p>解释一下*args 和 **kwargs：</p>
+<p>如果 wrapper 写成 <code>def wrapper(values):</code>，那么它只能包装这种函数：<code>def foo(values):</code>。
+但装饰器通常希望什么函数都能包装。所以写成<code>def wrapper(*args, **kwargs):</code>，就是不管原函数有多少位置参数、关键字参数，我全部接住。</p></blockquote>
+<p>装饰器适合日志、缓存、权限检查和性能观测，很适合复用；如果只是单个调用点需要计时，一个普通的 <code>with timer():</code> 往往更直白，不必为了“高级”而使用装饰器。</p>
+<p>因为装饰器不仅是为了复用，也是为了把某种行为绑定到函数本身；with 更适合绑定到某一段代码执行范围。</p>
 
 
 <h3 class="relative group">2.7 上下文管理器：让资源必定释放 
@@ -1373,23 +1410,51 @@
     </span>        
     
 </h3>
-<p><code>with</code> 把资源的获取和释放放在同一个词法范围内，即使发生异常，也会执行清理逻辑：</p>
+<p><code>with</code>语法的核心作用可以理解为：进入一段代码前做一件事，离开这段代码后一定再做一件事。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">perf_counter</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nd">@contextmanager</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@contextmanager</span> <span class="c1"># 它把一个普通的带 yield 的函数，变成了一个可以给 with 使用的东西</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="kc">None</span><span class="p">]:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="c1"># 用来掐表的高精度测时间的函数</span>
 </span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">yield</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 有finally的存在，保证try里面不管正常还是报错，我这里都一定执行（但是如果try前面更早有报错的话，finally不会执行）</span>
 </span></span><span class="line"><span class="cl">    <span class="k">finally</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">elapsed_ms</span> <span class="o">=</span> <span class="p">(</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1_000</span>
+</span></span><span class="line"><span class="cl">        <span class="n">elapsed_ms</span> <span class="o">=</span> <span class="p">(</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1_000</span> <span class="c1"># 计算执行的时间（开始和结束的间隔值）</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">elapsed_ms</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ms&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在这里的执行顺序是：进入 with -&gt; 开始计时 -&gt; 执行with里面的代码 -&gt; 离开with -&gt; 结束计时 </span>
 </span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">timer</span><span class="p">(</span><span class="s2">&#34;load data&#34;</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100_000</span><span class="p">)]</span>
-</span></span></code></pre></div><p>文件、锁、数据库连接、临时目录、自动混合精度上下文都适合这种模式。它和 C++ 的 RAII 解决的是同一个问题：<strong>资源生命周期必须有清晰边界</strong>。</p>
+</span></span></code></pre></div><p>一般来说，python如果想要一个对象 x 支持<code>with x:</code>，这个对象需要去实现<code>__enter__()</code>，<code>__exit__()</code>。但是写这两个函数还是有点麻烦。所以我们可以使用<code>@contextmanager</code>，让我们可以用一个生成器函数简写。注意这里的contextmanager其实就是一个函数，它接收我们写的生成器函数，然后返回一个真正支持 with 的对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@contextmanager</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">xxx</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># __enter__ 部分</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># __exit__ 部分</span>
+</span></span></code></pre></div><p>因此你可以简单理解为：<code>@contextmanager</code>把一个包含 yield 的生成器函数，包装成了一个可以被 with 使用的上下文管理器。但是这里的 yield 和普通的生成器有点不太一样，这里主要利用了它的暂停特性，没有用 yield 返回任何值（<code>yield</code> 就等于 <code>yield None</code>），所以我们timer的返回值标记成 <code>Iterator[None]</code>。</p>
+<p>有了这些特性，<code>with</code> 可以把资源的获取和释放放在同一个词法范围内，即使发生异常，也会执行清理逻辑。比如举个例子，下面是关于利用锁的两种做法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 错误的用锁</span>
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">modify_shared_data</span><span class="p">()</span>  <span class="c1"># 如果报错，则在这里退出</span>
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 正确的用锁，保证了一定能够释放锁的资源，不管 modify_shared_data() 是否报错</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modify_shared_data</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 上面的正确用法相当于</span>
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modify_shared_data</span><span class="p">()</span> <span class="c1"># 即使报错了，后面 lock.release() 也会执行</span>
+</span></span><span class="line"><span class="cl"><span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</span></span></code></pre></div><p>另外要注意一件事，就是这个锁资源的行为<code>lock.acquire()</code>要在try外面，因为如果在try里面，假设锁资源的操作出现了问题报错，我们会去进行finally的操作，试图去 release 一个根本没有锁的资源，会报错。反之，如果在外面的话，假设锁资源的操作出现了问题报错，程序会直接抛出异常，也不会进入对应的 finally。</p>
+<p>所以我们资源管理的一种通用原则是：<strong>先成功获取资源，再进入 try；finally 负责释放已经确定获取成功的资源</strong>。</p>
+<p>文件（<code>with open(...) as f:</code>）、锁（<code>with lock:</code>）、数据库连接（<code>with connection:</code>）、临时目录、自动混合精度上下文都适合这种模式。它和 C++ 的 RAII 解决的是同一个问题：<strong>资源生命周期必须有清晰边界</strong>。</p>
 
 
 <h3 class="relative group">2.8 异常处理：只捕获能够处理的错误 
@@ -1402,7 +1467,8 @@
     </span>        
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse_world_size</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 接收一个字符串 raw，目标是把它转换成一个大于 0 的整数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse_world_size</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="n">world_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
@@ -1411,13 +1477,15 @@
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">world_size</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&#34;WORLD_SIZE 必须大于 0&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">world_size</span>
-</span></span></code></pre></div><p>建议遵循三条原则：</p>
+</span></span></code></pre></div><p>这里的<code>raise</code>可以理解成主动宣布：“这里发生错误，不能继续正常执行了。”而上面代码的<code>raise ... from exc</code>其实发生了两个异常，第一个是<code>int(&quot;abc&quot;)</code>，产生<code>ValueError: invalid literal for int() with base 10: 'abc'</code>，然后我们捕获它：<code>except ValueError as exc:</code>。接着又主动创建了第二个异常<code>ValueError(&quot;WORLD_SIZE 必须是整数...&quot;)</code></p>
+<p><code>from exc</code> 的意思就是：保留原始异常，并明确告诉 Python：新异常是由这个异常引起的。因此构筑起了异常链，能够同时保留两层信息。</p>
+<p>建议遵循三条原则：</p>
 <ol>
-<li>捕获具体异常，不要用空的 <code>except:</code> 吞掉 <code>KeyboardInterrupt</code> 等信号；</li>
+<li>捕获具体异常，不要用空的 <code>except:</code> ，因为这样的范围太大，还甚至可能吞掉 <code>KeyboardInterrupt</code> 等信号。核心思想是我知道我准备处理什么错误，才去捕获它。</li>
 <li>只有在能恢复、补充上下文或转换抽象层时才捕获；</li>
-<li>用 <code>raise ... from exc</code> 保留根因链。</li>
+<li>用 <code>raise ... from exc</code> 保留根因链。用它来把一个底层概念转变为上层概念，这就是所谓的“转换抽象层”。</li>
 </ol>
-<p>不要把异常用于正常的高频控制流，尤其是在性能敏感循环中。</p>
+<p>不要把异常用于正常的高频控制流，尤其是在性能敏感循环中。异常应该主要表达异常情况，不要把它当作普通的 if 用。</p>
 
 
 <h3 class="relative group">2.9 类型标注与数据类 
@@ -1430,27 +1498,66 @@
     </span>        
     
 </h3>
-<p>类型标注主要服务于静态检查、IDE 和读者，不会自动在运行时验证类型：</p>
+<p>类型标注主要服务于静态检查、IDE 和读者，<strong>不会自动在运行时验证类型</strong>。比如假设我们有一个这样的函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span></span></code></pre></div><p>a: int 不是意味着 Python 会强制要求 a 是 int！反而，你甚至可以<code>add(&quot;hello&quot;, &quot;world&quot;)</code>，照样可以得到结果 helloworld。所以在这里的<code>a: int</code>，更接近于声明：“我希望这里传进来的是 int”。</p>
+<p>同时对于下面的代码来说，我们也可以乱传数据进去，Python 默认不会因为你违反了类型标注就立刻阻止你，它仍然会尝试执行函数内部代码，当然实际能不能执行就另当别论了。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ShardSpec</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 自动帮你生成__init__、__repr__ 等，frozen=True 表示创建以后不要修改它</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ShardSpec</span><span class="p">:</span> <span class="c1"># 一个专门用来装数据的类</span>
 </span></span><span class="line"><span class="cl">    <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span>
 </span></span><span class="line"><span class="cl">    <span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">shard</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">spec</span><span class="p">:</span> <span class="n">ShardSpec</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">spec</span><span class="o">.</span><span class="n">rank</span><span class="p">::</span><span class="n">spec</span><span class="o">.</span><span class="n">world_size</span><span class="p">]</span>
-</span></span></code></pre></div><p>常用选择：</p>
+</span></span></code></pre></div><p>注意这里的Sequence[int]，表示一个“整数序列”。它需要的是能像“序列”一样被下标和切片。比如 list，tuple 都属于Sequence。</p>
+<p>常用选择：</p>
 <ul>
-<li>参数只要求“可迭代”或“序列”能力时，标注 <code>Iterable[T]</code>、<code>Sequence[T]</code> 等抽象协议；</li>
+<li>参数只要求“可迭代”或“序列”能力时，标注 <code>Iterable[T]</code>、<code>Sequence[T]</code> 等抽象协议，也就是<strong>只要求自己真正需要的能力</strong>。避免把接口限制的太死；</li>
 <li>返回具体容器时可标注 <code>list[T]</code>、<code>dict[K, V]</code>；</li>
 <li><code>T | None</code> 表示值可能缺失；</li>
-<li><code>Protocol</code> 可描述结构化接口，减少不必要的继承；</li>
+<li><code>Protocol</code> 可描述结构化接口，减少不必要的继承。也就是它描述的是“你需要长成什么样”，而不是“你必须继承谁”；</li>
 <li><code>dataclass</code> 适合主要承载数据、规则简单的对象。</li>
 </ul>
-<p>类型系统的目标是尽早暴露接口误用，不是把动态语言硬写成 Java。公共边界优先标清，局部显而易见的变量不必逐个标注。</p>
-<hr>
+<p>类型系统的目标是尽早暴露接口误用，不是把动态语言硬写成 Java。<strong>公共边界（接口边界）优先标清，局部显而易见的变量不必逐个标注</strong>。</p>
+
+
+<h4 class="relative group">Protocol 和鸭子类型 
+    <div id="protocol-%E5%92%8C%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#protocol-%E5%92%8C%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>鸭子类型（Duck Typing）</strong>：
+不关心一个对象具体属于什么类，只关心它是否拥有我需要的方法或能力。</p>
+<p>例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">make_sound</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span><span class="o">.</span><span class="n">speak</span><span class="p">()</span>
+</span></span></code></pre></div><p>这里并不要求 <code>x</code> 必须继承某个 <code>Animal</code> 类，只要它有 <code>speak()</code> 方法即可。</p>
+<p><strong>Protocol</strong>：
+用于把“对象需要具备哪些能力”正式写成类型接口，让 IDE 和静态类型检查器也能理解鸭子类型。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Speaker</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">make_sound</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Speaker</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span><span class="o">.</span><span class="n">speak</span><span class="p">()</span>
+</span></span></code></pre></div><p>一个类即使没有继承 <code>Speaker</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;汪&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>因为 <code>Dog</code> 具有 <code>speak() -&gt; None</code> 这个结构，所以可以被当作 <code>Speaker</code> 使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">make_sound</span><span class="p">(</span><span class="n">Dog</span><span class="p">())</span>
+</span></span></code></pre></div><p><strong>鸭子类型是“有这个能力就能用”，Protocol 是把这种能力要求正式写给类型检查器看</strong>。</p>
 
 
 <h2 class="relative group">3. Python 并发与性能分析 
@@ -1476,9 +1583,10 @@
     
 </h3>
 <ul>
-<li><strong>并发（concurrency）</strong>：多个任务在同一时间段内推进；</li>
-<li><strong>并行（parallelism）</strong>：多个任务在同一时刻真正执行。</li>
+<li><strong>并发（concurrency）</strong>：多个任务在同一时间段内推进，同一时刻不一定真的有多个任务在执行，可能只是 CPU 在不同任务之间快速切换。</li>
+<li><strong>并行（parallelism）</strong>：多个任务在同一时刻真正执行。通常需要多个 CPU 核心、多个进程，或者 GPU 等硬件支持。</li>
 </ul>
+<p>不要一看到“任务很多”就想着开线程。先看任务到底是在“等”，还是在“算”。因为不同瓶颈，对应的并发方式完全不同。</p>
 <p>选择并发模型前，先判断瓶颈：</p>
 <table>
   <thead>
@@ -1492,12 +1600,12 @@
       <tr>
           <td>I/O 密集</td>
           <td>请求服务、读取大量小文件</td>
-          <td>线程或 <code>asyncio</code></td>
+          <td>线程（threading）或 <code>asyncio</code></td>
       </tr>
       <tr>
           <td>Python CPU 密集</td>
           <td>纯 Python 解析、复杂循环</td>
-          <td>多进程或原生扩展</td>
+          <td>多进程（multiprocessing）或原生扩展</td>
       </tr>
       <tr>
           <td>原生算子密集</td>
@@ -1507,10 +1615,25 @@
       <tr>
           <td>大数据跨进程</td>
           <td>数据加载、共享缓存</td>
-          <td>多进程 + 共享内存，谨慎序列化</td>
+          <td>多进程 + 共享内存，避免频繁序列化大对象</td>
       </tr>
   </tbody>
 </table>
+<p>针对I/O 密集任务，我们非常适合使用线程（threading）或 <code>asyncio</code>，核心思想都是<strong>某个任务等待 I/O 时，让别的任务运行</strong>。那么为什么Python 线程适合 I/O？这就需要我们了解下一章的GIL。</p>
+<p>针对CPU 密集型任务，多进程可以处理是因为每个进程有自己的 Python Interpreter，也有自己的 GIL，所以可以真正并行。</p>
+<p>针对原生算子密集任务，比如用到了NumPy / PyTorch / CUDA，虽然是通过 Python 代码发起的，但真正耗时的计算通常不是由 Python 自己完成，而是交给底层的 C/C++、BLAS、CUDA 等原生实现执行。</p>
+<p>针对大数据跨进程任务，要了解不同进程默认拥有彼此独立的内存空间。<strong>一个进程里的大对象，不能像多线程那样直接被另一个进程随便访问</strong>。因此如果把一个很大的 data 交给多个进程处理，最直接的做法可能会导致数据在进程之间被复制，这会导致：</p>
+<ol>
+<li>内存占用很高</li>
+<li>进程之间传输数据很慢
+因此，对于大数据，多进程场景下常考虑使用共享内存（多个进程共同访问同一块内存，而不是每个进程都复制一整份数据）</li>
+</ol>
+<p>进程之间传递普通 Python 对象时，通常不能直接传内存中的对象本身，而是需要先把对象转换成可以传输的形式。这个过程就叫做序列化（serialization）。所以在大量数据跨进程时，显然就要尽量减少数据复制和序列化，尽量使用共享内存。</p>
+<p>解释一下大数据跨进程中的两个常见例子：</p>
+<ol>
+<li><strong>数据加载</strong>：多个 worker 进程并行读取/预处理数据，再把 batch 交给主进程；如果数据很大，跨进程复制和序列化会有明显开销。</li>
+<li><strong>共享缓存</strong>：多个进程都要访问同一份大数据时，使用共享缓存/共享内存可以避免每个进程各复制一份。</li>
+</ol>
 
 
 <h3 class="relative group">3.2 GIL 到底限制了什么 
@@ -1523,8 +1646,8 @@
     </span>        
     
 </h3>
-<p>常见 CPython 构建使用全局解释器锁（GIL）保护解释器内部状态。同一进程中，通常只有一个线程能同时执行 Python 字节码。因此，两个执行纯 Python CPU 循环的线程一般不能获得两倍速度。</p>
-<p>但这不等于“Python 线程没有用”：</p>
+<p>常见 CPython 构建使用全局解释器锁（GIL）保护解释器内部状态。一个进程里的多个 Python 线程，要执行 Python 字节码时，需要先拿到 GIL。因此在同一进程中，通常只有一个线程能同时执行 Python 字节码。也意味着两个执行纯 Python CPU 循环的线程一般不能获得两倍速度。所以纯 Python CPU 密集型任务，一般不靠多线程来实现多核并行，这个场景更典型的是使用多进程。</p>
+<p>但这不等于“Python 线程没有用”，<strong>GIL 限制的是执行 Python 字节码，并不代表线程任何时候都必须占着 GIL</strong>：</p>
 <ul>
 <li>阻塞 I/O 时解释器会释放 GIL；</li>
 <li>NumPy、PyTorch 等原生扩展可在耗时计算时释放 GIL；</li>
@@ -1546,24 +1669,50 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 访问这个url，等待服务器响应后，返回响应内容有多少字节</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">fetch_size</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span> <span class="c1"># 先在try里面先完成len(response.read())，然后一直做完上下文管理器的finally后，return 完成的len(response.read())</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;https://example.com&#34;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 不使用线程的做法</span>
+</span></span><span class="line"><span class="cl"><span class="n">sizes</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fetch_size</span><span class="p">(</span><span class="n">url</span><span class="p">))</span> <span class="c1"># 串行的执行这个函数，很多时间都浪费在等待网络</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用线程池以后（这里创建了一个线程池，最多同时使用4个工作线程）</span>
 </span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">sizes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fetch_size</span><span class="p">,</span> <span class="n">urls</span><span class="p">))</span>
-</span></span></code></pre></div><p>线程共享进程内存，传数据便宜，但对同一可变对象的“读取—修改—写回”可能产生竞态。需要锁时让临界区尽可能小：</p>
+</span></span></code></pre></div><p>注意这里的<code>urlopen(...)</code>和<code>response.read()</code>都可能发生网络等待，所以这种任务就是典型的 I/O 密集型任务。</p>
+<p>代码中的<code>pool.map(fetch_size, urls)</code>，概念上很像<code>map(fetch_size, urls)</code>，区别是普通map基本上是依次执行，而<code>pool.map(...)</code>会把这些任务交给线程池并发执行。</p>
+<p><code>pool.map(fetch_size, urls)</code>其含义相当于让四个线程分别执行：</p>
+<pre tabindex="0"><code>线程1：fetch_size(url1)
+线程2：fetch_size(url2)
+线程3：fetch_size(url3)
+线程4：fetch_size(url4)
+</code></pre><p>它们可以一起等待网络，理想情况下和只去访问一个url的时间差不多。</p>
+<p>我们还要注意，<strong>线程共享进程内存，传数据便宜</strong>，但对同一可变对象的“读取—修改—写回”可能产生竞态导致错误，我们要使用锁：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Lock</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span> <span class="c1"># 锁</span>
 </span></span><span class="line"><span class="cl"><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">increment</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="n">counter</span>
 </span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-</span></span></code></pre></div><p>不要依赖“某个内置操作看起来是原子的”来设计正确性；解释器版本、对象实现或复合操作都可能破坏这种假设。</p>
+</span></span></code></pre></div><p>这里的<code>with lock:</code>等于：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</span></span></code></pre></div><p><strong>确保了同一时刻只有一个线程能够执行<code>counter += 1</code></strong>，所以最终结果一定正确。</p>
+<p>同时我们还需要锁时让临界区（被锁保护的这一小段，在上面的代码中就是<code>counter += 1</code>）尽可能小，也就是<strong>只锁真正需要保护的共享数据操作</strong>。</p>
+<p>原子操作指的是执行过程中不能被拆开、不能做到一半被别的线程插进来的操作。不要依赖“某个内置操作看起来是原子的”来设计正确性；解释器版本、对象实现或复合操作都可能破坏这种假设。而且更常见的问题是：即使单独几个操作各自安全，组合起来也不安全。</p>
+<p>因此我们判断是不是需要同步，应该看整个“读取 → 判断 → 修改”逻辑，而不是只看一条python语句。</p>
 
 
 <h3 class="relative group">3.4 多进程：绕开 GIL，但数据搬运有成本 
@@ -1578,6 +1727,7 @@
 </h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 判断素数，属于典型的 CPU 密集型任务</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">count_primes</span><span class="p">(</span><span class="n">limit</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">is_prime</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -1586,19 +1736,31 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">is_prime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">limit</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 启动多个进程，让 4 个进程分别执行一次 count_primes(50000)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">count_primes</span><span class="p">,</span> <span class="p">[</span><span class="mi">50_000</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">))</span>
-</span></span></code></pre></div><p><code>if __name__ == &quot;__main__&quot;:</code> 对使用 <code>spawn</code> 启动子进程的平台尤其重要，可避免子进程重新导入模块时递归创建新进程。</p>
+</span></span></code></pre></div><p>使用多进程时，把“创建子进程”的代码放在<code>if __name__ == &quot;__main__&quot;:</code>中。因为 spawn 创建的子进程会重新导入当前模块，如果创建进程的代码位于模块顶层，子进程导入时可能再次创建子进程，导致递归创建。来看个例子，如果我们把上面的代码这么写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">count_primes</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span></code></pre></div><p>我们的主导入 demo.py（假设文件名叫这个），他会创建子进程，然后我们的子进程会重新导入当前模块demo.py，然后又看到了<code>with ProcessPoolExecutor() as pool:</code>，子进程又去创建自己的子进程&hellip;</p>
+<p>但是加上<code>if __name__ == &quot;__main__&quot;:</code>以后，只有主进程直接运行文件时<code>__name__ == &quot;__main__&quot;</code>。使用 spawn 创建子进程重新导入这个模块时，这个模块是被导入的模块，不是程序入口，因此通常是<code>__name__ = &quot;__mp_main__&quot;</code>，我们的判断不成立，所以不会继续去创建。</p>
+<p>顺便区分一个容易混淆的情况：普通 import 时，<strong>name</strong> 通常就是模块名。也就是哪个文件被直接运行，哪个文件的 <strong>name</strong> 就是 &ldquo;<strong>main</strong>&quot;；被 import 的模块，<strong>name</strong> 通常就是它的模块名。</p>
 <p>多进程的主要成本包括：</p>
 <ul>
 <li>创建进程和独立解释器；</li>
-<li>参数与返回值的序列化/反序列化；</li>
+<li>参数与返回值的序列化/反序列化，进程间常常需要pickle序列化/反序列化传递普通 Python 对象；</li>
 <li>复制或映射内存；</li>
 <li>进程间通信与同步。</li>
 </ul>
-<p>如果每个任务只做几十微秒工作，调度成本可能比计算更高。应增大任务粒度，并尽量避免来回传递大型数组或张量。</p>
+<p>核心就是<strong>进程之间不像线程那样天然共享同一个 Python 内存空间</strong>。</p>
+<p>如果每个任务只做几十微秒工作，调度成本可能比计算更高。应增大任务粒度，也就是一次分配出去更多工作，让“实际计算时间”远大于“调度和通信时间”，并尽量避免来回传递大型数组或张量。</p>
 <blockquote>
-<p><strong>GPU 关联</strong>：CUDA 上下文和多进程启动方式组合不当会引发初始化错误或额外显存占用。使用框架的数据加载与分布式能力时，应遵循框架推荐的启动器和 start method，不要在父进程初始化 CUDA 后随意 <code>fork</code>。</p></blockquote>
+<p><strong>GPU 关联</strong>：CUDA 不是普通的 Python 内存状态，父进程已经初始化 CUDA 以后，再用fork复制出子进程，子进程拿到的CUDA状态可能是不完整或不安全的。因此不要在父进程初始化CUDA后随意 <code>fork</code>。</p></blockquote>
 
 
 <h3 class="relative group">3.5 <code>asyncio</code>：协作式 I/O 并发 
@@ -1611,22 +1773,41 @@
     </span>        
     
 </h3>
-<p><code>asyncio</code> 用事件循环调度协程。协程只会在 <code>await</code> 处主动让出控制权：</p>
+<p>简单来说，asyncio 通常是在一个线程里的事件循环中，让很多任务轮流推进，而 await 就是任务主动说“我现在要等东西，你先去跑别人吧”。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">asyncio</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">worker</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>  <span class="c1"># 模拟非阻塞 I/O</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">worker</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="c1"># 定义了一个协程函数</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 一个异步等待函数，当前协程暂停，线程没有被阻塞</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>  <span class="c1"># 模拟异步非阻塞 I/O</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">name</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># asyncio.gather()是把这两个协程都安排起来，并发执行，然后等它们全部结束</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 并且要注意它的结果顺序按照传入顺序，不按照完成顺序。</span>
 </span></span><span class="line"><span class="cl">    <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="n">worker</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">worker</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="c1"># 并不会像普通函数那样立刻完整执行，而是得到一个协程对象，之后交给事件循环调度</span>
 </span></span><span class="line"><span class="cl">        <span class="n">worker</span><span class="p">(</span><span class="s2">&#34;b&#34;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建一个事件循环，然后把 main() 扔进去，一直运行，直到 main 完成，最后关闭事件循环</span>
 </span></span><span class="line"><span class="cl"><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
-</span></span></code></pre></div><p>在事件循环中直接执行阻塞 I/O 或长时间 CPU 计算会卡住所有协程。此时应改用异步库，或把阻塞工作放到线程/进程执行器。</p>
+</span></span></code></pre></div><p><code>asyncio</code> 用事件循环调度协程（coroutine）。事件循环，你可以想象为一个调度员，<strong>它不断判断现在哪个协程可以继续执行</strong>。例如 worker a 现在执行到<code>await asyncio.sleep(0.2)</code>，事件循环就会去运行 worker b。</p>
+<p>还有重要的一点，就是<strong>协程只会在 <code>await</code> 处主动让出控制权</strong>。如果一个 async def 的函数里面没有 await，那么一旦事件循环开始执行它，它基本会连续全部执行完，不会莫名其妙执行到某一行代码时突然切换到另一个协程。因此 asyncio 属于一种协作式调度，而不是线程那种操作系统可以在任意时刻抢占执行权的模型。await 只能写在 async def 中。</p>
+<p>由于<code>asyncio</code>，让上面的代码中的两次 <code>asyncio.sleep</code> 可以重叠，所以总体大约只需要 0.2 秒左右，这正是 asyncio 特别适合 I/O 密集任务 的原因。</p>
+<p>在事件循环中直接执行阻塞 I/O （比如 <code>time.sleep(10)</code> 就是一个阻塞操作，注意它没写<code>await</code>）或长时间 CPU 计算会卡住所有协程。而事件循环通常运行在一个线程里。只要这个线程被阻塞，其他协程就没法调度。</p>
+<p>此时应改用异步库，或把阻塞工作放到线程/进程执行器。</p>
+<p>另外，对于<code>await</code>我们还要明白: await 一个 CPU 密集协程，如果这个协程内部没有 await，它仍然会一直执行到结束，不会中途切换到其他协程。比如这个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">fun</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1_000_000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">total</span> <span class="o">+=</span> <span class="n">i</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">total</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">fun</span><span class="p">()</span>
+</span></span></code></pre></div><p>因为 fun() 内部没有暂停点，它会从头跑到尾。</p>
+<p>另外要知道，<code>await xxx</code> 会先进入/推进 xxx 的执行，直到 xxx 自己遇到一个真正需要等待、需要挂起的点，才把控制权交回事件循环。</p>
 
 
 <h3 class="relative group">3.6 正确做基准测试 
@@ -1639,24 +1820,48 @@
     </span>        
     
 </h3>
-<p>性能测试最常见的错误是只测一次、把初始化算进去，或者忘记 GPU 异步执行。</p>
+<p>性能测试不能“随便掐一次表”，而要尽量测到稳定、真实、可重复的执行时间。性能测试最常见的错误是只测一次、把初始化算进去，或者忘记 GPU 异步执行。</p>
+<p>如果我们只去这样运行一次函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">fn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">end</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+</span></span></code></pre></div><p>得到 12.8ms，这个数字只能说明：这一次，在当前机器状态、当前 CPU 调度、当前缓存状态下，它花了 12.8ms。所以 benchmark 的目标不是得到一个数字，而是设计一个尽量公平的实验，让这个数字具有代表性。另外，我们要明确我们现在要去测量什么东西，然后把性能测试的边界画准确。</p>
 <p>纯 CPU 小片段可用 <code>timeit</code>：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python -m timeit -s <span class="s1">&#39;xs = list(range(1000))&#39;</span> <span class="s1">&#39;sum(xs)&#39;</span>
-</span></span></code></pre></div><p>手工测试至少要做到：</p>
+</span></span></code></pre></div><p>这里<code>-s 'xs = list(range(1000))'</code>，也就是先运行xs = list(range(1000))。然后真正被benchmark的只有<code>sum(xs)</code>。
+所以所以 timeit 帮你自动区分“准备数据”和“我要测的代码”。</p>
+<p>对于一个特别短的代码，操作系统调度的一个轻微抖动甚至可能比代码本身还要对总耗时的影响还要大，所以对于特别短的代码，正确策略不是测一次，而是测很多次，计算平均时间。timeit 就是专门帮你做这件事的。<strong>所以 timeit 特别适合微基准测试（microbenchmark）</strong>。</p>
+<p>手工测试至少要做到：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">median</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">perf_counter</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">benchmark</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">warmup</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 先进行warmup，这几次运行不计时。因为第一次执行经常与后面的执行不一样。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># warmup 是为了让系统进入稳定态</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">warmup</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="n">fn</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeat</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="c1"># perf_counter()是专门设计来测时间间隔的高精度计时器。perf_counter() 的重点是“差值”，不是绝对值。</span>
 </span></span><span class="line"><span class="cl">        <span class="n">fn</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">        <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">median</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
-</span></span></code></pre></div><p>对于 GPU，Kernel 启动通常是异步的。CPU 计时器只量到“提交任务”的时间，需要在边界同步，或使用框架提供的 GPU Event。同步会改变流水线行为，因此端到端吞吐和单算子延迟应分别测量。</p>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">median</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span> <span class="c1"># median选取中位数，因为平均数很容易受到一次偶发系统抖动影响</span>
+</span></span></code></pre></div><p>对于 GPU，Kernel 启动通常是异步的。GPU异步启动指的是CPU 和 GPU 可以重叠工作。而CPU 计时器只量到“提交任务”的时间，而任务可能GPU还在做，还没有完成，这样的话我们的计时就有问题。比如下面的代码，可能我们 CPU 提交任务花了0.1 ms，GPU 真正计算花了5 ms，这样的话我们计算得到的 <code>elapsed</code> 只有 0.1ms，这显然有问题：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">elapsed</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+</span></span></code></pre></div><p>因此我们需要在边界同步，比如下面的常见的 pytorch CUDA 写法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span> <span class="c1"># 确保测试开始之前，GPU 前面的旧任务全部做完</span>
+</span></span><span class="line"><span class="cl"><span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span> <span class="c1"># 确保刚才这个任务真的执行完，再停止 CPU 计时器。</span>
+</span></span><span class="line"><span class="cl"><span class="n">elapsed</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+</span></span></code></pre></div><p>注意我们要在开始前也写<code>torch.cuda.synchronize()</code>，因为有可能GPU 在 start 之前还有一个旧任务没做完。那么计时结果就变成 “旧任务残留时间 + 新任务时间”。</p>
+<p>另一种方法是使用框架提供的 GPU Event。因为<code>perf_counter()</code>本质上还是 CPU 时钟，而 GPU 有自己的执行时间线，所以很多框架提供在在 GPU 流里面直接插入“时间戳”。思想就是：CPU timer 看 CPU 时间线；GPU Event 看 GPU 时间线。</p>
+<p>同步会改变流水线行为，本来的流水线会因为计时产生停顿。因此端到端吞吐 throughput（比如：整个模型每秒能处理多少张图片？）和单算子延迟 latency（比如：一个矩阵乘法实际花多少时间？）应分别测量。</p>
 
 
 <h3 class="relative group">3.7 从“慢”定位到具体代码 
@@ -1671,27 +1876,83 @@
 </h3>
 <p>建议按由粗到细的顺序：</p>
 <ol>
-<li><strong>端到端计时</strong>：确认回归真实存在；</li>
-<li><strong>阶段计时</strong>：区分数据、计算、通信和保存；</li>
-<li><strong>函数级 profiling</strong>：用 <code>cProfile</code> 找累计耗时高的函数；</li>
-<li><strong>行级/采样 profiling</strong>：进一步定位热点行或原生调用栈；</li>
-<li><strong>内存 profiling</strong>：用 <code>tracemalloc</code> 等工具找 Python 分配增长；</li>
-<li><strong>GPU profiling</strong>：进入 PyTorch Profiler、Nsight Systems/Compute 等专用工具。</li>
-</ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python -m cProfile -o profile.out train.py
-</span></span><span class="line"><span class="cl">python -m pstats profile.out
-</span></span></code></pre></div><p>在 <code>pstats</code> 中可按累计时间排序：</p>
+<li>
+<p><strong>端到端计时</strong>：也就是查看程序整体的执行耗时，确认性能回归（也就是比之前执行的慢）真实存在；</p>
+</li>
+<li>
+<p><strong>阶段计时</strong>：区分数据、计算、通信和保存，找出是哪一个大阶段出了问题；</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python -m cProfile -o profile.out train.py <span class="c1"># 用 cProfile 运行整个 train.py，并把 profiling 结果保存到 profile.out</span>
+</span></span><span class="line"><span class="cl">python -m pstats profile.out <span class="c1"># 进入结果查看工具</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>函数级 profiling</strong>：用 <code>cProfile</code> 找累计耗时高的函数；
+在 <code>pstats</code> 中可按累计时间排序：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sort cumulative
 </span></span><span class="line"><span class="cl">stats 30
-</span></span></code></pre></div><p>检查 Python 内存分配：</p>
+</span></span></code></pre></div><p>cProfile 记录每个 Python 函数被调用多少次，以及它们花了多少时间。一个比较常见的输出列大概是：</p>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>ncalls</code></td>
+          <td>函数被调用的次数。</td>
+      </tr>
+      <tr>
+          <td><code>tottime</code></td>
+          <td>函数<strong>自身</strong>消耗的总时间，不包括它调用的其他函数。</td>
+      </tr>
+      <tr>
+          <td><code>percall</code></td>
+          <td><code>tottime / ncalls</code>，函数每次调用平均自身耗时。</td>
+      </tr>
+      <tr>
+          <td><code>cumtime</code></td>
+          <td>函数自身 + 它调用的所有子函数的累计耗时。</td>
+      </tr>
+      <tr>
+          <td><code>percall</code></td>
+          <td><code>cumtime / 原始调用次数</code>，每次调用平均累计耗时。</td>
+      </tr>
+      <tr>
+          <td><code>filename:lineno(function)</code></td>
+          <td>函数所在的文件名、定义行号以及函数名。</td>
+      </tr>
+  </tbody>
+</table>
+<p>cProfile 中的 <code>cumtime</code> 就是这个函数本身 + 它调用的所有下层函数，总共消耗了多少时间。通过 <code>python -m cProfile -s cumulative demo.py</code> 我们让 cProfile 中 cumtime 的结果按照累计时间排序，适合用它找哪个函数树占用了最多运行时间。</p>
+<p><code>tottime</code>就是函数自身执行的时间。不包括它调用其他函数的时间。<code>python -m cProfile -s time demo.py</code>是让我们的结果按照 cProfile 中 tottime 进行排序。</p>
+</li>
+<li>
+<p><strong>行级/采样 profiling</strong>：进一步定位热点行或原生调用栈，采样profiling类似于：每隔一小段时间，看一下“程序现在正在执行哪里”；</p>
+</li>
+<li>
+<p><strong>内存 profiling</strong>：程序性能问题不只有 CPU 慢，内存泄漏和不必要的数据保留也是问题。我们可以用 <code>tracemalloc</code> 等工具找 Python 分配增长；
+一个检查 Python 内存分配的例子：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tracemalloc</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开始跟踪python的内存分配</span>
 </span></span><span class="line"><span class="cl"><span class="n">tracemalloc</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 运行待检查代码</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 取得目前内存分配情况的快照</span>
 </span></span><span class="line"><span class="cl"><span class="n">snapshot</span> <span class="o">=</span> <span class="n">tracemalloc</span><span class="o">.</span><span class="n">take_snapshot</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">snapshot</span><span class="o">.</span><span class="n">statistics</span><span class="p">(</span><span class="s2">&#34;lineno&#34;</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
-</span></span></code></pre></div>
+</span></span></code></pre></div><p>但是要注意<code>tracemalloc</code>主要追踪Python 自己管理的内存分配。如果显存主要是 CUDA / PyTorch 底层分配，就不能指望上<code>tracemalloc</code>，应该用下一步的操作。</p>
+</li>
+<li>
+<p><strong>GPU profiling</strong>：如果发现真正慢的是PyTorch/CUDA，普通 cProfile 就不够用了。我们可以进入 PyTorch Profiler、Nsight Systems/Compute 等专用工具。
+这几种工具中，PyTorch Profiler 是从 PyTorch 角度看 operator/kernel 时间；Nsight Systems 是看整个 CPU + CUDA 时间线；Nsight Compute 是深入研究某一个 CUDA kernel 为什么慢。</p>
+</li>
+</ol>
+<p>性能优化一定要“由粗到细”，因为核心思路就是：先找热点，再优化热点。</p>
+
 
 <h3 class="relative group">3.8 Python 性能优化的优先级 
     <div id="38-python-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7" class="anchor"></div>
@@ -1705,14 +1966,25 @@
 </h3>
 <p>推荐顺序如下：</p>
 <ol>
-<li>先改算法复杂度和数据结构；</li>
-<li>减少不必要的 I/O、复制和序列化；</li>
-<li>把细粒度 Python 循环改成批处理/向量化原生算子；</li>
-<li>减少 Python 与 C++/GPU 边界的频繁往返；</li>
-<li>确认热点后，再写 C++、CUDA 或 Triton 扩展。</li>
+<li>
+<p>先改算法复杂度和数据结构；</p>
+</li>
+<li>
+<p>减少不必要的 I/O、复制和序列化；</p>
+</li>
+<li>
+<p>把细粒度 Python 循环改成批处理/向量化原生算子；
+比如在矩阵运算用 Numpy，相比于原生python可以极大提升速度。</p>
+</li>
+<li>
+<p>减少 Python 与 C++/GPU 边界的频繁往返；
+例如，一百万次小算子调用即使每次都很快，也会累积大量调度开销（不是实际计算本身产生的时间，而是为了“发起这次计算”所花的额外时间）。把数据组成批次后调用一次大算子，通常比微调 Python 语法有效得多。</p>
+</li>
+<li>
+<p>确认热点后，再写 C++、CUDA 或 Triton 扩展。</p>
+</li>
 </ol>
-<p>例如，一百万次小算子调用即使每次都很快，也会累积大量调度开销。把数据组成批次后调用一次大算子，通常比微调 Python 语法有效得多。</p>
-<hr>
+<p>Python 性能优化应优先减少计算量、数据搬运和 Python 层调用次数；先通过算法优化和批处理把工作交给高效的原生算子，只有在 profiling 确认热点且现有算子仍不足时，才考虑 C++/CUDA/Triton 扩展。</p>
 
           
           
@@ -1787,7 +2059,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>75998 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">152 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>83571 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">167 分钟</span>
   
 
   
