@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 normalization &middot; QingJiu</title>
+  <meta name="title" content="assign1 normalization &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/cs336-assign1-2/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.930a7c6a69224a9dc067fbe56035893295d7d83b892c265af91a4fa70d5428caf70cd14538bd83dfa4a867905c07bfd20884f698d9be1127676af1de53796eff.css"
+    integrity="sha512-kwp8amkiSp3AZ/vlYDWJMpXX2DuJLCZa&#43;RpPpw1UKMr3DNFFOL2D36SoZ5BcB7/SCIT2mNm&#43;ESdnavHeU3lu/w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/cs336-assign1-2/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 normalization">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-03T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-2/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/cs336-assign1-2/featured.JPG">
+  <meta name="twitter:title" content="assign1 normalization">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 normalization",
+    "headline": "assign1 normalization",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/cs336-assign1-2\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-03T00:00:00\u002b00:00",
+    "datePublished": "2026-08-03T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-03T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "6180"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-2/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 normalization
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-03T00:00:00&#43;00:00">3 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6180 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">13 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#part-a--为什么要归一化激活尺度是逐层指数漂移的">Part A · 为什么要归一化：激活尺度是逐层&quot;指数漂移&quot;的</a></li>
+    <li><a href="#part-b--layernorm-vs-rmsnorm">Part B · LayerNorm vs RMSNorm</a></li>
+    <li><a href="#part-c--重头戏为什么必须-fp32-upcast">Part C · 【重头戏】为什么必须 fp32 upcast</a></li>
+    <li><a href="#part-d--归一化的核心性质输出-rms--1">Part D · 归一化的核心性质：输出 RMS ≈ 1</a></li>
+    <li><a href="#-拓展实验自己动手">🔬 拓展实验（自己动手）</a></li>
+    <li><a href="#回答">回答</a></li>
+    <li><a href="#-你的任务rmsnorm-引导骨架">✏️ 你的任务：RMSNorm 引导骨架</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#part-a--为什么要归一化激活尺度是逐层指数漂移的">Part A · 为什么要归一化：激活尺度是逐层&quot;指数漂移&quot;的</a></li>
+    <li><a href="#part-b--layernorm-vs-rmsnorm">Part B · LayerNorm vs RMSNorm</a></li>
+    <li><a href="#part-c--重头戏为什么必须-fp32-upcast">Part C · 【重头戏】为什么必须 fp32 upcast</a></li>
+    <li><a href="#part-d--归一化的核心性质输出-rms--1">Part D · 归一化的核心性质：输出 RMS ≈ 1</a></li>
+    <li><a href="#-拓展实验自己动手">🔬 拓展实验（自己动手）</a></li>
+    <li><a href="#回答">回答</a></li>
+    <li><a href="#-你的任务rmsnorm-引导骨架">✏️ 你的任务：RMSNorm 引导骨架</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>深层网络里，激活值的尺度会随深度不断漂移，梯度也随之爆炸或消失。<strong>归一化</strong>就是把每一层的激活拉回一个可控的尺度。这一章聚焦作业里要用的 <strong>RMSNorm</strong>：它比经典的 LayerNorm 更简单——不减均值、没有 bias，只用<strong>均方根 (RMS)</strong> 做缩放，再乘一个可学习的 gain。</p>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>理解<strong>为什么要归一化</strong>：控制激活尺度、稳定深层梯度。</li>
+<li>说清 <strong>LayerNorm vs RMSNorm</strong> 的差别（减不减均值、有没有 bias）。</li>
+<li>【重头戏】亲眼看到 <strong>fp32 upcast</strong> 对数值精度的影响，理解 handout 为什么强制要求它——这也是 <code>test_rmsnorm</code> 最容易丢分的点。</li>
+<li>验证归一化的核心性质：<strong>输出的 RMS ≈ 1</strong>。</li>
+<li>拿到 RMSNorm 的<strong>引导骨架</strong>，知道自己在 <code>cs336_basics/</code> 里要写什么。</li>
+</ol>
+<blockquote>
+<p><strong>学术诚信</strong>：本笔记本用 <code>nn.LayerNorm</code> / <code>nn.RMSNorm</code> 等 PyTorch 内置件当&quot;参考教具&quot;，只用来展示<strong>行为、性质、几何与数值现象</strong>，<strong>不</strong>包含任何可复制粘贴的 <code>run_rmsnorm</code> 解答。真正的实现表达式全部留白（<code>...</code>）给你自己写。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sci_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;setup ok | torch&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>setup ok | torch 2.11.0
+</code></pre>
+
+
+<h2 class="relative group">Part A · 为什么要归一化：激活尺度是逐层&quot;指数漂移&quot;的 
+    <div id="part-a--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BD%92%E4%B8%80%E5%8C%96%E6%BF%80%E6%B4%BB%E5%B0%BA%E5%BA%A6%E6%98%AF%E9%80%90%E5%B1%82%E6%8C%87%E6%95%B0%E6%BC%82%E7%A7%BB%E7%9A%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-a--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BD%92%E4%B8%80%E5%8C%96%E6%BF%80%E6%B4%BB%E5%B0%BA%E5%BA%A6%E6%98%AF%E9%80%90%E5%B1%82%E6%8C%87%E6%95%B0%E6%BC%82%E7%A7%BB%E7%9A%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>深层网络是一串线性变换的叠加。一个自然但<strong>容易想错</strong>的问题是：把很多线性层叠起来，激活的尺度会怎样？直觉常说&quot;会炸&quot;，但真相更精细——<strong>取决于每一层的&quot;增益因子&quot;有没有越过 1</strong>。</p>
+<p>首先明确，RMS是均方根。RMS(x) = sqrt(mean(x^2))。
+而标准差std是：std(x) = sqrt(mean((x - mean(x))^2))
+两者很接近，区别主要是：
+RMS：看数值本身离 0 有多远
+标准差：看数值离自己的平均值有多远</p>
+<p>对一个 <code>(d, d)</code>、权重元素方差为 $\sigma^2$ 的线性层，它作用在激活上时，对<strong>标准差 / RMS</strong> 的乘性增益约为：</p>
+$$g \approx \sqrt{d}\,\sigma$$<blockquote>
+<p>推导：输出分量 $h_i=\sum_{j} W_{ij}x_j$，在权重独立同分布假设下 $\mathrm{Var}(h_i)=\sigma^2\|x\|^2$；$d$ 个分量合起来 $\mathbb{E}\|h\|^2 = d\,\sigma^2\|x\|^2$，开方即得 $g=\sqrt{d}\,\sigma$。</p></blockquote>
+<p><code>nn.Linear</code> 的默认初始化（<code>kaiming_uniform_(a=√5)</code>）让权重服从 $U(-1/\sqrt{d},\ 1/\sqrt{d})$，方差 $\sigma^2=\tfrac{1}{3d}$，于是</p>
+$$g=\sqrt{d}\cdot\tfrac{1}{\sqrt{3d}}=\tfrac{1}{\sqrt{3}}\approx 0.577<1.$$<p><strong>这不是巧合</strong>：fan-in 缩放初始化的目的，就是把每层增益压在 1 附近（略小于 1），让信号既不爆炸也不太快消失。现在若人为把权重乘上系数 <code>c</code>，增益变成 $g=c/\sqrt{3}$，于是存在一个<strong>临界系数</strong>：</p>
+$$
+c^*=\sqrt{3}\approx 1.73,\qquad
+\begin{cases}
+c<\sqrt{3}\Rightarrow g<1\Rightarrow \text{指数消失}\\[2pt]
+c=\sqrt{3}\Rightarrow g\approx 1\Rightarrow \text{勉强持平（随机游走）}\\[2pt]
+c>\sqrt{3}\Rightarrow g>1\Rightarrow \text{指数爆炸}
+\end{cases}
+$$<p>下面用三个不同的 <code>c</code> 把这三种情形一次跑出来，并叠上理论预测 $g^{\text{depth}}$ 做验证；然后在<strong>爆炸</strong>那一档上每层后接 <code>nn.LayerNorm</code>（内置参考件，只看&quot;效果&quot;不看实现），看尺度是否被摁回 $O(1)$。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">depth</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">512</span>
+</span></span><span class="line"><span class="cl"><span class="n">sqrt3</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">**</span> <span class="mf">0.5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>              <span class="c1"># 一批输入，std ≈ 1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">run_stack</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">layernorm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 每次重建相同的基准权重再乘 scale —— 隔离出“只有 scale 变了”这一个变量</span>
+</span></span><span class="line"><span class="cl">    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">lin</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lin</span><span class="o">.</span><span class="n">weight</span> <span class="o">*=</span> <span class="n">scale</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lns</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">)]</span> <span class="k">if</span> <span class="n">layernorm</span> <span class="k">else</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stds</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">x0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lin</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layers</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h</span> <span class="o">=</span> <span class="n">lin</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">layernorm</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">h</span> <span class="o">=</span> <span class="n">lns</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">stds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">stds</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 围绕临界系数 c* = sqrt(3) 取三档</span>
+</span></span><span class="line"><span class="cl"><span class="n">regimes</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s2">&#34;scale=1.00  gain=0.58 (&lt;1) vanish&#34;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">,</span>          <span class="s2">&#34;tab:blue&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s2">&#34;scale=1.73  gain=1.00 (=1) marginal&#34;</span><span class="p">,</span> <span class="n">sqrt3</span><span class="p">,</span>        <span class="s2">&#34;tab:orange&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="s2">&#34;scale=2.60  gain=1.50 (&gt;1) explode&#34;</span><span class="p">,</span>  <span class="mf">1.5</span> <span class="o">*</span> <span class="n">sqrt3</span><span class="p">,</span>  <span class="s2">&#34;tab:red&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">regimes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stds</span> <span class="o">=</span> <span class="n">run_stack</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">g</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">/</span> <span class="n">sqrt3</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">stds</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&#34;o&#34;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">stds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">g</span> <span class="o">**</span> <span class="p">(</span><span class="n">xs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;--&#34;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># theory</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&#34;log&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;No norm: per-layer gain = scale/sqrt(3) decides the fate</span><span class="se">\n</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;(dashed = theory  std0 * gain^depth)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;layer depth&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;activation std (log scale)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&#34;center left&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">stds_ln</span> <span class="o">=</span> <span class="n">run_stack</span><span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">sqrt3</span><span class="p">,</span> <span class="n">layernorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># 在“爆炸”档上加 LayerNorm</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">stds_ln</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&#34;o&#34;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;green&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;With LayerNorm (even at scale=2.60):</span><span class="se">\n</span><span class="s2">std pinned to O(1)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;layer depth&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;activation std&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;critical scale c* = sqrt(3) = </span><span class="si">{</span><span class="n">sqrt3</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   (per-layer gain = scale / sqrt(3))&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">regimes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stds</span> <span class="o">=</span> <span class="n">run_stack</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  </span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">38s</span><span class="si">}</span><span class="s2"> layer1 std=</span><span class="si">{</span><span class="n">stds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2"> -&gt; layer</span><span class="si">{</span><span class="n">depth</span><span class="si">}</span><span class="s2"> std=</span><span class="si">{</span><span class="n">stds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;=&gt; 小于 sqrt(3)：指数消失 | 大于 sqrt(3)：指数爆炸 | 默认 fan-in 初始化恰好落在 gain=0.58，略低于 1。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-2/index_files/index_3_0_hu_5bc754dbc1720a6f.png 330w,
+        /coding/cs336-assign1-2/index_files/index_3_0_hu_3eec7a5d64c5f66e.png 660w,
+        /coding/cs336-assign1-2/index_files/index_3_0_hu_6a20044a8bab5f54.png 1024w,
+        /coding/cs336-assign1-2/index_files/index_3_0_hu_6700b97505ed40da.png 2x"
+        src="/coding/cs336-assign1-2/index_files/index_3_0_hu_3eec7a5d64c5f66e.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>critical scale c* = sqrt(3) = 1.732   (per-layer gain = scale / sqrt(3))
+  scale=1.00  gain=0.58 (&lt;1) vanish      layer1 std=   0.579 -&gt; layer30 std=5.271e-08
+  scale=1.73  gain=1.00 (=1) marginal    layer1 std=   1.003 -&gt; layer30 std=7.563e-01
+  scale=2.60  gain=1.50 (&gt;1) explode     layer1 std=   1.505 -&gt; layer30 std=1.450e+05
+=&gt; 小于 sqrt(3)：指数消失 | 大于 sqrt(3)：指数爆炸 | 默认 fan-in 初始化恰好落在 gain=0.58，略低于 1。
+</code></pre>
+<p>🔎 <strong>反直觉之处，理清就通透了</strong></p>
+<ul>
+<li>&ldquo;线性层叠多了一定爆炸&quot;是<strong>想当然</strong>。左图三条实线各自紧贴同色虚线（理论 $g^{\text{depth}}$），说明尺度是干净的<strong>指数漂移</strong>，方向完全由每层增益 $g=\text{scale}/\sqrt{3}$ 有没有过 1 决定。</li>
+<li><strong>最容易踩的坑</strong>：<code>scale=1.3</code> 时 $g=1.3/\sqrt{3}\approx0.75<1$，其实是<strong>衰减</strong>而非爆炸——想引爆，系数得超过临界值 $\sqrt{3}\approx1.73$。凭&quot;多叠几层肯定炸&quot;的直觉去调，往往方向都是反的。</li>
+<li>临界档 $g=1$ 并不&quot;稳定&rdquo;：它是<strong>随机游走</strong>，深层会缓慢无规则漂移（橙线在虚线附近乱晃就是这个原因），靠运气才不炸——所以你不能指望手调初始化恰好卡在 $g=1$。</li>
+<li>右图才是重点：哪怕用爆炸档，<strong>每层后接归一化就把激活值尺度死死摁在 $O(1)$</strong>。归一化把&quot;增益必须≈1&quot;这个脆弱平衡从初始化手里接管过去，这就是它让深层网络稳定可训的根本原因。</li>
+</ul>
+
+
+<h2 class="relative group">Part B · LayerNorm vs RMSNorm 
+    <div id="part-b--layernorm-vs-rmsnorm" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-b--layernorm-vs-rmsnorm" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>两者都沿<strong>最后一维</strong>（特征维 <code>d_model</code>）归一化，但做法不同：</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>减均值?</th>
+          <th>缩放依据</th>
+          <th>bias?</th>
+          <th>可学习参数</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>LayerNorm</strong></td>
+          <td>是</td>
+          <td>标准差 std（含均值的方差）</td>
+          <td>有</td>
+          <td>gain + bias</td>
+      </tr>
+      <tr>
+          <td><strong>RMSNorm</strong></td>
+          <td><strong>否</strong></td>
+          <td><strong>均方根 RMS</strong>（只看平方均值）</td>
+          <td><strong>无</strong></td>
+          <td>只有 gain</td>
+      </tr>
+  </tbody>
+</table>
+<p>RMSNorm 去掉了&quot;减均值&quot;和 bias，仅仅是把每个元素除以整条向量的 RMS，公式更简单、计算更省，而效果在大模型上与 LayerNorm 相当——所以本作业用它。</p>
+<p>关键的行为差异：<strong>RMSNorm 不减均值</strong>。</p>
+<p>下面给一个带大均值偏置的输入，用两个内置参考件（都关掉仿射参数）看输出：LayerNorm 会把每行均值压到 ~0，RMSNorm 则保留原有的均值结构。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="mf">5.0</span>          <span class="c1"># 故意加一个大的均值偏置 (+5)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># elementwise_affine=False 就是关闭可学习参数，让它只做纯粹的数学归一化。</span>
+</span></span><span class="line"><span class="cl"><span class="n">ln</span>  <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>   <span class="c1"># 参考件：减均值 + 除 std</span>
+</span></span><span class="line"><span class="cl"><span class="n">rms</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">RMSNorm</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>  <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>     <span class="c1"># 参考件：只用 RMS 缩放</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">y_ln</span><span class="p">,</span> <span class="n">y_rms</span> <span class="o">=</span> <span class="n">ln</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">rms</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;y_ln的形状 :&#34;</span><span class="p">,</span> <span class="n">y_ln</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;y_rms的形状 :&#34;</span><span class="p">,</span> <span class="n">y_rms</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;输入每行均值        :&#34;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;LayerNorm 输出行均值 :&#34;</span><span class="p">,</span> <span class="n">y_ln</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>  <span class="s2">&#34; &lt;- 被减成 ~0&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;RMSNorm  输出行均值 :&#34;</span><span class="p">,</span> <span class="n">y_rms</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&#34; &lt;- 未减均值，结构保留&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;=&gt; LayerNorm: 减均值 + 除标准差 (+bias)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;   RMSNorm : 不减均值、无 bias，只用 RMS 缩放 + gain&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>y_ln的形状 : torch.Size([4, 8])
+y_rms的形状 : torch.Size([4, 8])
+输入每行均值        : tensor([4.5184, 5.2430, 4.8584, 5.4066])
+LayerNorm 输出行均值 : tensor([-0.0000,  0.0000,  0.0000,  0.0000])  &lt;- 被减成 ~0
+RMSNorm  输出行均值 : tensor([0.9799, 0.9904, 0.9701, 0.9880])  &lt;- 未减均值，结构保留
+
+=&gt; LayerNorm: 减均值 + 除标准差 (+bias)
+   RMSNorm : 不减均值、无 bias，只用 RMS 缩放 + gain
+</code></pre>
+
+
+<h2 class="relative group">Part C · 【重头戏】为什么必须 fp32 upcast 
+    <div id="part-c--%E9%87%8D%E5%A4%B4%E6%88%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB-fp32-upcast" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-c--%E9%87%8D%E5%A4%B4%E6%88%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB-fp32-upcast" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>RMSNorm 里要算&quot;平方的均值再开方&quot;。作业和很多真实训练用 <strong>float16 / bfloat16</strong> 存激活来省显存，但<strong>低精度下先平方再求均值再开方</strong>会明显丢有效数字。handout 因此要求：<strong>先把输入 upcast 到 float32 再算，算完再 cast 回原 dtype</strong>。</p>
+<p>这不是&quot;锦上添花&quot;——<code>test_rmsnorm</code> 的容差是 <strong>atol=1e-4</strong>，而 fp16 直接算的误差量级恰好会<strong>越过这条线</strong>。下面这是一个<strong>纯数值现象演示</strong>（对通用张量算&quot;平方均值再开方&quot;，不是 RMSNorm 前向本身）：拿 float64 当&quot;真值&quot;，对比 fp16 直接算 vs 先 upcast 到 fp32。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="mi">4096</span>
+</span></span><span class="line"><span class="cl"><span class="n">x_fp16</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span> <span class="o">*</span> <span class="mf">20.0</span>   <span class="c1"># 一个 float16 向量</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 真值：用 float64 算“平方的均值再开方”</span>
+</span></span><span class="line"><span class="cl"><span class="n">ref</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x_fp16</span><span class="o">.</span><span class="n">double</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 方案 A：全程留在 fp16 里算</span>
+</span></span><span class="line"><span class="cl"><span class="n">r16</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x_fp16</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 方案 B：先 upcast 到 fp32 再算</span>
+</span></span><span class="line"><span class="cl"><span class="n">r32</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x_fp16</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;真值 (fp64)        : </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;fp16 直接算        : </span><span class="si">{</span><span class="n">r16</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">   绝对误差 </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">r16</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">-</span><span class="n">ref</span><span class="o">.</span><span class="n">item</span><span class="p">())</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;upcast fp32 再算   : </span><span class="si">{</span><span class="n">r32</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">   绝对误差 </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">r32</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">-</span><span class="n">ref</span><span class="o">.</span><span class="n">item</span><span class="p">())</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;注意：fp16 的误差量级已接近甚至超过 test_rmsnorm 的 atol=1e-4。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>真值 (fp64)        : 20.208785
+fp16 直接算        : 20.218750   绝对误差 9.97e-03
+upcast fp32 再算   : 20.208784   绝对误差 8.46e-07
+
+注意：fp16 的误差量级已接近甚至超过 test_rmsnorm 的 atol=1e-4。
+</code></pre>
+<p>单个向量还不够说明问题。下面在<strong>很多</strong>随机向量上重复这个计算，画出相对误差的分布。你会看到 fp16 和 fp32 的误差差了大约 <strong>4 个数量级</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">N</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">1024</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span> <span class="o">*</span> <span class="mf">10.0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ref</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">double</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">r16</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">r32</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rel16</span> <span class="o">=</span> <span class="p">((</span><span class="n">r16</span><span class="o">.</span><span class="n">double</span><span class="p">()</span> <span class="o">-</span> <span class="n">ref</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">/</span> <span class="n">ref</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel32</span> <span class="o">=</span> <span class="p">((</span><span class="n">r32</span><span class="o">.</span><span class="n">double</span><span class="p">()</span> <span class="o">-</span> <span class="n">ref</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">/</span> <span class="n">ref</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rel16</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;fp16 (stay in half)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rel32</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;fp32 (upcast first)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;--&#34;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;test atol = 1e-4&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&#34;log&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;relative error of RMS vs fp64 reference&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;count&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;Upcast to fp32 shrinks the numerical error by ~10000x&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;相对误差中位数  fp16 = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">rel16</span><span class="p">)</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">   fp32 = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">rel32</span><span class="p">)</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;相对误差最大值  fp16 = </span><span class="si">{</span><span class="n">rel16</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">   fp32 = </span><span class="si">{</span><span class="n">rel32</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;=&gt; fp16 的误差分布压在 red 线附近甚至右侧；upcast 到 fp32 后整整左移 ~4 个数量级。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这就是 handout 要求 upcast、以及很多同学 test_rmsnorm 差一点点过不了的根因。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-2/index_files/index_10_0_hu_118d8159ef93e4d8.png 330w,
+        /coding/cs336-assign1-2/index_files/index_10_0_hu_4275ee8ae29d60d7.png 660w,
+        /coding/cs336-assign1-2/index_files/index_10_0_hu_c1049a5ef607ccbb.png 1024w,
+        /coding/cs336-assign1-2/index_files/index_10_0_hu_3930c85a50a45edb.png 2x"
+        src="/coding/cs336-assign1-2/index_files/index_10_0_hu_4275ee8ae29d60d7.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>相对误差中位数  fp16 = 1.93e-04   fp32 = 2.65e-08
+相对误差最大值  fp16 = 5.68e-04   fp32 = 1.15e-07
+=&gt; fp16 的误差分布压在 red 线附近甚至右侧；upcast 到 fp32 后整整左移 ~4 个数量级。
+这就是 handout 要求 upcast、以及很多同学 test_rmsnorm 差一点点过不了的根因。
+</code></pre>
+
+
+<h2 class="relative group">Part D · 归一化的核心性质：输出 RMS ≈ 1 
+    <div id="part-d--%E5%BD%92%E4%B8%80%E5%8C%96%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%A7%E8%B4%A8%E8%BE%93%E5%87%BA-rms--1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-d--%E5%BD%92%E4%B8%80%E5%8C%96%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%A7%E8%B4%A8%E8%BE%93%E5%87%BA-rms--1" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>不管输入的尺度和偏置多离谱，RMSNorm（gain=1 时）都会把每个位置沿最后一维的 <strong>RMS 拉到约 1</strong>——这就是&quot;归一化&quot;这个名字的含义。下面用内置 <code>nn.RMSNorm</code>（关掉可学习 gain，等价于 gain=1）当参考件，<strong>测量</strong>它输出的 RMS 来验证这条性质。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> <span class="o">*</span> <span class="mf">7.0</span> <span class="o">+</span> <span class="mf">3.0</span>   <span class="c1"># 任意尺度(×7)与偏置(+3)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rms_ref</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">RMSNorm</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>   <span class="c1"># gain=1 的参考件</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">rms_ref</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rms_lastdim</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">t</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rin</span><span class="p">,</span> <span class="n">rout</span> <span class="o">=</span> <span class="n">rms_lastdim</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">rms_lastdim</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;输入各位置 RMS (前5个) :&#34;</span><span class="p">,</span> <span class="n">rin</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:</span><span class="mi">5</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;输出各位置 RMS (前5个) :&#34;</span><span class="p">,</span> <span class="n">rout</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[:</span><span class="mi">5</span><span class="p">],</span> <span class="s2">&#34; &lt;- 都 ≈ 1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;输出 RMS 是否全部 ≈ 1  :&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">rout</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">rout</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;可学习的 gain 会在这个“RMS≈1”的基础上，逐通道再放缩，让模型自己决定每维的尺度。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>输入各位置 RMS (前5个) : tensor([8.1570, 7.8683, 6.0837, 6.9120, 6.4532])
+输出各位置 RMS (前5个) : tensor([1.0000, 1.0000, 1.0000, 1.0000, 1.0000])  &lt;- 都 ≈ 1
+输出 RMS 是否全部 ≈ 1  : True
+
+可学习的 gain 会在这个“RMS≈1”的基础上，逐通道再放缩，让模型自己决定每维的尺度。
+</code></pre>
+
+
+<h2 class="relative group">🔬 拓展实验（自己动手） 
+    <div id="-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><strong>eps 放在哪？</strong> 试着把 <code>eps</code> 放在开方<strong>里面</strong> <code>sqrt(mean_sq + eps)</code> 与放在<strong>外面</strong> <code>sqrt(mean_sq) + eps</code> 两种写法，用同一个输入比较输出差异。对照 handout 公式确认哪种是对的——这会直接影响 <code>test_rmsnorm</code>。</li>
+<li><strong>dtype round-trip</strong>：构造一个 <code>float16</code> 输入，走&quot;upcast→计算→cast 回 fp16&quot;的流程，确认<strong>输出 dtype 与输入一致</strong>。测试可能会检查你有没有把 dtype 还原回去。</li>
+<li><strong>gain 的作用</strong>：把 <code>nn.RMSNorm</code> 的 <code>weight</code> 设成一个非全 1 的向量，观察输出的每通道尺度如何被 gain 逐维缩放（提示：先量 gain=1 的输出 RMS，再乘 gain 看变化）。</li>
+<li><strong>bfloat16 对比</strong>：把 Part C 的 fp16 换成 <code>bfloat16</code> 再跑一遍。bf16 动态范围大但尾数更少，&ldquo;平方均值&quot;的误差表现和 fp16 有何不同？想想这对 upcast 的必要性说明了什么。</li>
+</ol>
+
+
+<h2 class="relative group">回答 
+    <div id="%E5%9B%9E%E7%AD%94" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%9B%9E%E7%AD%94" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>放在开方里面，首先本身 eps（一个极小正数）的存在就是为了避免 mean_sq 为 0 或者接近 0 的时候，RMS 为 0，从而保证数值稳定。假设 eps = 1e-5，如果放在根号里面，当 mean_sq = 0 时，算出来的 RMS 为 sqrt(1e-5) ≈ 0.00316；若放在根号外面，则 RMS 变成了 1e-5，两者相差约 316 倍。虽然当 x = torch.zeros(8) 时，两种写法最后输出都是 0，但是当输入接近 0 而不等于 0 时，x / RMS 去做缩放的话，两者输出的量级会相差很大。所以放在里面不仅可以避免分母为 0，也是为了避免分母在接近 0 时变化过于剧烈，使数值和梯度更加稳定。这也是 handout 和 PyTorch 官方实现采用的写法。</li>
+<li>代码如下</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 构造一个 float16 输入</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 保存原始 dtype</span>
+</span></span><span class="line"><span class="cl"><span class="n">input_dtype</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># upcast 到 float32 计算</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mean_sq</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_sq</span> <span class="o">+</span> <span class="mf">1e-5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># cast 回原来的 dtype</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">input_dtype</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查 dtype 是否一致</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Input dtype : </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Output dtype: </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>    <span class="c1"># True</span>
+</span></span></code></pre></div><pre><code>Input dtype : torch.float16
+Output dtype: torch.float16
+True
+</code></pre>
+<ol start="3">
+<li>代码如下，注意其中提到的nn.RMSNorm 的 weight 就是 gain。它是一个可学习参数，用来对 RMS 归一化后的每个通道进行逐维缩放，从而让模型学习每个通道更合适的输出尺度。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 不使用 gain，得到纯 RMS 归一化结果</span>
+</span></span><span class="line"><span class="cl"><span class="n">rms_no_gain</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">RMSNorm</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">base_output</span> <span class="o">=</span> <span class="n">rms_no_gain</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用非全 1 的 gain</span>
+</span></span><span class="line"><span class="cl"><span class="n">rms_with_gain</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">RMSNorm</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rms_with_gain</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">output</span> <span class="o">=</span> <span class="n">rms_with_gain</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;纯归一化结果:&#34;</span><span class="p">,</span> <span class="n">base_output</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;gain:&#34;</span><span class="p">,</span> <span class="n">rms_with_gain</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;乘以 gain:&#34;</span><span class="p">,</span> <span class="n">base_output</span> <span class="o">*</span> <span class="n">rms_with_gain</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;RMSNorm 输出:&#34;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>纯归一化结果: tensor([[0.3651, 0.7303, 1.0954, 1.4606]])
+gain: Parameter containing:
+tensor([1.0000, 2.0000, 0.5000, 3.0000], requires_grad=True)
+乘以 gain: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackward0&gt;)
+RMSNorm 输出: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackward0&gt;)
+</code></pre>
+<ol start="4">
+<li>bfloat16 在计算平方均值时仍然存在明显的精度误差，只是误差表现与 float16 不同。bfloat16 拥有与 float32 相同的指数位，因此动态范围更大，不容易发生溢出或下溢；但它只有 7 位尾数（float16 有 10 位尾数），因此表示有效数字的能力更弱，计算平方、均值等运算时舍入误差会更明显。因此，无论是 float16 还是 bfloat16，在 RMSNorm 中都应该先 upcast 到 float32 再进行计算，最后再 cast 回原来的 dtype，这样既保证了数值稳定性，又保持了输出 dtype 与输入一致。</li>
+</ol>
+
+
+<h2 class="relative group">✏️ 你的任务：RMSNorm 引导骨架 
+    <div id="-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1rmsnorm-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1rmsnorm-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>下面是<strong>给你填的骨架</strong>（<code>...</code> 处留白，方法体是 <code>...</code> 所以能无错执行，但它还没有实现任何东西）。把每个 <code># step</code> 翻译成一行 PyTorch，注意注释里用问号标出的<strong>关键抉择</strong>。</p>
+<p>要点回顾：</p>
+<ul>
+<li>gain 形状是 <code>(d_model,)</code>，初始化为<strong>全 1</strong>（这样训练初期等价于&quot;纯归一化&rdquo;）。</li>
+<li><strong>一定要 fp32 upcast</strong>，算完 cast 回原 dtype——这是 <code>test_rmsnorm</code> 最常见的丢分点。</li>
+<li>沿<strong>最后一维</strong>算均方，<code>keepdim=True</code> 才能广播回去（回顾第 00 章的 keepdim）。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">RMSNorm</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_model</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 建一个形状为 (d_model,) 的可学习 gain 参数，初始化为全 1</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">d_model</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 0: 记住输入原始 dtype（最后要 cast 回去）</span>
+</span></span><span class="line"><span class="cl">        <span class="n">in_dtype</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: upcast 到 float32 —— 关键！否则 atol=1e-4 处容易翻车</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2: 沿最后一维算“均方” (mean of squares)，keepdim=True 以便广播</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mean_sq</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 3: 由 mean_sq 得到 rms。问：eps 放在 sqrt 里面还是外面？看 handout 公式</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rms</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_sq</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 4: 用 rms 归一化 x，再乘 gain(self.weight, 形状 (d_model,) 会广播到最后一维)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">rms</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 5: 把结果 cast 回 in_dtype 再返回</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">in_dtype</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（注意：未实例化、未调用）。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;填好实现后，到 tests/adapters.py 的 run_rmsnorm 里接线，再跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_model.py::test_rmsnorm -x&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（注意：未实例化、未调用）。
+填好实现后，到 tests/adapters.py 的 run_rmsnorm 里接线，再跑：
+  pytest tests/test_model.py::test_rmsnorm -x
+</code></pre>
+
+
+<h3 class="relative group">✏️ 作业连接 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>测试</th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>RMSNorm</code></td>
+          <td><code>run_rmsnorm</code></td>
+          <td><code>tests/test_model.py::test_rmsnorm</code></td>
+          <td><code>eps=1e-5</code>，gain 形状 <code>(d_model,)</code>，<strong>别忘 fp32 upcast</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p>关于这个测试的事实（来自 <code>tests/</code>，帮你对齐预期）：</p>
+<ul>
+<li>输入 <code>in_features</code> 用 <code>in_embeddings</code> fixture，形状 <strong>(4, 12, 64)</strong>（<code>batch=4, seq=12, d_model=64</code>）。</li>
+<li>参考 gain 取自真实权重 <code>state_dict[&quot;layers.1.ln1.weight&quot;]</code>，其 <code>shape[0]</code> 就是 <code>d_model=64</code>。</li>
+<li>调用形式：<code>run_rmsnorm(d_model=d_model, eps=1e-5, weights=..., in_features=...)</code>。</li>
+<li>容差 <strong><code>atol=1e-4</code></strong>（快照对拍，见 <code>conftest.py</code> 的 <code>NumpySnapshot</code>）。这个量级恰好卡在 fp16 误差附近——<strong>upcast 没做对就会差一点点过不了</strong>。</li>
+</ul>
+<p>接线方式看 <code>tests/adapters.py</code> 里 <code>run_rmsnorm</code> 的 docstring：它把 <code>weights</code>（gain）和 <code>in_features</code> 传进来，你需要把 gain 装进你的模块（<code>load_state_dict</code> 或直接给 <code>.data</code> 赋值），再前向。</p>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li><strong>归一化</strong>把每层激活的尺度摁在 O(1)，稳住深层网络的前向与梯度（Part A 亲眼所见）。</li>
+<li><strong>RMSNorm vs LayerNorm</strong>：RMSNorm 不减均值、无 bias，只用<strong>均方根</strong>缩放 + 可学习 gain——更简单、够用。</li>
+<li><strong>fp32 upcast 是重头戏</strong>：低精度下&quot;平方→均值→开方&quot;会丢有效数字，误差量级会越过 <code>test_rmsnorm</code> 的 <code>atol=1e-4</code>；先 upcast 到 fp32、算完再 cast 回去。</li>
+<li>核心性质：gain=1 时<strong>输出 RMS ≈ 1</strong>；gain 再逐通道缩放。</li>
+<li>实现清单：gain <code>(d_model,)</code> 全 1 初始化、<code>eps=1e-5</code>、沿最后一维 <code>keepdim</code> 归约、<strong>记住并还原 dtype</strong>。</li>
+</ul>
+<p>下一章会在归一化之上继续搭建 Transformer 的其余积木。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/cs336-assign1-1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-1/">assign1 线形层和嵌入层</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-02T00:00:00&#43;00:00">2 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4098 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-0/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-0/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-0/">assign1 pytorch基础</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-01T00:00:00&#43;00:00">1 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3537 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/knowledege1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/knowledege1/featured_hu_afbd216f444a1af.PNG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/knowledege1/">一些llm中的问题</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-07-30T00:00:00&#43;00:00">30 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>716 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-2\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-2\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/cs336-assign1-1/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 线形层和嵌入层</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-02T00:00:00&#43;00:00">2 August 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/cs336-assign1-3/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 SwiGLU激活函数</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://qingjiusy.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

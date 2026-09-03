@@ -163,6 +163,22 @@
 
   
   
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
   <meta name="theme-color"/>
   
   
@@ -1224,7 +1240,7 @@ def score(query_embeddings, document_embeddings):
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-08-14T00:00:00&#43;00:00">14 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2650 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">6 分</span>
+  <time datetime="2024-08-14T00:00:00&#43;00:00">14 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2651 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">6 分</span>
   
 
   

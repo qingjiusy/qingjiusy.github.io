@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 交叉熵损失 &middot; QingJiu</title>
+  <meta name="title" content="assign1 交叉熵损失 &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/cs336-assign1-5/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.930a7c6a69224a9dc067fbe56035893295d7d83b892c265af91a4fa70d5428caf70cd14538bd83dfa4a867905c07bfd20884f698d9be1127676af1de53796eff.css"
+    integrity="sha512-kwp8amkiSp3AZ/vlYDWJMpXX2DuJLCZa&#43;RpPpw1UKMr3DNFFOL2D36SoZ5BcB7/SCIT2mNm&#43;ESdnavHeU3lu/w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/cs336-assign1-5/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 交叉熵损失">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-06T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-06T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-5/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/cs336-assign1-5/featured.JPG">
+  <meta name="twitter:title" content="assign1 交叉熵损失">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 交叉熵损失",
+    "headline": "assign1 交叉熵损失",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/cs336-assign1-5\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-06T00:00:00\u002b00:00",
+    "datePublished": "2026-08-06T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-06T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "4701"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-5/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 交叉熵损失
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4701 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-交叉熵在惩罚什么">1. 交叉熵在惩罚什么？</a></li>
+    <li><a href="#2-数值稳定为什么不能先-softmax-再取-log">2. 数值稳定：为什么不能&quot;先 softmax 再取 log&quot;</a></li>
+    <li><a href="#3-关系cross_entropy--log_softmax--nll_loss">3. 关系：cross_entropy = log_softmax + nll_loss</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#答案">答案</a></li>
+    <li><a href="#-作业连接run_cross_entropy-引导骨架">✏️ 作业连接：<code>run_cross_entropy</code> 引导骨架</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-交叉熵在惩罚什么">1. 交叉熵在惩罚什么？</a></li>
+    <li><a href="#2-数值稳定为什么不能先-softmax-再取-log">2. 数值稳定：为什么不能&quot;先 softmax 再取 log&quot;</a></li>
+    <li><a href="#3-关系cross_entropy--log_softmax--nll_loss">3. 关系：cross_entropy = log_softmax + nll_loss</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#答案">答案</a></li>
+    <li><a href="#-作业连接run_cross_entropy-引导骨架">✏️ 作业连接：<code>run_cross_entropy</code> 引导骨架</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>分类任务里，模型吐出的是每个类别的<strong>未归一化 logit</strong>，而训练要最小化的是<strong>交叉熵损失</strong>。这一章帮你建立三件事的直觉：交叉熵到底在惩罚什么、它和 softmax / NLL 的关系、以及为什么实现时<strong>必须</strong>用 log-sum-exp 而不能&quot;先 softmax 再取 log&quot;。</p>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>理解交叉熵 = <strong>正确类别的负对数概率</strong> = <code>-log(softmax(logits))[target]</code>，并对 batch 求平均。</li>
+<li>直觉：正确类 logit <strong>相对</strong>其它类越大 → loss 越接近 0；越小 → loss 越大。</li>
+<li>数值稳定：亲眼看到&quot;先 exp 再 log&quot;在大 logit 上溢出为 <code>inf</code>，而 <strong>log-sum-exp（先减最大值）</strong> 稳定。</li>
+<li>理解 <code>cross_entropy</code> 与 <code>log_softmax</code> + <code>nll_loss</code> 的等价关系（概念层面）。</li>
+<li>对应作业：<code>run_cross_entropy</code> 与 <code>test_cross_entropy</code>（含 <code>1000 * inputs</code> 的溢出测试）。</li>
+</ol>
+<blockquote>
+<p><strong>学术诚信</strong>：本笔记本用 PyTorch 内置函数（<code>F.cross_entropy</code>、<code>F.log_softmax</code>、<code>F.nll_loss</code>、<code>torch.logsumexp</code>）当&quot;教具/参考&quot;来建立直觉与展示性质，<strong>不包含</strong>任何要你在 <code>adapters.py</code> 里交付的 <code>run_cross_entropy</code> 实现。结尾&quot;✏️ 作业连接&quot;只给<strong>引导骨架</strong>（思路 + <code># step</code> 注释），求解行留空由你完成。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sci_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;setup ok | torch&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>setup ok | torch 2.11.0
+</code></pre>
+
+
+<h2 class="relative group">1. 交叉熵在惩罚什么？ 
+    <div id="1-%E4%BA%A4%E5%8F%89%E7%86%B5%E5%9C%A8%E6%83%A9%E7%BD%9A%E4%BB%80%E4%B9%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E4%BA%A4%E5%8F%89%E7%86%B5%E5%9C%A8%E6%83%A9%E7%BD%9A%E4%BB%80%E4%B9%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>给一个样本的 logits 向量 $z \in \mathbb{R}^{V}$（$V$ 是词表/类别数）和正确类别索引 $t$，交叉熵损失是</p>
+$$\ell = -\log\big(\mathrm{softmax}(z)_t\big) = -\log\frac{e^{z_t}}{\sum_j e^{z_j}} = \underbrace{\log\sum_j e^{z_j}}_{\text{log-sum-exp}} - \; z_t.$$<p>读法：<strong>它只看正确类别的概率</strong>。如果模型给正确类别的概率接近 1，$-\log(\approx 1)\approx 0$；如果给正确类别的概率很小，$-\log(\text{小数})$ 就很大。注意最右边的等价形式 —— 后面数值稳定和引导骨架都会用到它：<strong>loss = log-sum-exp(z) − z[t]</strong>。</p>
+<p>下面用 <code>F.cross_entropy</code> 作参考，看几个极端例子的数值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 一个样本，5 个类别，正确类别 = 2</span>
+</span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># logit：模型在经过 Softmax 之前，对每个类别给出的“原始分数”。</span>
+</span></span><span class="line"><span class="cl"><span class="n">cases</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;正确类 logit 远大于其它&#34;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]),</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;所有 logit 相等(纯猜)&#34;</span><span class="p">:</span>   <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]),</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;正确类 logit 最小&#34;</span><span class="p">:</span>       <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]),</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">cases</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p_correct</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">22s</span><span class="si">}</span><span class="s2"> | P(正确类)=</span><span class="si">{</span><span class="n">p_correct</span><span class="si">:</span><span class="s2">6.4f</span><span class="si">}</span><span class="s2"> | loss=</span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">纯猜(5 类均匀)的 loss 理论值 = -log(1/5) =&#34;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</span></span></code></pre></div><pre><code>正确类 logit 远大于其它        | P(正确类)=0.9998 | loss= 0.0002
+所有 logit 相等(纯猜)        | P(正确类)=0.2000 | loss= 1.6094
+正确类 logit 最小           | P(正确类)=0.0002 | loss= 8.3865
+
+纯猜(5 类均匀)的 loss 理论值 = -log(1/5) = 1.6094
+</code></pre>
+<p>🔬 <strong>随&quot;正确类相对优势&quot;变化的损失曲线</strong>。固定其它类 logit 为 0，只把<strong>正确类</strong>的 logit 从很负扫到很正，看 loss 怎么变。这条曲线就是 $-\log(\mathrm{softmax})$ 的形状：优势越大越平缓贴近 0，优势越小惩罚越陡。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">vocab</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">deltas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>   <span class="c1"># 正确类 logit 相对其它类(=0)的优势</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">deltas</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">vocab</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+</span></span><span class="line"><span class="cl">    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.2</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">deltas</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">losses</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">vocab</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;--&#34;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;gray&#34;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">vocab</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.08</span><span class="p">,</span> <span class="s2">&#34;loss at zero advantage (pure guess)&#34;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;gray&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;k&#34;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;correct-class logit advantage  (others fixed at 0)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;cross-entropy loss&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;loss vs. correct-class relative logit&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;advantage=-6 -&gt; loss&#34;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">losses</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">&#34; | advantage=+12 -&gt; loss&#34;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">))</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-5/index_files/index_5_0_hu_2cef1945c54e3c40.png 330w,
+        /coding/cs336-assign1-5/index_files/index_5_0_hu_4bd3ff1be90026d7.png 660w,
+        /coding/cs336-assign1-5/index_files/index_5_0_hu_cca75af5b7c5c5cb.png 1024w,
+        /coding/cs336-assign1-5/index_files/index_5_0_hu_5852ca683874fe4d.png 2x"
+        src="/coding/cs336-assign1-5/index_files/index_5_0_hu_4bd3ff1be90026d7.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>advantage=-6 -&gt; loss 7.387  | advantage=+12 -&gt; loss 2e-05
+</code></pre>
+
+
+<h2 class="relative group">2. 数值稳定：为什么不能&quot;先 softmax 再取 log&quot; 
+    <div id="2-%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E5%85%88-softmax-%E5%86%8D%E5%8F%96-log" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E5%85%88-softmax-%E5%86%8D%E5%8F%96-log" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>朴素做法 <code>log(softmax(z))</code> 会先算 <code>exp(z)</code>。回忆第 00 章：<code>exp(1000.) = inf</code>（float32 溢出）。一旦出现 <code>inf</code>，后面 <code>sum</code>、<code>log</code>、相减全被污染成 <code>inf</code> / <code>nan</code>。</p>
+<p><strong>log-sum-exp 技巧</strong>：利用恒等式（对任意常数 $m$）</p>
+$$\log\sum_j e^{z_j} = m + \log\sum_j e^{z_j - m}.$$<p>取 $m = \max_j z_j$，则每个 <code>exp(z_j - m)</code> 的指数 $\le 0$，绝不会上溢，且至少有一项等于 1，也不会下溢到全 0。这就是 <code>test_cross_entropy</code> 里 <code>1000.0 * inputs</code> 那个溢出测试要考的点。</p>
+<p>下面<strong>只用通用张量运算</strong>演示这个现象本身（不组织成完整的交叉熵前向），对比朴素路径和减最大值后的稳定路径。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 一组任意 logits，乘以 1000 放大（模拟 test 里的 1000 * inputs）</span>
+</span></span><span class="line"><span class="cl"><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.9639</span><span class="p">,</span> <span class="mf">0.8864</span><span class="p">,</span> <span class="mf">0.1585</span><span class="p">,</span> <span class="mf">0.3038</span><span class="p">,</span> <span class="mf">0.0350</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">big</span> <span class="o">=</span> <span class="mf">1000.0</span> <span class="o">*</span> <span class="n">z</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 朴素：直接 log(sum(exp(.)))</span>
+</span></span><span class="line"><span class="cl"><span class="n">naive</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">big</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 稳定：先减去最大值，再 log-sum-exp</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="n">big</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">stable</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">big</span> <span class="o">-</span> <span class="n">m</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># torch 内置的参考实现，当&#34;标准答案&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">ref</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">logsumexp</span><span class="p">(</span><span class="n">big</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;big 的最大值            :&#34;</span><span class="p">,</span> <span class="n">big</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;exp(big) =&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">big</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s2">&#34; &lt;- 已经全是 inf&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;朴素 log(sum(exp(big)))  :&#34;</span><span class="p">,</span> <span class="n">naive</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="s2">&#34; &lt;- 被 inf 污染&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;稳定 (先减最大值)         :&#34;</span><span class="p">,</span> <span class="n">stable</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;torch.logsumexp 参考      :&#34;</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;稳定路径与参考是否一致    :&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">stable</span><span class="p">,</span> <span class="n">ref</span><span class="p">))</span>
+</span></span></code></pre></div><pre><code>big 的最大值            : 963.9000244140625
+exp(big) = [          inf           inf           inf           inf 1.5860134e+15]  &lt;- 已经全是 inf
+
+朴素 log(sum(exp(big)))  : inf  &lt;- 被 inf 污染
+稳定 (先减最大值)         : 963.9000244140625
+torch.logsumexp 参考      : 963.9000244140625
+稳定路径与参考是否一致    : True
+</code></pre>
+<p>下面把 logits 的放大系数从小扫到大，看<strong>朴素路径</strong>在什么量级开始返回 <code>inf</code>，而稳定路径始终跟真值（<code>torch.logsumexp</code>）重合。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.9639</span><span class="p">,</span> <span class="mf">0.8864</span><span class="p">,</span> <span class="mf">0.1585</span><span class="p">,</span> <span class="mf">0.3038</span><span class="p">,</span> <span class="mf">0.0350</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">scales</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1200.0</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">naive_vals</span><span class="p">,</span> <span class="n">stable_vals</span><span class="p">,</span> <span class="n">ref_vals</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="n">first_inf</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scales</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">zz</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">z</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">zz</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">st</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">zz</span> <span class="o">-</span> <span class="n">m</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">naive_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stable_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ref_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">logsumexp</span><span class="p">(</span><span class="n">zz</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">first_inf</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">first_inf</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">naive_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">naive_vals</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scales</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">ref_vals</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;torch.logsumexp (truth)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scales</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">stable_vals</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;stable: subtract max&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">finite</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">naive_np</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scales</span><span class="o">.</span><span class="n">numpy</span><span class="p">()[</span><span class="n">finite</span><span class="p">],</span> <span class="n">naive_np</span><span class="p">[</span><span class="n">finite</span><span class="p">],</span> <span class="s2">&#34;r.&#34;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;naive: log(sum(exp))&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">first_inf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">first_inf</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;--&#34;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">first_inf</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;naive overflows to inf</span><span class="se">\n</span><span class="s2">near scale ~ </span><span class="si">{</span><span class="n">first_inf</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;logit scale factor&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;log-sum-exp value&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;naive log-sum-exp overflows; subtract-max stays exact&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;朴素路径第一次变成 inf 的放大系数 ~&#34;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">first_inf</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">first_inf</span> <span class="k">else</span> <span class="s2">&#34;未溢出&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;稳定路径全程与真值一致:&#34;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">stable_vals</span><span class="p">,</span> <span class="n">ref_vals</span><span class="p">))</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-5/index_files/index_9_0_hu_b204ab8dc548adcb.png 330w,
+        /coding/cs336-assign1-5/index_files/index_9_0_hu_26adcb8736962a37.png 660w,
+        /coding/cs336-assign1-5/index_files/index_9_0_hu_f9edc4a40f4bdf88.png 1024w,
+        /coding/cs336-assign1-5/index_files/index_9_0_hu_27c51d957ff5620b.png 2x"
+        src="/coding/cs336-assign1-5/index_files/index_9_0_hu_26adcb8736962a37.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>朴素路径第一次变成 inf 的放大系数 ~ 101.8
+稳定路径全程与真值一致: True
+</code></pre>
+
+
+<h2 class="relative group">3. 关系：cross_entropy = log_softmax + nll_loss 
+    <div id="3-%E5%85%B3%E7%B3%BBcross_entropy--log_softmax--nll_loss" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E5%85%B3%E7%B3%BBcross_entropy--log_softmax--nll_loss" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>交叉熵可以拆成两步（都用内置件展示，纯<strong>概念关系</strong>，不是实现）：</p>
+<ol>
+<li><code>log_softmax(z)</code>：把 logits 变成<strong>对数概率</strong>（内部就用了 log-sum-exp，所以它也是数值稳定的）。</li>
+<li><code>nll_loss</code>（Negative Log-Likelihood）：按 target 取出对应位置的对数概率、取负、再对 batch 求平均（对于一个batch来说，要把每个样本的损失取平均）。</li>
+</ol>
+<p>也就是 <code>F.cross_entropy(z, t) == F.nll_loss(F.log_softmax(z, dim=-1), t)</code>。理解这个拆分，就理解了&quot;<strong>交叉熵 = 正确类的负对数概率的平均</strong>&quot;。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 用 test_cross_entropy 里的输入形状：(batch, seq, vocab) -&gt; reshape 成 (N, vocab)</span>
+</span></span><span class="line"><span class="cl"><span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[[</span><span class="mf">0.1088</span><span class="p">,</span> <span class="mf">0.1060</span><span class="p">,</span> <span class="mf">0.6683</span><span class="p">,</span> <span class="mf">0.5131</span><span class="p">,</span> <span class="mf">0.0645</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[</span><span class="mf">0.4538</span><span class="p">,</span> <span class="mf">0.6852</span><span class="p">,</span> <span class="mf">0.2520</span><span class="p">,</span> <span class="mf">0.3792</span><span class="p">,</span> <span class="mf">0.2675</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[</span><span class="mf">0.4578</span><span class="p">,</span> <span class="mf">0.3357</span><span class="p">,</span> <span class="mf">0.6384</span><span class="p">,</span> <span class="mf">0.0481</span><span class="p">,</span> <span class="mf">0.5612</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[</span><span class="mf">0.9639</span><span class="p">,</span> <span class="mf">0.8864</span><span class="p">,</span> <span class="mf">0.1585</span><span class="p">,</span> <span class="mf">0.3038</span><span class="p">,</span> <span class="mf">0.0350</span><span class="p">]],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[[</span><span class="mf">0.3356</span><span class="p">,</span> <span class="mf">0.9013</span><span class="p">,</span> <span class="mf">0.7052</span><span class="p">,</span> <span class="mf">0.8294</span><span class="p">,</span> <span class="mf">0.8334</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[</span><span class="mf">0.6333</span><span class="p">,</span> <span class="mf">0.4434</span><span class="p">,</span> <span class="mf">0.1428</span><span class="p">,</span> <span class="mf">0.5739</span><span class="p">,</span> <span class="mf">0.3810</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[</span><span class="mf">0.9476</span><span class="p">,</span> <span class="mf">0.5917</span><span class="p">,</span> <span class="mf">0.7037</span><span class="p">,</span> <span class="mf">0.2987</span><span class="p">,</span> <span class="mf">0.6208</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[</span><span class="mf">0.8541</span><span class="p">,</span> <span class="mf">0.1803</span><span class="p">,</span> <span class="mf">0.2054</span><span class="p">,</span> <span class="mf">0.4775</span><span class="p">,</span> <span class="mf">0.8199</span><span class="p">]]])</span>
+</span></span><span class="line"><span class="cl"><span class="n">targets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">N_inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>   <span class="c1"># (8, 5)  &lt;- adapters 约定的 (N, vocab)</span>
+</span></span><span class="line"><span class="cl"><span class="n">N_targets</span> <span class="o">=</span> <span class="n">targets</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>                  <span class="c1"># (8,)     &lt;- (N,)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;reshape 后:&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">N_inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">N_targets</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这里会按 flatten 后的有效样本数 8 来平均</span>
+</span></span><span class="line"><span class="cl"><span class="n">ce</span>   <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">N_inputs</span><span class="p">,</span> <span class="n">N_targets</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">step</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">nll_loss</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">N_inputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="n">N_targets</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;F.cross_entropy               =&#34;</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;F.nll_loss(F.log_softmax(.))  =&#34;</span><span class="p">,</span> <span class="n">step</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;两者等价:&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">ce</span><span class="p">,</span> <span class="n">step</span><span class="p">))</span>
+</span></span></code></pre></div><pre><code>reshape 后: (8, 5) (8,)
+F.cross_entropy               = 1.6094727516174316
+F.nll_loss(F.log_softmax(.))  = 1.6094727516174316
+两者等价: True
+</code></pre>
+<p>🔬 <strong>对 batch 求平均</strong> vs <strong>逐样本</strong>。默认 <code>reduction='mean'</code> 会对 N 个样本的损失求平均。用 <code>reduction='none'</code> 拿到每个样本的损失，手动求平均应当和默认一致——这提醒你实现里最后<strong>别忘了那一步 <code>.mean()</code></strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">per_example</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">N_inputs</span><span class="p">,</span> <span class="n">N_targets</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s2">&#34;none&#34;</span><span class="p">)</span>   <span class="c1"># (N,)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;每个样本的 loss:&#34;</span><span class="p">,</span> <span class="n">per_example</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;手动平均 :&#34;</span><span class="p">,</span> <span class="n">per_example</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;默认 mean:&#34;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">N_inputs</span><span class="p">,</span> <span class="n">N_targets</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;一致:&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">per_example</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">N_inputs</span><span class="p">,</span> <span class="n">N_targets</span><span class="p">)))</span>
+</span></span></code></pre></div><pre><code>每个样本的 loss: [1.8277 1.576  1.3996 1.9945 1.516  1.6151 1.6427 1.3043]
+手动平均 : 1.6094728708267212
+默认 mean: 1.6094727516174316
+一致: True
+</code></pre>
+
+
+<h2 class="relative group">🔬 拓展实验（自己动手，加深理解） 
+    <div id="-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><strong>平移不变性</strong>：给某个样本的所有 logit 同时加一个常数 <code>c</code>（如 <code>z + 100</code>），用 <code>F.cross_entropy</code> 验证 loss 基本不变。想想为什么——这正是&quot;减最大值&quot;不改变结果的原因。</li>
+<li><strong>溢出复现</strong>：把第 2 节的朴素路径换成&quot;先 <code>F.softmax</code> 再 <code>torch.log</code>&quot;，在 <code>1000 * z</code> 上跑，观察出现 <code>inf</code> / <code>nan</code> 的位置，对照 <code>test_cross_entropy</code> 的溢出测试。</li>
+<li><strong>梯度直觉</strong>：对一个 <code>requires_grad_()</code> 的 logits 求 <code>F.cross_entropy</code> 再 <code>.backward()</code>，打印 <code>z.grad</code>。你会看到梯度形如 <code>softmax(z) - onehot(target)</code>——正确类为负、其它类为正。想想这对训练的意义。</li>
+<li><strong>batch 归约方式</strong>：对比 <code>reduction='mean'</code> 与 <code>reduction='sum'</code> 在不同 batch 大小下的数值，理解为什么训练里通常用 <code>mean</code>（对 batch 大小不敏感）。</li>
+</ol>
+
+
+<h2 class="relative group">答案 
+    <div id="%E7%AD%94%E6%A1%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AD%94%E6%A1%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>给所有logit加上常数c的话， Softmax 分子和分母会同时乘上同一个因子，最后约掉。所以就是保持不变。</li>
+<li>原因是 1000 * z 中最大值是 963.9，它比其他 logit 大很多。Softmax 后，最大位置接近 1，其他位置的概率极小。在有限精度浮点数中，这些极小概率会直接下溢成 0。然后再做log操作就会出现 -inf。<strong>所以在用交叉熵的时候，最重要的一点就是在做指数操作之前，就去减去最大值。</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.9639</span><span class="p">,</span> <span class="mf">0.8864</span><span class="p">,</span> <span class="mf">0.1585</span><span class="p">,</span> <span class="mf">0.3038</span><span class="p">,</span> <span class="mf">0.0350</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">big</span> <span class="o">=</span> <span class="mf">1000.0</span> <span class="o">*</span> <span class="n">z</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 不稳定路径：先 softmax，再 log</span>
+</span></span><span class="line"><span class="cl"><span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">big</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">log_probs_naive</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 稳定路径：直接使用 log_softmax</span>
+</span></span><span class="line"><span class="cl"><span class="n">log_probs_stable</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">big</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;big:&#34;</span><span class="p">,</span> <span class="n">big</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;softmax(big):&#34;</span><span class="p">,</span> <span class="n">probs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;log(softmax(big)):&#34;</span><span class="p">,</span> <span class="n">log_probs_naive</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;log_softmax(big):&#34;</span><span class="p">,</span> <span class="n">log_probs_stable</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>big: tensor([963.9000, 886.4000, 158.5000, 303.8000,  35.0000])
+softmax(big): tensor([1.0000, 0.0000, 0.0000, 0.0000, 0.0000])
+log(softmax(big)): tensor([  0.0000, -77.5001,     -inf,     -inf,     -inf])
+log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000])
+</code></pre>
+<ol start="3">
+<li>因为这样用交叉熵运算出来的梯度是softmax(z) - onehot(target)，假设针对一个输出的情况，有：softmax(z) = [0.2, 0.3, 0.5]，target = 1；这样的话我们计算出来的梯度就是[0.2, -0.7, 0.5]，由于梯度更新公式，我们的参数更新量（减去这个负梯度）实际向正方向更新，正确类别的 logit 会增大。同样的对应到非正确类别，他们的logit会减小。在这里，我们只是把logits 暂时想象成可以直接调整的变量，用来观察“交叉熵希望 logits 往哪个方向变化”。真实训练中是：交叉熵产生 logits 的梯度 → 梯度经过模型反传 → 更新模型权重 → 模型下一次生成更合适的 logits。</li>
+<li>reduction=&lsquo;sum&rsquo; 会把 batch 中每个样本的 loss 直接相加，reduction=&lsquo;mean&rsquo; 会再除以样本数量。因此，当 batch 变大时：</li>
+</ol>
+<ul>
+<li>
+<p>sum 会近似按 batch 大小成比例增大</p>
+</li>
+<li>
+<p>mean 表示平均每个样本的损失，数值基本不随 batch 大小变化</p>
+<p>这也会影响梯度。使用 sum 时，batch 越大，累加出来的梯度通常越大；如果学习率不变，参数更新幅度也会随 batch 大小变化。使用 mean 时，梯度除以 batch 大小，更新尺度相对稳定，所以更容易在更换 batch size 后继续使用相近的学习率。所以训练中通常使用 mean，<strong>它让 loss 和梯度主要反映单个样本的平均误差，而不是 batch 中装了多少个样本</strong>。</p>
+</li>
+</ul>
+
+
+<h2 class="relative group">✏️ 作业连接：<code>run_cross_entropy</code> 引导骨架 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5run_cross_entropy-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5run_cross_entropy-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>对应 <code>tests/adapters.py::run_cross_entropy</code> 与 <code>tests/test_nn_utils.py::test_cross_entropy</code>。</p>
+<p>约定（来自 adapter docstring）：输入 <code>inputs</code> 已经是 <code>(N, vocab)</code>（<code>test</code> 里用 <code>.view(-1, vocab)</code> 展平），<code>targets</code> 是 <code>(N,)</code>，每个值是该样本正确类别的索引。返回一个<strong>标量</strong>——对 N 个样本的平均交叉熵。</p>
+<p>下面是<strong>引导骨架</strong>：每一步给了思路注释，求解行留空（<code>...</code>）由你填。<strong>关键提示</strong>：直接走上一节的等价形式 <code>loss = log-sum-exp(z) − z[target]</code>，天然数值稳定，不要先 softmax 再取 log。填完后到 <code>adapters.py</code> 的 <code>run_cross_entropy</code> 里接线。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cross_entropy</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 约定：inputs 是 (N, vocab)，targets 是 (N,)；返回标量(对 N 求平均)。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 1: 沿 vocab 维做数值稳定的 log-sum-exp</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   - 先取每行(沿 vocab)的最大值 m，注意 keepdim 以便广播（回顾第 00 章）</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   - lse = m + log(sum(exp(inputs - m)))，结果形状 (N,)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">inputs_max</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">values</span> <span class="c1"># (N, vocab)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log_sum_exp</span> <span class="o">=</span> <span class="n">inputs_max</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">inputs</span> <span class="o">-</span> <span class="n">inputs_max</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span> <span class="c1"># (N,)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 2: 按 targets 取出每个样本&#34;正确类&#34;对应的那个 logit -&gt; (N,)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 用arange和targets同时索引第 0 维和第 1 维。而是按位置配对取</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_logit</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">targets</span><span class="p">]</span> <span class="c1"># (N,)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 3: 逐样本损失 = lse - target_logit   -&gt; (N,)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">per_example</span> <span class="o">=</span> <span class="n">log_sum_exp</span> <span class="o">-</span> <span class="n">target_logit</span> <span class="c1"># (N,)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 4: 对 N 个样本求平均，得到标量并 return</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">per_example</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（未实例化/调用）。填好求解行后到 tests/adapters.py 的 run_cross_entropy 接线，再跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_nn_utils.py::test_cross_entropy -x&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;提示：溢出子测试用 1000 * inputs，务必走 log-sum-exp（先减最大值），别先 softmax 再取 log。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（未实例化/调用）。填好求解行后到 tests/adapters.py 的 run_cross_entropy 接线，再跑：
+  pytest tests/test_nn_utils.py::test_cross_entropy -x
+提示：溢出子测试用 1000 * inputs，务必走 log-sum-exp（先减最大值），别先 softmax 再取 log。
+</code></pre>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>交叉熵 = <strong>正确类别的负对数概率</strong>，对 batch 求平均；等价形式 <strong>loss = log-sum-exp(z) − z[target]</strong>。</li>
+<li>正确类 logit 相对其它类的<strong>优势</strong>越大，loss 越贴近 0；优势为负则惩罚很大。</li>
+<li>数值稳定靠 <strong>log-sum-exp（先减每行最大值）</strong>；朴素&quot;先 exp&quot;在大 logit 上溢出为 <code>inf</code>——这正是 <code>1000 * inputs</code> 溢出测试要考的点。</li>
+<li><code>cross_entropy = log_softmax + nll_loss</code>，两步都数值稳定；实现最后<strong>别忘对 batch <code>.mean()</code></strong>。</li>
+</ul>
+<hr>
+<p>下一章会在此基础上进入优化器 / 训练相关内容。写 <code>run_cross_entropy</code> 时，先在 <code>(8, 5)</code> 的小输入上核对每一步的 shape（<code>(N,)</code> vs 标量），再跑溢出子测试确认稳定性。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/cs336-assign1-3/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-3/">assign1 SwiGLU激活函数</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-1/">assign1 线形层和嵌入层</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-02T00:00:00&#43;00:00">2 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4098 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-4/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-4/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-4/">assign1 softmax</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-05T00:00:00&#43;00:00">5 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3388 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-5\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-5\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/cs336-assign1-4/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 softmax</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-05T00:00:00&#43;00:00">5 August 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/cs336-assign1-6/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 attention机制</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://qingjiusy.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

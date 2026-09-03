@@ -163,6 +163,22 @@
 
   
   
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
   <meta name="theme-color"/>
   
   
@@ -1228,7 +1244,7 @@ pretty_print_docs(compressed_docs)
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-08-14T00:00:00&#43;00:00">14 August 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1978 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
+  <time datetime="2024-08-14T00:00:00&#43;00:00">14 August 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1979 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
   
 
   

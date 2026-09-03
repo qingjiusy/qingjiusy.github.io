@@ -110,7 +110,7 @@
     "keywords": ["LLM"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2650"
+    "wordCount": "2651"
   }]
   </script>
 
@@ -295,6 +295,22 @@
 
 
   
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
   
   <meta name="theme-color"/>
   
@@ -787,7 +803,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-08-14T00:00:00&#43;00:00">14 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2650 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">6 分</span>
+  <time datetime="2024-08-14T00:00:00&#43;00:00">14 8月 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2651 文字</span><span class="px-2 text-primary-500">&middot;</span><span title="読むのに必要な時間">6 分</span>
   
 
   
@@ -1203,12 +1219,9 @@
 <p><strong>TF-IDF</strong>（Term Frequency-Inverse Document Frequency）は、文書内の単語の重要性を測定するための一般的なテキストマイニングおよび情報検索技術です。</p>
 <p>簡単に言うと、TFは文書内の単語の出現頻度であり、IDFは全文書中で単語がどれだけ珍しいかを表しています。</p>
 <p>計算式：</p>
-<p>
-
 $$
 \text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)
-$$</p>
-<p>ここで、𝑡は単語、𝑑は文書、𝐷は文書集合です。</p>
+$$<p>ここで、𝑡は単語、𝑑は文書、𝐷は文書集合です。</p>
 
 
 <h4 class="relative group">BM25 

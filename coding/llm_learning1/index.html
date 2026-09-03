@@ -110,7 +110,7 @@
     "keywords": ["LLM"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1978"
+    "wordCount": "1979"
   }]
   </script>
 
@@ -295,6 +295,22 @@
 
 
   
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
   
   <meta name="theme-color"/>
   
@@ -785,7 +801,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-08-14T00:00:00&#43;00:00">14 August 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1978 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
+  <time datetime="2024-08-14T00:00:00&#43;00:00">14 August 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1979 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
   
 
   
@@ -1183,12 +1199,9 @@
 <p><strong>TF-IDF</strong>（Term Frequency-Inverse Document Frequency）是一种常用的文本挖掘和信息检索技术，用于衡量词汇在文档中的重要性。</p>
 <p>简单来说TF是词项在文档中的词频，表示一个词在文档中出现的频率。IDF是逆文档频率，表示一个词在所有文档中出现的稀有程度。</p>
 <p>计算公式：</p>
-<p>
-
 $$
 \text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)
-$$</p>
-<p>其中，𝑡是词，𝑑是文档，𝐷是文档集合。</p>
+$$<p>其中，𝑡是词，𝑑是文档，𝐷是文档集合。</p>
 
 
 <h4 class="relative group">BM25 

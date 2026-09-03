@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 RoPE &middot; QingJiu</title>
+  <meta name="title" content="assign1 RoPE &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/cs336-assign1-7/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.930a7c6a69224a9dc067fbe56035893295d7d83b892c265af91a4fa70d5428caf70cd14538bd83dfa4a867905c07bfd20884f698d9be1127676af1de53796eff.css"
+    integrity="sha512-kwp8amkiSp3AZ/vlYDWJMpXX2DuJLCZa&#43;RpPpw1UKMr3DNFFOL2D36SoZ5BcB7/SCIT2mNm&#43;ESdnavHeU3lu/w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/cs336-assign1-7/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 RoPE">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-08T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-08T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-7/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/cs336-assign1-7/featured.JPG">
+  <meta name="twitter:title" content="assign1 RoPE">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 RoPE",
+    "headline": "assign1 RoPE",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/cs336-assign1-7\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-08T00:00:00\u002b00:00",
+    "datePublished": "2026-08-08T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-08T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "5024"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-7/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 RoPE
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-08T00:00:00&#43;00:00">8 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5024 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#part-a--为什么需要位置信息">Part A · 为什么需要位置信息？</a></li>
+    <li><a href="#part-b--核心思想用旋转编码位置">Part B · 核心思想：用&quot;旋转&quot;编码位置</a></li>
+    <li><a href="#part-c--频率表快频与慢频">Part C · 频率表：快频与慢频</a></li>
+    <li><a href="#part-d--精髓点积只依赖相对位置">Part D · 精髓：点积只依赖相对位置</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#-作业连接run_rope-引导骨架">✏️ 作业连接：<code>run_rope</code> 引导骨架</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#part-a--为什么需要位置信息">Part A · 为什么需要位置信息？</a></li>
+    <li><a href="#part-b--核心思想用旋转编码位置">Part B · 核心思想：用&quot;旋转&quot;编码位置</a></li>
+    <li><a href="#part-c--频率表快频与慢频">Part C · 频率表：快频与慢频</a></li>
+    <li><a href="#part-d--精髓点积只依赖相对位置">Part D · 精髓：点积只依赖相对位置</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#-作业连接run_rope-引导骨架">✏️ 作业连接：<code>run_rope</code> 引导骨架</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>前面几章的模块（Linear、Embedding、RMSNorm、注意力打分）都有一个共同的&quot;盲点&quot;：它们<strong>看不到 token 的顺序</strong>。这一章带你建立 <strong>RoPE（Rotary Position Embedding，旋转位置编码）</strong> 的直觉——用&quot;旋转&quot;把位置信息注入 Q/K，并且旋转后点积<strong>只依赖相对位置</strong>。</p>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>理解<strong>为什么需要位置信息</strong>：自注意力对输入顺序天生不敏感（置换等变）。</li>
+<li>掌握 RoPE 的核心思想：把特征维<strong>两两配对</strong>，按 <code>位置 × 频率</code> 的角度做<strong>二维旋转</strong>。</li>
+<li>看懂<strong>频率表</strong> $\text{freq}_i=\theta^{-2i/d}$：不同维度对以<strong>不同速率</strong>旋转（有快有慢）。</li>
+<li>理解 RoPE 的精髓——旋转后 $q,k$ 的点积<strong>只取决于相对位置</strong> $(m-n)$。</li>
+<li>记住工程约定：<strong>只对 Q/K 施加</strong>，不动 V；位置来自 <code>token_positions</code> 参数。</li>
+</ol>
+<blockquote>
+<p><strong>学术诚信</strong>：本笔记本用<strong>通用的 2×2 旋转矩阵</strong>来演示&quot;旋转&quot;这一几何概念，用来建立直觉——它<strong>不是</strong> <code>adapters.py::run_rope</code> 里要交付的那个针对 <code>d_k</code> 的前向实现。频率曲线只是把公式画出来看形状。真正的实现（张量配对、施加到 Q/K、处理任意前导维与 <code>token_positions</code>）留给你，本章结尾只给<strong>带步骤注释的骨架</strong>，<code>...</code> 处留白。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sci_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 一套色盲友好的定性配色（固定顺序使用，不循环）</span>
+</span></span><span class="line"><span class="cl"><span class="n">COL</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;blue&#34;</span><span class="p">:</span> <span class="s2">&#34;#2a78d6&#34;</span><span class="p">,</span> <span class="s2">&#34;orange&#34;</span><span class="p">:</span> <span class="s2">&#34;#eb6834&#34;</span><span class="p">,</span> <span class="s2">&#34;aqua&#34;</span><span class="p">:</span> <span class="s2">&#34;#1baf7a&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="s2">&#34;yellow&#34;</span><span class="p">:</span> <span class="s2">&#34;#eda100&#34;</span><span class="p">,</span> <span class="s2">&#34;magenta&#34;</span><span class="p">:</span> <span class="s2">&#34;#e87ba4&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&#34;figure.dpi&#34;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s2">&#34;axes.grid&#34;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                     <span class="s2">&#34;grid.alpha&#34;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s2">&#34;font.size&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;setup ok | torch&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;| device:&#34;</span><span class="p">,</span> <span class="s2">&#34;cuda&#34;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>setup ok | torch 2.11.0 | device: cpu
+</code></pre>
+
+
+<h2 class="relative group">Part A · 为什么需要位置信息？ 
+    <div id="part-a--%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-a--%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>自注意力靠 <strong>query 和 key 的点积</strong>来决定&quot;谁关注谁&quot;。但<strong>纯内容</strong>的点积 $\langle x_i, x_j\rangle$ 只跟两个 token 的<strong>向量内容</strong>有关，<strong>完全不知道它们在序列里的下标 $i,j$</strong>。</p>
+<p>换句话说：如果你把序列里的 token 重新排列，注意力打分矩阵只是跟着被&quot;置换&quot;，数值本身一个都没变——模型看到的是一个<strong>词袋</strong>，&ldquo;猫 追 狗&quot;和&quot;狗 追 猫&quot;在它眼里没有区别。没有位置编码时，不管猫和狗出现在第几个位置，猫对狗的注意力值都一样；模型只能知道“猫和狗同时出现且内容相关”，不知道谁在前、谁在后。下面亲手验证这个<strong>置换等变</strong>性质。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 3 个 token 的内容向量（d=4），当作已经算好的 Q（这里 Q=K=内容，仅演示）</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>                       <span class="c1"># (seq=3, d=4)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>                            <span class="c1"># 纯内容的点积打分 (3,3)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;原始打分矩阵 scores =</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 把序列顺序打乱：交换 token 0 和 token 2</span>
+</span></span><span class="line"><span class="cl"><span class="n">perm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">Xp</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">scores_p</span> <span class="o">=</span> <span class="n">Xp</span> <span class="o">@</span> <span class="n">Xp</span><span class="o">.</span><span class="n">T</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 打乱后的打分，其实就是原打分做同样的行列置换——数值没有任何新信息</span>
+</span></span><span class="line"><span class="cl"><span class="n">same</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">scores_p</span><span class="p">,</span> <span class="n">scores</span><span class="p">[</span><span class="n">perm</span><span class="p">][:,</span> <span class="n">perm</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">置换后的打分 == 对原打分做行列置换?&#34;</span><span class="p">,</span> <span class="n">same</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;=&gt; 纯内容点积对顺序“置换等变”：模型分不清 token 到底排在第几位。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;   所以必须把“位置”额外注入 Q/K —— 这正是 RoPE 要做的事。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>原始打分矩阵 scores =
+ tensor([[ 2.7778, -2.6617, -1.1899],
+        [-2.6617,  5.3047,  1.7896],
+        [-1.1899,  1.7896,  2.9674]])
+
+置换后的打分 == 对原打分做行列置换? True
+=&gt; 纯内容点积对顺序“置换等变”：模型分不清 token 到底排在第几位。
+   所以必须把“位置”额外注入 Q/K —— 这正是 RoPE 要做的事。
+</code></pre>
+
+
+<h2 class="relative group">Part B · 核心思想：用&quot;旋转&quot;编码位置 
+    <div id="part-b--%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E7%94%A8%E6%97%8B%E8%BD%AC%E7%BC%96%E7%A0%81%E4%BD%8D%E7%BD%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-b--%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E7%94%A8%E6%97%8B%E8%BD%AC%E7%BC%96%E7%A0%81%E4%BD%8D%E7%BD%AE" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>RoPE 的做法：把特征向量的维度<strong>两两配成一组</strong>，每一组看成一个<strong>二维平面上的点</strong>；然后按 token 所在的<strong>位置 $m$</strong> 把这个二维点<strong>旋转一个角度</strong> $m\cdot\omega$（$\omega$ 是这一组对应的频率）。</p>
+<p>二维旋转就是最普通的旋转矩阵：</p>
+$$R(\phi)=\begin{bmatrix}\cos\phi & -\sin\phi\\ \sin\phi & \cos\phi\end{bmatrix}$$<p>下面用<strong>通用</strong>的 $R(\phi)$（这只是几何工具，不是 RoPE 前向）把同一个二维向量在位置 $m=0,1,2,\dots$ 上依次旋转，看它在圆上&quot;走&quot;出的轨迹。位置越大，转得越远。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rot</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 通用 2x2 旋转矩阵（纯几何工具，与作业实现无关）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">phi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">]),</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">])])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>        <span class="c1"># 某一维度对的初始二维向量</span>
+</span></span><span class="line"><span class="cl"><span class="n">omega</span> <span class="o">=</span> <span class="mf">0.6</span>                          <span class="c1"># 这一组的频率（随便取一个值演示）</span>
+</span></span><span class="line"><span class="cl"><span class="n">positions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>       <span class="c1"># 位置 m = 0..7</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">rot</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">omega</span><span class="p">)</span> <span class="o">@</span> <span class="n">v</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">4.6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta_c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta_c</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta_c</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;0.8&#34;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># 单位圆</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)),</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)),</span> <span class="n">pts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">          <span class="n">angles</span><span class="o">=</span><span class="s2">&#34;xy&#34;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s2">&#34;xy&#34;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">COL</span><span class="p">[</span><span class="s2">&#34;blue&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">          <span class="n">width</span><span class="o">=</span><span class="mf">0.008</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">positions</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">pts</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;m=</span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.12</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.12</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&#34;center&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&#34;equal&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;k&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;k&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;Same 2-D vector, rotated by position m&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;位置每 +1，向量就多转一个固定角度 ω。位置被“编码”成了旋转角。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-7/index_files/index_5_0_hu_bb338faf58338869.png 330w,
+        /coding/cs336-assign1-7/index_files/index_5_0_hu_4666d721b7a9d128.png 660w,
+        /coding/cs336-assign1-7/index_files/index_5_0_hu_9290cc54bad139a1.png 1024w,
+        /coding/cs336-assign1-7/index_files/index_5_0_hu_33762bfc6bc6a97e.png 2x"
+        src="/coding/cs336-assign1-7/index_files/index_5_0_hu_4666d721b7a9d128.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>位置每 +1，向量就多转一个固定角度 ω。位置被“编码”成了旋转角。
+</code></pre>
+
+
+<h2 class="relative group">Part C · 频率表：快频与慢频 
+    <div id="part-c--%E9%A2%91%E7%8E%87%E8%A1%A8%E5%BF%AB%E9%A2%91%E4%B8%8E%E6%85%A2%E9%A2%91" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-c--%E9%A2%91%E7%8E%87%E8%A1%A8%E5%BF%AB%E9%A2%91%E4%B8%8E%E6%85%A2%E9%A2%91" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>如果所有维度对都用同一个 $\omega$，那不同维度携带的位置信息完全重复。RoPE 让<strong>每一组用不同的频率</strong>，按下式安排（$i$ 是维度对的索引，从 0 数起，$d$ 是特征维数）：</p>
+$$\omega_i=\theta^{-2i/d},\qquad \theta \approx 10000$$<p>i增大，2i/d增大，$\theta^{2i/d}$也增大，而它的倒数$\theta^{-2i/d}$越来越小，对应的就是频率小</p>
+<ul>
+<li>$i$ 小 → 频率大 → <strong>转得快</strong>（波长短），对<strong>相邻</strong>位置差敏感；</li>
+<li>$i$ 大 → 频率小 → <strong>转得慢</strong>（波长长），能覆盖<strong>很远</strong>的位置差。</li>
+</ul>
+<p>这跟原始 Transformer 的正弦位置编码是同一种&quot;多尺度&quot;思路。下面把这条频率曲线<strong>画出来看形状</strong>（纯概念演示：这只是把上面的公式取值作图，帮助你理解&quot;快 band vs 慢 band&rdquo;）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">d_demo</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">10000.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d_demo</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>              <span class="c1"># 维度对索引 0..d/2-1</span>
+</span></span><span class="line"><span class="cl"><span class="n">inv_freq</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">d_demo</span><span class="p">)</span>       <span class="c1"># 频率表（把公式画出来）</span>
+</span></span><span class="line"><span class="cl"><span class="n">wavelength</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">inv_freq</span>             <span class="c1"># 波长 = 转一整圈需要的位置跨度</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">inv_freq</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&#34;o&#34;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">COL</span><span class="p">[</span><span class="s2">&#34;blue&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&#34;log&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;dim-pair index  i&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;frequency  $</span><span class="se">\\</span><span class="s2">omega_i$ (log)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;Frequency per dim-pair: fast $</span><span class="se">\\</span><span class="s2">to$ slow&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">&#34;fast band&#34;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">inv_freq</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">COL</span><span class="p">[</span><span class="s2">&#34;orange&#34;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">&#34;slow band&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">d_demo</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="n">inv_freq</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">COL</span><span class="p">[</span><span class="s2">&#34;aqua&#34;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 三个代表性维度对：角度随位置怎么走（快的绕好几圈，慢的几乎不动）</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;i=0 (fast)&#34;</span><span class="p">,</span> <span class="n">COL</span><span class="p">[</span><span class="s2">&#34;orange&#34;</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl">                     <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&#34;i=8 (mid)&#34;</span><span class="p">,</span> <span class="n">COL</span><span class="p">[</span><span class="s2">&#34;blue&#34;</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl">                     <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="s2">&#34;i=28 (slow)&#34;</span><span class="p">,</span> <span class="n">COL</span><span class="p">[</span><span class="s2">&#34;aqua&#34;</span><span class="p">])]:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">inv_freq</span><span class="p">[</span><span class="n">idx</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;position  m&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;cos(m·$</span><span class="se">\\</span><span class="s2">omega_i$)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;Angle vs position for 3 dim-pairs&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;i=0 波长≈</span><span class="si">{</span><span class="n">wavelength</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">（转得快），i=</span><span class="si">{</span><span class="n">d_demo</span><span class="o">//</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2"> 波长≈</span><span class="si">{</span><span class="n">wavelength</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">（转得慢）&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-7/index_files/index_7_0_hu_3a28e1d150d8a973.png 330w,
+        /coding/cs336-assign1-7/index_files/index_7_0_hu_23c6a676b8158c86.png 660w,
+        /coding/cs336-assign1-7/index_files/index_7_0_hu_6a8de126f0bd1e5a.png 1024w,
+        /coding/cs336-assign1-7/index_files/index_7_0_hu_fd480b265090a39f.png 2x"
+        src="/coding/cs336-assign1-7/index_files/index_7_0_hu_23c6a676b8158c86.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>i=0 波长≈6.3（转得快），i=31 波长≈47117（转得慢）
+</code></pre>
+
+
+<h2 class="relative group">Part D · 精髓：点积只依赖相对位置 
+    <div id="part-d--%E7%B2%BE%E9%AB%93%E7%82%B9%E7%A7%AF%E5%8F%AA%E4%BE%9D%E8%B5%96%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-d--%E7%B2%BE%E9%AB%93%E7%82%B9%E7%A7%AF%E5%8F%AA%E4%BE%9D%E8%B5%96%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>这是 RoPE 最漂亮的性质。设某个维度对里，query 在位置 $m$、key 在位置 $n$，各自被旋转：</p>
+$$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
+= q^{\top} R(m\omega)^{\top} R(n\omega)\, k
+= q^{\top} R\big((n-m)\omega\big)\, k$$<p>（用到 $R(a)^{\top}R(b)=R(b-a)$。）结果里<strong>绝对位置 $m,n$ 消失了</strong>，只剩下<strong>相对位置 $n-m$</strong>。也就是说：把两个 token 一起平移，注意力打分不变——模型学到的是&quot;相隔多远&quot;，而不是&quot;各自在第几位&quot;。</p>
+<p>也就是<strong>给 Query 和 Key 都做 RoPE 旋转以后，它们的点积只和二者相距多少个位置有关，而不再分别依赖它们各自在第几个位置。</strong></p>
+<p>下面用<strong>通用 2D 旋转</strong>把这条恒等式<strong>测出来</strong>：固定偏移 $n-m$ 时打分是常数；改变偏移时打分才变化。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rot</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">phi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">]),</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">])])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">k</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>      <span class="c1"># 一个维度对里的 q,k（二维）</span>
+</span></span><span class="line"><span class="cl"><span class="n">w</span> <span class="o">=</span> <span class="mf">0.5</span>                                       <span class="c1"># 这一组的频率</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># (1) 固定相对偏移 offset=3，滑动绝对位置 m —— 打分应当是常数</span>
+</span></span><span class="line"><span class="cl"><span class="n">offset</span> <span class="o">=</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">ms</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">score_slide</span> <span class="o">=</span> <span class="p">[((</span><span class="n">rot</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">rot</span><span class="p">((</span><span class="n">m</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">@</span> <span class="n">k</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">ms</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># (2) 改变相对偏移 —— 打分随之变化</span>
+</span></span><span class="line"><span class="cl"><span class="n">offs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">score_by_off</span> <span class="o">=</span> <span class="p">[((</span><span class="n">rot</span><span class="p">(</span><span class="mi">0</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">rot</span><span class="p">(</span><span class="n">o</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">@</span> <span class="n">k</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">offs</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ms</span><span class="p">,</span> <span class="n">score_slide</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&#34;o&#34;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">COL</span><span class="p">[</span><span class="s2">&#34;blue&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;absolute position m (offset fixed = 3)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;q·k score&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;Slide both tokens: score is CONSTANT&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">score_slide</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">score_slide</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">offs</span><span class="p">,</span> <span class="n">score_by_off</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&#34;o&#34;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">COL</span><span class="p">[</span><span class="s2">&#34;orange&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">.6</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;k&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;relative offset (n - m)&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;q·k score&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;Change the gap: score DOES vary&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">score_slide</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;左图打分标准差 = </span><span class="si">{</span><span class="n">flat</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> （≈0，说明只依赖相对位置，与绝对位置无关）&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这正是 RoPE 想要的：注意力对“相隔多远”敏感，对“各自第几位”不敏感。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-7/index_files/index_9_0_hu_96391a66f8059e6a.png 330w,
+        /coding/cs336-assign1-7/index_files/index_9_0_hu_fdc6c4435b253035.png 660w,
+        /coding/cs336-assign1-7/index_files/index_9_0_hu_66a6d2da85114baf.png 1024w,
+        /coding/cs336-assign1-7/index_files/index_9_0_hu_8941c538997ce17c.png 2x"
+        src="/coding/cs336-assign1-7/index_files/index_9_0_hu_fdc6c4435b253035.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>左图打分标准差 = 1.95e-08 （≈0，说明只依赖相对位置，与绝对位置无关）
+这正是 RoPE 想要的：注意力对“相隔多远”敏感，对“各自第几位”不敏感。
+</code></pre>
+<blockquote>
+<p><strong>一个工程约定别忘了</strong>：RoPE <strong>只施加在 Q 和 K 上</strong>，<strong>不作用于 V</strong>。原因正是 Part D——位置信息要进入的是&quot;谁和谁匹配&quot;的打分（$q\cdot k$），而 V 只是被加权求和的内容，不参与打分，所以不需要旋转。</p></blockquote>
+
+
+<h2 class="relative group">🔬 拓展实验（自己动手，加深理解） 
+    <div id="-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><strong>改 $\theta$ 看波长</strong>：把 Part C 里的 <code>theta</code> 从 10000 改成 100 或 1e6，重画频率曲线，观察最慢那一组的波长怎么变。思考：上下文越长，你希望 $\theta$ 更大还是更小？</li>
+<li><strong>验证 $R(a)^\top R(b)=R(b-a)$</strong>：用你的 <code>rot</code>，随便取两个角度，数值上核对这个矩阵恒等式——它就是 Part D 结论的代数来源。</li>
+<li><strong>相邻配对 vs 前后半配对</strong>：RoPE 有两种常见的&quot;配对法&quot;——把维度 <code>(0,1),(2,3),...</code> 相邻两两配对，或把前半 <code>[0:d/2]</code> 和后半 <code>[d/2:d]</code> 对应配对。用一个小张量画出两种配对下&quot;哪一维和哪一维成对&quot;，想清楚你的实现选哪一种，以及 <code>cos/sin</code> 要怎么对齐。（这会直接影响你能否通过 <code>test_rope</code>。）</li>
+<li><strong>旋转是保长的</strong>：随机取一个二维向量，旋转任意角度后打印它的模长——确认旋转不改变长度（正交变换）。这解释了为什么 RoPE 不会破坏向量的尺度。</li>
+</ol>
+
+
+<h2 class="relative group">✏️ 作业连接：<code>run_rope</code> 引导骨架 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5run_rope-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5run_rope-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>对应 <code>tests/adapters.py::run_rope</code>，测试是 <code>tests/test_model.py::test_rope</code>（<code>conftest.py</code> 里 <code>theta=10000</code>、<code>token_positions=arange</code>、<code>atol=1e-5</code>）。</p>
+<p>下面是<strong>给你填的骨架</strong>（<code>...</code> 处留白，不要直接跑通）。把上面的直觉翻译成对<strong>任意前导维</strong> <code>...</code> 都通用的张量运算。几个想清楚再动手的点：</p>
+<ul>
+<li>频率表 $\omega_i=\theta^{-2i/d}$ 只依赖 <code>d_k</code>，可以在 <code>__init__</code> 里<strong>预计算并缓存</strong>到 <code>max_seq_len</code>（用 <code>register_buffer</code>，别当成可学习参数）。</li>
+<li>角度 = <strong>位置与频率的外积</strong>：<code>token_positions</code>（形状 <code>... seq</code>）对上 <code>inv_freq</code>（形状 <code>d_k/2</code>）。<strong>位置来自参数 <code>token_positions</code>，不要假设它就是 <code>0..seq-1</code></strong>。</li>
+<li>把输入按<strong>相邻维配对</strong>还是<strong>前后半配对</strong>？两种都能对，但 <code>cos/sin</code> 的排布必须和你的配对方式一致——拿 <code>d_k=4</code>、<code>seq=2</code> 的玩具张量核对。</li>
+<li>对每一对施加二维旋转（$x'=x\cos-y\sin,\; y'=x\sin+y\cos$），再<strong>重组回原形状</strong>。</li>
+<li><strong>只在 Q/K 上调用</strong>；<code>forward</code> 返回和输入<strong>同形状</strong>的张量。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">einops</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">RotaryPositionalEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">d_k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_seq_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 建维度对索引 i = 0,1,...,d_k/2 - 1，算频率表 inv_freq = theta^(-2i/d_k)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">d_k</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="c1"># (d_k/2, )</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inv_freq</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">d_k</span><span class="p">)</span> <span class="c1"># (d_k/2, )</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2: 位置 0..max_seq_len-1 与 inv_freq 做外积，得到角度表 (max_seq_len, d_k/2)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 需要构造一个pos 向量来储存位置，然后进行外积。这样得到的angles表就是我们的旋转角度对应表，对于每个pos的每一对两两组合的维度，我们有一个旋转角度</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 这样就实现了加入位置信息</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pos</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">max_seq_len</span><span class="p">)</span> <span class="c1"># (max_seq_len, )</span>
+</span></span><span class="line"><span class="cl">        <span class="n">angles</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">inv_freq</span><span class="p">)</span> <span class="c1"># 两个一维向量，做外积操作，(max_seq_len, d_k/2)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 3: 由 angles 预计算 cos / sin，并用 register_buffer 缓存（非可学习参数）</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 用register的意义是：会把数据缓存到显卡上，减少了后续的数据搬运</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&#34;cos_cached&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">),</span> <span class="n">persistent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># (max_seq_len, d_k/2)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&#34;sin_cached&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles</span><span class="p">),</span> <span class="n">persistent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># (max_seq_len, d_k/2)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">token_positions</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># x: (..., seq, d_k)   token_positions: (..., seq)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 4: 用 token_positions 从缓存里取出对应的 cos / sin（注意任意前导维要能广播）</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 使用整型张量索引，用token_positions中的每一个元素（数字）去做索引</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos_cached</span><span class="p">[</span><span class="n">token_positions</span><span class="p">]</span> <span class="c1"># (seq, d_k/2)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sin_cached</span><span class="p">[</span><span class="n">token_positions</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 5: 把 x 的最后一维按你选定的方式配对，拆成两半 (x1, x2)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 先转变形状，然后沿着最后一维拆分</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># torch.unbind(x_pair, dim=-1)：沿最后一维拆成两个分量</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&#34;... seq (pairs two) -&gt; ... seq pairs two&#34;</span><span class="p">,</span> <span class="n">two</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># (..., seq, d_k // 2)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 6: 对每一对施加二维旋转： x1&#39; = x1*cos - x2*sin ; x2&#39; = x1*sin + x2*cos</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">cos</span> <span class="o">-</span> <span class="n">x2</span> <span class="o">*</span> <span class="n">sin</span><span class="p">,</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">sin</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">*</span> <span class="n">cos</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 7: 把旋转后的两半重组回 (..., seq, d_k)，保证输出与输入同形状</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&#34;... seq pairs two -&gt; ... seq (pairs two)&#34;</span><span class="p">,</span> <span class="n">two</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># (..., seq, d_k)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（未实例化、未调用）。填好后到 adapters.py 的 run_rope 里接线，再跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  uv run pytest tests/test_model.py::test_rope -x&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;提示：run_rope 的入参是 d_k, theta, max_seq_len, in_query_or_key, token_positions。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（未实例化、未调用）。填好后到 adapters.py 的 run_rope 里接线，再跑：
+  uv run pytest tests/test_model.py::test_rope -x
+提示：run_rope 的入参是 d_k, theta, max_seq_len, in_query_or_key, token_positions。
+</code></pre>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li><strong>为什么要位置编码</strong>：自注意力的纯内容点积对顺序<strong>置换等变</strong>——不额外注入位置，模型就是个词袋。</li>
+<li><strong>RoPE 的思想</strong>：特征维<strong>两两配对</strong>，按 <code>位置 × 频率</code> 做<strong>二维旋转</strong>，把位置写进 Q/K。</li>
+<li><strong>频率表</strong> $\omega_i=\theta^{-2i/d}$：多尺度，有<strong>快 band</strong>（对近距离敏感）和<strong>慢 band</strong>（覆盖远距离）。</li>
+<li><strong>精髓</strong>：旋转后 $q\cdot k$ <strong>只依赖相对位置</strong> $(m-n)$，绝对位置消失（源自 $R(a)^\top R(b)=R(b-a)$）。</li>
+<li><strong>工程约定</strong>：只对 <strong>Q/K</strong> 施加，不动 <strong>V</strong>；位置来自 <code>token_positions</code>，别假设是 <code>0..seq-1</code>；频率表可缓存到 <code>max_seq_len</code>。</li>
+</ul>
+<p>下一步：在骨架里把配对方式和 <code>cos/sin</code> 对齐想清楚，用 <code>d_k=4</code> 的玩具张量核对形状，然后过 <code>test_rope</code>。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/cs336-assign1-6/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-6/">assign1 attention机制</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5983 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-5/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-5/">assign1 交叉熵损失</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4701 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-3/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-3/">assign1 SwiGLU激活函数</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-7\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-7\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/cs336-assign1-6/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 attention机制</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/torchapi/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >PyTorch API 速查笔记</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://qingjiusy.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

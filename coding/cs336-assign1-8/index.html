@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 Multi Head Attention &middot; QingJiu</title>
+  <meta name="title" content="assign1 Multi Head Attention &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/cs336-assign1-8/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.930a7c6a69224a9dc067fbe56035893295d7d83b892c265af91a4fa70d5428caf70cd14538bd83dfa4a867905c07bfd20884f698d9be1127676af1de53796eff.css"
+    integrity="sha512-kwp8amkiSp3AZ/vlYDWJMpXX2DuJLCZa&#43;RpPpw1UKMr3DNFFOL2D36SoZ5BcB7/SCIT2mNm&#43;ESdnavHeU3lu/w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/cs336-assign1-8/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 Multi Head Attention">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-09T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-8/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/cs336-assign1-8/featured.JPG">
+  <meta name="twitter:title" content="assign1 Multi Head Attention">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 Multi Head Attention",
+    "headline": "assign1 Multi Head Attention",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/cs336-assign1-8\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-09T00:00:00\u002b00:00",
+    "datePublished": "2026-08-09T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-09T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "6764"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-8/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 Multi Head Attention
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6764 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#part-a--多头的机制把-d_model-拆成头再拼回来">Part A · 多头的机制：把 <code>d_model</code> 拆成头，再拼回来</a>
+      <ul>
+        <li><a href="#a1-为什么要多头">A.1 为什么要多头</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-b--不同的头关注不同的位置含因果掩码">Part B · 不同的头关注不同的位置（含因果掩码）</a></li>
+    <li><a href="#part-c--transformer-blockpre-norm-残差结构">Part C · Transformer block：pre-norm 残差结构</a></li>
+    <li><a href="#-你的任务-1多头自注意力引导骨架">✏️ 你的任务 1：多头自注意力（引导骨架）</a></li>
+    <li><a href="#-你的任务-2transformer-block引导骨架">✏️ 你的任务 2：Transformer block（引导骨架）</a></li>
+    <li><a href="#-你的任务-3完整语言模型引导骨架">✏️ 你的任务 3：完整语言模型（引导骨架）</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#答案">答案</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#part-a--多头的机制把-d_model-拆成头再拼回来">Part A · 多头的机制：把 <code>d_model</code> 拆成头，再拼回来</a>
+      <ul>
+        <li><a href="#a1-为什么要多头">A.1 为什么要多头</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-b--不同的头关注不同的位置含因果掩码">Part B · 不同的头关注不同的位置（含因果掩码）</a></li>
+    <li><a href="#part-c--transformer-blockpre-norm-残差结构">Part C · Transformer block：pre-norm 残差结构</a></li>
+    <li><a href="#-你的任务-1多头自注意力引导骨架">✏️ 你的任务 1：多头自注意力（引导骨架）</a></li>
+    <li><a href="#-你的任务-2transformer-block引导骨架">✏️ 你的任务 2：Transformer block（引导骨架）</a></li>
+    <li><a href="#-你的任务-3完整语言模型引导骨架">✏️ 你的任务 3：完整语言模型（引导骨架）</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#答案">答案</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>到这一章，你已经写好了一堆&quot;积木&quot;：<code>Linear</code>、<code>Embedding</code>、<code>RMSNorm</code>、<code>SwiGLU</code>、<code>RoPE</code>、以及<strong>缩放点积注意力（SDPA）</strong>。这一章不再造新算法，而是把这些积木<strong>装配</strong>成三样东西：</p>
+<ol>
+<li><strong>多头自注意力（Multi-Head Self-Attention, MHA）</strong></li>
+<li><strong>Transformer block</strong>（pre-norm 残差结构）</li>
+<li><strong>完整的 Transformer 语言模型（LM）</strong></li>
+</ol>
+<p>所以本章的关键词是<strong>装配直觉</strong>：形状怎么在头之间拆开又拼回、因果掩码在讲什么、pre-norm 的残差结构长什么样、整条前向怎么串起来。</p>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>理解&quot;多头&quot;= 把 <code>d_model</code> 拆成 <code>num_heads × d_head</code>，每个头在<strong>各自的子空间</strong>独立做注意力，再拼回来。</li>
+<li>看清<strong>一次矩阵乘</strong>就能算出所有头的 Q/K/V 投影，以及权重 <code>(d_model, d_model)</code> 的行是怎么按 <code>(num_heads, d_head)</code> 排列的。</li>
+<li>通过可视化体会<strong>不同的头关注不同的位置</strong>，以及<strong>因果掩码</strong>的含义。</li>
+<li>建立 <strong>pre-norm vs post-norm</strong> 的稳定性直觉。</li>
+<li>拿到 MHA / block / LM 三个<strong>引导骨架</strong>，知道该怎么用前面的积木把它们拼出来。</li>
+</ol>
+<blockquote>
+<p><strong>学术诚信（本章尤其克制）</strong>：这是计学分的作业，本章内容风险最高。下面<strong>不会</strong>给出 MHA / block / LM 的实现表达式，也不会写&quot;我的输出恰好等于参考&quot;这种对拍。可视化里用到的 <code>nn.MultiheadAttention</code> / <code>F.scaled_dot_product_attention</code> <strong>只是参考教具</strong>（用来展示注意力&quot;长什么样&quot;），作业里是<strong>禁止</strong>用它们的——你要用自己写的积木装配。真正的实现留白（<code>...</code>）给你自己写。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">einops</span> <span class="kn">import</span> <span class="n">rearrange</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sci_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 与 tests/conftest.py 对齐的一组小尺寸，方便边看边算</span>
+</span></span><span class="line"><span class="cl"><span class="n">N_HEADS</span><span class="p">,</span> <span class="n">D_HEAD</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">16</span>
+</span></span><span class="line"><span class="cl"><span class="n">D_MODEL</span> <span class="o">=</span> <span class="n">N_HEADS</span> <span class="o">*</span> <span class="n">D_HEAD</span>      <span class="c1"># 64</span>
+</span></span><span class="line"><span class="cl"><span class="n">D_FF</span><span class="p">,</span> <span class="n">N_LAYERS</span><span class="p">,</span> <span class="n">THETA</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">10000.0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;setup ok | torch&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;d_model=</span><span class="si">{</span><span class="n">D_MODEL</span><span class="si">}</span><span class="s2">  num_heads=</span><span class="si">{</span><span class="n">N_HEADS</span><span class="si">}</span><span class="s2">  d_head=</span><span class="si">{</span><span class="n">D_HEAD</span><span class="si">}</span><span class="s2">  d_ff=</span><span class="si">{</span><span class="n">D_FF</span><span class="si">}</span><span class="s2">  n_layers=</span><span class="si">{</span><span class="n">N_LAYERS</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>setup ok | torch 2.11.0
+d_model=64  num_heads=4  d_head=16  d_ff=128  n_layers=3
+</code></pre>
+
+
+<h2 class="relative group">Part A · 多头的机制：把 <code>d_model</code> 拆成头，再拼回来 
+    <div id="part-a--%E5%A4%9A%E5%A4%B4%E7%9A%84%E6%9C%BA%E5%88%B6%E6%8A%8A-d_model-%E6%8B%86%E6%88%90%E5%A4%B4%E5%86%8D%E6%8B%BC%E5%9B%9E%E6%9D%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-a--%E5%A4%9A%E5%A4%B4%E7%9A%84%E6%9C%BA%E5%88%B6%E6%8A%8A-d_model-%E6%8B%86%E6%88%90%E5%A4%B4%E5%86%8D%E6%8B%BC%E5%9B%9E%E6%9D%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">A.1 为什么要多头 
+    <div id="a1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%A4%9A%E5%A4%B4" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#a1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%A4%9A%E5%A4%B4" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>单个注意力头只能学<strong>一种</strong>&ldquo;谁该看谁&quot;的关系。多头的想法是：把 <code>d_model</code> 维切成 <code>num_heads</code> 份，每份 <code>d_head = d_model // num_heads</code> 维，让<strong>每个头在自己的低维子空间里独立做注意力</strong>——有的头可能学&quot;看前一个词&rdquo;，有的头学&quot;看句首&quot;，有的学&quot;看语法上相关的词&quot;。最后把所有头的结果<strong>拼接</strong>起来，再过一个输出投影混合信息。</p>
+<p>工程上有个关键点：<code>num_heads</code> 个头的 Q/K/V 投影<strong>不必</strong>分别做，而是用<strong>一次</strong> <code>(d_model, d_model)</code> 的矩阵乘算出全部，再把最后一维 reshape 成 <code>(num_heads, d_head)</code>。作业 docstring 里说 <code>q_proj.weight</code> 的行是按 <code>(num_heads, d_head)</code> 顺序拼起来的，就是这个意思。</p>
+<p>所以装配 MHA 的核心动作只有两个形状变换：<strong>拆头</strong>和<strong>拼头</strong>。下面（承接第 00 章）只看 shape。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 只演示形状：投影完之后是 (batch, seq, d_model)，要把最后一维拆成 (num_heads, d_head)</span>
+</span></span><span class="line"><span class="cl"><span class="n">batch</span><span class="p">,</span> <span class="n">seq</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl"><span class="n">projected</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">D_MODEL</span><span class="p">)</span>          <span class="c1"># 假装这是 q/k/v 投影后的结果</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;投影后           :&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">projected</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="s2">&#34;  (batch, seq, d_model)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 拆头：把 (h d) 拆开，并把 head 维挪到 seq 前面 —— 每个头拿到 (seq, d_head)</span>
+</span></span><span class="line"><span class="cl"><span class="n">per_head</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">projected</span><span class="p">,</span> <span class="s2">&#34;b s (h d) -&gt; b h s d&#34;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">N_HEADS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;拆成多头         :&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">per_head</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="s2">&#34;  (batch, num_heads, seq, d_head)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 拼头：注意力算完后，逆变换把头拼回 d_model</span>
+</span></span><span class="line"><span class="cl"><span class="n">merged</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">per_head</span><span class="p">,</span> <span class="s2">&#34;b h s d -&gt; b s (h d)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;拼回             :&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">merged</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="s2">&#34;  (batch, seq, d_model)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 拆-拼是可逆的：round-trip 应完全还原</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">拆头再拼头 == 原张量 :&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">projected</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;=&gt; MHA 里你只需要这两个 rearrange，注意力本身复用你写好的 SDPA。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>投影后           : (4, 12, 64)   (batch, seq, d_model)
+拆成多头         : (4, 4, 12, 16)   (batch, num_heads, seq, d_head)
+拼回             : (4, 12, 64)   (batch, seq, d_model)
+
+拆头再拼头 == 原张量 : True
+=&gt; MHA 里你只需要这两个 rearrange，注意力本身复用你写好的 SDPA。
+</code></pre>
+
+
+<h2 class="relative group">Part B · 不同的头关注不同的位置（含因果掩码） 
+    <div id="part-b--%E4%B8%8D%E5%90%8C%E7%9A%84%E5%A4%B4%E5%85%B3%E6%B3%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%90%AB%E5%9B%A0%E6%9E%9C%E6%8E%A9%E7%A0%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-b--%E4%B8%8D%E5%90%8C%E7%9A%84%E5%A4%B4%E5%85%B3%E6%B3%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%90%AB%E5%9B%A0%E6%9E%9C%E6%8E%A9%E7%A0%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>概念说完，来&quot;看&quot;一眼注意力到底在做什么。下面用 <code>nn.MultiheadAttention</code> 当<strong>参考教具</strong>（作业里禁止用它），对一个玩具序列跑一遍，把<strong>每个头</strong>的注意力权重画成热图。</p>
+<p>两个观察点：</p>
+<ul>
+<li><strong>因果掩码</strong>：语言模型只能&quot;看过去&quot;。给注意力加一个因果 mask 后，位置 <code>i</code> 只能注意到位置 <code>j ≤ i</code>，所以热图会呈现<strong>下三角</strong>结构（右上角为 0）。你在 block 内部要<strong>自己构造</strong>这个 mask。</li>
+<li><strong>头的多样性</strong>：同一层的不同头，注意力分布明显不同——这正是&quot;多头&quot;的价值。</li>
+</ul>
+<blockquote>
+<p>注意：<code>nn.MultiheadAttention</code> 的 <code>attn_mask</code> 约定是 <strong>True = 屏蔽</strong>，而你自己 SDPA 的 mask 约定可能相反（True = 保留）。所以这段代码<strong>不能照抄</strong>进作业，它只是让你&quot;看见&quot;模式。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">L</span> <span class="o">=</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="n">ref_mha</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">(</span><span class="n">embed_dim</span><span class="o">=</span><span class="n">D_MODEL</span><span class="p">,</span> <span class="n">num_heads</span><span class="o">=</span><span class="n">N_HEADS</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">D_MODEL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 因果 mask（参考教具的约定：True = 不允许注意）：位置 i 不能看 j&gt;i</span>
+</span></span><span class="line"><span class="cl"><span class="n">causal</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">),</span> <span class="n">diagonal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_</span><span class="p">,</span> <span class="n">attn_w</span> <span class="o">=</span> <span class="n">ref_mha</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">attn_mask</span><span class="o">=</span><span class="n">causal</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">need_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">average_attn_weights</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># attn_w: (batch=1, num_heads, query=L, key=L)</span>
+</span></span><span class="line"><span class="cl"><span class="n">attn_w</span> <span class="o">=</span> <span class="n">attn_w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;每个头的注意力权重 shape :&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">attn_w</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="s2">&#34;  (num_heads, query, key)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N_HEADS</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">N_HEADS</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_HEADS</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">attn_w</span><span class="p">[</span><span class="n">h</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&#34;viridis&#34;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;head </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;key (attended to)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;query (position)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="p">));</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;attention weight&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&#34;Per-head causal attention (lower-triangular = can&#39;t see the future)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;每行加起来应为 1（softmax 归一化）:&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">attn_w</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N_HEADS</span><span class="p">,</span> <span class="n">L</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;右上角（未来位置）应为 0，且各头分布明显不同。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>每个头的注意力权重 shape : (4, 8, 8)   (num_heads, query, key)
+</code></pre>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-8/index_files/index_5_1_hu_9aec2db5313e8666.png 330w,
+        /coding/cs336-assign1-8/index_files/index_5_1_hu_35f672f5f8634c20.png 660w,
+        /coding/cs336-assign1-8/index_files/index_5_1_hu_f327a670a94af1c2.png 1024w,
+        /coding/cs336-assign1-8/index_files/index_5_1_hu_502b753308a6eb6d.png 2x"
+        src="/coding/cs336-assign1-8/index_files/index_5_1_hu_35f672f5f8634c20.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>每行加起来应为 1（softmax 归一化）: True
+右上角（未来位置）应为 0，且各头分布明显不同。
+</code></pre>
+
+
+<h2 class="relative group">Part C · Transformer block：pre-norm 残差结构 
+    <div id="part-c--transformer-blockpre-norm-%E6%AE%8B%E5%B7%AE%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-c--transformer-blockpre-norm-%E6%AE%8B%E5%B7%AE%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>一个 Transformer block 由<strong>两个子层</strong>组成，每个子层都套在一个<strong>残差连接</strong>里：</p>
+<ol>
+<li>注意力子层：<code>x = x + MHA(RMSNorm(x))</code></li>
+<li>前馈子层：  <code>x = x + SwiGLU(RMSNorm(x))</code></li>
+</ol>
+<p>注意归一化放在<strong>子层的输入侧</strong>（先 norm 再进子层，残差直接加原始 <code>x</code>）——这叫 <strong>pre-norm</strong>。另一种老式做法是 <strong>post-norm</strong>：<code>x = RMSNorm(x + Sublayer(x))</code>，把 norm 套在整个残差和外面。</p>
+<p>为什么现在都用 pre-norm？直觉是：pre-norm 给了一条从输入直达输出的**&ldquo;残差高速路&rdquo;**（identity path），信号和梯度可以几乎无损地穿过很多层；而 post-norm 每层都把整个残差流重新缩放一遍，深层堆叠时更难训练、更依赖 warmup。下面用一个玩具模拟把这条&quot;高速路&quot;画出来。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">depth</span> <span class="o">=</span> <span class="mi">40</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="n">D_MODEL</span>
+</span></span><span class="line"><span class="cl"><span class="n">x0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 固定的随机&#34;子层&#34;，当作 Attn/FFN 的替身（两种结构用同一个，保证公平对比）</span>
+</span></span><span class="line"><span class="cl"><span class="n">sublayer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 归一化替身：这里用 LayerNorm，重点是&#34;norm 放在哪儿&#34;，不是用哪种 norm</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">layer_norm</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">(</span><span class="n">d</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pre_curve</span><span class="p">,</span> <span class="n">post_curve</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="n">xp</span> <span class="o">=</span> <span class="n">x0</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>   <span class="c1"># pre-norm 残差流</span>
+</span></span><span class="line"><span class="cl"><span class="n">xq</span> <span class="o">=</span> <span class="n">x0</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>   <span class="c1"># post-norm 残差流</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">xp</span> <span class="o">=</span> <span class="n">xp</span> <span class="o">+</span> <span class="n">sublayer</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">xp</span><span class="p">))</span>     <span class="c1"># pre-norm: norm 在子层输入侧，残差是干净的 identity</span>
+</span></span><span class="line"><span class="cl">        <span class="n">xq</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">xq</span> <span class="o">+</span> <span class="n">sublayer</span><span class="p">(</span><span class="n">xq</span><span class="p">))</span>     <span class="c1"># post-norm: norm 套在整个残差和外面</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pre_curve</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xp</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">post_curve</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xq</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pre_curve</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;pre-norm (residual highway)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">post_curve</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;post-norm (re-normalized each layer)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;depth (layer index)&#34;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;mean activation L2 norm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;Residual stream norm vs depth&#34;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;pre-norm 的范数随深度平滑增长 =&gt; 存在一条直达的 identity 通路（残差高速路）。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-8/index_files/index_7_0_hu_ee57a440edd38057.png 330w,
+        /coding/cs336-assign1-8/index_files/index_7_0_hu_75c6be63eab3bc03.png 660w,
+        /coding/cs336-assign1-8/index_files/index_7_0_hu_1767e4d586fc9078.png 1024w,
+        /coding/cs336-assign1-8/index_files/index_7_0_hu_14559f14c4e51c9d.png 2x"
+        src="/coding/cs336-assign1-8/index_files/index_7_0_hu_75c6be63eab3bc03.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>pre-norm 的范数随深度平滑增长 =&gt; 存在一条直达的 identity 通路（残差高速路）。
+post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
+</code></pre>
+
+
+<h2 class="relative group">✏️ 你的任务 1：多头自注意力（引导骨架） 
+    <div id="-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1-1%E5%A4%9A%E5%A4%B4%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1-1%E5%A4%9A%E5%A4%B4%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>下面是<strong>给你填的骨架</strong>，只画出&quot;装配流水线&quot;，每一步都留白（<code>...</code>）。核心是<strong>复用你已经写好的积木</strong>（<code>Linear</code> / <code>RoPE</code> / <code>Scaled Dot-Product Attention(SDPA)</code>），而不是重写注意力。</p>
+<p>装配流水线（对照 docstring 的权重形状 <code>(d_model, d_model)</code>、行按 <code>(num_heads, d_head)</code> 排列）：</p>
+<ul>
+<li><strong>一次</strong>矩阵乘做 Q/K/V 投影 → 用 Part A 的 <code>rearrange</code> <strong>拆头</strong> → （RoPE 版）对 q,k 施加 RoPE → 构造<strong>因果 mask</strong> → 调用你的 <strong>SDPA</strong> → <strong>拼头</strong> → 过输出投影。</li>
+</ul>
+<p>自问几个问题：拆头的目标形状是什么（回看 A.1）？你的 SDPA 的 mask 约定是 True=保留还是 True=屏蔽？RoPE 作用在哪一维（<code>d_head</code> 还是 <code>d_model</code>）？</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.linear</span> <span class="kn">import</span> <span class="n">Linear</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.rope</span> <span class="kn">import</span> <span class="n">RotaryPositionalEmbedding</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.attention</span> <span class="kn">import</span> <span class="n">scaled_dot_product_attention</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">einops</span> <span class="kn">import</span> <span class="n">rearrange</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MultiHeadSelfAttention</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_model</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">use_rope</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">max_seq_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">theta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">=</span> <span class="n">num_heads</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="n">d_model</span> <span class="o">%</span> <span class="n">num_heads</span> <span class="o">==</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">d_head</span> <span class="o">=</span> <span class="n">d_model</span> <span class="o">//</span> <span class="n">num_heads</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">use_rope</span> <span class="o">=</span> <span class="n">use_rope</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 先想清楚: d_head = d_model // num_heads</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 建 4 个投影 q_proj / k_proj / v_proj / output_proj —— 每个都是 (d_model, d_model)的线性层（复用你写的 Linear）。self.q_proj = ...  ...  self.o_proj = ...</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">q_proj</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">k_proj</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">v_proj</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">output_proj</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2:（use_rope 时）准备一个 RoPE 模块，作用在每个头的 d_head 维上</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_rope</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">RoPE</span> <span class="o">=</span> <span class="n">RotaryPositionalEmbedding</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_head</span><span class="p">,</span> <span class="n">max_seq_len</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">token_positions</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># x: (..., seq, d_model)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 一次矩阵乘做投影，得到 q, k, v，每个 (..., seq, d_model)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_proj</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_proj</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_proj</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2: 拆头 —— 把最后一维拆成 (num_heads, d_head)，把 head 维挪到 seq 前</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 目标形状 (..., num_heads, seq, d_head)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">q</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="s2">&#34;... seq (num_heads d_head) -&gt; ... num_heads seq d_head&#34;</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">d_head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_head</span><span class="p">)</span>   
+</span></span><span class="line"><span class="cl">        <span class="n">k</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s2">&#34;... seq (num_heads d_head) -&gt; ... num_heads seq d_head&#34;</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">d_head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_head</span><span class="p">)</span>    
+</span></span><span class="line"><span class="cl">        <span class="n">v</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&#34;... seq (num_heads d_head) -&gt; ... num_heads seq d_head&#34;</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">d_head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_head</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 3:（use_rope 时）对 q, k 施加 RoPE（复用你写的 RoPE；注意作用在 d_head 维）</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># token_positions:(..., seq)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_rope</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">token_positions</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">token_positions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RoPE</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">token_positions</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RoPE</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">token_positions</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 4: 构造因果 mask —— query i 只能看到 key j &lt;= i，之前构造的attention中True=保留 / False=屏蔽</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 构造一个(seq, seq)的mask，然后之后用的时候直接广播到(..., num_heads, seq, seq)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">))</span> <span class="c1"># (seq, seq)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 5: 调用你写的 SDPA，得到每个头的输出 </span>
+</span></span><span class="line"><span class="cl">        <span class="n">attn</span> <span class="o">=</span> <span class="n">scaled_dot_product_attention</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span> <span class="c1"># (..., num_heads, seq, d_head)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 6: 拼头 —— 把 (num_heads, d_head) 拼回 d_model</span>
+</span></span><span class="line"><span class="cl">        <span class="n">attn</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">attn</span><span class="p">,</span> <span class="s2">&#34;... num_heads seq d_head -&gt; ... seq (num_heads d_head)&#34;</span><span class="p">)</span> <span class="c1"># (..., seq, d_model)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 7: 过输出投影 output_proj 并返回</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 过输出投影 output_proj 是为了让不同 head 的信息发生融合。下一层就可以收到已经混合好的表示。</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_proj</span><span class="p">(</span><span class="n">attn</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;MHA 骨架已定义（未实例化）。填好后接线到 run_multihead_self_attention[_with_rope]。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;先确保底层 test_scaled_dot_product_attention / test_rope 全绿，再来查装配。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>MHA 骨架已定义（未实例化）。填好后接线到 run_multihead_self_attention[_with_rope]。
+先确保底层 test_scaled_dot_product_attention / test_rope 全绿，再来查装配。
+</code></pre>
+
+
+<h2 class="relative group">✏️ 你的任务 2：Transformer block（引导骨架） 
+    <div id="-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1-2transformer-block%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1-2transformer-block%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>有了 MHA，block 就是把 Part C 的两句公式翻译成代码——<strong>全用你已有的积木</strong>（两个 <code>RMSNorm</code>、一个 <code>MHA</code>、一个 <code>SwiGLU</code>）。注意 pre-norm 的位置：归一化在子层输入侧，残差直接加<strong>原始</strong> <code>x</code>。权重键名参照 docstring：<code>ln1</code> / <code>attn.*</code> / <code>ln2</code> / <code>ffn.w1|w2|w3</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.rmsnorm</span> <span class="kn">import</span> <span class="n">RMSNorm</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.multi_head_self_attention</span> <span class="kn">import</span> <span class="n">MultiHeadSelfAttention</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.swiGLU</span> <span class="kn">import</span> <span class="n">SwiGLU</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TransformerBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_model</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">d_ff</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">max_seq_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 两个 RMSNorm（ln1, ln2）、一个 MHA(attn, 带 RoPE)、一个 SwiGLU(ffn)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ln1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ln2</span> <span class="o">=</span> <span class="n">RMSNorm</span><span class="p">(</span><span class="n">d_model</span><span class="o">=</span><span class="n">d_model</span><span class="p">),</span> <span class="n">RMSNorm</span><span class="p">(</span><span class="n">d_model</span><span class="o">=</span><span class="n">d_model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">attn</span> <span class="o">=</span> <span class="n">MultiHeadSelfAttention</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">d_model</span><span class="o">=</span><span class="n">d_model</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">num_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">use_rope</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">max_seq_len</span><span class="o">=</span><span class="n">max_seq_len</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">theta</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ffn</span> <span class="o">=</span> <span class="n">SwiGLU</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">d_model</span><span class="o">=</span><span class="n">d_model</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">d_ff</span><span class="o">=</span><span class="n">d_ff</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">token_positions</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 子层一（pre-norm 注意力）: 残差 + attn(ln1(x))，norm 在子层输入侧</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">attn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ln1</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">token_positions</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 子层二（pre-norm 前馈）:   残差 + ffn(ln2(x))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ln2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;TransformerBlock 骨架已定义（未实例化）。接线到 run_transformer_block（atol=1e-4）。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>TransformerBlock 骨架已定义（未实例化）。接线到 run_transformer_block（atol=1e-4）。
+</code></pre>
+
+
+<h2 class="relative group">✏️ 你的任务 3：完整语言模型（引导骨架） 
+    <div id="-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1-3%E5%AE%8C%E6%95%B4%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1-3%E5%AE%8C%E6%95%B4%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>最后把 block 堆起来变成 LM。整条前向是：<strong>token 嵌入 → 依次过 <code>num_layers</code> 个 block → 最终 RMSNorm → lm_head 得到每个位置的下一个 token 的 logits</strong>。权重键名参照 docstring：<code>token_embeddings</code> / <code>layers.{i}.*</code> / <code>ln_final</code> / <code>lm_head</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.embedding</span> <span class="kn">import</span> <span class="n">Embedding</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.transformer_block</span> <span class="kn">import</span> <span class="n">TransformerBlock</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.rmsnorm</span> <span class="kn">import</span> <span class="n">RMSNorm</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.linear</span> <span class="kn">import</span> <span class="n">Linear</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TransformerLM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">context_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">d_model</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">num_layers</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">d_ff</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rope_theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: token 嵌入表 (vocab_size, d_model)（复用你的 Embedding）</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">token_embeddings</span> <span class="o">=</span> <span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2: num_layers 个 TransformerBlock，用 nn.ModuleList 堆起来</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="n">TransformerBlock</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">d_model</span><span class="o">=</span><span class="n">d_model</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">num_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">d_ff</span><span class="o">=</span><span class="n">d_ff</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">max_seq_len</span><span class="o">=</span><span class="n">context_length</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">theta</span><span class="o">=</span><span class="n">rope_theta</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 3: 最终 RMSNorm（ln_final）</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ln_final</span> <span class="o">=</span> <span class="n">RMSNorm</span><span class="p">(</span><span class="n">d_model</span><span class="o">=</span><span class="n">d_model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 4: lm_head：线性 d_model -&gt; vocab_size</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">lm_head</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_ids</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># token_ids:(batch, seq)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 查嵌入 -&gt; (batch, seq, d_model)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_embeddings</span><span class="p">(</span><span class="n">token_ids</span><span class="p">)</span> <span class="c1"># (batch, seq, d_model)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2: 依次过每个 block（token_positions 可用 arange 生成）</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">x</span> <span class="o">=</span> <span class="n">block</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># (batch, seq, d_model)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 3: 过最终 norm</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ln_final</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># (batch, seq, d_model)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 4: 过 lm_head 得到 logits (batch, seq, vocab_size)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lm_head</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;TransformerLM 骨架已定义（未实例化）。接线到 run_transformer_lm（atol=1e-4, rtol=1e-2）。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>TransformerLM 骨架已定义（未实例化）。接线到 run_transformer_lm（atol=1e-4, rtol=1e-2）。
+</code></pre>
+
+
+<h2 class="relative group">🔬 拓展实验（自己动手，加深理解） 
+    <div id="-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><strong>拆头/拼头的可逆性</strong>：把 A.2 的 round-trip 换成&quot;先拼再拆&quot;，或故意把 <code>rearrange</code> 写成 <code>b s (d h)</code>（把 <code>h</code> 和 <code>d</code> 顺序调换），比较结果——体会为什么头的切分顺序必须和权重的行排列一致。</li>
+<li><strong>因果掩码的验证</strong>：在 Part B 里去掉 <code>attn_mask</code>（改成非因果），再看热图——右上角不再为 0。想清楚：如果 LM 忘了加因果 mask，模型会&quot;作弊&quot;看到未来，训练 loss 会异常地低。</li>
+<li><strong>头数的极端情形</strong>：令 <code>num_heads = 1</code>（等价单头）和 <code>num_heads = d_model</code>（每个头 1 维），观察 A.2 的形状变化。思考头太多/太少各自的代价。</li>
+<li><strong>pre vs post 的深度</strong>：把 Part C 的 <code>depth</code> 调到 5 和 200，观察两条曲线的差异如何随深度放大。</li>
+<li><strong>参数量估算</strong>：手推一个 block 的参数量（4 个 <code>d_model×d_model</code> 投影 + 3 个 FFN 矩阵 + 2 个 RMSNorm），再想 <code>num_layers</code> 层加嵌入/lm_head 的总量。这对后面的显存/scaling 讨论有用。</li>
+</ol>
+
+
+<h2 class="relative group">答案 
+    <div id="%E7%AD%94%E6%A1%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AD%94%E6%A1%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>rearrange 不只是改变 shape，它还规定了我们如何解释原来连续排列的数据。MHA 中投影权重的行按照 (num_heads, d_head) 排列，因此拆头必须使用 (h d) -&gt; h d；如果误写成 (d h)，虽然元素数量和 shape 都没有问题，但不同 head 的特征会被交叉重排，从而无法正确对应各个 attention head。</li>
+<li>如果去掉<code>attn_mask</code>，就变成了非因果序列，一个词可以看到它后面的词。
+为什么叫“作弊”呢？因为我们的模型训练的目标是用前面的所有词来预测下一个词，如果我们本身就能看到后面的所有词的话，这就是一种作弊。模型虽然可以答对，不是因为它学会了，是因为它看到了答案。loss 异常低是因为模型可以直接看到答案，训练一开始 loss 就会特别低，看起来效果就会特别好。然而这种低loss是虚假的，真实推理时，它看不到下一个位置的信息（等待模型生成），就等于它失去了它最依赖的信息，性能会急剧下降。<strong>因果 Mask 的作用不是提高 Attention 的效果，而是保证模型在训练时不能利用未来信息，从而真正学会“根据过去预测未来”</strong>。</li>
+<li>num_heads = 1的时候，整个模型实际上只有一个 Attention。一个 Head 只能学习一种 Attention 模式，比如学“语法关系”或者“长距离关系”，只有一个头的话就不能兼顾很多方面，模型的表达能力就比较弱。但是如果极端的让num_heads 太多的话，比如<code>num_heads = d_model</code>，一个头就只有一个数字，没有任何维度可以表达复杂特征。每个头几乎什么都学不了，信息量非常低。所以这里就存在一个权衡。</li>
+<li>Pre-Norm 的残差路径中存在更直接的恒等映射，梯度可以沿 residual connection 跨越很多层传播；而 Post-Norm 每层的梯度都必须经过 LayerNorm 的变换，层数越深，这些影响不断累积。因此在浅层网络中 Pre-Norm / Post-Norm 差别可能很小；网络越深，Pre-Norm 的梯度传播优势越明显，因此深层 Transformer 通常更容易用 Pre-Norm 稳定训练。</li>
+<li>假设 d_model = d，d_ff = f，num_layers = L，vocab_size = V：</li>
+</ol>
+<p>Attention 部分：q_proj，k_proj，v_proj，o_proj分别是 d*d，总和为<code>4d^2</code></p>
+<p>FFN 部分：如果使用SwiGLU，有三个矩阵w，总和是<code>3df</code></p>
+<p>两个RMSNorm：一个RMSNorm的参数是 d，两个总和就是<code>2d</code></p>
+<p>因此一个 block 总参数量：<code>4d^2 + 3df + 2d</code>，大模型中 2d 其实相对较小，估算的时候可以看作<code>4d^2 + 3df</code></p>
+<p>如果我们常见的让 f = 8/3d，一个block的参数就大约是<code>4d^2 + 8d^2 = 12d^2</code>。这就是一个经典结论：<strong>Transformer 每层参数量大约是 12 d_model^2</strong>。</p>
+<p>L层transformer的参数总和就是<code>12 Ld^2</code></p>
+<p>再加 Embedding 和 LM Head:<code>V*d + d*V = 2Vd</code></p>
+<p>通常还会有一个最后的 RMSNorm，所以更精确一点的模型参数总和是：<code>L(4d^2 + 3df + 2d) + 2Vd + d</code></p>
+<p>如果 embedding 和 lm_head共享权重，那么两者实际上只需要一份参数，参数和就是：<code>L(4d^2 + 3df + 2d) + Vd + d</code></p>
+<p>因此我们就推导出了两个scaling方面的重要结论：</p>
+<ul>
+<li>层参数量 $\propto d_{\text{model}}^2$</li>
+<li>总参数量 $\propto Ld_{\text{model}}^2$</li>
+</ul>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li><strong>多头</strong> = 把 <code>d_model</code> 拆成 <code>num_heads × d_head</code>，每个头在子空间独立做注意力，再<strong>拼头 + 输出投影</strong>；一次矩阵乘算出所有头的 Q/K/V。</li>
+<li>装配 MHA 的形状核心就是 Part A 的<strong>拆头/拼头</strong>两个 <code>rearrange</code>，注意力本身<strong>复用你写好的 SDPA</strong>。</li>
+<li><strong>因果掩码</strong>让位置 <code>i</code> 只能看 <code>j ≤ i</code>（热图下三角）；block 内部要自己构造它。</li>
+<li><strong>pre-norm</strong> 残差结构 <code>x = x + Sub(Norm(x))</code> 提供一条&quot;残差高速路&quot;，比 post-norm 更易训练深层网络。</li>
+<li><strong>完整 LM</strong> = 嵌入 → N 个 block → 最终 RMSNorm → lm_head。本章的精神是<strong>用前面的积木装配</strong>，不是重写。</li>
+</ul>
+<hr>
+
+
+<h3 class="relative group">✏️ 作业连接 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>多头自注意力</td>
+          <td><code>run_multihead_self_attention</code></td>
+          <td>一次投影 → 拆头 → SDPA(因果) → 拼头 → 输出投影</td>
+      </tr>
+      <tr>
+          <td>带 RoPE 的 MHA</td>
+          <td><code>run_multihead_self_attention_with_rope</code></td>
+          <td>同上，在 SDPA 前对 q,k 施加 RoPE（作用在 <code>d_head</code> 维）</td>
+      </tr>
+      <tr>
+          <td>Transformer block</td>
+          <td><code>run_transformer_block</code></td>
+          <td>pre-norm 两子层残差，复用 RMSNorm/MHA/SwiGLU（atol=1e-4）</td>
+      </tr>
+      <tr>
+          <td>Transformer LM</td>
+          <td><code>run_transformer_lm</code></td>
+          <td>嵌入→堆 block→最终 norm→lm_head（atol=1e-4, rtol=1e-2）</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>调试顺序</strong>：先让底层单测（SDPA / RoPE / RMSNorm / SwiGLU）<strong>全绿</strong>，再查装配层——装配的 bug 几乎都在&quot;拆头/拼头的形状&quot;和&quot;mask 约定/RoPE 作用维度&quot;上。接线方式看 <code>tests/adapters.py</code> 里对应 <code>run_*</code> 的 docstring（权重键名、<code>(d_model,d_model)</code> 且按 <code>(num_heads,d_head)</code> 排列）。</p>
+<p>至此，模型部分（架构）就装配完成了。接下来的章节会转向<strong>训练</strong>：损失函数、优化器（AdamW）、学习率调度与训练循环。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/cs336-assign1-6/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-6/">assign1 attention机制</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5983 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-3/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-3/">assign1 SwiGLU激活函数</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-5/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-5/">assign1 交叉熵损失</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4701 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-8\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-8\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/torchapi/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >PyTorch API 速查笔记</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/leetcode_notes/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >LeetCode 刷题笔记</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://qingjiusy.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

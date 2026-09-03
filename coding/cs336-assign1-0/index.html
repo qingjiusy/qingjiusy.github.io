@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 pytorch基础 &middot; QingJiu</title>
+  <meta name="title" content="assign1 pytorch基础 &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/cs336-assign1-0/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.930a7c6a69224a9dc067fbe56035893295d7d83b892c265af91a4fa70d5428caf70cd14538bd83dfa4a867905c07bfd20884f698d9be1127676af1de53796eff.css"
+    integrity="sha512-kwp8amkiSp3AZ/vlYDWJMpXX2DuJLCZa&#43;RpPpw1UKMr3DNFFOL2D36SoZ5BcB7/SCIT2mNm&#43;ESdnavHeU3lu/w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/cs336-assign1-0/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 pytorch基础">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-01T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-0/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/cs336-assign1-0/featured.JPG">
+  <meta name="twitter:title" content="assign1 pytorch基础">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 pytorch基础",
+    "headline": "assign1 pytorch基础",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/cs336-assign1-0\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-01T00:00:00\u002b00:00",
+    "datePublished": "2026-08-01T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-01T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "3537"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-0/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 pytorch基础
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-01T00:00:00&#43;00:00">1 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3537 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-张量shape--dtype--device">1. 张量：shape / dtype / device</a></li>
+    <li><a href="#2-广播与-keepdim重点">2. 广播与 keepdim（重点！）</a></li>
+    <li><a href="#3-einops可读的维度重排">3. einops：可读的维度重排</a></li>
+    <li><a href="#4-浮点数值为什么后面要小心">4. 浮点数值：为什么后面要&quot;小心&quot;</a></li>
+    <li><a href="#5-可复现性manual_seed">5. 可复现性：manual_seed</a></li>
+    <li><a href="#6-对拍范式本作业验证的核心">6. 对拍范式：本作业验证的核心</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接只给思路不给实现">✏️ 作业连接（只给思路，不给实现）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-张量shape--dtype--device">1. 张量：shape / dtype / device</a></li>
+    <li><a href="#2-广播与-keepdim重点">2. 广播与 keepdim（重点！）</a></li>
+    <li><a href="#3-einops可读的维度重排">3. einops：可读的维度重排</a></li>
+    <li><a href="#4-浮点数值为什么后面要小心">4. 浮点数值：为什么后面要&quot;小心&quot;</a></li>
+    <li><a href="#5-可复现性manual_seed">5. 可复现性：manual_seed</a></li>
+    <li><a href="#6-对拍范式本作业验证的核心">6. 对拍范式：本作业验证的核心</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接只给思路不给实现">✏️ 作业连接（只给思路，不给实现）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>这一章不涉及任何具体模块的实现，而是打好后面所有章节都要用到的地基：张量、广播、<code>einops</code>、数值精度、可复现性，以及&quot;如何对拍参考答案&quot;这套贯穿全作业的验证范式。</p>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>熟练读写张量的 <strong>shape / dtype / device</strong>，理解 <code>...</code> 前导维度的约定。</li>
+<li>掌握<strong>广播规则</strong>和 <code>keepdim</code> —— 这是后面 RMSNorm / attention 里最容易出 bug 的地方。</li>
+<li>会用 <code>einops.rearrange</code> 做维度重排（作业推荐，比手写 <code>permute/reshape</code> 更不易错）。</li>
+<li>理解<strong>浮点数值问题</strong>（溢出、低精度丢有效数字），从而明白为什么 softmax / cross-entropy / RMSNorm 要做特殊处理。</li>
+<li>理解测试的<strong>对拍范式</strong>：你的实现 vs 参考答案 + <code>assert_allclose</code> 容差。</li>
+</ol>
+<blockquote>
+<p><strong>学术诚信</strong>：本笔记本用 PyTorch 内置函数当&quot;教具/参考&quot;来建立直觉，<strong>不包含</strong>任何要你在 <code>adapters.py</code> 里交付的实现。每章结尾的&quot;✏️ 作业连接&quot;只给思路，不给代码。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">einops</span> <span class="kn">import</span> <span class="n">rearrange</span><span class="p">,</span> <span class="n">reduce</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sci_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;torch :&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;numpy :&#34;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;device:&#34;</span><span class="p">,</span> <span class="s2">&#34;cuda&#34;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>torch : 2.11.0
+numpy : 2.4.4
+device: cpu
+</code></pre>
+
+
+<h2 class="relative group">1. 张量：shape / dtype / device 
+    <div id="1-%E5%BC%A0%E9%87%8Fshape--dtype--device" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E5%BC%A0%E9%87%8Fshape--dtype--device" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>整个作业里最常见的张量形状是 <code>(batch, seq, d_model)</code>。约定俗成：<strong>最后一维</strong>是特征维（<code>d_model</code>、<code>d_k</code>、<code>vocab</code> 等），<strong>前面的维度</strong>统称 <code>...</code>（batch、序列、头数，可任意多个）。你的实现要对前导维度保持通用——这是 adapters.py 里 <code>Float[Tensor, &quot; ... d_out&quot;]</code> 这种类型注解在提醒你的事。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>   <span class="c1"># (batch=4, seq=12, d_model=64)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;shape        :&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;dtype        :&#34;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;device       :&#34;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;ndim / numel :&#34;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">numel</span><span class="p">())</span> <span class="c1"># ndim：张量的维度数量；x.numel()：表示张量里一共有多少个元素。</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;最后一维 (特征维) :&#34;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;前导维度  (...)   :&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+</span></span></code></pre></div><pre><code>shape        : (4, 12, 64)
+dtype        : torch.float32
+device       : cpu
+ndim / numel : 3 / 3072
+最后一维 (特征维) : 64
+前导维度  (...)   : (4, 12)
+</code></pre>
+
+
+<h2 class="relative group">2. 广播与 keepdim（重点！） 
+    <div id="2-%E5%B9%BF%E6%92%AD%E4%B8%8E-keepdim%E9%87%8D%E7%82%B9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E5%B9%BF%E6%92%AD%E4%B8%8E-keepdim%E9%87%8D%E7%82%B9" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>广播规则：从<strong>最后一维往前</strong>对齐，维度相等或其中一个为 1 时可广播。作业里两个高频场景：</p>
+<ul>
+<li>把一个 <code>(d_model,)</code> 的仿射参数乘到 <code>(..., d_model)</code> 上（RMSNorm 的 gain、Linear 的思路）。</li>
+<li>沿最后一维做归约（求均值/最大值），再广播回去——<strong>必须 <code>keepdim=True</code></strong>，否则维度对不齐，会静默地广播到错误的轴。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">gain</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">64</span><span class="p">,),</span> <span class="mf">2.0</span><span class="p">)</span>          <span class="c1"># (d_model,)，创建一个长度为 64 的一维张量，里面每个元素都是 2.0。</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">gain</span>                           <span class="c1"># (64,) 广播到最后一维</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;x&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="s2">&#34;* gain&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">gain</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="s2">&#34;-&gt;&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 沿最后一维归约并保留维度 —— 才能广播回 x</span>
+</span></span><span class="line"><span class="cl"><span class="n">ms_keep</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 先对x里面每个元素平方（形状不变化），然后沿着最后一维求平均，同时因为keepdim=True，所以最后一维的维度不会消失，变成长度1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">mean(dim=-1, keepdim=True):&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ms_keep</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;| 能广播回 x?&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">ms_keep</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># 这里x / ms_keep就用到了广播</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 常见 bug：忘了 keepdim</span>
+</span></span><span class="line"><span class="cl"><span class="n">ms_bad</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;mean(dim=-1, keepdim=False):&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ms_bad</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;| 若强行运算会对错维度或报错&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>x (4, 12, 64) * gain (64,) -&gt; (4, 12, 64)
+
+mean(dim=-1, keepdim=True): (4, 12, 1) | 能广播回 x? True
+mean(dim=-1, keepdim=False): (4, 12) | 若强行运算会对错维度或报错
+</code></pre>
+<p>🔬 <strong>小实验</strong>：下面故意制造一个&quot;能广播但语义错&quot;的例子。<code>(12,)</code> 会广播到 <code>seq</code> 维而不是你以为的 <code>d_model</code> 维——这类 bug 不报错，但结果全错。养成&quot;运算前后都 print shape&quot;的习惯。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">wrong</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>      <span class="c1"># 想乘到 seq 维，但广播只会对齐最后一维</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">wrong</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;意外没报错? shape =&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;广播失败(符合预期):&#34;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 想作用到 seq 维，必须显式把它 reshape 到对齐位置</span>
+</span></span><span class="line"><span class="cl"><span class="n">right</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;显式对齐后:&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">right</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</span></span></code></pre></div><pre><code>广播失败(符合预期): The size of tensor a (64) must match the size of tensor b (12) at non-singleton dimension 2
+显式对齐后: (4, 12, 64)
+</code></pre>
+
+
+<h2 class="relative group">3. einops：可读的维度重排 
+    <div id="3-einops%E5%8F%AF%E8%AF%BB%E7%9A%84%E7%BB%B4%E5%BA%A6%E9%87%8D%E6%8E%92" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-einops%E5%8F%AF%E8%AF%BB%E7%9A%84%E7%BB%B4%E5%BA%A6%E9%87%8D%E6%8E%92" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>后面多头注意力要频繁地把 <code>d_model</code> 拆成 <code>(head, d_head)</code> 再拼回。手写 <code>.view().permute()</code> 很容易把轴的顺序搞反且难 debug。<code>einops.rearrange</code> 用带名字的模式字符串，一眼看懂、还会替你校验形状。这里只演示<strong>语法机制</strong>，不是注意力的实现。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>              <span class="c1"># (batch, seq, d_model)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 把 d_model=64 拆成 head=4 * d_head=16，并把 head 提到 seq 前面</span>
+</span></span><span class="line"><span class="cl"><span class="n">q_heads</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="s2">&#34;b s (h d) -&gt; b h s d&#34;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># 这里的h=4意思是把原来最后一维拆成h和d两个维度，其中h固定为 4。</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;拆头:&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="s2">&#34;-&gt;&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">q_heads</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 逆操作拼回</span>
+</span></span><span class="line"><span class="cl"><span class="n">q_back</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">q_heads</span><span class="p">,</span> <span class="s2">&#34;b h s d -&gt; b s (h d)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;拼回:&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">q_back</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="s2">&#34;| 和原始逐元素相等?&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">q_back</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># reduce 也能带名字做归约（等价于 mean(dim=...)）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># reduce 是用来沿某些维度做聚合运算，所以通常会减少元素数量。</span>
+</span></span><span class="line"><span class="cl"><span class="n">rms_like</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">q</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&#34;b s d -&gt; b s 1&#34;</span><span class="p">,</span> <span class="s2">&#34;mean&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;沿 d 归约:&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rms_like</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</span></span></code></pre></div><pre><code>拆头: (4, 12, 64) -&gt; (4, 4, 12, 16)
+拼回: (4, 12, 64) | 和原始逐元素相等? True
+沿 d 归约: (4, 12, 1)
+</code></pre>
+
+
+<h2 class="relative group">4. 浮点数值：为什么后面要&quot;小心&quot; 
+    <div id="4-%E6%B5%AE%E7%82%B9%E6%95%B0%E5%80%BC%E4%B8%BA%E4%BB%80%E4%B9%88%E5%90%8E%E9%9D%A2%E8%A6%81%E5%B0%8F%E5%BF%83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-%E6%B5%AE%E7%82%B9%E6%95%B0%E5%80%BC%E4%B8%BA%E4%BB%80%E4%B9%88%E5%90%8E%E9%9D%A2%E8%A6%81%E5%B0%8F%E5%BF%83" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>softmax、cross-entropy、RMSNorm 的实现难点几乎都在数值稳定，而不是公式本身。先亲眼看看浮点会怎么&quot;爆&quot;和&quot;丢精度&quot;，你就理解了那些测试里 <code>x + 100</code>、<code>1000 * inputs</code> 的用意。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># (1) 大数取 exp 溢出为 inf —— 朴素 softmax 会在这里挂</span>
+</span></span><span class="line"><span class="cl"><span class="n">big</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1000.0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;exp(1000.) float32 =&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">big</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="s2">&#34; &lt;- inf&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># (2) float16 动态范围很窄，上限约 65504</span>
+</span></span><span class="line"><span class="cl"><span class="n">half</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">65600.0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;65600 存成 float16 =&#34;</span><span class="p">,</span> <span class="n">half</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="s2">&#34; &lt;- inf&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># (3) 低精度丢有效数字：在大数上反复加小数，fp16 会把小增量整个丢掉</span>
+</span></span><span class="line"><span class="cl"><span class="n">acc16</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">acc32</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">step16</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">step32</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">acc16</span> <span class="o">=</span> <span class="n">acc16</span> <span class="o">+</span> <span class="n">step16</span>
+</span></span><span class="line"><span class="cl">    <span class="n">acc32</span> <span class="o">=</span> <span class="n">acc32</span> <span class="o">+</span> <span class="n">step32</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">1000 上加 100 次 0.1:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  float16 =&#34;</span><span class="p">,</span> <span class="n">acc16</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="s2">&#34; &lt;- 卡在 1000，小增量低于该量级的分辨率被丢光&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  float32 =&#34;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">acc32</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s2">&#34; &lt;- 约等于期望的 1010&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">结论：指数/归约/累加类运算先 upcast 到 float32 再算，能显著更稳更准。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>exp(1000.) float32 = inf  &lt;- inf
+65600 存成 float16 = inf  &lt;- inf
+
+1000 上加 100 次 0.1:
+  float16 = 1000.0  &lt;- 卡在 1000，小增量低于该量级的分辨率被丢光
+  float32 = 1009.9976  &lt;- 约等于期望的 1010
+
+结论：指数/归约/累加类运算先 upcast 到 float32 再算，能显著更稳更准。
+</code></pre>
+
+
+<h2 class="relative group">5. 可复现性：manual_seed 
+    <div id="5-%E5%8F%AF%E5%A4%8D%E7%8E%B0%E6%80%A7manual_seed" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-%E5%8F%AF%E5%A4%8D%E7%8E%B0%E6%80%A7manual_seed" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p><code>tests/conftest.py</code> 里每个输入 fixture 都先调用 <code>torch.manual_seed(k)</code> 再生成随机张量，所以测试完全可复现——同样的 seed 永远给同样的数。这意味着<strong>测试挂了你可以精确重跑复现</strong>，不必怀疑是随机波动。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="n">c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;同 seed 两次 -&gt; 相等 :&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;换 seed     -&gt; 不同 :&#34;</span><span class="p">,</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">a =</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>同 seed 两次 -&gt; 相等 : True
+换 seed     -&gt; 不同 : True
+
+a =
+ tensor([[-1.6053,  0.2325,  2.2399],
+        [ 0.8473,  1.2006, -0.4016]])
+</code></pre>
+
+
+<h2 class="relative group">6. 对拍范式：本作业验证的核心 
+    <div id="6-%E5%AF%B9%E6%8B%8D%E8%8C%83%E5%BC%8F%E6%9C%AC%E4%BD%9C%E4%B8%9A%E9%AA%8C%E8%AF%81%E7%9A%84%E6%A0%B8%E5%BF%83" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#6-%E5%AF%B9%E6%8B%8D%E8%8C%83%E5%BC%8F%E6%9C%AC%E4%BD%9C%E4%B8%9A%E9%AA%8C%E8%AF%81%E7%9A%84%E6%A0%B8%E5%BF%83" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>每个 <code>test_*.py</code> 做的事本质上是：</p>
+<pre tabindex="0"><code>你的输出 = run_xxx(固定输入, 参考权重)
+np.testing.assert_allclose(你的输出, 参考答案, rtol, atol)
+</code></pre><p>参考答案存在 <code>tests/_snapshots/*.npz</code> 里（<code>test_linear</code> ↔ <code>_snapshots/test_linear.npz</code>）。<code>atol/rtol</code> 是容差：差一点点（在容差边缘）多半是 dtype/eps 问题，差很多是逻辑错。</p>
+<p>下面用一个<strong>已知正确的小例子</strong>演示这套流程本身——把&quot;手写三重循环矩阵乘&quot;和&quot;torch 的 <code>@</code>&ldquo;对拍。这只是教你验证方法，不是任何作业解答。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">B</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">reference</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span>                      <span class="c1"># 当作&#34;参考答案&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># &#34;我的实现&#34;：最朴素的三重循环（仅演示对拍）</span>
+</span></span><span class="line"><span class="cl"><span class="n">mine</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mine</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">max_abs_err</span> <span class="o">=</span> <span class="p">(</span><span class="n">mine</span> <span class="o">-</span> <span class="n">reference</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">mine</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">reference</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span> <span class="c1"># 去判断这两个数的偏差是不是小于atol</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;assert_allclose 通过 (atol=1e-5)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;最大绝对误差:&#34;</span><span class="p">,</span> <span class="n">max_abs_err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">这正是 numpy_snapshot.assert_match 在做的事，只不过参考答案来自 .npz 快照。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>assert_allclose 通过 (atol=1e-5)
+最大绝对误差: 2.384185791015625e-07
+
+这正是 numpy_snapshot.assert_match 在做的事，只不过参考答案来自 .npz 快照。
+</code></pre>
+<p>🔬 <strong>实用技巧</strong>：想在写实现前就知道某个测试期望的输出形状，可以直接读它的快照。下面看 <code>test_linear</code> 的参考答案长什么样——注意它的最后一维是 <code>d_ff=128</code>（因为该测试用 <code>w1</code> 把 64 投影到 128）。</p>
+<p>你可以把.npz文件理解成一个“装了多个 NumPy 数组的压缩包”。np.load(snap) 读出来后，里面有很多数组，每个数组都有一个名字。其中dict的k就是数组的名字，v就是具体对应的numpy数字。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pathlib</span>
+</span></span><span class="line"><span class="cl"><span class="n">snap</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&#34;tests/_snapshots/test_linear.npz&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">snap</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">snap</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&#34;../tests/_snapshots/test_linear.npz&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">snap</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;key=</span><span class="si">{</span><span class="n">k</span><span class="si">!r:</span><span class="s2">10</span><span class="si">}</span><span class="s2"> shape=</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> dtype=</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> mean=</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">=&gt; 你的 run_linear 输出应当匹配这个 shape 和数值(在容差内)。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>key='array'    shape=(4, 12, 128) dtype=float32 mean=-0.0072
+
+=&gt; 你的 run_linear 输出应当匹配这个 shape 和数值(在容差内)。
+</code></pre>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>张量约定：<strong>最后一维是特征维</strong>，前导 <code>...</code> 要通用处理。</li>
+<li><strong><code>keepdim=True</code></strong> 是归约后广播的关键；运算前后 print shape 能抓到大多数 bug。</li>
+<li><code>einops.rearrange</code> 让拆头/拼头这类操作可读且自校验。</li>
+<li>指数与归约类运算<strong>先 upcast 到 float32</strong>；这解释了后面 softmax / cross-entropy / RMSNorm 的稳定性要求。</li>
+<li>测试 = 固定输入 → <code>run_xxx</code> → 和 <code>.npz</code> 快照对拍；容差告诉你误差是&quot;数值级&quot;还是&quot;逻辑级&rdquo;。</li>
+</ul>
+<hr>
+
+
+<h3 class="relative group">✏️ 作业连接（只给思路，不给实现） 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5%E5%8F%AA%E7%BB%99%E6%80%9D%E8%B7%AF%E4%B8%8D%E7%BB%99%E5%AE%9E%E7%8E%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5%E5%8F%AA%E7%BB%99%E6%80%9D%E8%B7%AF%E4%B8%8D%E7%BB%99%E5%AE%9E%E7%8E%B0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>这一章没有对应的 <code>run_xxx</code>，但它给你的工具会贯穿全程：</p>
+<ul>
+<li>写任何 <code>run_xxx</code> 时，先在纸上/心里推出<strong>输入输出 shape</strong>，再动手；实现里临时加 <code>assert x.shape == (...)</code>，过测试后删掉。</li>
+<li>遇到&quot;差一点点&quot;没过：先怀疑 <strong>dtype / eps / keepdim</strong>。</li>
+<li>遇到&quot;差很多&quot;：用 <code>(2,3)</code> 级别的<strong>玩具输入</strong>手算对比，别在 <code>(4,12,64)</code> 上肉眼 debug。</li>
+<li>想知道期望输出：<strong>读对应的 <code>.npz</code> 快照</strong>的 shape。</li>
+</ul>
+<p>下一章 <code>01_linear_and_embedding</code> 会在这些工具上，带你建立线性层与嵌入的几何直觉。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/knowledege1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/knowledege1/featured_hu_afbd216f444a1af.PNG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/knowledege1/">一些llm中的问题</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-07-30T00:00:00&#43;00:00">30 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>716 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/harness_learning1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/miku2_hu_7e4fde868397b60f.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/harness_learning1/">Harness 学习路线：为什么我想从 Mini Coding Agent 开始</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-07-04T00:00:00&#43;00:00">4 July 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4124 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/go_learning3/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/go_learning3/featured_hu_51941e3940097983.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/go_learning3/">Golang项目案例-即时通信项目</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-05-07T00:00:00&#43;00:00">7 May 2025</time><span class="px-2 text-primary-500">&middot;</span><span>5332 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-0\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-0\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/knowledege1/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >一些llm中的问题</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-07-30T00:00:00&#43;00:00">30 July 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/cs336-assign1-1/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 线形层和嵌入层</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-02T00:00:00&#43;00:00">2 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://qingjiusy.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

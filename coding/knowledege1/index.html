@@ -163,6 +163,22 @@
 
   
   
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
   <meta name="theme-color"/>
   
   
@@ -1199,15 +1215,15 @@
         </span>
         <span>
           
-            <a class="flex text-right group ml-3" href="/coding/torchapi/">
+            <a class="flex text-right group ml-3" href="/coding/cs336-assign1-0/">
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >PyTorch API 速查笔记</span
+                  >assign1 pytorch基础</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time>
+                    <time datetime="2026-08-01T00:00:00&#43;00:00">1 August 2026</time>
                   
                 </span>
               </span>

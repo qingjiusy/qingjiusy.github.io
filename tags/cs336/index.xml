@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cs336 on QingJiu</title>
+    <link>https://qingjiusy.github.io/tags/cs336/</link>
+    <description>Recent content in Cs336 on QingJiu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>2026 清酒 转载请标明出处</copyright>
+    <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/tags/cs336/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>assign1 Multi Head Attention</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-8/</link>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-8/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-8/featured.JPG" />
+    </item>
+    
+    <item>
+      <title>assign1 RoPE</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-7/</link>
+      <pubDate>Sat, 08 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-7/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-7/featured.JPG" />
+    </item>
+    
+    <item>
+      <title>assign1 attention机制</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-6/</link>
+      <pubDate>Fri, 07 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-6/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-6/featured.JPG" />
+    </item>
+    
+    <item>
+      <title>assign1 交叉熵损失</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-5/</link>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-5/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-5/featured.JPG" />
+    </item>
+    
+    <item>
+      <title>assign1 softmax</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-4/</link>
+      <pubDate>Wed, 05 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-4/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-4/featured.JPG" />
+    </item>
+    
+    <item>
+      <title>assign1 SwiGLU激活函数</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-3/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-3/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-3/featured.JPG" />
+    </item>
+    
+    <item>
+      <title>assign1 normalization</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-2/</link>
+      <pubDate>Mon, 03 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-2/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-2/featured.JPG" />
+    </item>
+    
+    <item>
+      <title>assign1 线形层和嵌入层</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-1/</link>
+      <pubDate>Sun, 02 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-1/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-1/featured.JPG" />
+    </item>
+    
+    <item>
+      <title>assign1 pytorch基础</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-0/</link>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-0/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-0/featured.JPG" />
+    </item>
+    
+  </channel>
+</rss>

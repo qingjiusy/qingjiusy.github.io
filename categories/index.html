@@ -130,6 +130,22 @@
 
   
   
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
   <meta name="theme-color"/>
   
   
@@ -632,7 +648,7 @@
       
         <span class="px-2 text-base text-primary-500">&middot;</span>
         <span class="text-base text-neutral-400">
-          26
+          35
         </span>
       
     </h2>

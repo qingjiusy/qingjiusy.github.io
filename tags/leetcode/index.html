@@ -130,6 +130,22 @@
 
   
   
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
   <meta name="theme-color"/>
   
   
@@ -630,7 +646,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>83571 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">167 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>83581 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">167 分钟</span>
   
 
   

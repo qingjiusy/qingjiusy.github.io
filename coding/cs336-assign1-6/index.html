@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 attention机制 &middot; QingJiu</title>
+  <meta name="title" content="assign1 attention机制 &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/cs336-assign1-6/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.930a7c6a69224a9dc067fbe56035893295d7d83b892c265af91a4fa70d5428caf70cd14538bd83dfa4a867905c07bfd20884f698d9be1127676af1de53796eff.css"
+    integrity="sha512-kwp8amkiSp3AZ/vlYDWJMpXX2DuJLCZa&#43;RpPpw1UKMr3DNFFOL2D36SoZ5BcB7/SCIT2mNm&#43;ESdnavHeU3lu/w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/cs336-assign1-6/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 attention机制">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-07T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-07T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-6/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/cs336-assign1-6/featured.JPG">
+  <meta name="twitter:title" content="assign1 attention机制">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 attention机制",
+    "headline": "assign1 attention机制",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/cs336-assign1-6\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-07T00:00:00\u002b00:00",
+    "datePublished": "2026-08-07T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-07T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "5983"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-6/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 attention机制
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5983 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-q--k--v-的角色">1. Q / K / V 的角色</a></li>
+    <li><a href="#2-为什么要除以-d_k方差实验">2. 为什么要除以 √d_k（方差实验）</a>
+      <ul>
+        <li><a href="#大尺度的-scores-为什么有害softmax-饱和">大尺度的 scores 为什么有害：softmax 饱和</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-mask因果-mask-与softmax-之前置极负值">3. Mask：因果 mask 与&quot;softmax 之前置极负值&quot;</a>
+      <ul>
+        <li><a href="#用内置件观察注意力权重热图">用内置件观察注意力权重热图</a></li>
+      </ul>
+    </li>
+    <li><a href="#需要区分清楚的一些-attention-中的名词">需要区分清楚的一些 Attention 中的名词</a>
+      <ul>
+        <li><a href="#1-querykeyvalueqkv">1. Query、Key、Value（Q、K、V）</a></li>
+        <li><a href="#2-注意力分数attention-score">2. 注意力分数（Attention Score）</a></li>
+        <li><a href="#3-缩放注意力分数scaled-attention-score">3. 缩放注意力分数（Scaled Attention Score）</a></li>
+        <li><a href="#4-mask-后的-attention-logits">4. Mask 后的 Attention Logits</a></li>
+        <li><a href="#5-注意力权重attention-weight">5. 注意力权重（Attention Weight）</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#6-注意力输出attention-output">6. 注意力输出（Attention Output）</a></li>
+      </ul>
+    </li>
+    <li><a href="#4--你的任务scaleddotproductattention-引导骨架">4. ✏️ 你的任务：ScaledDotProductAttention 引导骨架</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#答案">答案</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-q--k--v-的角色">1. Q / K / V 的角色</a></li>
+    <li><a href="#2-为什么要除以-d_k方差实验">2. 为什么要除以 √d_k（方差实验）</a>
+      <ul>
+        <li><a href="#大尺度的-scores-为什么有害softmax-饱和">大尺度的 scores 为什么有害：softmax 饱和</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-mask因果-mask-与softmax-之前置极负值">3. Mask：因果 mask 与&quot;softmax 之前置极负值&quot;</a>
+      <ul>
+        <li><a href="#用内置件观察注意力权重热图">用内置件观察注意力权重热图</a></li>
+      </ul>
+    </li>
+    <li><a href="#需要区分清楚的一些-attention-中的名词">需要区分清楚的一些 Attention 中的名词</a>
+      <ul>
+        <li><a href="#1-querykeyvalueqkv">1. Query、Key、Value（Q、K、V）</a></li>
+        <li><a href="#2-注意力分数attention-score">2. 注意力分数（Attention Score）</a></li>
+        <li><a href="#3-缩放注意力分数scaled-attention-score">3. 缩放注意力分数（Scaled Attention Score）</a></li>
+        <li><a href="#4-mask-后的-attention-logits">4. Mask 后的 Attention Logits</a></li>
+        <li><a href="#5-注意力权重attention-weight">5. 注意力权重（Attention Weight）</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#6-注意力输出attention-output">6. 注意力输出（Attention Output）</a></li>
+      </ul>
+    </li>
+    <li><a href="#4--你的任务scaleddotproductattention-引导骨架">4. ✏️ 你的任务：ScaledDotProductAttention 引导骨架</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#答案">答案</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>注意力是 Transformer 的心脏。这一章帮你把 <strong>Q/K/V 的角色</strong>、<strong>为什么要除以 √d_k</strong>、<strong>mask 怎样在 softmax 之前生效</strong> 这三件事想透，最后给出一份&quot;带步骤注释的骨架&quot;让你自己填 <code>ScaledDotProductAttention</code>。</p>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>说清 Q / K / V 各自扮演什么角色（query 去<strong>找</strong>、key 被<strong>匹配</strong>、value 被<strong>聚合</strong>）。</li>
+<li>用一个方差实验亲眼看到：点积方差随 <code>d_k</code> 线性增长，<strong>除以 √d_k 后方差≈1</strong>，从而理解不缩放为什么会让 softmax 饱和、梯度消失。</li>
+<li>理解 bool mask 的约定（<strong>True 保留 / False 屏蔽</strong>），以及为什么要在 <strong>softmax 之前</strong>把屏蔽位置置为极负值。</li>
+<li>用因果 mask 的热图看到&quot;每个 query 只能看被允许的 key&quot;，被屏蔽位置权重≈0。</li>
+<li>拿到 <code>ScaledDotProductAttention</code> 的<strong>引导骨架</strong>，知道自己该在 <code>cs336_basics/</code> 里写什么，以及必须支持任意前导 batch 维（4D 测试）。</li>
+</ol>
+<blockquote>
+<p><strong>学术诚信</strong>：本章用内置件 <code>F.scaled_dot_product_attention</code> / <code>F.softmax</code> 当&quot;黑盒教具&quot;来展示注意力的<strong>行为与性质</strong>（比如注意力权重热图），<strong>不</strong>展示&quot;某表达式恰好等于测试参考输出&quot;这种解答。核心实现表达式一律留白（<code>...</code>）给你自己写。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">einops</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sci_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;setup ok | torch&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>setup ok | torch 2.11.0
+</code></pre>
+
+
+<h2 class="relative group">1. Q / K / V 的角色 
+    <div id="1-q--k--v-%E7%9A%84%E8%A7%92%E8%89%B2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-q--k--v-%E7%9A%84%E8%A7%92%E8%89%B2" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>注意力做的事，一句话：<strong>每个 query 去和所有 key 比对相似度，再据此把对应的 value 加权聚合起来。</strong></p>
+<ul>
+<li><strong>Query（查询）</strong>：当前这个位置&quot;想找什么信息&quot;。</li>
+<li><strong>Key（键）</strong>：每个位置&quot;用什么标签来被检索&quot;。</li>
+<li><strong>Value（值）</strong>：每个位置&quot;真正要贡献出去的内容&quot;。</li>
+</ul>
+<p>相似度用<strong>点积</strong>衡量：<code>scores = Q · Kᵀ</code>，<code>scores[i, j]</code> 就是 query_i 和 key_j 的点积——<strong>越大代表越该关注</strong>。下面用一个 2 维玩具例子建立直觉。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 玩具：4 个 token，用一个 2D 方向向量表示&#34;语义&#34;。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># token 0/1 指向&#34;右&#34;，token 2/3 指向&#34;上&#34; —— 同向的理应互相匹配。</span>
+</span></span><span class="line"><span class="cl"><span class="n">Q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="n">K</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>          <span class="c1"># 自注意力：query 与 key 来自同一批 token</span>
+</span></span><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">K</span><span class="o">.</span><span class="n">T</span>       <span class="c1"># (4, 4)：第 i 行第 j 列 = query_i · key_j</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;原始打分矩阵 scores = Q·Kᵀ :&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">观察对角块：{0,1} 互相得分高、{2,3} 互相得分高，跨组得分低。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;点积越大 = 方向越接近 = 越应该被关注 —— 这就是注意力的&#39;匹配&#39;。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>原始打分矩阵 scores = Q·Kᵀ :
+tensor([[1.0000, 0.9000, 0.0000, 0.1000],
+        [0.9000, 0.8200, 0.1000, 0.1800],
+        [0.0000, 0.1000, 1.0000, 0.9000],
+        [0.1000, 0.1800, 0.9000, 0.8200]])
+
+观察对角块：{0,1} 互相得分高、{2,3} 互相得分高，跨组得分低。
+点积越大 = 方向越接近 = 越应该被关注 —— 这就是注意力的'匹配'。
+</code></pre>
+
+
+<h2 class="relative group">2. 为什么要除以 √d_k（方差实验） 
+    <div id="2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%A4%E4%BB%A5-d_k%E6%96%B9%E5%B7%AE%E5%AE%9E%E9%AA%8C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%A4%E4%BB%A5-d_k%E6%96%B9%E5%B7%AE%E5%AE%9E%E9%AA%8C" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p><code>scores</code> 会直接喂给 softmax。问题来了：<strong>当特征维度 <code>d_k</code> 变大时，点积的数值尺度会随之变大。</strong></p>
+<p>直觉：<code>q · k = Σ_{t=1}^{d_k} q_t k_t</code> 是 <code>d_k</code> 个独立项之和。若各分量 ~ N(0,1) 且相互独立，则每一项方差≈1，求和后方差≈<code>d_k</code>——<strong>方差随 <code>d_k</code> 线性增长</strong>。下面用采样实验验证。</p>
+$$\operatorname{Var}(aX)=a^2\operatorname{Var}(X)$$$$\operatorname{Var}(z)=\operatorname{Var}\left(\frac{q\cdot k}{\sqrt{d_k}}\right)=\frac{1}{d_k}\operatorname{Var}(q\cdot k)\approx\frac{1}{d_k}\cdot d_k=1$$<p>。
+因此我们应该除d_k的根号，<strong>让送入 softmax 的 logits 不会随着 head dimension 增大而越来越大，从而避免 softmax 过度饱和。</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 方差实验：随机 q, k ~ N(0,1)，统计点积 q·k 的方差随 d_k 的变化</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">dks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">N</span> <span class="o">=</span> <span class="mi">20000</span>                      <span class="c1"># 每个 d_k 采样这么多对向量</span>
+</span></span><span class="line"><span class="cl"><span class="n">var_raw</span><span class="p">,</span> <span class="n">var_scaled</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dks</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dot</span> <span class="o">=</span> <span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>                      <span class="c1"># N 个点积</span>
+</span></span><span class="line"><span class="cl">    <span class="n">var_raw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dot</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>          <span class="c1"># 未缩放</span>
+</span></span><span class="line"><span class="cl">    <span class="n">var_scaled</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">dot</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d</span><span class="p">))</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>  <span class="c1"># 除以 sqrt(d_k)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dks</span><span class="p">,</span> <span class="n">var_raw</span><span class="p">,</span> <span class="s2">&#34;o-&#34;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;measured&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dks</span><span class="p">,</span> <span class="n">dks</span><span class="p">,</span> <span class="s2">&#34;k--&#34;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;y = d_k&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;unscaled: Var(q . k) grows ~ d_k&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;d_k&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;variance&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dks</span><span class="p">,</span> <span class="n">var_scaled</span><span class="p">,</span> <span class="s2">&#34;o-&#34;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;measured&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;k&#34;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;--&#34;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;y = 1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;after / sqrt(d_k): variance ~ 1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;d_k&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;variance&#34;</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">a_</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a_</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;未缩放：方差≈ d_k（左图贴着虚线 y=d_k）。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;除以 √d_k 后：方差≈ 1，与 d_k 无关（右图贴着 y=1）。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-6/index_files/index_5_0_hu_709aa192653a27c6.png 330w,
+        /coding/cs336-assign1-6/index_files/index_5_0_hu_786c3f702ee37bb9.png 660w,
+        /coding/cs336-assign1-6/index_files/index_5_0_hu_de81951bc1c22a88.png 1024w,
+        /coding/cs336-assign1-6/index_files/index_5_0_hu_e818fd3a4ae653e0.png 2x"
+        src="/coding/cs336-assign1-6/index_files/index_5_0_hu_786c3f702ee37bb9.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>未缩放：方差≈ d_k（左图贴着虚线 y=d_k）。
+除以 √d_k 后：方差≈ 1，与 d_k 无关（右图贴着 y=1）。
+</code></pre>
+
+
+<h3 class="relative group">大尺度的 scores 为什么有害：softmax 饱和 
+    <div id="%E5%A4%A7%E5%B0%BA%E5%BA%A6%E7%9A%84-scores-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E5%AE%B3softmax-%E9%A5%B1%E5%92%8C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%A7%E5%B0%BA%E5%BA%A6%E7%9A%84-scores-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E5%AE%B3softmax-%E9%A5%B1%E5%92%8C" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>softmax 对<strong>输入尺度</strong>很敏感。同一组 logits，整体放大若干倍后，输出会迅速变&quot;尖&quot;——几乎所有概率压到最大的那一个位置（趋近 one-hot）。一旦饱和，其余位置的梯度≈0，反向传播几乎学不到东西，训练变得不稳定。</p>
+<p>下面拿 <code>F.softmax</code>（黑盒）看这个饱和现象。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 同一组 logits，逐步放大整体尺度，观察 softmax 如何饱和到 one-hot</span>
+</span></span><span class="line"><span class="cl"><span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;logits =&#34;</span><span class="p">,</span> <span class="n">logits</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">scale</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">w</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;scale=</span><span class="si">{</span><span class="n">scale</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">  softmax=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">   max_prob=</span><span class="si">{</span><span class="n">w</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">尺度放大 -&gt; 分布迅速尖化(接近 one-hot) -&gt; 非最大位置梯度≈0。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这正是&#39;不除以 √d_k、让 scores 随 d_k 变大&#39;会导致梯度消失/训练不稳的机制。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>logits = [ 2.  1.  0. -1.]
+scale= 1  softmax=[0.644 0.237 0.087 0.032]   max_prob=0.644
+scale= 3  softmax=[0.95  0.047 0.002 0.   ]   max_prob=0.950
+scale=10  softmax=[1. 0. 0. 0.]   max_prob=1.000
+
+尺度放大 -&gt; 分布迅速尖化(接近 one-hot) -&gt; 非最大位置梯度≈0。
+这正是'不除以 √d_k、让 scores 随 d_k 变大'会导致梯度消失/训练不稳的机制。
+</code></pre>
+
+
+<h2 class="relative group">3. Mask：因果 mask 与&quot;softmax 之前置极负值&quot; 
+    <div id="3-mask%E5%9B%A0%E6%9E%9C-mask-%E4%B8%8Esoftmax-%E4%B9%8B%E5%89%8D%E7%BD%AE%E6%9E%81%E8%B4%9F%E5%80%BC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-mask%E5%9B%A0%E6%9E%9C-mask-%E4%B8%8Esoftmax-%E4%B9%8B%E5%89%8D%E7%BD%AE%E6%9E%81%E8%B4%9F%E5%80%BC" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>有时我们不希望某些 query 看到某些 key。最典型的是<strong>因果（causal）mask</strong>：语言模型里位置 <code>i</code> 的 query 只能看 <code>j ≤ i</code> 的 key，<strong>不能偷看未来</strong>。</p>
+<p>adapters 里的 mask 是 <strong>bool</strong> 张量，形状 <code>(... queries keys)</code>，约定：</p>
+<ul>
+<li><code>True</code> = <strong>保留</strong>（这个 key 可以被这个 query 看到）</li>
+<li><code>False</code> = <strong>屏蔽</strong>（不允许看到）</li>
+</ul>
+<p>关键在<strong>怎么屏蔽</strong>：要在 <strong>softmax 之前</strong>，把 <code>False</code> 的位置加上一个<strong>极大的负数</strong>。这样 <code>exp(极负值) ≈ 0</code>，softmax 后该位置权重≈0，而且这样的话被屏蔽位置<strong>完全不参与</strong>softmax中的归一化（只有可以被看到的位置的概率和为1）。先看因果 mask 长什么样。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 因果 mask：query i 只能看 key j &lt;= i（下三角为 True）</span>
+</span></span><span class="line"><span class="cl"><span class="n">seq</span> <span class="o">=</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="n">causal</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">))</span>   <span class="c1"># True = 允许</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">causal</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&#34;Greys&#34;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&#34;upper&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;causal mask  (True=keep, lower-triangular)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;key position j&#34;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;query position i&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;黑=True（保留），白=False（屏蔽）。上三角（未来）被屏蔽。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;实现时：在 softmax *之前* 给 False 处加一个极负值 -&gt; exp 后≈0 -&gt; 权重≈0。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-6/index_files/index_9_0_hu_a2474003b593bcb7.png 330w,
+        /coding/cs336-assign1-6/index_files/index_9_0_hu_70533aeaa8097304.png 660w,
+        /coding/cs336-assign1-6/index_files/index_9_0_hu_a6c957e0421cbe18.png 1024w,
+        /coding/cs336-assign1-6/index_files/index_9_0_hu_4cab3e1375e5543c.png 2x"
+        src="/coding/cs336-assign1-6/index_files/index_9_0_hu_70533aeaa8097304.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>黑=True（保留），白=False（屏蔽）。上三角（未来）被屏蔽。
+实现时：在 softmax *之前* 给 False 处加一个极负值 -&gt; exp 后≈0 -&gt; 权重≈0。
+</code></pre>
+
+
+<h3 class="relative group">用内置件观察注意力权重热图 
+    <div id="%E7%94%A8%E5%86%85%E7%BD%AE%E4%BB%B6%E8%A7%82%E5%AF%9F%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9D%83%E9%87%8D%E7%83%AD%E5%9B%BE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%94%A8%E5%86%85%E7%BD%AE%E4%BB%B6%E8%A7%82%E5%AF%9F%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9D%83%E9%87%8D%E7%83%AD%E5%9B%BE" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>我们想直接&quot;看到&quot;注意力权重矩阵，但 <code>F.scaled_dot_product_attention</code> 只返回<strong>聚合后的输出</strong>、不返回权重。这里有个干净的<strong>黑盒小技巧</strong>：</p>
+<blockquote>
+<p>令 <code>V = 单位矩阵 I</code>（形状 <code>keys × keys</code>），那么输出的第 <code>i</code> 行恰好就是 query_i 对各 key 的<strong>权重分布</strong>！</p></blockquote>
+<p>因为&quot;对 value 加权求和&quot;里，如果每个 value 就是一个 one-hot 基向量，加权和自然还原出权重本身。这样我们把 SDPA 当纯黑盒用，就能画权重热图、对比加不加因果 mask。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># V = 单位矩阵 -&gt; F.scaled_dot_product_attention 的输出 = 注意力权重矩阵</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">seq</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span>
+</span></span><span class="line"><span class="cl"><span class="n">Qh</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Kh</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">V_identity</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>                 <span class="c1"># (keys, keys)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">w_full</span>   <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">scaled_dot_product_attention</span><span class="p">(</span><span class="n">Qh</span><span class="p">,</span> <span class="n">Kh</span><span class="p">,</span> <span class="n">V_identity</span><span class="p">)</span>                  <span class="c1"># 无 mask</span>
+</span></span><span class="line"><span class="cl"><span class="n">w_causal</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">scaled_dot_product_attention</span><span class="p">(</span><span class="n">Qh</span><span class="p">,</span> <span class="n">Kh</span><span class="p">,</span> <span class="n">V_identity</span><span class="p">,</span> <span class="n">is_causal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 因果 mask</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">a_</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">w_full</span><span class="p">,</span>   <span class="s2">&#34;no mask: attends to all keys&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                 <span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">w_causal</span><span class="p">,</span> <span class="s2">&#34;causal: future keys get ~0 weight&#34;</span><span class="p">)]:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">im</span> <span class="o">=</span> <span class="n">a_</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&#34;viridis&#34;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">);</span> <span class="n">a_</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;key j&#34;</span><span class="p">);</span> <span class="n">a_</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&#34;query i&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">a_</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.046</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;每行权重和为 1（softmax 沿 keys 维归一化）:&#34;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">w_causal</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;右图上三角(未来)≈0。例如 query0 看 key7 的权重 =&#34;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">w_causal</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;对比: 无 mask 时 query0 看 key7 的权重 =&#34;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">w_full</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-6/index_files/index_11_0_hu_c4c6b36c5bc0c06a.png 330w,
+        /coding/cs336-assign1-6/index_files/index_11_0_hu_b76ffe94ad88f3fb.png 660w,
+        /coding/cs336-assign1-6/index_files/index_11_0_hu_b1cf3c5a93f99c59.png 1024w,
+        /coding/cs336-assign1-6/index_files/index_11_0_hu_9e87a7635cfe0756.png 2x"
+        src="/coding/cs336-assign1-6/index_files/index_11_0_hu_b76ffe94ad88f3fb.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>每行权重和为 1（softmax 沿 keys 维归一化）: [1. 1. 1. 1. 1. 1. 1. 1.]
+右图上三角(未来)≈0。例如 query0 看 key7 的权重 = 0.0
+对比: 无 mask 时 query0 看 key7 的权重 = 0.1541
+</code></pre>
+
+
+<h2 class="relative group">需要区分清楚的一些 Attention 中的名词 
+    <div id="%E9%9C%80%E8%A6%81%E5%8C%BA%E5%88%86%E6%B8%85%E6%A5%9A%E7%9A%84%E4%B8%80%E4%BA%9B-attention-%E4%B8%AD%E7%9A%84%E5%90%8D%E8%AF%8D" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%9C%80%E8%A6%81%E5%8C%BA%E5%88%86%E6%B8%85%E6%A5%9A%E7%9A%84%E4%B8%80%E4%BA%9B-attention-%E4%B8%AD%E7%9A%84%E5%90%8D%E8%AF%8D" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>Attention 的整体计算流程为：</p>
+$$
+X
+\rightarrow Q,K,V
+\rightarrow QK^\top
+\rightarrow \frac{QK^\top}{\sqrt{d_k}}
+\rightarrow \text{Mask}
+\rightarrow \text{Softmax}
+\rightarrow AV
+$$<p>下面介绍每一步对应的名词。</p>
+
+
+<h3 class="relative group">1. Query、Key、Value（Q、K、V） 
+    <div id="1-querykeyvalueqkv" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-querykeyvalueqkv" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>输入序列表示为：</p>
+$$
+X\in\mathbb{R}^{n\times d_{\text{model}}}
+$$<p>经过三个不同的线性变换得到：</p>
+$$
+Q=XW_Q
+$$$$
+K=XW_K
+$$$$
+V=XW_V
+$$<p>它们可以简单理解为：</p>
+<ul>
+<li><strong>Query（查询）：我想寻找什么信息。</strong></li>
+<li><strong>Key（键）：我具有什么特征，可以被别人匹配。</strong></li>
+<li><strong>Value（值）：我真正能够提供什么信息。</strong></li>
+</ul>
+<p>对于第 $i$ 个 Query 和第 $j$ 个 Key：</p>
+$$
+q_i
+$$<p>表示第 $i$ 个 Token 希望寻找的信息。</p>
+$$
+k_j
+$$<p>表示第 $j$ 个 Token 用于被匹配的特征。</p>
+$$
+v_j
+$$<p>表示第 $j$ 个 Token 最终提供的信息。</p>
+<hr>
+
+
+<h3 class="relative group">2. 注意力分数（Attention Score） 
+    <div id="2-%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0attention-score" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0attention-score" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>首先计算 Query 与 Key 的点积：</p>
+$$
+S=QK^\top
+$$<p>其中：</p>
+$$
+s_{ij}=q_i\cdot k_j
+$$<p>表示 <strong>第 $i$ 个 Query 与第 $j$ 个 Key 的匹配程度</strong>。</p>
+<p>此时得到的称为 <strong>注意力分数（Attention Score）</strong>，也常被称为：</p>
+<ul>
+<li>Raw Attention Score</li>
+<li>Similarity Score</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>可以为负数；</li>
+<li>不在 $0\sim1$ 之间；</li>
+<li>每一行的和不等于 1；</li>
+<li><strong>还没有经过 Softmax，因此不是注意力权重。</strong></li>
+</ul>
+<hr>
+
+
+<h3 class="relative group">3. 缩放注意力分数（Scaled Attention Score） 
+    <div id="3-%E7%BC%A9%E6%94%BE%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0scaled-attention-score" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E7%BC%A9%E6%94%BE%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0scaled-attention-score" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>为了防止维度 $d_k$ 增大导致点积越来越大，需要除以：</p>
+$$
+\sqrt{d_k}
+$$<p>得到：</p>
+$$
+\frac{QK^\top}{\sqrt{d_k}}
+$$<p>对应单个元素：</p>
+$$
+\frac{q_i\cdot k_j}{\sqrt{d_k}}
+$$<p>这一步得到的通常称为：</p>
+<ul>
+<li>Scaled Attention Score</li>
+<li>Attention Logits（很多论文也这样称呼）</li>
+</ul>
+<p>它仍然属于 <strong>Softmax 之前的分数</strong>。</p>
+<hr>
+
+
+<h3 class="relative group">4. Mask 后的 Attention Logits 
+    <div id="4-mask-%E5%90%8E%E7%9A%84-attention-logits" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-mask-%E5%90%8E%E7%9A%84-attention-logits" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>对于因果 Attention，需要将未来位置屏蔽：</p>
+$$
+L=
+\frac{QK^\top}{\sqrt{d_k}}
++
+M
+$$<p>其中：</p>
+<ul>
+<li>可见位置加上 $0$；</li>
+<li>被屏蔽位置加上 $-\infty$（实际实现中通常使用一个极大的负数）。</li>
+</ul>
+<p>Mask 之后得到的仍然属于 <strong>Attention Logits</strong>，只是已经包含了 Mask 信息。</p>
+<hr>
+
+
+<h3 class="relative group">5. 注意力权重（Attention Weight） 
+    <div id="5-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9D%83%E9%87%8Dattention-weight" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9D%83%E9%87%8Dattention-weight" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>随后按行进行 Softmax：</p>
+
+
+<h1 class="relative group">$$
+A 
+    <div id="a" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#a" aria-label="锚点">#</a>
+    </span>        
+    
+</h1>
+<p>\operatorname{softmax}(L)
+$$</p>
+<p>即：</p>
+
+
+<h1 class="relative group">$$
+a_{ij} 
+    <div id="a_ij" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#a_ij" aria-label="锚点">#</a>
+    </span>        
+    
+</h1>
+<p>\frac{\exp(L_{ij})}
+{\sum_t\exp(L_{it})}
+$$</p>
+<p>其中：</p>
+$$
+a_{ij}
+$$<p>表示 <strong>第 $i$ 个 Query 最终从第 $j$ 个 Value 获取多少比例的信息</strong>。</p>
+<p>注意力权重具有以下特点：</p>
+<ul>
+<li>每个元素都位于 $[0,1]$；</li>
+<li>每一行所有权重之和等于 $1$；</li>
+<li>如果使用了 Mask，则只有允许看到的位置的权重之和等于 $1$。</li>
+</ul>
+<p>矩阵：</p>
+$$
+A
+$$<p>也常被称为：</p>
+<ul>
+<li>Attention Weight Matrix</li>
+<li>Attention Probability Matrix</li>
+<li>Attention Map</li>
+<li>Attention Pattern</li>
+</ul>
+<hr>
+
+
+<h3 class="relative group">6. 注意力输出（Attention Output） 
+    <div id="6-%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%BE%93%E5%87%BAattention-output" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#6-%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%BE%93%E5%87%BAattention-output" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>最后使用注意力权重对所有 Value 做加权求和：</p>
+$$
+O=AV
+$$<p>其中：</p>
+$$
+o_i=\sum_j a_{ij}v_j
+$$<p>表示：</p>
+<blockquote>
+<p>第 $i$ 个 Token 根据注意力权重，从所有可见 Token 的 Value 中汇总得到的信息。</p></blockquote>
+<p>它通常被称为：</p>
+<ul>
+<li>Attention Output</li>
+<li>Context Vector（上下文向量）</li>
+</ul>
+<p>需要注意：</p>
+<blockquote>
+<p><strong>Attention Output 并不是 Attention Weight。</strong></p></blockquote>
+<p>Attention Weight 决定<strong>看谁、看多少</strong>；</p>
+<p>Attention Output 则是真正<strong>取回来的信息</strong>。</p>
+
+
+<h2 class="relative group">4. ✏️ 你的任务：ScaledDotProductAttention 引导骨架 
+    <div id="4--%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1scaleddotproductattention-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4--%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1scaleddotproductattention-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>下面是<strong>给你填的骨架</strong>（<code>...</code> 处留白，定义可运行但不做实际计算，也不实例化调用）。</p>
+<p>对照 <code>tests/adapters.py</code> 里 <code>run_scaled_dot_product_attention</code> 的签名：</p>
+<ul>
+<li><code>Q</code>: <code>(... queries d_k)</code>，<code>K</code>: <code>(... keys d_k)</code>，<code>V</code>: <code>(... keys d_v)</code></li>
+<li><code>mask</code>: 可选 bool，<code>(... queries keys)</code>，<code>True</code> 保留 / <code>False</code> 屏蔽</li>
+<li>返回：<code>(... queries d_v)</code></li>
+</ul>
+<p><strong>必须支持任意前导 batch 维</strong>——<code>test_4d_scaled_dot_product_attention</code> 会传 <code>(batch, head, seq, d)</code>。想清楚每一步&quot;哪两维在收缩、前导维怎么广播&quot;，用一个 <code>(2,3)</code>×<code>(2,3)</code> 的小例子在纸上摆一摆再写。softmax 直接<strong>复用你在 <code>run_softmax</code> 里已经实现的那个</strong>（注意它的数值稳定处理）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.softmax</span> <span class="kn">import</span> <span class="n">softmax</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">scaled_dot_product_attention</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Q: (..., queries, d_k)   K: (..., keys, d_k)   V: (..., keys, d_v)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># mask (可选): bool (..., queries, keys)，True=保留 / False=屏蔽</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 要求：支持任意前导 batch 维（见 4D 测试），全程用广播、不要写死维数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 1: 打分 scores = Q · Kᵀ。想清楚最后两维怎么乘：</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   (queries, d_k) 与 (keys, d_k) 要收缩掉 d_k，得到 (queries, keys)。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   -&gt; K 的最后两维需要转置；前导 batch 维保持广播。</span>
+</span></span><span class="line"><span class="cl">    <span class="n">K_t</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="s2">&#34;... seq d -&gt; ... d seq&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">scores</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">K_t</span> <span class="c1"># 因为 PyTorch 的 @ 对高维张量有固定规则：对最后两个维度做矩阵乘法，前面的维度当作 batch 维进行广播。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 2: 缩放。除以 √d_k，其中 d_k = Q 最后一维的大小。（回忆第 2 节的方差实验：这一步让 softmax 输入不随 d_k 爆炸。）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">d_k</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">scaled_scores</span> <span class="o">=</span> <span class="n">scores</span> <span class="o">/</span> <span class="p">(</span><span class="n">d_k</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 3: 应用 mask（若提供）。在 softmax *之前*，把 mask 为 False 的位置加上一个极大的负数，使其 exp 后≈0。想清楚用什么值、怎么按 scores 广播。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 使用api：scores.masked_fill(condition, value)。含义是：在 condition == True 的位置，把 scores 替换成 value。</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits</span> <span class="o">=</span> <span class="n">scaled_scores</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&#34;-inf&#34;</span><span class="p">))</span> <span class="c1"># ~ 是取反操作</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 4: 沿 keys 维做 softmax，得到注意力权重。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   （复用你已实现的 softmax，并想清楚是最后哪一维归一化。）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">weights</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 5: 用权重对 V 加权求和，得到 (..., queries, d_v)。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   再想一次：这里哪两维在收缩？</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">weights</span> <span class="o">@</span> <span class="n">V</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（未填实现，也未调用）。填好后到 tests/adapters.py 的&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;run_scaled_dot_product_attention 里接线，再跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_model.py::test_scaled_dot_product_attention -x&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_model.py::test_4d_scaled_dot_product_attention -x&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（未填实现，也未调用）。填好后到 tests/adapters.py 的
+run_scaled_dot_product_attention 里接线，再跑：
+  pytest tests/test_model.py::test_scaled_dot_product_attention -x
+  pytest tests/test_model.py::test_4d_scaled_dot_product_attention -x
+</code></pre>
+
+
+<h2 class="relative group">🔬 拓展实验（自己动手，加深理解） 
+    <div id="-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><strong>广播自检</strong>：在写实现前，先只做 step 1，给它喂 <code>(12,64)×(16,64)</code>、<code>(4,12,64)×(4,16,64)</code>、<code>(4,2,12,64)×(4,2,16,64)</code> 三种形状，确认 <code>scores</code> 分别是 <code>(12,16)</code>、<code>(4,12,16)</code>、<code>(4,2,12,16)</code>。前导维错了通常是转置或广播写死了维数。</li>
+<li><strong>mask 屏蔽值</strong>：&ldquo;极负值&quot;用 <code>-1e9</code> 和用 <code>float('-inf')</code> 有什么区别？想想若某一行<strong>整行</strong>都被屏蔽（全 False）会发生什么（softmax 会得到什么？会不会出 NaN？）。这在因果 mask 里通常不会发生，但值得心里有数。</li>
+<li><strong>缩放消融</strong>：把第 2 节的 <code>V=I</code> 技巧用起来，对比&quot;有缩放 vs 无缩放&quot;下、当 <code>d_k</code> 很大时注意力权重是不是更容易塌成 one-hot。这直观复现了&quot;为什么要 √d_k&rdquo;。</li>
+<li><strong>softmax 沿哪一维</strong>：故意把 softmax 的 <code>dim</code> 写错（比如沿 queries 维），跑 <code>test_scaled_dot_product_attention</code>，看报的是形状错误还是数值错误——理解错误信息能帮你快速定位这类 bug。</li>
+</ol>
+
+
+<h2 class="relative group">答案 
+    <div id="%E7%AD%94%E6%A1%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AD%94%E6%A1%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>略</li>
+<li>-1e9 和 float(&quot;-inf&quot;) 在一行中至少存在一个未屏蔽位置时，效果通常非常接近。但是如果整行都被屏蔽时，使用 float(&quot;-inf&quot;)的整行变为[-∞, -∞, -∞]，稳定版softmax减去最大值：-∞ - -∞ = NaN。经过softmax以后会得到[NaN, NaN, NaN]。如果使用使用 -1e9，则通过稳定版softmax减去最大值以后，我们会得到一个均匀分布[1/3, 1/3, 1/3]</li>
+<li>略</li>
+<li>**Softmax 必须沿着 Key（最后一维）做，而不是沿着 Query 那一维。**因为从原理上讲，对于每一个 Query，我们希望把它对所有 Key 的匹配分数归一化为一个概率分布。也就是去让每个 Query 对所有 Key 的注意力权重之和等于 1。如果softmax的dim写错，不会报形状错误，因为softmax操作本身就不会改变矩阵形状，但是这不符合我们的attention定义，attention weights全部算错了，会导致数值错误。</li>
+</ol>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>注意力 = <strong>query 找 key（点积打分）→ softmax 归一化 → 聚合 value</strong>。<code>scores[i,j] = q_i · k_j</code> 衡量相似度。</li>
+<li><strong>除以 √d_k</strong> 的理由：点积方差随 <code>d_k</code> 线性增长，不缩放会让 softmax 饱和、梯度消失（第 2 节方差实验亲眼可见）。</li>
+<li><strong>mask 在 softmax 之前生效</strong>：bool mask <code>True</code> 保留、<code>False</code> 屏蔽；给 <code>False</code> 处加极负值，使 <code>exp≈0</code>、权重≈0，且不参与归一化。</li>
+<li>实现的关键是<strong>想清楚每一步哪两维收缩、前导 batch 维怎么广播</strong>——别把维数写死，才能同时过 3D 和 4D 测试。</li>
+</ul>
+<hr>
+
+
+<h3 class="relative group">✏️ 作业连接 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>ScaledDotProductAttention</code></td>
+          <td><code>run_scaled_dot_product_attention</code></td>
+          <td>scores=Q·Kᵀ → /√d_k → (mask 前置极负) → softmax(keys 维) → ·V；全程广播、支持任意前导维</td>
+      </tr>
+  </tbody>
+</table>
+<p>接线方式看 <code>tests/adapters.py</code> 里 <code>run_scaled_dot_product_attention</code> 的 docstring。softmax 复用你在 <code>run_softmax</code> 里的实现（数值稳定版本）。</p>
+<p>下一章 <code>07_multihead_attention</code>：把单头 SDPA 拆成多头、拼接投影，并接上 RoPE。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/cs336-assign1-3/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-3/">assign1 SwiGLU激活函数</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-5/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-5/">assign1 交叉熵损失</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4701 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-1/">assign1 线形层和嵌入层</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-02T00:00:00&#43;00:00">2 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4098 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-6\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-6\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/cs336-assign1-5/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 交叉熵损失</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/cs336-assign1-7/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 RoPE</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-08T00:00:00&#43;00:00">8 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://qingjiusy.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
