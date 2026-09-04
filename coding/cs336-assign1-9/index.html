@@ -1,0 +1,2429 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 AdamW优化器，梯度和学习率  &middot; QingJiu</title>
+  <meta name="title" content="assign1 AdamW优化器，梯度和学习率  &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="http://localhost:1313/coding/cs336-assign1-9/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.930a7c6a69224a9dc067fbe56035893295d7d83b892c265af91a4fa70d5428caf70cd14538bd83dfa4a867905c07bfd20884f698d9be1127676af1de53796eff.css"
+    integrity="sha512-kwp8amkiSp3AZ/vlYDWJMpXX2DuJLCZa&#43;RpPpw1UKMr3DNFFOL2D36SoZ5BcB7/SCIT2mNm&#43;ESdnavHeU3lu/w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/coding/cs336-assign1-9/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 AdamW优化器，梯度和学习率 ">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-10T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="http://localhost:1313/coding/cs336-assign1-9/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/coding/cs336-assign1-9/featured.JPG">
+  <meta name="twitter:title" content="assign1 AdamW优化器，梯度和学习率 ">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 AdamW优化器，梯度和学习率 ",
+    "headline": "assign1 AdamW优化器，梯度和学习率 ",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "http:\/\/localhost:1313\/coding\/cs336-assign1-9\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-10T00:00:00\u002b00:00",
+    "datePublished": "2026-08-10T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-10T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "8850"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-9/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 AdamW优化器，梯度和学习率 
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8850 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-为什么需要更聪明的优化器">1. 为什么需要&quot;更聪明&quot;的优化器</a>
+      <ul>
+        <li><a href="#实验-1--病态损失面上的下降轨迹">实验 1 · 病态损失面上的下降轨迹</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-adamwadam--解耦权重衰减">2. AdamW：Adam + 解耦权重衰减</a>
+      <ul>
+        <li><a href="#偏差校正的两种等价写法">偏差校正的两种等价写法</a>
+          <ul>
+            <li><a href="#方式-1直接校正-m_tv_t">方式 1：直接校正 </a></li>
+            <li><a href="#方式-2把偏差校正吸收到等效步长中">方式 2：把偏差校正吸收到等效步长中</a></li>
+          </ul>
+        </li>
+        <li><a href="#为什么还需要-adamw">为什么还需要 AdamW？</a></li>
+        <li><a href="#-你的任务adamw-引导骨架">✏️ 你的任务：AdamW 引导骨架</a></li>
+        <li><a href="#selfparam_groups-是什么"><code>self.param_groups</code> 是什么？</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-学习率调度线性-warmup--cosine-退火">3. 学习率调度：线性 warmup + cosine 退火</a>
+      <ul>
+        <li><a href="#-你的任务cosine-学习率调度引导骨架">✏️ 你的任务：cosine 学习率调度引导骨架</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-梯度裁剪按全局范数限速">4. 梯度裁剪：按全局范数&quot;限速&quot;</a>
+      <ul>
+        <li><a href="#-你的任务梯度裁剪引导骨架">✏️ 你的任务：梯度裁剪引导骨架</a></li>
+      </ul>
+    </li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#回答">回答</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-为什么需要更聪明的优化器">1. 为什么需要&quot;更聪明&quot;的优化器</a>
+      <ul>
+        <li><a href="#实验-1--病态损失面上的下降轨迹">实验 1 · 病态损失面上的下降轨迹</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-adamwadam--解耦权重衰减">2. AdamW：Adam + 解耦权重衰减</a>
+      <ul>
+        <li><a href="#偏差校正的两种等价写法">偏差校正的两种等价写法</a>
+          <ul>
+            <li><a href="#方式-1直接校正-m_tv_t">方式 1：直接校正 </a></li>
+            <li><a href="#方式-2把偏差校正吸收到等效步长中">方式 2：把偏差校正吸收到等效步长中</a></li>
+          </ul>
+        </li>
+        <li><a href="#为什么还需要-adamw">为什么还需要 AdamW？</a></li>
+        <li><a href="#-你的任务adamw-引导骨架">✏️ 你的任务：AdamW 引导骨架</a></li>
+        <li><a href="#selfparam_groups-是什么"><code>self.param_groups</code> 是什么？</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-学习率调度线性-warmup--cosine-退火">3. 学习率调度：线性 warmup + cosine 退火</a>
+      <ul>
+        <li><a href="#-你的任务cosine-学习率调度引导骨架">✏️ 你的任务：cosine 学习率调度引导骨架</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-梯度裁剪按全局范数限速">4. 梯度裁剪：按全局范数&quot;限速&quot;</a>
+      <ul>
+        <li><a href="#-你的任务梯度裁剪引导骨架">✏️ 你的任务：梯度裁剪引导骨架</a></li>
+      </ul>
+    </li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#回答">回答</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>前几章你把模型的&quot;积木&quot;搭好了；这一章讲<strong>怎么把它训起来</strong>——用什么优化器、学习率怎么随训练变化、梯度爆了怎么办。三件事：</p>
+<ul>
+<li><strong>AdamW</strong>：Adam + 解耦权重衰减（decoupled weight decay），现代 LLM 训练的默认优化器。</li>
+<li><strong>带 warmup 的 cosine 学习率调度</strong>：先线性升温，再余弦退火。</li>
+<li><strong>梯度裁剪</strong>：按<strong>全局范数</strong>给梯度&quot;限速&quot;，防止偶发的大梯度把训练带崩。</li>
+</ul>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>直观感受 SGD / 动量 / Adam 在<strong>病态损失面</strong>上的差异。</li>
+<li>理解 AdamW 的一阶/二阶矩、偏差校正，以及&quot;解耦权重衰减&quot;到底解耦了什么。</li>
+<li>看清&quot;线性 warmup + cosine 退火&quot;学习率曲线的<strong>形状与两个关键拐点</strong>。</li>
+<li>理解梯度裁剪作用在<strong>所有参数拼在一起的全局 L2 范数</strong>上，而非逐参数。</li>
+<li>拿到三个<strong>引导骨架</strong>，知道自己在 <code>cs336_basics/</code> 与 <code>tests/adapters.py</code> 里要写什么。</li>
+</ol>
+<blockquote>
+<p><strong>学术诚信</strong>：本章用 <code>torch.optim.SGD/AdamW</code>、<code>torch.optim.lr_scheduler</code>、<code>torch.nn.utils.clip_grad_norm_</code> 当&quot;参考教具&quot;来<strong>展示行为</strong>，不作为你的答案。所有需要你实现的更新式 / 闭式表达都以 <code>...</code> 留白。也不展示&quot;我的表达式恰好等于参考输出&quot;这类等价 cell —— 那属于把答案写出来。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sci_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;setup ok | torch&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>setup ok | torch 2.11.0
+</code></pre>
+
+
+<h2 class="relative group">1. 为什么需要&quot;更聪明&quot;的优化器 
+    <div id="1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9B%B4%E8%81%AA%E6%98%8E%E7%9A%84%E4%BC%98%E5%8C%96%E5%99%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9B%B4%E8%81%AA%E6%98%8E%E7%9A%84%E4%BC%98%E5%8C%96%E5%99%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>最朴素的更新是 <strong>SGD</strong>：参数沿负梯度方向走一步，<code>p &lt;- p - lr * g</code>。它的麻烦在于<strong>病态（ill-conditioned）损失面</strong>——不同方向的曲率差别很大：</p>
+<ul>
+<li>在<strong>陡峭方向</strong>，梯度很大，固定 <code>lr</code> 会让参数来回<strong>震荡</strong>（甚至发散）。</li>
+<li>在<strong>平缓方向</strong>，梯度很小，同样的 <code>lr</code> 又走得<strong>太慢</strong>。</li>
+</ul>
+<p>一个 <code>lr</code> 很难同时照顾这两种方向。改进思路有两条，Adam 把它们合在一起：</p>
+<table>
+  <thead>
+      <tr>
+          <th>机制</th>
+          <th>直觉</th>
+          <th>解决什么</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>动量（一阶矩 m）</strong></td>
+          <td>梯度的指数滑动平均，像&quot;惯性&quot;</td>
+          <td>抑制陡峭方向的震荡、加速平缓方向</td>
+      </tr>
+      <tr>
+          <td><strong>自适应缩放（二阶矩 v）</strong></td>
+          <td>用梯度平方的滑动平均去归一化步长</td>
+          <td>让每个坐标自动获得合适的有效步长</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Adam</strong> = 动量 + 逐坐标自适应步长。<strong>AdamW</strong> 在此之上把<strong>权重衰减解耦</strong>出来（后面细讲）。下面用一个病态二次函数把这种差异&quot;看&quot;出来。</p>
+
+
+<h3 class="relative group">实验 1 · 病态损失面上的下降轨迹 
+    <div id="%E5%AE%9E%E9%AA%8C-1--%E7%97%85%E6%80%81%E6%8D%9F%E5%A4%B1%E9%9D%A2%E4%B8%8A%E7%9A%84%E4%B8%8B%E9%99%8D%E8%BD%A8%E8%BF%B9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E9%AA%8C-1--%E7%97%85%E6%80%81%E6%8D%9F%E5%A4%B1%E9%9D%A2%E4%B8%8A%E7%9A%84%E4%B8%8B%E9%99%8D%E8%BD%A8%E8%BF%B9" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>构造 $f(x_0, x_1) = \tfrac12(20\,x_0^2 + 1\,x_1^2)$：$x_0$ 方向陡（系数 20），$x_1$ 方向平（系数 1）。最优点在原点。我们用 <code>torch.optim.SGD</code> 与 <code>torch.optim.AdamW</code>（<strong>参考教具</strong>）各跑一遍，把轨迹画在等高线上对比。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 病态二次损失面：x0 方向陡 (系数 20)，x1 方向平 (系数 1)，最优点在原点</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">run_traj</span><span class="p">(</span><span class="n">opt_class</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mf">9.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.0</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">opt</span> <span class="o">=</span> <span class="n">opt_class</span><span class="p">([</span><span class="n">p</span><span class="p">],</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">traj</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">clone</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">loss_fn</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">traj</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">clone</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sgd_traj</span>   <span class="o">=</span> <span class="n">run_traj</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">,</span>   <span class="n">lr</span><span class="o">=</span><span class="mf">0.09</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">adamw_traj</span> <span class="o">=</span> <span class="n">run_traj</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 等高线 + 两条轨迹</span>
+</span></span><span class="line"><span class="cl"><span class="n">xs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">&#34;xy&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Z</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">X</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&#34;Greys&#34;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sgd_traj</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sgd_traj</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&#34;o-&#34;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;SGD (lr=0.09)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">adamw_traj</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">adamw_traj</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&#34;s-&#34;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;AdamW (lr=0.9)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">220</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;optimum&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;x0  (steep direction)&#34;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;x1  (flat direction)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;SGD vs AdamW on an ill-conditioned quadratic&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;SGD 末点  :&#34;</span><span class="p">,</span> <span class="n">sgd_traj</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;AdamW 末点:&#34;</span><span class="p">,</span> <span class="n">adamw_traj</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;观察：SGD 在陡方向来回震荡、在平方向爬得慢；AdamW 逐坐标自适应步长，走得更直更快。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-9/index_files/index_4_0_hu_1d4328d98e763401.png 330w,
+        /coding/cs336-assign1-9/index_files/index_4_0_hu_4196db4fdfd5a22a.png 660w,
+        /coding/cs336-assign1-9/index_files/index_4_0_hu_33ef834b1ad37534.png 1024w,
+        /coding/cs336-assign1-9/index_files/index_4_0_hu_abe0c8a4fcbded76.png 2x"
+        src="/coding/cs336-assign1-9/index_files/index_4_0_hu_4196db4fdfd5a22a.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>SGD 末点  : [-1.3792534e-05 -3.1385280e-02]
+AdamW 末点: [0.31190813 0.3119082 ]
+观察：SGD 在陡方向来回震荡、在平方向爬得慢；AdamW 逐坐标自适应步长，走得更直更快。
+</code></pre>
+
+
+<h2 class="relative group">2. AdamW：Adam + 解耦权重衰减 
+    <div id="2-adamwadam--%E8%A7%A3%E8%80%A6%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-adamwadam--%E8%A7%A3%E8%80%A6%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>Adam 对每个参数维护两个状态（都是<strong>指数滑动平均</strong>）：</p>
+<ul>
+<li>
+<p>一阶矩 $m_t$：梯度 $g_t$ 的指数滑动平均，表示最近一段时间的<strong>主要更新方向</strong>：</p>
+$$
+  m_t = \beta_1 m_{t-1} + (1-\beta_1)g_t
+  $$<p>其中 $\beta_1$ 控制对历史梯度的保留程度，Adam 中通常取 $\beta_1=0.9$。</p>
+</li>
+<li>
+<p>二阶矩 $v_t$：梯度平方 $g_t^2$ 的指数滑动平均，表示该参数最近的<strong>典型梯度大小</strong>：</p>
+$$
+  v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2
+  $$<p>其中 $\beta_2$ 控制对历史梯度平方的保留程度，Adam 中通常取 $\beta_2=0.999$。</p>
+</li>
+</ul>
+<p>因为 $m_t,v_t$ 都从 0 开始，训练早期的指数滑动平均会天然偏向 0。</p>
+<p>例如第一步：</p>
+$$
+m_1 = \beta_1 m_0 + (1-\beta_1)g_1
+$$<p>由于 $m_0=0$：</p>
+$$
+m_1 = (1-\beta_1)g_1
+$$<p>如果 $\beta_1=0.9$，那么：</p>
+$$
+m_1 = 0.1g_1
+$$<p>可以看到，第一步得到的 $m_1$ 会明显小于真实梯度尺度。$v_t$ 也有同样的问题。</p>
+<p>因此 Adam 会做<strong>偏差校正</strong>（bias correction）。</p>
+<p>由于一阶矩和二阶矩都从 0 开始初始化：</p>
+$$
+m_0 = 0,\qquad v_0 = 0
+$$<p>训练初期得到的 $m_t,v_t$ 会被低估，因此需要补偿这一初始化偏差。</p>
+<p>最直观的写法是直接校正 $m_t,v_t$：</p>
+$$
+\hat m_t = \frac{m_t}{1-\beta_1^t}
+$$$$
+\hat v_t = \frac{v_t}{1-\beta_2^t}
+$$<p>其中 $\hat m_t,\hat v_t$ 是校正后的估计值。</p>
+<p>以第一步为例：</p>
+$$
+m_1 = (1-\beta_1)g_1
+$$<p>因此：</p>
+$$
+\hat m_1
+=%
+\frac{(1-\beta_1)g_1}{1-\beta_1}
+=%
+g_1
+$$<p>这样就补偿了由于初始值设为 0 所造成的低估。</p>
+<p>随着训练步数 $t$ 增大：</p>
+$$
+\beta_1^t,\beta_2^t \to 0
+$$<p>因此：</p>
+$$
+1-\beta_1^t,\;1-\beta_2^t \to 1
+$$<p>偏差校正的影响会逐渐变小。</p>
+
+
+<h3 class="relative group">偏差校正的两种等价写法 
+    <div id="%E5%81%8F%E5%B7%AE%E6%A0%A1%E6%AD%A3%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%AD%89%E4%BB%B7%E5%86%99%E6%B3%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%81%8F%E5%B7%AE%E6%A0%A1%E6%AD%A3%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%AD%89%E4%BB%B7%E5%86%99%E6%B3%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">方式 1：直接校正 $m_t,v_t$ 
+    <div id="%E6%96%B9%E5%BC%8F-1%E7%9B%B4%E6%8E%A5%E6%A0%A1%E6%AD%A3-m_tv_t" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%96%B9%E5%BC%8F-1%E7%9B%B4%E6%8E%A5%E6%A0%A1%E6%AD%A3-m_tv_t" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>先计算：</p>
+$$
+\hat m_t = \frac{m_t}{1-\beta_1^t}
+$$$$
+\hat v_t = \frac{v_t}{1-\beta_2^t}
+$$<p>然后更新参数：</p>
+$$
+p_t
+=%
+p_{t-1}
+-%
+\text{lr}
+\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}
+$$
+
+<h4 class="relative group">方式 2：把偏差校正吸收到等效步长中 
+    <div id="%E6%96%B9%E5%BC%8F-2%E6%8A%8A%E5%81%8F%E5%B7%AE%E6%A0%A1%E6%AD%A3%E5%90%B8%E6%94%B6%E5%88%B0%E7%AD%89%E6%95%88%E6%AD%A5%E9%95%BF%E4%B8%AD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%96%B9%E5%BC%8F-2%E6%8A%8A%E5%81%8F%E5%B7%AE%E6%A0%A1%E6%AD%A3%E5%90%B8%E6%94%B6%E5%88%B0%E7%AD%89%E6%95%88%E6%AD%A5%E9%95%BF%E4%B8%AD" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>不显式计算 $\hat m_t,\hat v_t$，而是把偏差校正因子整理到学习率中。</p>
+<p>忽略 $\epsilon$ 的位置差异：</p>
+$$
+\frac{\hat m_t}{\sqrt{\hat v_t}}
+=%
+\frac{\sqrt{1-\beta_2^t}}{1-\beta_1^t}
+\frac{m_t}{\sqrt{v_t}}
+$$<p>因此可以定义等效步长：</p>
+$$
+\alpha_t
+=%
+\text{lr}
+\frac{\sqrt{1-\beta_2^t}}
+{1-\beta_1^t}
+$$<p>然后直接使用未校正的 $m_t,v_t$：</p>
+$$
+p_t
+=%
+p_{t-1}
+-%
+\alpha_t
+\frac{m_t}{\sqrt{v_t}+\cdots}
+$$<p>代码中常见写法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">bias_correction1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta1</span> <span class="o">**</span> <span class="n">t</span>
+</span></span><span class="line"><span class="cl"><span class="n">bias_correction2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta2</span> <span class="o">**</span> <span class="n">t</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">step_size</span> <span class="o">=</span> <span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="n">bias_correction2</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">bias_correction1</span>
+</span></span></code></pre></div><p>忽略偏差校正的细节后，Adam 的更新可以直观写成：</p>
+$$
+p_t
+=%
+p_{t-1}
+-%
+\text{lr}
+\frac{m_t}{\sqrt{v_t}+\epsilon}
+$$<p>其中：</p>
+<ul>
+<li>$p_t$：第 t 次更新之后的参数值</li>
+<li><code>lr</code>：整体学习率；</li>
+<li>$m_t$：决定“<strong>往哪个方向走</strong>”；</li>
+<li>$\sqrt{v_t}$：根据这个参数过去的梯度大小，对步长进行缩放；</li>
+<li>$\epsilon$：很小的常数，用于防止除以 0。</li>
+</ul>
+<p>因此可以简单理解为：</p>
+$$
+\text{Adam 更新}
+\approx
+\text{学习率}
+\times
+\frac{\text{梯度的历史方向}}
+{\text{梯度的历史大小}}
+$$<p>梯度长期较大的参数会被缩小有效步长，梯度较小的参数则相对不会被压得那么厉害。</p>
+
+
+<h3 class="relative group">为什么还需要 AdamW？ 
+    <div id="%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E9%9C%80%E8%A6%81-adamw" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E9%9C%80%E8%A6%81-adamw" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>训练时常希望让权重不要变得过大（因为过大的权重，它的泛化性比较差），因此会加入 <strong>weight decay（权重衰减）</strong>。</p>
+<p><strong>老式做法（Adam + L2）</strong> 是把 L2 正则项加入 loss：</p>
+$$
+L' = L + \frac{\lambda}{2}\|p\|^2
+$$<p>于是梯度变成：</p>
+$$
+g' = g + \lambda p
+$$<p>问题是：$\lambda p$ 本来只是想把参数稍微向 0 拉，但现在它被混进了梯度 $g'$，会和普通梯度一起进入 $m_t、v_t$，最终还要经过 Adam 的</p>
+$$
+\frac{1}{\sqrt{v_t}+\epsilon}
+$$<p>自适应缩放。</p>
+<p>于是不同参数受到的实际衰减强度也会被 $v_t$ 改变，weight decay 不再是单纯的“按比例缩小参数”。</p>
+<p><strong>AdamW</strong> 的做法是把两件事分开：</p>
+<ol>
+<li>Adam 负责根据 loss 的梯度更新参数；</li>
+<li>weight decay 单独把参数向 0 缩小。</li>
+</ol>
+<p>即：</p>
+$$
+p
+\leftarrow
+p
+-%
+\text{lr}
+\frac{\hat m}{\sqrt{\hat v}+\epsilon}
+$$<p>然后独立执行：</p>
+$$
+p
+\leftarrow
+p-\text{lr}\cdot\lambda p
+$$<p>也就是：</p>
+$$
+p
+\leftarrow
+(1-\text{lr}\cdot\lambda)p
+$$<p>这里的 weight decay <strong>不进入梯度，也不经过 $m、v$ 和 $\sqrt{v}$ 的自适应缩放</strong>。</p>
+<p>这就是所谓的 <strong>decoupled weight decay（解耦权重衰减）</strong>：</p>
+<blockquote>
+<p><strong>把“根据梯度优化参数”和“让参数逐渐变小”这两件事解耦，分别处理。</strong></p></blockquote>
+<p>因此可以简单记成：</p>
+$$
+\boxed{
+\text{AdamW}
+=%
+\text{Adam 的自适应梯度更新}
++
+\text{独立的 Weight Decay}
+}
+$$<blockquote>
+<p>看 <code>test_optimizer.py::test_adamw</code>：它用 <code>lr=1e-3, weight_decay=0. 01, betas=(0.9,0.999), eps=1e-8</code> 构造你的类，跑 1000 步，最后和 PyTorch AdamW（或参考快照）在 <code>atol=1e-4</code> 下对齐。所以你的 <code>__init__</code> 关键字参数<strong>必须与之匹配</strong>。</p></blockquote>
+
+
+<h3 class="relative group">✏️ 你的任务：AdamW 引导骨架 
+    <div id="-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1adamw-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1adamw-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>下面是<strong>给你填的骨架</strong>（<code>...</code> 处留白，不可直接用于训练）。接口（构造参数名与默认值）来自 <code>test_optimizer.py</code>，照抄即可；真正要你想清楚的是 <code>step</code> 里各状态怎么更新、偏差校正放哪、以及<strong>解耦衰减为什么要单独一步</strong>。</p>
+<blockquote>
+<p>提示：先在纸上写清楚一步更新涉及哪些量（$m,v,t,\hat m,\hat v$），再决定用 <code>self.state[p]</code> 存哪些。可以用 handout 给的&quot;把偏差校正吸收进等效步长 $\alpha_t$&ldquo;的写法，少存两个中间张量。</p></blockquote>
+
+
+<h3 class="relative group"><code>self.param_groups</code> 是什么？ 
+    <div id="selfparam_groups-%E6%98%AF%E4%BB%80%E4%B9%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#selfparam_groups-%E6%98%AF%E4%BB%80%E4%B9%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在自定义优化器的 <code>__init__</code> 中，我们通常会调用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">defaults</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">这会执行</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span> <span class="n">父类的初始化逻辑</span><span class="err">，</span><span class="n">把传入的模型参数</span> <span class="n">params</span> <span class="n">和默认超参数</span> <span class="n">defaults</span> <span class="n">整理成</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">可以粗略理解为</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;params&#34;</span><span class="p">:</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;lr&#34;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;betas&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;eps&#34;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;weight_decay&#34;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">其中</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="err">：</span><span class="n">所有参数组组成的列表</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span> <span class="n">group</span><span class="err">：</span><span class="n">一个参数组</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span> <span class="n">group</span><span class="p">[</span><span class="s2">&#34;params&#34;</span><span class="p">]</span><span class="err">：</span><span class="n">这个参数组中的模型参数</span><span class="err">；</span><span class="n">具体来说是这个参数组中所有需要优化的</span> <span class="n">Parameter</span> <span class="n">对象</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span> <span class="n">p</span><span class="err">：</span><span class="n">某一个具体的模型参数</span><span class="err">，</span><span class="n">例如</span> <span class="n">Linear</span> <span class="n">层的整个</span> <span class="n">weight</span> <span class="n">矩阵或</span> <span class="n">bias</span> <span class="n">向量</span><span class="err">，</span><span class="n">而不是单独的一个标量参数</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="err">：</span><span class="n">反向传播后得到的该参数梯度</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">因此</span><span class="err">，</span><span class="n">在</span> <span class="n">step</span><span class="p">()</span> <span class="n">中通常会这样遍历</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s2">&#34;params&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">        <span class="n">grad</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 根据优化算法更新 p</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">整体关系可以理解为</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">defaults</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="err">↓</span>
+</span></span><span class="line"><span class="cl"><span class="n">Optimizer</span> <span class="n">父类进行初始化</span>
+</span></span><span class="line"><span class="cl">        <span class="err">↓</span>
+</span></span><span class="line"><span class="cl"><span class="n">生成</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span>
+</span></span><span class="line"><span class="cl">        <span class="err">↓</span>
+</span></span><span class="line"><span class="cl"><span class="n">step</span><span class="p">()</span> <span class="n">遍历每个</span> <span class="n">group</span>
+</span></span><span class="line"><span class="cl">        <span class="err">↓</span>
+</span></span><span class="line"><span class="cl"><span class="n">遍历</span> <span class="n">group</span><span class="p">[</span><span class="s2">&#34;params&#34;</span><span class="p">]</span> <span class="n">中的每个参数</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl">        <span class="err">↓</span>
+</span></span><span class="line"><span class="cl"><span class="n">读取</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span>
+</span></span><span class="line"><span class="cl">        <span class="err">↓</span>
+</span></span><span class="line"><span class="cl"><span class="n">根据优化算法更新参数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">如果某个参数的</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span><span class="err">，</span><span class="n">说明它在这次反向传播中没有得到梯度</span><span class="err">，</span><span class="n">因此本次</span> <span class="n">step</span><span class="p">()</span> <span class="n">直接跳过这个参数</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">接下来开始实现AdamW优化器</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">python</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 继承自PyTorch Optimizer。有所有优化器共有的基础设施，并初始化</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AdamW</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 基本校验（lr&gt;=0、0&lt;=beta&lt;1 等）</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 把超参打包进 defaults 交给基类</span>
+</span></span><span class="line"><span class="cl">        <span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span><span class="p">,</span> <span class="n">betas</span> <span class="o">=</span> <span class="n">betas</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span><span class="p">,</span> <span class="n">weight_decay</span> <span class="o">=</span> <span class="n">weight_decay</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 调用父类 torch.optim.Optimizer 的 __init__，让父类帮我们把「模型参数」和「优化器超参数」初始化好</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">defaults</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 根据当前各个参数的梯度 param.grad，真正更新模型参数</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 用@torch.no_grad()是因为后面你会直接更新参数 p，不希望这些更新操作进入 autograd 计算图</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@torch.no_grad</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">closure</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">loss</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># closure 是一个可选函数，用来重新执行 forward、计算 loss 并 backward。</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 普通 AdamW 训练通常不用 closure，因此 step() 一般返回 None；</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 如果传入 closure，则调用 closure 得到 loss，完成参数更新后返回这个 loss。</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 这个函数的存在是因为有些优化器需要重新计算 loss + gradient 来进行优化</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 这个函数相当于是一个重新计算 loss + gradient 按钮</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">closure</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">enable_grad</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">                <span class="n">loss</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 遍历 self.param_groups，再遍历 group[&#34;params&#34;] 里每个 p.grad 不为 None 的参数：</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># step 2: 取出这一组的超参 lr、(beta1, beta2)、eps、weight_decay</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lr</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&#34;lr&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&#34;betas&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">eps</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&#34;eps&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">weight_decay</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&#34;weight_decay&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s2">&#34;params&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 如果 p.grad 为 None，说明这个参数在这次反向传播中没有梯度，不需要更新</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1"># 根据优化算法更新 p</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># step 3: 用 self.state[p] 维护该参数的持久状态，也就是上面理论上提到过的</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># t：step；一阶矩 m_t：exp_avg（意思是 梯度的指数移动平均）；二阶矩 v_t：exp_avg_sq（意思是 梯度平方的指数移动平均）</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 然后在第一次需要初始化 state，注意Optimizer 父类的初始化逻辑会帮你创建 self.state：</span>
+</span></span><span class="line"><span class="cl">                <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1"># 步数计数 t=0；一阶矩 m 与二阶矩 v（形状同 p，全 0）</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">state</span><span class="p">[</span><span class="s2">&#34;step&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">state</span><span class="p">[</span><span class="s2">&#34;exp_avg&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">state</span><span class="p">[</span><span class="s2">&#34;exp_avg_sq&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1"># step 4: 读梯度 grad = p.grad（自问：需要 grad.data 还是 grad 就行？）</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># grad = p.grad 即可；grad.data 会绕过 autograd 的计算图追踪，可能导致隐蔽的梯度问题</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 因此现代 PyTorch 一般不推荐使用。优化器更新参数时通常用 @torch.no_grad() 显式关闭梯度追踪。</span>
+</span></span><span class="line"><span class="cl">                <span class="n">grad</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="c1"># g_t</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1"># step 5: 步数 +1，更新有偏一阶矩 m 与有偏二阶矩 v（各自的指数滑动平均）</span>
+</span></span><span class="line"><span class="cl">                <span class="n">state</span><span class="p">[</span><span class="s2">&#34;step&#34;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># t</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1"># 使用原地更新</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># state[&#34;exp_avg&#34;] = beta1 * state[&#34;exp_avg&#34;] + (1 - beta1) * grad </span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># state[&#34;exp_avg_sq&#34;] = beta2 * state[&#34;exp_avg_sq&#34;] + (1 - beta2) * (grad ** 2) </span>
+</span></span><span class="line"><span class="cl">                <span class="n">state</span><span class="p">[</span><span class="s2">&#34;exp_avg&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">beta1</span><span class="p">)</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta1</span><span class="p">)</span> <span class="c1"># m_t</span>
+</span></span><span class="line"><span class="cl">                <span class="n">state</span><span class="p">[</span><span class="s2">&#34;exp_avg_sq&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">beta2</span><span class="p">)</span><span class="o">.</span><span class="n">addcmul_</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta2</span><span class="p">)</span> <span class="c1"># v_t</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="c1"># step 6: 偏差校正 —— 想清楚是校正 m、v 本身，还是把校正吸收进等效步长 alpha_t（两种写法在数学上等价；handout 用后者）</span>
+</span></span><span class="line"><span class="cl">                <span class="n">bias_correction1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta1</span> <span class="o">**</span> <span class="n">state</span><span class="p">[</span><span class="s2">&#34;step&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">bias_correction2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta2</span> <span class="o">**</span> <span class="n">state</span><span class="p">[</span><span class="s2">&#34;step&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">alpha_t</span> <span class="o">=</span> <span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="n">bias_correction2</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">bias_correction1</span> <span class="c1"># 吸收偏差校正后的等效步长</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1"># step 7: 解耦权重衰减：另起一步  p &lt;- p - lr * weight_decay * p</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 注意它不经过 sqrt(v) 的自适应缩放 —— 这正是 AdamW 与 &#34;Adam+L2&#34; 的分水岭</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 注意这里也要原地更改</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># p = p - lr * weight_decay * p</span>
+</span></span><span class="line"><span class="cl">                <span class="n">p</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">weight_decay</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1"># step 8: 自适应更新：用 m / (sqrt(v) + eps) 的方向、以 alpha_t 为步长更新 p（原地更改）</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># p = p - alpha_t * (state[&#34;exp_avg&#34;] / (state[&#34;exp_avg_sq&#34;] ** 0.5 + eps))</span>
+</span></span><span class="line"><span class="cl">                <span class="n">p</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&#34;exp_avg&#34;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&#34;exp_avg_sq&#34;</span><span class="p">]</span> <span class="o">**</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">eps</span><span class="p">),</span> <span class="n">alpha</span> <span class="o">=</span> <span class="o">-</span> <span class="n">alpha_t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">loss</span>  <span class="c1"># 若用到了 closure，记得返回</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（未实例化）。填好后到 tests/adapters.py 的 get_adamw_cls 里返回你的类，再跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_optimizer.py::test_adamw -x&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（未实例化）。填好后到 tests/adapters.py 的 get_adamw_cls 里返回你的类，再跑：
+  pytest tests/test_optimizer.py::test_adamw -x
+</code></pre>
+
+
+<h2 class="relative group">3. 学习率调度：线性 warmup + cosine 退火 
+    <div id="3-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6%E7%BA%BF%E6%80%A7-warmup--cosine-%E9%80%80%E7%81%AB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6%E7%BA%BF%E6%80%A7-warmup--cosine-%E9%80%80%E7%81%AB" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>固定学习率不是最优的。常用做法分两段：</p>
+<ol>
+<li><strong>线性 warmup</strong>：训练最开始，从 ~0 <strong>线性升到</strong> <code>max_learning_rate</code>。早期参数/优化器状态都不稳，直接用大 lr 容易发散；warmup 给它一个&quot;热身&rdquo;。</li>
+<li><strong>cosine 退火</strong>：warmup 之后，学习率沿<strong>余弦曲线平滑下降</strong>到 <code>min_learning_rate</code>，然后<strong>保持在 min</strong>。前期大步快速探索，后期小步精细收敛。</li>
+</ol>
+<p><code>run_get_lr_cosine_schedule</code> 的参数：<code>warmup_iters</code>($T_w$) 是 warmup 步数，<code>cosine_cycle_iters</code>($T_c$) 是&quot;退火结束&quot;的步数。下面用 PyTorch <strong>内置调度器</strong>拼出这条曲线的<strong>形状</strong>（只为直观，不是你的答案）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">warnings</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">max_lr</span><span class="p">,</span> <span class="n">min_lr</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">warmup_iters</span><span class="p">,</span> <span class="n">cosine_cycle_iters</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="n">total_iters</span> <span class="o">=</span> <span class="mi">120</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 参考教具：LinearLR (warmup) 后接 CosineAnnealingLR，用 SequentialLR 串起来</span>
+</span></span><span class="line"><span class="cl"><span class="n">dummy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">([</span><span class="n">dummy</span><span class="p">],</span> <span class="n">lr</span><span class="o">=</span><span class="n">max_lr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">warmup</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">LinearLR</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">start_factor</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">end_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">total_iters</span><span class="o">=</span><span class="n">warmup_iters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">cosine</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">CosineAnnealingLR</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">T_max</span><span class="o">=</span><span class="n">cosine_cycle_iters</span> <span class="o">-</span> <span class="n">warmup_iters</span><span class="p">,</span> <span class="n">eta_min</span><span class="o">=</span><span class="n">min_lr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sched</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">SequentialLR</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="p">[</span><span class="n">warmup</span><span class="p">,</span> <span class="n">cosine</span><span class="p">],</span> <span class="n">milestones</span><span class="o">=</span><span class="p">[</span><span class="n">warmup_iters</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lrs</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>                 <span class="c1"># SequentialLR 内部 step 会发一个无害的 deprecation 警告</span>
+</span></span><span class="line"><span class="cl">    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cosine_cycle_iters</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">param_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;lr&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">();</span> <span class="n">sched</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lrs</span><span class="p">)),</span> <span class="n">lrs</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;C0&#34;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;warmup + cosine&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 内置件不会自动&#34;保持 min&#34;，这段平台手动画出来，对应 it &gt;= cosine_cycle_iters</span>
+</span></span><span class="line"><span class="cl"><span class="n">tail</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">cosine_cycle_iters</span><span class="p">,</span> <span class="n">total_iters</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="p">[</span><span class="n">min_lr</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">tail</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;C0&#34;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;-&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">warmup_iters</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;--&#34;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;orange&#34;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&#34;warmup_iters = </span><span class="si">{</span><span class="n">warmup_iters</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">cosine_cycle_iters</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;--&#34;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;green&#34;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&#34;cosine_cycle_iters = </span><span class="si">{</span><span class="n">cosine_cycle_iters</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">max_lr</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;gray&#34;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">min_lr</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&#34;gray&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;iteration&#34;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;learning rate&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;linear warmup + cosine annealing (shape reference)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;形状：从 ~0 线性升到 max (到 warmup_iters) -&gt; 余弦降到 min (到 cosine_cycle_iters) -&gt; 之后恒为 min。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;提醒：内置件只给你看形状；作业要你写闭式 run_get_lr_cosine_schedule，边界值以 test_optimizer.py 的期望列表为准。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-9/index_files/index_10_0_hu_6b9233e7101f20bc.png 330w,
+        /coding/cs336-assign1-9/index_files/index_10_0_hu_439afcefb3cf7085.png 660w,
+        /coding/cs336-assign1-9/index_files/index_10_0_hu_f70b74ddd4a018a3.png 1024w,
+        /coding/cs336-assign1-9/index_files/index_10_0_hu_bb54599fd1e88b8f.png 2x"
+        src="/coding/cs336-assign1-9/index_files/index_10_0_hu_439afcefb3cf7085.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>形状：从 ~0 线性升到 max (到 warmup_iters) -&gt; 余弦降到 min (到 cosine_cycle_iters) -&gt; 之后恒为 min。
+提醒：内置件只给你看形状；作业要你写闭式 run_get_lr_cosine_schedule，边界值以 test_optimizer.py 的期望列表为准。
+</code></pre>
+
+
+<h3 class="relative group">✏️ 你的任务：cosine 学习率调度引导骨架 
+    <div id="-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1cosine-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1cosine-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>这是个<strong>纯函数</strong>：给定当前步 <code>it</code> 和四个超参，返回该步的标量学习率。分三段处理即可。测试 <code>test_get_lr_cosine_schedule</code> 给了 25 个步的期望值，可以直接拿来自检边界。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_lr_cosine_schedule</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">max_learning_rate</span><span class="p">,</span> <span class="n">min_learning_rate</span><span class="p">,</span> <span class="n">warmup_iters</span><span class="p">,</span> <span class="n">cosine_cycle_iters</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 三段式，返回一个标量学习率：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 1: warmup 段 (it &lt; warmup_iters)：从 0 线性升到 max</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   —— 想清楚在 it == warmup_iters 时应恰好等于 max（对照期望：it=0 -&gt; 0，it=warmup -&gt; max）</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">it</span> <span class="o">&lt;</span> <span class="n">warmup_iters</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lr</span> <span class="o">=</span> <span class="n">it</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_learning_rate</span> <span class="o">/</span> <span class="n">warmup_iters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 2: 退火结束后 (it &gt;= cosine_cycle_iters)：恒为 min</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span><span class="p">(</span><span class="n">it</span> <span class="o">&gt;=</span> <span class="n">cosine_cycle_iters</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lr</span> <span class="o">=</span> <span class="n">min_learning_rate</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 3: 中间段 (warmup_iters &lt;= it &lt; cosine_cycle_iters)：在 max 与 min 之间做余弦插值</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   先算归一化进度 progress = (it - warmup_iters) / (cosine_cycle_iters - warmup_iters) ∈ [0, 1]</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   再找一个“进度=0 时取 max、进度=1 时取 min”的平滑权重 weight 去混合两者</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   所以目标是把 [0, 1] 的progress 映射到 [1, 0]的 weight</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#   （提示：cos 在 [0, π] 上从 1 单调降到 -1；怎样把它映射成一个 [0,1] 的混合系数？）</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">progress</span> <span class="o">=</span> <span class="p">(</span><span class="n">it</span> <span class="o">-</span> <span class="n">warmup_iters</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">cosine_cycle_iters</span> <span class="o">-</span> <span class="n">warmup_iters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">weight</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">progress</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lr</span> <span class="o">=</span> <span class="n">min_learning_rate</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_learning_rate</span> <span class="o">-</span> <span class="n">min_learning_rate</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">lr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（未调用）。填好后接线到 run_get_lr_cosine_schedule，跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_optimizer.py::test_get_lr_cosine_schedule -x&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;自检边界：it=0 -&gt; 0 ; it=warmup_iters -&gt; max ; it&gt;=cosine_cycle_iters -&gt; min&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（未调用）。填好后接线到 run_get_lr_cosine_schedule，跑：
+  pytest tests/test_optimizer.py::test_get_lr_cosine_schedule -x
+自检边界：it=0 -&gt; 0 ; it=warmup_iters -&gt; max ; it&gt;=cosine_cycle_iters -&gt; min
+</code></pre>
+
+
+<h2 class="relative group">4. 梯度裁剪：按全局范数&quot;限速&quot; 
+    <div id="4-%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA%E6%8C%89%E5%85%A8%E5%B1%80%E8%8C%83%E6%95%B0%E9%99%90%E9%80%9F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA%E6%8C%89%E5%85%A8%E5%B1%80%E8%8C%83%E6%95%B0%E9%99%90%E9%80%9F" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>训练中偶尔会出现异常大的梯度（坏 batch、数值尖峰），一步就能把参数推到很糟的地方。<strong>梯度裁剪</strong>在 <code>optimizer.step()</code> <strong>之前</strong>给梯度设一个上限。</p>
+<p>关键词是<strong>全局（global）</strong>：把<strong>所有参数的梯度拼成一个长向量</strong>，算它的<strong>单一 L2 范数</strong>。</p>
+<ul>
+<li>若这个全局范数 ≤ 阈值 <code>max_l2_norm</code>：<strong>什么都不做</strong>。</li>
+<li>若超过：对<strong>每个</strong>梯度乘上<strong>同一个</strong> <code>&lt; 1</code> 的缩放因子 $\frac{\text{max\_l2\_norm}}{\text{norm}+\epsilon}$，使整体范数正好降到阈值。</li>
+</ul>
+<p>注意它<strong>不是</strong>逐参数各自裁剪——那样会改变不同参数梯度之间的相对比例，进而改变更新方向。全局缩放保持方向不变，只缩短长度。下面用 <code>torch.nn.utils.clip_grad_norm_</code>（参考教具）验证这两点。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">max_norm</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">make_params_with_grad</span><span class="p">(</span><span class="n">scale</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ps</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ps</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn_like</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>   <span class="c1"># 手动塞一个梯度进去</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ps</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">global_grad_norm</span><span class="p">(</span><span class="n">ps</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ps</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 情形 A：大范数梯度 —— 应被缩放到 &lt;= max_norm</span>
+</span></span><span class="line"><span class="cl"><span class="n">big</span> <span class="o">=</span> <span class="n">make_params_with_grad</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">nb</span> <span class="o">=</span> <span class="n">global_grad_norm</span><span class="p">(</span><span class="n">big</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">clip_grad_norm_</span><span class="p">(</span><span class="n">big</span><span class="p">,</span> <span class="n">max_norm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">na</span> <span class="o">=</span> <span class="n">global_grad_norm</span><span class="p">(</span><span class="n">big</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[大范数] 全局 L2: </span><span class="si">{</span><span class="n">nb</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">na</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   (被裁到 &lt;= </span><span class="si">{</span><span class="n">max_norm</span><span class="si">}</span><span class="s2">)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 情形 B：小范数梯度 —— 未超阈值，应原封不动</span>
+</span></span><span class="line"><span class="cl"><span class="n">small</span> <span class="o">=</span> <span class="n">make_params_with_grad</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">g0</span> <span class="o">=</span> <span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">nbs</span> <span class="o">=</span> <span class="n">global_grad_norm</span><span class="p">(</span><span class="n">small</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">clip_grad_norm_</span><span class="p">(</span><span class="n">small</span><span class="p">,</span> <span class="n">max_norm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">nas</span> <span class="o">=</span> <span class="n">global_grad_norm</span><span class="p">(</span><span class="n">small</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[小范数] 全局 L2: </span><span class="si">{</span><span class="n">nbs</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">nas</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   (未超阈值，保持不变)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;        第一个参数梯度是否完全没变:&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">g0</span><span class="p">,</span> <span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 可视化：大范数情形下，每个参数的梯度范数被“同一个因子”缩放</span>
+</span></span><span class="line"><span class="cl"><span class="n">big2</span> <span class="o">=</span> <span class="n">make_params_with_grad</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">per_before</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">big2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">clip_grad_norm_</span><span class="p">(</span><span class="n">big2</span><span class="p">,</span> <span class="n">max_norm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">per_after</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">big2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">big2</span><span class="p">));</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.35</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">per_before</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;before clip&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">per_after</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&#34;after clip&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&#34;param</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&#34;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;per-parameter grad L2 norm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;global-norm clipping scales ALL grads by the SAME factor&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;每个参数的缩放比例（应几乎相同，因为用的是同一个全局因子）:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">per_after</span><span class="p">,</span> <span class="n">per_before</span><span class="p">)])</span>
+</span></span></code></pre></div><pre><code>[大范数] 全局 L2: 38.583 -&gt; 1.000   (被裁到 &lt;= 1.0)
+[小范数] 全局 L2: 0.055 -&gt; 0.055   (未超阈值，保持不变)
+        第一个参数梯度是否完全没变: True
+</code></pre>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-9/index_files/index_14_1_hu_794dca7ab49f4098.png 330w,
+        /coding/cs336-assign1-9/index_files/index_14_1_hu_88f22b05f0f93089.png 660w,
+        /coding/cs336-assign1-9/index_files/index_14_1_hu_9d6e9453d1f04594.png 1024w,
+        /coding/cs336-assign1-9/index_files/index_14_1_hu_42c6ead630cf42c9.png 2x"
+        src="/coding/cs336-assign1-9/index_files/index_14_1_hu_88f22b05f0f93089.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>每个参数的缩放比例（应几乎相同，因为用的是同一个全局因子）: [0.031, 0.031, 0.031]
+</code></pre>
+
+
+<h3 class="relative group">✏️ 你的任务：梯度裁剪引导骨架 
+    <div id="-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>原地修改传入参数的 <code>.grad</code>，无返回值。特别注意 <code>test_gradient_clipping</code> 里<strong>冻结了一个参数</strong>（<code>requires_grad_(False)</code>），它的 <code>.grad</code> 是 <code>None</code>——你的实现要能<strong>跳过</strong>这些参数，否则会在计算范数时报错。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gradient_clipping</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">max_l2_norm</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 原地修改 .grad，无返回值：</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 1: 收集所有 grad 不为 None 的参数（冻结/未参与前向的参数 grad 是 None，跳过）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">grads</span> <span class="o">=</span> <span class="p">[</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 2: 计算这些梯度拼在一起的“全局” L2 范数（不是逐参数分别算！）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">total_norm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">grad</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">grad</span> <span class="ow">in</span> <span class="n">grads</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 3: 仅当 total_norm &gt; max_l2_norm 时，算一个 &lt; 1 的缩放因子 max_l2_norm / (total_norm + eps)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 否则因子为 1（什么都不做）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">scale</span> <span class="o">=</span> <span class="n">max_l2_norm</span> <span class="o">/</span> <span class="p">(</span><span class="n">total_norm</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span> <span class="k">if</span><span class="p">(</span><span class="n">total_norm</span> <span class="o">&gt;</span> <span class="n">max_l2_norm</span><span class="p">)</span> <span class="k">else</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 4: 用同一个 scale 原地缩放每个梯度（考虑 grad.mul_(scale) 之类的原地操作）</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 注意这里的grads 里面保存的不是 p.grad 的拷贝，而是对这些 Tensor 对象的引用</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 所以对 grads 中的 grad 的原地修改等价于对 p.grad 的原地修改</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">grad</span> <span class="ow">in</span> <span class="n">grads</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">grad</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（未调用）。填好后接线到 run_gradient_clipping，跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_nn_utils.py::test_gradient_clipping -x&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（未调用）。填好后接线到 run_gradient_clipping，跑：
+  pytest tests/test_nn_utils.py::test_gradient_clipping -x
+</code></pre>
+
+
+<h2 class="relative group">🔬 拓展实验（自己动手，加深理解） 
+    <div id="-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><strong>warmup 有没有用</strong>：把实验 1 的病态系数从 20 调到 100，再给 SGD/AdamW 一个&quot;没有 warmup 的大初始 lr&quot;，观察谁先发散。想想 warmup 为什么能救急。</li>
+<li><strong>解耦 vs 耦合的权重衰减</strong>：用 <code>torch.optim.Adam(..., weight_decay=λ)</code>（这是耦合的 L2）对比 <code>torch.optim.AdamW(..., weight_decay=λ)</code>，训练同一个小模型若干步，打印各自权重的 L2 范数，感受两者差异。</li>
+<li><strong>二阶矩在做什么</strong>：在实验 1 里给两个坐标喂尺度差很大的梯度，打印 AdamW 内部（可用 <code>opt.state</code>）的 <code>v</code>，看它如何&quot;拉平&quot;不同坐标的有效步长。</li>
+<li><strong>裁剪阈值扫描</strong>：固定一批梯度，把 <code>max_l2_norm</code> 从大到小扫一遍，画&quot;被裁掉的比例 / 裁剪后全局范数&quot;随阈值的变化曲线。</li>
+<li><strong>自检你的 LR 闭式</strong>：填好骨架后，用 <code>test_get_lr_cosine_schedule</code> 里的超参逐 <code>it</code> 打印，和那 25 个期望值逐点比对——差在哪一段就说明你哪段边界写错了。</li>
+</ol>
+
+
+<h2 class="relative group">回答 
+    <div id="%E5%9B%9E%E7%AD%94" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%9B%9E%E7%AD%94" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>当病态系数从 20 增大到 100 后，x_0 方向的梯度变得更大。若训练一开始就使用较大的学习率，参数更新幅度会非常大，SGD 尤其容易在陡峭方向上发生剧烈震荡甚至发散。AdamW 由于会根据梯度二阶矩自适应缩放每个参数的更新幅度，因此通常比 SGD 更能承受较大的初始学习率。</li>
+</ol>
+<p>线性 warmup 通过在训练初期逐渐增大学习率，使最开始几步的参数更新受到限制，从而降低训练刚开始时因梯度过大或优化器统计量尚不稳定而导致发散的风险。不过，如果最终学习率本身就超过稳定范围，warmup 只能延缓发散，而不能从根本上解决问题。</p>
+<ol start="2">
+<li>Adam 和 AdamW 即使使用相同的学习率、weight decay、初始参数和训练数据，权重的 L2 范数变化也会不同。原因是 Adam 中的 weight decay 本质上是把 L2 正则项加入梯度，使其和普通梯度一起经过一阶矩、二阶矩以及自适应缩放；而 AdamW 将权重衰减从梯度更新中解耦出来，直接对参数执行减去衰减项的操作。因此，AdamW 的权重衰减更直接、更符合“按固定比例缩小参数”的直观含义，也不会受到 Adam 自适应学习率机制的干扰。</li>
+<li>AdamW 的二阶矩 $v_t$ 是<strong>梯度平方的指数移动平均</strong>：</li>
+</ol>
+$$
+v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2
+$$<p>它记录了每个参数最近一段时间的<strong>典型梯度大小</strong>。</p>
+<p>实验中两个坐标的梯度尺度差异很大，因此梯度较大的坐标会积累更大的 $v_t$，梯度较小的坐标则得到较小的 $v_t$。</p>
+<p>AdamW 更新参数时会用：</p>
+$$
+\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}
+$$<p>因此：</p>
+<ul>
+<li>
+<p>梯度长期较大的方向 → $v_t$ 大 → 分母大 → 更新被压小；</p>
+</li>
+<li>
+<p>梯度长期较小的方向 → $v_t$ 小 → 分母小 → 更新相对被放大。</p>
+</li>
+</ul>
+<p>所以，<strong>二阶矩的核心作用是根据每个参数自身的梯度尺度，对更新进行自适应归一化</strong>。这使 AdamW 能够“拉平”不同坐标之间巨大的梯度尺度差异，让各个方向的有效步长更加接近，从而在病态损失面上比使用统一学习率的 SGD 更容易稳定地向最优点移动。</p>
+<ol start="4">
+<li>略</li>
+<li>略</li>
+</ol>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li><strong>AdamW</strong> = 动量（一阶矩 $m$）+ 逐坐标自适应步长（二阶矩 $v$）+ 偏差校正 + <strong>解耦权重衰减</strong>（单独一步、不过 $\sqrt{v}$）。在病态损失面上比 SGD 走得更直更稳。</li>
+<li><strong>学习率调度</strong>：线性 warmup 到 <code>max</code> → 余弦退火到 <code>min</code> → 之后保持 <code>min</code>；两个拐点是 <code>warmup_iters</code> 与 <code>cosine_cycle_iters</code>。</li>
+<li><strong>梯度裁剪</strong>：对<strong>全局</strong> L2 范数超阈值时，用<strong>同一个</strong>因子缩放所有梯度（保方向、缩长度）；实现要<strong>跳过 grad 为 None 的冻结参数</strong>。</li>
+</ul>
+<hr>
+
+
+<h3 class="relative group">✏️ 作业连接 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应接口</th>
+          <th>测试</th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>AdamW</code> 优化器类</td>
+          <td><code>get_adamw_cls</code></td>
+          <td><code>test_optimizer.py::test_adamw</code></td>
+          <td>构造参数名/默认值照抄测试；<code>step</code> 里更新 $m,v$、偏差校正、解耦衰减单独一步</td>
+      </tr>
+      <tr>
+          <td>cosine LR 调度</td>
+          <td><code>run_get_lr_cosine_schedule</code></td>
+          <td><code>test_optimizer.py::test_get_lr_cosine_schedule</code></td>
+          <td>三段式；<code>it=0-&gt;0</code>、<code>it=warmup-&gt;max</code>、<code>it&gt;=cosine_cycle-&gt;min</code></td>
+      </tr>
+      <tr>
+          <td>梯度裁剪</td>
+          <td><code>run_gradient_clipping</code></td>
+          <td><code>test_nn_utils.py::test_gradient_clipping</code></td>
+          <td>全局范数、跳过 <code>None</code> 梯度、原地缩放</td>
+      </tr>
+  </tbody>
+</table>
+<p>接线方式看 <code>tests/adapters.py</code> 里三个 <code>run_*</code> / <code>get_adamw_cls</code> 的 docstring。写完这三块，你就凑齐了训练循环需要的全部&quot;驾驶部件&quot;，下一步就能把它们接进 training loop 去真正训模型了。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/cs336-assign1-1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-1/">assign1 线形层和嵌入层</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-02T00:00:00&#43;00:00">2 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4098 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-8/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-8/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-8/">assign1 Multi Head Attention</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6764 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-6/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-6/">assign1 attention机制</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5983 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-9\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-9\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/cs336-assign1-8/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 Multi Head Attention</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/leetcode_notes/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >LeetCode 刷题笔记</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

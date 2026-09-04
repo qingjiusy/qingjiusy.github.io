@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
-  data-auto-appearance="true"><head>
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   
   <meta http-equiv="content-language" content="zh-cn" />
@@ -15,7 +15,7 @@
   <meta name="keywords" content="PyTorch, Torch, 深度学习, " />
   
   
-  <link rel="canonical" href="https://qingjiusy.github.io/coding/torchapi/" />
+  <link rel="canonical" href="http://localhost:1313/coding/torchapi/" />
   
   
   
@@ -67,7 +67,7 @@
   
   
   
-  <meta property="og:url" content="https://qingjiusy.github.io/coding/torchapi/">
+  <meta property="og:url" content="http://localhost:1313/coding/torchapi/">
   <meta property="og:site_name" content="QingJiu">
   <meta property="og:title" content="PyTorch API 速查笔记">
   <meta property="og:description" content="blog">
@@ -79,11 +79,11 @@
     <meta property="article:tag" content="PyTorch">
     <meta property="article:tag" content="Torch">
     <meta property="article:tag" content="深度学习">
-    <meta property="og:image" content="https://qingjiusy.github.io/coding/torchapi/featured.PNG">
+    <meta property="og:image" content="http://localhost:1313/coding/torchapi/featured.PNG">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/torchapi/featured.PNG">
+  <meta name="twitter:image" content="http://localhost:1313/coding/torchapi/featured.PNG">
   <meta name="twitter:title" content="PyTorch API 速查笔记">
   <meta name="twitter:description" content="blog">
 
@@ -98,7 +98,7 @@
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/qingjiusy.github.io\/coding\/torchapi\/",
+    "url" : "http:\/\/localhost:1313\/coding\/torchapi\/",
     "author" : {
       "@type": "Person",
       "name": "清酒"
@@ -112,7 +112,7 @@
     "keywords": ["PyTorch","Torch","深度学习"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "8744"
+    "wordCount": "9528"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8744 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>9528 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">20 分钟</span>
   
 
   
@@ -913,6 +913,15 @@
             <li><a href="#torchwherecondition-a-b">torch.where(condition, a, b)</a></li>
           </ul>
         </li>
+        <li><a href="#原地逐元素运算">原地逐元素运算</a>
+          <ul>
+            <li><a href="#xadd_y">x.add_(y)</a></li>
+            <li><a href="#xadd_y-alphaa">x.add_(y, alpha=a)</a></li>
+            <li><a href="#xmul_a">x.mul_(a)</a></li>
+            <li><a href="#xaddcmul_y-z-valuea">x.addcmul_(y, z, value=a)</a></li>
+            <li><a href="#xsqrt_">x.sqrt_()</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#张量常用的数学运算函数">张量常用的数学运算函数</a>
@@ -1108,6 +1117,15 @@
         <li><a href="#按条件二选一">按条件二选一</a>
           <ul>
             <li><a href="#torchwherecondition-a-b">torch.where(condition, a, b)</a></li>
+          </ul>
+        </li>
+        <li><a href="#原地逐元素运算">原地逐元素运算</a>
+          <ul>
+            <li><a href="#xadd_y">x.add_(y)</a></li>
+            <li><a href="#xadd_y-alphaa">x.add_(y, alpha=a)</a></li>
+            <li><a href="#xmul_a">x.mul_(a)</a></li>
+            <li><a href="#xaddcmul_y-z-valuea">x.addcmul_(y, z, value=a)</a></li>
+            <li><a href="#xsqrt_">x.sqrt_()</a></li>
           </ul>
         </li>
       </ul>
@@ -2507,6 +2525,116 @@ unbind 返回的是一个 tuple，不是一个 Tensor。unbind 会去掉被拆�
 torch.where(condition, a, b) 不会只筛选出 True 的元素，而是会保留整体 shape。这一点和 x[mask] 不一样。condition 通常由比较运算生成，比如 x &gt; 0、x == 1。</p>
 
 
+<h3 class="relative group">原地逐元素运算 
+    <div id="%E5%8E%9F%E5%9C%B0%E9%80%90%E5%85%83%E7%B4%A0%E8%BF%90%E7%AE%97" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8E%9F%E5%9C%B0%E9%80%90%E5%85%83%E7%B4%A0%E8%BF%90%E7%AE%97" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">x.add_(y) 
+    <div id="xadd_y" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#xadd_y" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>作用：</strong><br>
+把 <code>y</code> 逐元素加到 <code>x</code> 上，并且直接修改 <code>x</code> 本身。</p>
+<p><strong>输入输出 / 形状变化：</strong>
+y 可以是tensor，也可以是标量。
+x 和 y 的 shape 要相同，或者能广播。输出 shape 和 x 一样。</p>
+<p><strong>注意点：</strong>
+方法名最后的 _ 表示原地修改。
+也就是说，执行后 x 自己会变，不是只返回一个新张量。
+涉及梯度计算时，原地操作要小心，可能影响 autograd。</p>
+
+
+<h4 class="relative group">x.add_(y, alpha=a) 
+    <div id="xadd_y-alphaa" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#xadd_y-alphaa" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>作用：</strong>
+把 a * y 逐元素加到 x 上，并且直接修改 x 本身。
+<code>x.add_(y, alpha=a)</code>等价于 x = x + a * y。</p>
+<p><strong>输入输出 / 形状变化：</strong>
+y 可以是tensor，也可以是标量。
+y 的 shape 要和 x 相同，或者能广播到 x 的 shape。输出 shape 和 x 一样。</p>
+<p><strong>注意点：</strong>
+这里的 alpha 是给 y 乘上的系数。默认 alpha=1，也就是普通的 x.add_(y)。</p>
+
+
+<h4 class="relative group">x.mul_(a) 
+    <div id="xmul_a" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#xmul_a" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>作用：</strong><br>
+把 <code>x</code> 里的每个元素都乘上 <code>a</code>，并且直接修改 <code>x</code> 本身。</p>
+<p><strong>输入输出 / 形状变化：</strong><br>
+a 可以是tensor，也可以是标量。
+如果 <code>a</code> 是数字，就会作用到 <code>x</code> 的每个元素上。<br>
+如果 <code>a</code> 是张量，那么 <code>a</code> 的 shape 要和 <code>x</code> 相同，或者能广播到 <code>x</code> 的 shape。输出 shape 和 <code>x</code> 一样。</p>
+
+
+<h4 class="relative group">x.addcmul_(y, z, value=a) 
+    <div id="xaddcmul_y-z-valuea" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#xaddcmul_y-z-valuea" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>作用：</strong>
+先把 y 和 z 逐元素相乘，再乘上 a，最后加到 x 上，并且直接修改 x 本身。
+<code>x.addcmul_(y, z, value=a)</code>等价于 x = x + a * y * z。</p>
+<p><strong>输入输出 / 形状变化：</strong>
+接口本质上是tensor.addcmul_(tensor1, tensor2, value=1)，注意 y 和 z 应该是 tensor。
+y 和 z 的 shape 要和 x 相同，或者能广播到 x 的 shape。输出 shape 和 x 一样。</p>
+<p><strong>注意点：</strong>
+这个 API 名字可以拆开记：add + c + mul，也就是 add combined multiply。实际常见理解就是：在 x 上加一个“两个张量逐元素乘法后的结果”。</p>
+
+
+<h4 class="relative group">x.sqrt_() 
+    <div id="xsqrt_" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#xsqrt_" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>作用：</strong>
+对 x 里的每个元素开平方，并且直接修改 x 本身。</p>
+<p><strong>输入输出 / 形状变化：</strong>
+逐元素计算，不改变 shape。输出 shape 和 x 一样。</p>
+<p><strong>注意点：</strong>
+x.sqrt() 会返回一个新张量，不改 x；x.sqrt_() 会直接修改 x。
+一般用于浮点张量，并且 x 里的值最好是非负数。如果有负数，结果会出现 nan。</p>
+
+
 <h2 class="relative group">张量常用的数学运算函数 
     <div id="%E5%BC%A0%E9%87%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%E5%87%BD%E6%95%B0" class="anchor"></div>
     
@@ -3019,7 +3147,7 @@ torch.where(condition, a, b) 不会只筛选出 True 的元素，而是会保留
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="https://qingjiusy.github.io/"
+  data-url="http://localhost:1313/"
   style="z-index:500"
 >
   <div
