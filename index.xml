@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>2026 清酒 转载请标明出处</copyright>
-    <lastBuildDate>Fri, 04 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>assign1 bpe 和 tokenizer</title>
+      <link>https://qingjiusy.github.io/coding/cs336-assign1-11/</link>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/cs336-assign1-11/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-11/featured.JPG" />
+    </item>
     
     <item>
       <title>python基础知识坑</title>
@@ -27,16 +37,6 @@
       <guid>https://qingjiusy.github.io/coding/leetcode_notes/</guid>
       <description>blog</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/leetcode_notes/featured.PNG" />
-    </item>
-    
-    <item>
-      <title>assign1 bpe 和 tokenizer</title>
-      <link>https://qingjiusy.github.io/coding/cs336-assign1-11/</link>
-      <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>https://qingjiusy.github.io/coding/cs336-assign1-11/</guid>
-      <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/cs336-assign1-11/featured.JPG" />
     </item>
     
     <item>

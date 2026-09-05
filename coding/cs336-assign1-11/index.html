@@ -76,8 +76,8 @@
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="coding">
-    <meta property="article:published_time" content="2026-08-12T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-08-12T00:00:00+00:00">
+    <meta property="article:published_time" content="2026-09-05T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-09-05T00:00:00+00:00">
     <meta property="article:tag" content="Cs336">
     <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-11/featured.JPG">
 
@@ -104,15 +104,15 @@
       "name": "清酒"
     },
     "copyrightYear": "2026",
-    "dateCreated": "2026-08-12T00:00:00\u002b00:00",
-    "datePublished": "2026-08-12T00:00:00\u002b00:00",
+    "dateCreated": "2026-09-05T00:00:00\u002b00:00",
+    "datePublished": "2026-09-05T00:00:00\u002b00:00",
     
-    "dateModified": "2026-08-12T00:00:00\u002b00:00",
+    "dateModified": "2026-09-05T00:00:00\u002b00:00",
     
     "keywords": ["cs336"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "8979"
+    "wordCount": "9853"
   }]
   </script>
 
@@ -733,7 +733,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-12T00:00:00&#43;00:00">12 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8979 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  <time datetime="2026-09-05T00:00:00&#43;00:00">5 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>9853 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">20 分钟</span>
   
 
   
@@ -1539,7 +1539,141 @@ errors='replace' 容错解码: '�'
 </span></span></code></pre></div><pre><code>骨架已定义(未实现)。填好后到 tests/adapters.py 的 run_train_bpe 里接线，再跑:
   pytest tests/test_train_bpe.py -x
 </code></pre>
-
+<p>通常这里还可以进行一种优化，就是去并行的切分语料，进行<strong>预分词 + 计数</strong></p>
+<p>核心思路是：先按文件的 byte offset 切成多个 chunk，并保证 chunk 边界落在 special token 边界附近；每个进程分别读取自己的 chunk、做 regex 预分词、统计局部 pretoken_counts；最后主进程把这些局部计数加起来。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cs336_basics.pretokenization_example</span> <span class="kn">import</span> <span class="n">find_chunk_boundaries</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">PAT</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;&#34;&#34;&#39;(?:[sdmt]|ll|ve|re)| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">process_chunk</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">special_tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    一个子进程处理 [start, end) 这一段文件。
+</span></span></span><span class="line"><span class="cl"><span class="s2">    返回这个 chunk 内部的 pretoken 频率表。
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">local_pretoken</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 注意这里用 rb，因为 start/end 是 byte offset</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">chunk</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">text</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 先按 special token 切</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">special_tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">special_pattern</span> <span class="o">=</span> <span class="s2">&#34;|&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">special_tokens</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">parts</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">special_pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 再做 GPT-2 pretokenization</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">PAT</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">token_bytes</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">byte_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">bytes</span><span class="p">([</span><span class="n">byte</span><span class="p">])</span> <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">token_bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">local_pretoken</span><span class="p">[</span><span class="n">byte_tuple</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">local_pretoken</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">train_bpe</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">special_tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vocab</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">special_token</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">special_tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vocab</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">256</span><span class="p">]</span> <span class="o">=</span> <span class="n">special_token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 通过 find_chunk_boundaries 找到了切分成4段的 boundaries</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">boundaries</span> <span class="o">=</span> <span class="n">find_chunk_boundaries</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;&lt;|endoftext|&gt;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 保存每个“异步提交出去的任务”</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jobs</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 开一个进程池</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">boundaries</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">boundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># submit() 返回的并不是 process_chunk() 的真正结果，而是一个 Future 对象</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 后面再用过 job.result() 拿到返回值</span>
+</span></span><span class="line"><span class="cl">            <span class="n">jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 表示函数 process_chunk 调用下面的四个参数</span>
+</span></span><span class="line"><span class="cl">                <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">process_chunk</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">input_path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">start</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">special_tokens</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 合并所有进程的统计结果</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pretoken</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">local_counts</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">local_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pretoken</span><span class="p">[</span><span class="n">token</span><span class="p">]</span> <span class="o">+=</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 之后就和前面一样，开始进行 merge</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 3: 循环，直到 len(vocab) == vocab_size:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">merges</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">vocab_size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3a. 统计所有相邻 token 对的频率(按 pretoken 数量加权)，记录在 pair_count 中</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pair_count</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">pretoken_tuple</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pretoken</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pretoken_tuple</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">pair_count</span><span class="p">[(</span><span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])]</span> <span class="o">+=</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="ow">not</span> <span class="n">pair_count</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3b. 选频率最高的对；平局用 handout 的 tie-break 规则，也就是：频率相同时用更大的字典序的</span>
+</span></span><span class="line"><span class="cl">        <span class="n">max_pair</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">pair_count</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pair</span><span class="p">:</span> <span class="p">(</span><span class="n">pair_count</span><span class="p">[</span><span class="n">pair</span><span class="p">],</span> <span class="n">pair</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3c. 记录这条 merge，并把合并后的新 token 加进 vocab</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vocab</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)]</span> <span class="o">=</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#max_pair是(b&#34;h&#34;,b&#34;e&#34;)，vocab中加入的新词应该是b&#34;he&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">merges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_pair</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 更新pretoken</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 遍历每一个pre_token，检查有没有可以合并的bytes</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3d. 在每个 new_pretoken 序列里把 max_pair 替换成新 token</span>
+</span></span><span class="line"><span class="cl">        <span class="n">new_pretoken_counts</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">pretoken_tuple</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pretoken</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="n">new_pretoken</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pretoken_tuple</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 当前 token 和下一个 token 正好组成 max_pair</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pretoken_tuple</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                    <span class="ow">and</span> <span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="ow">and</span> <span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1"># 合并两个 bytes token</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">new_pretoken</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span> <span class="c1"># 已经处理了两个 token，所以向后移动两位</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1"># 没有匹配到 max_pair，保留当前 token</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">new_pretoken</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># list 转回 tuple</span>
+</span></span><span class="line"><span class="cl">            <span class="n">new_pretoken_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_pretoken</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 保留原 pretoken 的出现次数</span>
+</span></span><span class="line"><span class="cl">            <span class="n">new_pretoken_counts</span><span class="p">[</span><span class="n">new_pretoken_tuple</span><span class="p">]</span> <span class="o">+=</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 用新的统计结果替换旧的 pretoken</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pretoken</span> <span class="o">=</span> <span class="n">new_pretoken_counts</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 4: 返回 (vocab, merges)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">vocab</span><span class="p">,</span> <span class="n">merges</span>
+</span></span></code></pre></div>
 
 <h2 class="relative group">Part G · ✏️ 你的任务（二）：<code>Tokenizer</code> 引导骨架 
     <div id="part-g---%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1%E4%BA%8Ctokenizer-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
@@ -2062,7 +2196,7 @@ errors='replace' 容错解码: '�'
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/coding/cs336-assign1-10/">
+            <a class="flex group mr-3" href="/coding/aiinfra1/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -2074,11 +2208,11 @@ errors='replace' 容错解码: '�'
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >assign1 data batching 和 checkpoint保存</span
+                  >python基础知识坑</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2026-08-11T00:00:00&#43;00:00">11 August 2026</time>
+                    <time datetime="2026-08-29T00:00:00&#43;00:00">29 August 2026</time>
                   
                 </span>
               </span>
@@ -2086,28 +2220,6 @@ errors='replace' 容错解码: '�'
           
         </span>
         <span>
-          
-            <a class="flex text-right group ml-3" href="/coding/leetcode_notes/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >LeetCode 刷题笔记</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
           
         </span>
       </div>

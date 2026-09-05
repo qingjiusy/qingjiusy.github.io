@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>2026 清酒 转载请标明出处</copyright>
-    <lastBuildDate>Sat, 29 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Cs336</title>
+      <link>https://qingjiusy.github.io/tags/cs336/</link>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/tags/cs336/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>Ai Infra</title>
@@ -45,16 +55,6 @@
       <pubDate>Mon, 17 Aug 2026 00:00:00 +0000</pubDate>
       
       <guid>https://qingjiusy.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Cs336</title>
-      <link>https://qingjiusy.github.io/tags/cs336/</link>
-      <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>https://qingjiusy.github.io/tags/cs336/</guid>
       <description></description>
       
     </item>
