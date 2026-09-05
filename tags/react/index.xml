@@ -2,61 +2,61 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>React on QingJiu</title>
-    <link>http://localhost:1313/tags/react/</link>
+    <link>https://qingjiusy.github.io/tags/react/</link>
     <description>Recent content in React on QingJiu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>2026 清酒 转载请标明出处</copyright>
-    <lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>React一些钩子函数</title>
-      <link>http://localhost:1313/coding/react_learning5/</link>
+      <link>https://qingjiusy.github.io/coding/react_learning5/</link>
       <pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/coding/react_learning5/</guid>
+      <guid>https://qingjiusy.github.io/coding/react_learning5/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/react_learning5/featured.jpg" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/react_learning5/featured.jpg" />
     </item>
     
     <item>
       <title>React小项目</title>
-      <link>http://localhost:1313/coding/react_learning4/</link>
+      <link>https://qingjiusy.github.io/coding/react_learning4/</link>
       <pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/coding/react_learning4/</guid>
+      <guid>https://qingjiusy.github.io/coding/react_learning4/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/react_learning4/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/react_learning4/featured.png" />
     </item>
     
     <item>
       <title>React-Redux</title>
-      <link>http://localhost:1313/coding/react_learning3/</link>
+      <link>https://qingjiusy.github.io/coding/react_learning3/</link>
       <pubDate>Mon, 10 Mar 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/coding/react_learning3/</guid>
+      <guid>https://qingjiusy.github.io/coding/react_learning3/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/react_learning3/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/react_learning3/featured.png" />
     </item>
     
     <item>
       <title>React-Redux</title>
-      <link>http://localhost:1313/coding/react_learning2/</link>
+      <link>https://qingjiusy.github.io/coding/react_learning2/</link>
       <pubDate>Tue, 04 Mar 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/coding/react_learning2/</guid>
+      <guid>https://qingjiusy.github.io/coding/react_learning2/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/react_learning2/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/react_learning2/featured.png" />
     </item>
     
     <item>
       <title>React自学</title>
-      <link>http://localhost:1313/coding/react_learning1/</link>
+      <link>https://qingjiusy.github.io/coding/react_learning1/</link>
       <pubDate>Mon, 03 Mar 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/coding/react_learning1/</guid>
+      <guid>https://qingjiusy.github.io/coding/react_learning1/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/coding/react_learning1/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/react_learning1/featured.png" />
     </item>
     
   </channel>

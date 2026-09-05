@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 data batching 和 checkpoint保存 &middot; QingJiu</title>
+  <meta name="title" content="assign1 data batching 和 checkpoint保存 &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/cs336-assign1-10/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.838d26031ec50de0dcfd5516fab84dfc26cfac5f88fad0c5bed46811eeed25a96ce7132e5daaf9bcf4de37d77a10ef55b1ff46417d7f2a52b7054b746a3ad1eb.css"
+    integrity="sha512-g40mAx7FDeDc/VUW&#43;rhN/CbPrF&#43;I&#43;tDFvtRoEe7tJals5xMuXar5vPTeN9d6EO9Vsf9GQX1/KlK3BUt0ajrR6w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/cs336-assign1-10/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 data batching 和 checkpoint保存">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-11T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-10/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/cs336-assign1-10/featured.JPG">
+  <meta name="twitter:title" content="assign1 data batching 和 checkpoint保存">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 data batching 和 checkpoint保存",
+    "headline": "assign1 data batching 和 checkpoint保存",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/cs336-assign1-10\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-11T00:00:00\u002b00:00",
+    "datePublished": "2026-08-11T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-11T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "5920"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-10/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 data batching 和 checkpoint保存
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-11T00:00:00&#43;00:00">11 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5920 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-训练数据是一条很长的-token-流">1. 训练数据是一条&quot;很长的 token 流&quot;</a></li>
+    <li><a href="#2-dtype-与-device为什么-token-id-要用-int64-long">2. dtype 与 device：为什么 token id 要用 int64 (long)</a></li>
+    <li><a href="#3-随机起点采样通用机制">3. 随机起点采样（通用机制）</a></li>
+    <li><a href="#4-npmemmap不整体载入也能按索引取窗口">4. <code>np.memmap</code>：不整体载入也能按索引取窗口</a></li>
+    <li><a href="#5-checkpoint-往返通用-torch-机制">5. Checkpoint 往返（通用 torch 机制）</a></li>
+    <li><a href="#6--你的任务get_batch-引导骨架">6. ✏️ 你的任务：<code>get_batch</code> 引导骨架</a></li>
+    <li><a href="#7--你的任务save_checkpoint--load_checkpoint-引导骨架">7. ✏️ 你的任务：<code>save_checkpoint</code> / <code>load_checkpoint</code> 引导骨架</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#回答">回答</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#1-训练数据是一条很长的-token-流">1. 训练数据是一条&quot;很长的 token 流&quot;</a></li>
+    <li><a href="#2-dtype-与-device为什么-token-id-要用-int64-long">2. dtype 与 device：为什么 token id 要用 int64 (long)</a></li>
+    <li><a href="#3-随机起点采样通用机制">3. 随机起点采样（通用机制）</a></li>
+    <li><a href="#4-npmemmap不整体载入也能按索引取窗口">4. <code>np.memmap</code>：不整体载入也能按索引取窗口</a></li>
+    <li><a href="#5-checkpoint-往返通用-torch-机制">5. Checkpoint 往返（通用 torch 机制）</a></li>
+    <li><a href="#6--你的任务get_batch-引导骨架">6. ✏️ 你的任务：<code>get_batch</code> 引导骨架</a></li>
+    <li><a href="#7--你的任务save_checkpoint--load_checkpoint-引导骨架">7. ✏️ 你的任务：<code>save_checkpoint</code> / <code>load_checkpoint</code> 引导骨架</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#回答">回答</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#-作业连接">✏️ 作业连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>模型和优化器都就位后，最后一块拼图是<strong>喂数据</strong>：把磁盘上一条很长的 token 流，切成一个个 <code>(batch, context_length)</code> 的小窗口喂给模型；以及把训练到一半的 <code>model + optimizer + iteration</code> 存成 checkpoint、之后能原样恢复。这两件事看似琐碎，却是&quot;能不能真正跑起一次训练&quot;的关键。</p>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>建立<strong>语言模型训练数据 = 一条很长的 token 流</strong>的心智模型。</li>
+<li>理解<strong>输入与标签错位一位</strong>（label 是 next-token）——本章最核心的直觉。</li>
+<li>知道 token id 为什么要用 <strong>int64（long）</strong>、为什么磁盘上常存 <code>uint16</code>。</li>
+<li>理解 <code>np.memmap</code> 如何让<strong>超大数据不必整体读进内存</strong>，按索引取窗口。</li>
+<li>掌握 <strong>checkpoint 往返</strong>的 torch 机制：<code>state_dict</code> + <code>torch.save/load</code> + <code>load_state_dict</code>。</li>
+</ol>
+<blockquote>
+<p><strong>学术诚信</strong>：本笔记本用玩具数据和通用的 numpy / torch 机制建立直觉，<strong>不包含</strong> <code>run_get_batch</code> / <code>run_save_checkpoint</code> / <code>run_load_checkpoint</code> 的完整实现。涉及交付的地方只给<strong>引导骨架</strong>（<code>...</code> 留白）和思路，代码要你自己写。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sci_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">DEVICE</span> <span class="o">=</span> <span class="s2">&#34;cuda&#34;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&#34;cpu&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;torch :&#34;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;numpy :&#34;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;device:&#34;</span><span class="p">,</span> <span class="n">DEVICE</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>torch : 2.11.0
+numpy : 2.4.4
+device: cpu
+</code></pre>
+
+
+<h2 class="relative group">1. 训练数据是一条&quot;很长的 token 流&quot; 
+    <div id="1-%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE%E6%98%AF%E4%B8%80%E6%9D%A1%E5%BE%88%E9%95%BF%E7%9A%84-token-%E6%B5%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE%E6%98%AF%E4%B8%80%E6%9D%A1%E5%BE%88%E9%95%BF%E7%9A%84-token-%E6%B5%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>预训练数据经过 tokenizer 之后，不再是一句句独立的句子，而是<strong>首尾相接拼成一维整数序列</strong>，比如 <code>[15, 923, 7, 402, 88, ...]</code>，长度可能是几十亿。训练时我们做的是<strong>自回归语言建模</strong>：给定前面若干个 token，预测下一个 token。</p>
+<p>所以从这条流里采一个样本，就是：</p>
+<ul>
+<li>随机选一个起点 <code>s</code>；</li>
+<li>取长度 <code>context_length</code> 的一段作为<strong>输入</strong> <code>input</code>；</li>
+<li>把这段<strong>整体右移一位</strong>的那一段作为<strong>标签</strong> <code>label</code>。</li>
+</ul>
+<p>也就是说 <code>label[i]</code> 恰好是 <code>input[i]</code> 的<strong>下一个</strong> token —— 这就是 next-token prediction 的监督信号。下面用一条玩具流 <code>[0..19]</code> 把这个&quot;错位一位&quot;看个清楚（这里只演示<strong>单个窗口</strong>的概念，不是完整采样器）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 玩具 token 流：用 0..19 当&#34;token id&#34;，方便肉眼追踪错位关系</span>
+</span></span><span class="line"><span class="cl"><span class="n">stream</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">context_length</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 概念演示：固定选一个起点，取一个窗口和它&#34;右移一位&#34;的标签窗口</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">input_window</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="n">s</span> <span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="n">context_length</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">label_window</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">context_length</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;整条流   :&#34;</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;起点 s   : </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">,  context_length = </span><span class="si">{</span><span class="n">context_length</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;input    :&#34;</span><span class="p">,</span> <span class="n">input_window</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;label    :&#34;</span><span class="p">,</span> <span class="n">label_window</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;label 是不是 input 右移一位?  &#34;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">label_window</span><span class="p">,</span> <span class="n">input_window</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">直觉：看到 [3,4,5,6,7] 时，模型要依次预测 [4,5,6,7,8]。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>整条流   : [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19]
+起点 s   : 3,  context_length = 5
+input    : [3 4 5 6 7]
+label    : [4 5 6 7 8]
+label 是不是 input 右移一位?   True
+
+直觉：看到 [3,4,5,6,7] 时，模型要依次预测 [4,5,6,7,8]。
+</code></pre>
+<p>🔬 <strong>可视化&quot;错位一位&quot;</strong>。下面把 input 窗口和 label 窗口上下对齐画出来：同一列的 <code>input</code> 和 <code>label</code> 构成一对&quot;当前 token → 下一个 token&quot;的监督。注意 label 整体比 input 往右挪了一格。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">draw_row</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&#34;black&#34;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mf">0.45</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.45</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)),</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&#34;center&#34;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&#34;center&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&#34;bold&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.45</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&#34;right&#34;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&#34;center&#34;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">draw_row</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">input_window</span><span class="p">,</span> <span class="s2">&#34;#8ecae6&#34;</span><span class="p">,</span> <span class="s2">&#34;input&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">draw_row</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">label_window</span><span class="p">,</span> <span class="s2">&#34;#ffb703&#34;</span><span class="p">,</span> <span class="s2">&#34;label&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 画箭头：input[i] -&gt; label[i] (predict the next token)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">context_length</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&#34;-&gt;&#34;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;gray&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">context_length</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&#34;off&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&#34;label[i] = next token of input[i]  (shifted by one)&#34;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-10/index_files/index_5_0_hu_817e4ea4e10b7a2.png 330w,
+        /coding/cs336-assign1-10/index_files/index_5_0_hu_4817b07458378169.png 660w,
+        /coding/cs336-assign1-10/index_files/index_5_0_hu_6b1c7b69ffd089b4.png 1024w,
+        /coding/cs336-assign1-10/index_files/index_5_0_hu_a95729b144b4e76c.png 2x"
+        src="/coding/cs336-assign1-10/index_files/index_5_0_hu_4817b07458378169.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+
+
+<h2 class="relative group">2. dtype 与 device：为什么 token id 要用 int64 (long) 
+    <div id="2-dtype-%E4%B8%8E-device%E4%B8%BA%E4%BB%80%E4%B9%88-token-id-%E8%A6%81%E7%94%A8-int64-long" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-dtype-%E4%B8%8E-device%E4%B8%BA%E4%BB%80%E4%B9%88-token-id-%E8%A6%81%E7%94%A8-int64-long" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>两个容易被忽略但会直接报错的细节：</p>
+<ul>
+<li><strong>dtype</strong>：token id 是<strong>索引</strong>，要拿去 <code>Embedding</code> 查表。PyTorch 的索引/嵌入要求索引张量是<strong>整型（<code>torch.long</code> = int64）</strong>，喂浮点会直接抛错。另外，磁盘上为了省空间常把 token 存成 <code>uint16</code>（词表 &lt; 65536 时够用），但<strong>取出来喂模型前必须转成 <code>long</code></strong>。</li>
+<li><strong>device</strong>：采出来的 batch 要和模型在<strong>同一个 device</strong> 上，否则前向会报 &ldquo;expected all tensors on the same device&rdquo;。所以 <code>get_batch</code> 有个 <code>device</code> 参数——测试里还特意用非法的 <code>cuda:99</code> 检验你确实把张量搬了过去。</li>
+</ul>
+<p>下面看嵌入对 dtype 的要求。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">emb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">num_embeddings</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ids_long</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>              <span class="c1"># 默认就是 int64 = long</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;torch.arange(5).dtype :&#34;</span><span class="p">,</span> <span class="n">ids_long</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;用 long 索引嵌入 -&gt; 输出 shape:&#34;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">emb</span><span class="p">(</span><span class="n">ids_long</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 磁盘上常见的 uint16 -&gt; 必须先转成 long 才能查表</span>
+</span></span><span class="line"><span class="cl"><span class="n">ids_u16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">磁盘存储 dtype        :&#34;</span><span class="p">,</span> <span class="n">ids_u16</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ids_cast</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">ids_u16</span><span class="p">)</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;转成 torch 索引 dtype :&#34;</span><span class="p">,</span> <span class="n">ids_cast</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 反例：用浮点当索引会报错</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">emb</span><span class="p">(</span><span class="n">ids_long</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">浮点当索引 -&gt;&#34;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+</span></span></code></pre></div><pre><code>torch.arange(5).dtype : torch.int64
+用 long 索引嵌入 -&gt; 输出 shape: (5, 3)
+
+磁盘存储 dtype        : uint16
+转成 torch 索引 dtype : torch.int64
+
+浮点当索引 -&gt; RuntimeError : Expected tensor for argument #1 'indices' to have one of the following scalar types: Long, Int; but got torch.FloatTensor instead (while checking arguments for embedding)
+</code></pre>
+
+
+<h2 class="relative group">3. 随机起点采样（通用机制） 
+    <div id="3-%E9%9A%8F%E6%9C%BA%E8%B5%B7%E7%82%B9%E9%87%87%E6%A0%B7%E9%80%9A%E7%94%A8%E6%9C%BA%E5%88%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E9%9A%8F%E6%9C%BA%E8%B5%B7%E7%82%B9%E9%87%87%E6%A0%B7%E9%80%9A%E7%94%A8%E6%9C%BA%E5%88%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>一个 batch 由 <code>batch_size</code> 个<strong>独立随机</strong>的起点决定。合法起点的范围是关键：窗口要取 <code>input</code> 和右移一位的 <code>label</code>，所以最大起点必须保证 <code>s + context_length</code> 仍在流内。想一想——<strong>起点应该从哪个区间里取？</strong> 下面用 <code>np.random.randint</code> 演示这个采样机制本身（注意这只是&quot;怎么随机取整数&quot;，还不是完整的 <code>get_batch</code>）。</p>
+<p><code>test_data.py</code> 会统计上千次采样里每个起点出现的频次，检验：(1) 采样确实均匀随机，(2) <strong>从不越界</strong>（最大起点 = <code>len(dataset) - context_length - 1</code>）。所以边界差一位就会挂——这正是要你自己想清楚的地方。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dataset_len</span> <span class="o">=</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="n">context_length</span> <span class="o">=</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># np.random.randint(low, high, size) 从 [low, high) 取整数——high 是开区间</span>
+</span></span><span class="line"><span class="cl"><span class="n">starts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dataset_len</span> <span class="o">-</span> <span class="n">context_length</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;一批随机起点 (batch_size 个):&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">starts</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">最小起点:&#34;</span><span class="p">,</span> <span class="n">starts</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s2">&#34; 最大起点:&#34;</span><span class="p">,</span> <span class="n">starts</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;此处传入的 high =&#34;</span><span class="p">,</span> <span class="n">dataset_len</span> <span class="o">-</span> <span class="n">context_length</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;(randint 的 high 是开区间)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;思考：这个 high 传对了吗？test_data.py 期望能取到的最大起点是多少？自己对一下。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>一批随机起点 (batch_size 个):
+[44 47 64 67 67  9 83 21 36 87 70 88 88 12 58 65 39 87 46 88 81 37 25 77
+ 72  9 20 80 69 79 47 64]
+
+最小起点: 9  最大起点: 88
+此处传入的 high = 93 (randint 的 high 是开区间)
+思考：这个 high 传对了吗？test_data.py 期望能取到的最大起点是多少？自己对一下。
+</code></pre>
+<p>回答：传对了，因为<code>np.random.randint(low, high)</code> 的 high 是开区间，所以<code>high = dataset_len - context_length</code>，对应到实际上能取的最大值就是<code>dataset_len - context_length - 1</code>，所以代入以后计算可得期望的最大能取到的起点就是 92，没有问题。</p>
+
+
+<h2 class="relative group">4. <code>np.memmap</code>：不整体载入也能按索引取窗口 
+    <div id="4-npmemmap%E4%B8%8D%E6%95%B4%E4%BD%93%E8%BD%BD%E5%85%A5%E4%B9%9F%E8%83%BD%E6%8C%89%E7%B4%A2%E5%BC%95%E5%8F%96%E7%AA%97%E5%8F%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-npmemmap%E4%B8%8D%E6%95%B4%E4%BD%93%E8%BD%BD%E5%85%A5%E4%B9%9F%E8%83%BD%E6%8C%89%E7%B4%A2%E5%BC%95%E5%8F%96%E7%AA%97%E5%8F%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>真实数据集有几十上百 GB，<code>np.load</code> 全读进内存会直接 OOM。<code>np.memmap</code>（或 <code>np.load(..., mmap_mode=&quot;r&quot;)</code>）把文件<strong>映射</strong>到虚拟地址空间：你像操作普通数组一样索引它，操作系统只在你<strong>真正访问某段</strong>时才把那几页从磁盘调进内存。切一个 <code>context_length</code> 的窗口，只会碰到那一小段。</p>
+<p>下面在 <code>/tmp</code> 造一个小的 <code>memmap</code> 文件，演示&quot;写入 → 只读重开 → 按索引读一个窗口&quot;。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">path</span> <span class="o">=</span> <span class="s2">&#34;/tmp/cs336_toy_tokens.bin&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 1) 写：造一条 1000 个 token 的流，存成 uint16 的 memmap 文件</span>
+</span></span><span class="line"><span class="cl"><span class="n">mm_write</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">memmap</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&#34;w+&#34;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl"><span class="n">mm_write</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mm_write</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">del</span> <span class="n">mm_write</span>   <span class="c1"># 关闭写句柄</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2) 只读重开：注意这一步几乎不占内存，没有把 1000 个数全读进来</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">memmap</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&#34;r&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;type          :&#34;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;dtype / shape :&#34;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;文件大小       :&#34;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="s2">&#34;bytes  (=1000 * 2 bytes)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3) 只取一个窗口——只有这一小段会被真正读进内存</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="mi">500</span>
+</span></span><span class="line"><span class="cl"><span class="n">window</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">s</span> <span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">7</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">从下标 </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> 读一个长度 7 的窗口:&#34;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">window</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;整体保持在磁盘上，按需分页读取 —— 这就是 memmap 处理超大数据的方式。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>type          : memmap
+dtype / shape : uint16 / (1000,)
+文件大小       : 2000 bytes  (=1000 * 2 bytes)
+
+从下标 500 读一个长度 7 的窗口: [500 501 502 503 504 505 506]
+整体保持在磁盘上，按需分页读取 —— 这就是 memmap 处理超大数据的方式。
+</code></pre>
+
+
+<h2 class="relative group">5. Checkpoint 往返（通用 torch 机制） 
+    <div id="5-checkpoint-%E5%BE%80%E8%BF%94%E9%80%9A%E7%94%A8-torch-%E6%9C%BA%E5%88%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-checkpoint-%E5%BE%80%E8%BF%94%E9%80%9A%E7%94%A8-torch-%E6%9C%BA%E5%88%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>训练可能跑几小时甚至几天，中途要能存档、断点续训。一个 checkpoint 至少要存三样东西，缺一不可：</p>
+<ul>
+<li><strong>模型参数</strong> <code>model.state_dict()</code></li>
+<li><strong>优化器状态</strong> <code>optimizer.state_dict()</code> —— AdamW 的一阶/二阶动量都在这里，<strong>不存的话续训等于重启动量</strong>；</li>
+<li><strong>迭代步数</strong> <code>iteration</code> —— 恢复后学习率调度、日志才能接着走。</li>
+</ul>
+<p>机制就是标准 torch 三件套：把它们打包成一个 dict 用 <code>torch.save</code> 落盘；恢复时 <code>torch.load</code> 读回来，再分别 <code>load_state_dict</code> 灌回<strong>已经构造好的</strong> model / optimizer。下面用一个极小的模型演示这套往返（通用机制，不是 <code>run_save/load_checkpoint</code> 的交付实现）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 极小玩具模型 + 优化器，先走一步产生一些优化器状态</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">toy</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span><span class="n">toy</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">loss</span> <span class="o">=</span> <span class="n">toy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 保存：打包成 dict 落盘 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">ckpt_path</span> <span class="o">=</span> <span class="s2">&#34;/tmp/cs336_toy_ckpt.pt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="n">toy</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">     <span class="s2">&#34;optimizer&#34;</span><span class="p">:</span> <span class="n">opt</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">     <span class="s2">&#34;iteration&#34;</span><span class="p">:</span> <span class="mi">7</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ckpt_path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;已保存 checkpoint:&#34;</span><span class="p">,</span> <span class="n">ckpt_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;字典的键:&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;model&#34;</span><span class="p">,</span> <span class="s2">&#34;optimizer&#34;</span><span class="p">,</span> <span class="s2">&#34;iteration&#34;</span><span class="p">])</span>
+</span></span></code></pre></div><pre><code>已保存 checkpoint: /tmp/cs336_toy_ckpt.pt
+字典的键: ['model', 'optimizer', 'iteration']
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># --- 恢复：先构造同结构的 model/optimizer，再灌状态 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_toy</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span><span class="n">new_toy</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 恢复前：两个模型的权重不同</span>
+</span></span><span class="line"><span class="cl"><span class="n">before</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">new_toy</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">toy</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">loaded</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ckpt_path</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 自己存的文件</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_toy</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">loaded</span><span class="p">[</span><span class="s2">&#34;model&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_opt</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">loaded</span><span class="p">[</span><span class="s2">&#34;optimizer&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">restored_iter</span> <span class="o">=</span> <span class="n">loaded</span><span class="p">[</span><span class="s2">&#34;iteration&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">after</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">new_toy</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">toy</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;恢复前权重相同?&#34;</span><span class="p">,</span> <span class="n">before</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;恢复后权重相同?&#34;</span><span class="p">,</span> <span class="n">after</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;恢复出的 iteration:&#34;</span><span class="p">,</span> <span class="n">restored_iter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">往返成功：model / optimizer / iteration 都完好回来了。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;注：weights_only 是 torch 2.6 的安全开关——加载他人文件时要当心。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>恢复前权重相同? False
+恢复后权重相同? True
+恢复出的 iteration: 7
+
+往返成功：model / optimizer / iteration 都完好回来了。
+注：weights_only 是 torch 2.6 的安全开关——加载他人文件时要当心。
+</code></pre>
+
+
+<h2 class="relative group">6. ✏️ 你的任务：<code>get_batch</code> 引导骨架 
+    <div id="6--%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1get_batch-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#6--%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1get_batch-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>把前面几块拼起来就是采样器了。下面是<strong>给你填的骨架</strong>（<code>...</code> 处留白，不可直接运行）。逐步想清楚：合法起点区间是什么？input 窗口和 label 窗口的切片差在哪？最后 dtype 和 device 怎么处理？</p>
+<blockquote>
+<p>建议先在<strong>上面那条 <code>[0..19]</code> 玩具流</strong>上手验证一个 batch，确认 <code>y == x + 1</code> 再去跑 <code>test_data.py</code>。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_batch</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">context_length</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 1: 采 batch_size 个随机起点</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 想清楚合法区间：要能取到 input 和&#34;右移一位&#34;的 label，最大起点是多少？</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 由于labels的存在，所以能取到的最后一位一定是在 dataset_len - context_length - 1</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 而 np.random.randint(low, high, size)，其中 high 是开区间，所以就是：</span>
+</span></span><span class="line"><span class="cl">    <span class="n">starts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">-</span> <span class="n">context_length</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span> <span class="c1"># (batch_size, )</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 2: 对每个起点，取长度 context_length 的输入窗口，堆成 (batch_size, context_length)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># dataset 和 starts 目前都是 numpy中的对象</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># np.stack 和 torch.stack 非常像，np.stack([a, b], axis=0) 就类似于 torch.stack([a, b], dim=0)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">dataset</span><span class="p">[</span><span class="n">s</span> <span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="n">context_length</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">starts</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># (batch_size, context_length)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 3: 取&#34;右移一位&#34;的标签窗口（label 是 next-token）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">dataset</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="n">context_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">starts</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># (batch_size, context_length)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 4: 转成 torch.long，并搬到 device 上（两者都要在同一 device）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（未实现）。填好后接线到 tests/adapters.py 的 run_get_batch，再跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  uv run pytest tests/test_data.py -x&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（未实现）。填好后接线到 tests/adapters.py 的 run_get_batch，再跑：
+  uv run pytest tests/test_data.py -x
+</code></pre>
+
+
+<h2 class="relative group">7. ✏️ 你的任务：<code>save_checkpoint</code> / <code>load_checkpoint</code> 引导骨架 
+    <div id="7--%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1save_checkpoint--load_checkpoint-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#7--%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1save_checkpoint--load_checkpoint-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>对照第 5 节的机制，把它包成两个函数。注意 <code>load</code> 要<strong>返回</strong> iteration，并且是把状态灌进<strong>外面传进来的</strong> model / optimizer（不是新建）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">save_checkpoint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 1: 把 model / optimizer 的 state_dict 和 iteration 打包成一个 dict</span>
+</span></span><span class="line"><span class="cl">    <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;model&#34;</span><span class="p">:</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;optimizer&#34;</span><span class="p">:</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;iteration&#34;</span><span class="p">:</span> <span class="n">iteration</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 2: torch.save(obj, out)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">load_checkpoint</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 1: torch.load 读回字典</span>
+</span></span><span class="line"><span class="cl">    <span class="n">obj</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 2: 分别把状态灌回传入的 model / optimizer（load_state_dict）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s2">&#34;model&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optimizer</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s2">&#34;optimizer&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 3: 返回存档时的 iteration</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&#34;iteration&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义（未实现）。填好后接线到 run_save_checkpoint / run_load_checkpoint，再跑：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  uv run pytest tests/test_serialization.py -x&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义（未实现）。填好后接线到 run_save_checkpoint / run_load_checkpoint，再跑：
+  uv run pytest tests/test_serialization.py -x
+</code></pre>
+
+
+<h2 class="relative group">🔬 拓展实验（自己动手，加深理解） 
+    <div id="-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><strong>边界对拍</strong>：在玩具流上把起点上界故意 <code>+1</code>（越界一位），观察什么时候会取到超出流末尾的标签、或索引越界报错。这能让你彻底记住合法区间。</li>
+<li><strong><code>y == x + 1</code> 自检</strong>：写完 <code>get_batch</code> 后，先喂 <code>np.arange(0, 20)</code> 这种&quot;id 就是位置&quot;的流，断言 <code>torch.equal(y, x + 1)</code>。玩具流上过了，再上真实数据。</li>
+<li><strong>memmap 省内存</strong>：用 <code>np.memmap</code> 打开一个大文件后，观察进程内存（<code>htop</code> 或 <code>psutil</code>）在&quot;打开&quot;与&quot;访问某段&quot;前后的变化，体会按需分页。</li>
+<li><strong>不存优化器状态会怎样</strong>：故意只保存 <code>model.state_dict()</code>、丢掉 optimizer 状态，续训几步看 loss 曲线是否出现&quot;抖动/重启动量&quot;的痕迹，理解为什么优化器状态必须一起存。</li>
+<li><strong>device 检验</strong>：想想 <code>test_data.py</code> 为什么要用 <code>cuda:99</code> 这个非法设备来测你——它在检查你到底有没有把张量搬到 <code>device</code> 上。</li>
+</ol>
+
+
+<h2 class="relative group">回答 
+    <div id="%E5%9B%9E%E7%AD%94" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%9B%9E%E7%AD%94" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>略</li>
+<li>略</li>
+<li><code>np.memmap</code> 通过<strong>内存映射（memory mapping）<strong>访问大文件，而不是在打开文件时就把全部数据读入进程内存。因此，即使文件很大，刚执行 <code>np.memmap(...)</code> 时进程的实际内存占用通常只会增加很少；当真正访问其中某一段数据时，操作系统才会通过</strong>按需分页（demand paging）<strong>把对应的数据页从磁盘加载到物理内存中，此时内存占用才会逐渐增加。相比 <code>np.fromfile</code> 等一次性把整个文件读入内存的方式，<code>memmap</code> 特别适合处理</strong>远大于可用内存的大规模数据集</strong>，其核心优势就是：**只加载当前实际需要访问的数据，而不必让整个文件同时驻留在内存中。**整个大文件只占虚拟地址空间，真正占用多少物理内存主要取决于当前实际访问了哪些页，以及操作系统保留了多少缓存。</li>
+<li>如果续训时只恢复 <code>model.state_dict()</code>，而不恢复 <code>optimizer.state_dict()</code>，模型参数虽然会从断点处继续，但优化器内部积累的历史信息会全部丢失。以 AdamW 为例，一阶矩 <code>m_t</code>、二阶矩 <code>v_t</code> 以及当前 step 都会重新初始化，相当于优化器“失忆”后重新开始估计梯度方向和尺度。因此续训最初几步的更新方向和有效步长可能突然发生变化，使 loss 曲线出现短暂的<strong>抖动、跳变或类似重新启动的现象</strong>。对于 SGD + Momentum，也会因为动量缓存被清空而出现“重新积累动量”的过程。因此，如果希望训练能够真正从 checkpoint <strong>无缝继续</strong>，通常必须同时保存并恢复 <strong>模型参数 + 优化器状态 + 当前训练步数</strong>。</li>
+<li><code>test_data.py</code> 使用 <code>cuda:99</code> 这种明显不存在的设备，是为了检查你的代码是否真的执行了“把数据移动到指定 <code>device</code>”这一步。如果你的实现完全忽略 <code>device</code> 参数，测试可能反而不会报错，因为张量始终留在 CPU；但如果你正确写了类似 <code>tensor.to(device)</code> 的逻辑，那么传入 <code>cuda:99</code> 时就应该因为设备不存在而失败。换句话说，这个测试不是在要求 <code>cuda:99</code> 能运行，而是在利用一个<strong>非法设备作为探针</strong>，验证你的 <code>device</code> 参数有没有真正参与数据搬运。核心要点是：<strong>不要只在函数签名里接收 <code>device</code>，而要确保最终产生的张量确实被移动到该设备上。</strong></li>
+</ol>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>训练数据是<strong>一条很长的 token 流</strong>；采样 = 随机起点 + 长度 <code>context_length</code> 的窗口。</li>
+<li><strong>label 是 input 右移一位</strong>（next-token）——本章最核心的直觉，务必在玩具流上验证 <code>y == x + 1</code>。</li>
+<li>token id 用 <strong>int64（long）</strong> 查嵌入；磁盘常存 <code>uint16</code>，取出后要转 long；batch 要和模型同 <strong>device</strong>。</li>
+<li><strong><code>np.memmap</code></strong> 让超大数据按需分页读取，不必整体进内存。</li>
+<li><strong>checkpoint = <code>state_dict</code> + <code>torch.save/load</code> + <code>load_state_dict</code></strong>，必须同时存 model / optimizer / iteration。</li>
+</ul>
+<hr>
+
+
+<h3 class="relative group">✏️ 作业连接 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>测试文件</th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>get_batch</code></td>
+          <td><code>run_get_batch</code></td>
+          <td><code>test_data.py</code></td>
+          <td>随机起点想清合法区间；label 右移一位；转 long 搬到 device</td>
+      </tr>
+      <tr>
+          <td><code>save_checkpoint</code></td>
+          <td><code>run_save_checkpoint</code></td>
+          <td><code>test_serialization.py</code></td>
+          <td>打包 model/optimizer/iteration 成 dict 再 <code>torch.save</code></td>
+      </tr>
+      <tr>
+          <td><code>load_checkpoint</code></td>
+          <td><code>run_load_checkpoint</code></td>
+          <td><code>test_serialization.py</code></td>
+          <td><code>torch.load</code> 后 <code>load_state_dict</code> 灌回传入对象，<strong>返回 iteration</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p>接线方式看 <code>tests/adapters.py</code> 里对应 <code>run_*</code> 的 docstring。跑单测：
+<code>uv run pytest tests/test_data.py tests/test_serialization.py -x</code></p>
+<p>至此，数据加载与存档就绪。下一步就是把前面所有章节（tokenizer、Transformer、AdamW、数据、checkpoint）串成一个完整的<strong>训练循环</strong>，真正训起一个语言模型。</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/cs336-assign1-9/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-9/">assign1 AdamW优化器，梯度和学习率 </div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8850 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-1/">assign1 线形层和嵌入层</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-02T00:00:00&#43;00:00">2 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4098 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-8/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-8/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-8/">assign1 Multi Head Attention</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-09T00:00:00&#43;00:00">9 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6764 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-10\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-10\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/cs336-assign1-9/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 AdamW优化器，梯度和学习率 </span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/cs336-assign1-11/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 bpe 和 tokenizer</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-12T00:00:00&#43;00:00">12 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://qingjiusy.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>assign1 bpe 和 tokenizer &middot; QingJiu</title>
+  <meta name="title" content="assign1 bpe 和 tokenizer &middot; QingJiu" />
+  
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="cs336, " />
+  
+  
+  <link rel="canonical" href="https://qingjiusy.github.io/coding/cs336-assign1-11/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.838d26031ec50de0dcfd5516fab84dfc26cfac5f88fad0c5bed46811eeed25a96ce7132e5daaf9bcf4de37d77a10ef55b1ff46417d7f2a52b7054b746a3ad1eb.css"
+    integrity="sha512-g40mAx7FDeDc/VUW&#43;rhN/CbPrF&#43;I&#43;tDFvtRoEe7tJals5xMuXar5vPTeN9d6EO9Vsf9GQX1/KlK3BUt0ajrR6w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
+    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://qingjiusy.github.io/coding/cs336-assign1-11/">
+  <meta property="og:site_name" content="QingJiu">
+  <meta property="og:title" content="assign1 bpe 和 tokenizer">
+  <meta property="og:description" content="blog">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="coding">
+    <meta property="article:published_time" content="2026-08-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-12T00:00:00+00:00">
+    <meta property="article:tag" content="Cs336">
+    <meta property="og:image" content="https://qingjiusy.github.io/coding/cs336-assign1-11/featured.JPG">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qingjiusy.github.io/coding/cs336-assign1-11/featured.JPG">
+  <meta name="twitter:title" content="assign1 bpe 和 tokenizer">
+  <meta name="twitter:description" content="blog">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Codings",
+    "name": "assign1 bpe 和 tokenizer",
+    "headline": "assign1 bpe 和 tokenizer",
+    
+    "abstract": "blog",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/qingjiusy.github.io\/coding\/cs336-assign1-11\/",
+    "author" : {
+      "@type": "Person",
+      "name": "清酒"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-08-12T00:00:00\u002b00:00",
+    "datePublished": "2026-08-12T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-08-12T00:00:00\u002b00:00",
+    
+    "keywords": ["cs336"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "8979"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="清酒" />
+  
+  
+  
+  <link href="https://github.com/qingjiusy" rel="me" />
+  
+  
+  <link href="https://leetcode.cn/u/qing-jiu-11/" rel="me" />
+  
+  
+  <link href="https://qingjiusy.github.io/ja/life/self_introduction/" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.8fee1bb91734542a6701c61b7be516ff2eb2df248bf4e4591aacc8f4e9df40c7ca9e9c0b3f657b166f5f13e69a8fb50a139b3babcef20aeeea18f0fbcd4169fb.css" integrity="sha512-j&#43;4buRc0VCpnAcYbe&#43;UW/y6y3ySL9ORZGqzI9OnfQMfKnpwLP2V7Fm9fE&#43;aaj7UKE5s7q87yCu7qGPD7zUFp&#43;w==" />
+
+
+<script defer src="/lib/katex/katex.min.8c68eaeb75cfdcfac071717a969e1b9d9230ad52c6a2ac21ff846eaf6a258364cbb79e5e3552e32c280faeb4f4eda4d7c5bd1492e30a961c737e1e5305300281.js" integrity="sha512-jGjq63XP3PrAcXF6lp4bnZIwrVLGoqwh/4Rur2olg2TLt55eNVLjLCgPrrT07aTXxb0UkuMKlhxzfh5TBTACgQ=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.e9b2833d28623d18c071d78ef13e9c79d695122d296af3dbcee7bf1bf6518b0565bab59939267fbc8f5faf696193c20f5caef3e7501969cfb306f6738032730d.js" integrity="sha512-6bKDPShiPRjAcdeO8T6cedaVEi0pavPbzue/G/ZRiwVlurWZOSZ/vI9fr2lhk8IPXK7z51AZac&#43;zBvZzgDJzDQ=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">QingJiu</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        cc
+    </p>
+</a>
+
+
+
+            
+             
+  <div>
+  <div class="cursor-pointer flex items-center nested-menu">
+    
+    <a  class="text-base font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="">
+      文章
+    </a>
+    <span>
+      
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+    </span>
+  </div>
+  <div class="absolute menuhide">
+    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+      <div class="flex flex-col space-y-3">
+        
+        <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Lives">
+            生活
+          </p>
+        </a>
+        
+        <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="Codings">
+            code
+          </p>
+        </a>
+        
+        <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+          
+          <p class="text-sm font-sm" title="">
+            知识
+          </p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            cc
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                     
+  <li class="mt-1">
+    <a href="" class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+        <span>
+            
+
+  <span class="relative block icon">
+    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path
+    fill-rule="evenodd"
+    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+    clip-rule="evenodd"
+  />
+</svg>
+
+  </span>
+
+
+        </span>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Lives">
+            生活
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="Codings">
+            code
+        </p>
+    </a>
+</li>
+
+<li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-sm font-small" title="">
+            知识
+        </p>
+    </a>
+</li>
+
+<li class="mb-2"></li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/coding/cs336-assign1-11/featured_hu_fdbc5ba662749d7d.JPG);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      assign1 bpe 和 tokenizer
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-12T00:00:00&#43;00:00">12 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8979 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      清酒
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">只是想要了解这个世界</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/qingjiusy"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://leetcode.cn/u/qing-jiu-11/"
+          target="_blank"
+          aria-label="Code"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor"  d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://qingjiusy.github.io/ja/life/self_introduction/"
+          target="_blank"
+          aria-label="Eye"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#part-a--字节级表示一切文本都是-0255-的整数">Part A · 字节级表示：一切文本都是 0–255 的整数</a></li>
+    <li><a href="#part-b--字节--可打印字符的映射">Part B · 字节 ↔ 可打印字符的映射</a></li>
+    <li><a href="#part-c--bpe-训练在做什么只讲算法不写代码">Part C · BPE 训练在做什么（只讲算法，不写代码）</a>
+      <ul>
+        <li><a href="#-纸面手推放这里体会别用代码去实现这个循环">🖐️ 纸面手推（放这里体会，别用代码去实现这个循环）</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-d--预分词pre-tokenization先切成词块再谈合并">Part D · 预分词（pre-tokenization）：先切成&quot;词块&quot;再谈合并</a></li>
+    <li><a href="#part-e--检查已训练好的参考产物">Part E · 检查已训练好的参考产物</a></li>
+    <li><a href="#part-f--编码--解码的数据流讲清方向实现留给你">Part F · 编码 / 解码的数据流（讲清方向，实现留给你）</a></li>
+    <li><a href="#part-g---你的任务一train_bpe-引导骨架">Part G · ✏️ 你的任务（一）：<code>train_bpe</code> 引导骨架</a></li>
+    <li><a href="#part-g---你的任务二tokenizer-引导骨架">Part G · ✏️ 你的任务（二）：<code>Tokenizer</code> 引导骨架</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#回答">回答</a></li>
+    <li><a href="#-作业连接">✏️ 作业连接</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#学习目标">学习目标</a></li>
+    <li><a href="#part-a--字节级表示一切文本都是-0255-的整数">Part A · 字节级表示：一切文本都是 0–255 的整数</a></li>
+    <li><a href="#part-b--字节--可打印字符的映射">Part B · 字节 ↔ 可打印字符的映射</a></li>
+    <li><a href="#part-c--bpe-训练在做什么只讲算法不写代码">Part C · BPE 训练在做什么（只讲算法，不写代码）</a>
+      <ul>
+        <li><a href="#-纸面手推放这里体会别用代码去实现这个循环">🖐️ 纸面手推（放这里体会，别用代码去实现这个循环）</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-d--预分词pre-tokenization先切成词块再谈合并">Part D · 预分词（pre-tokenization）：先切成&quot;词块&quot;再谈合并</a></li>
+    <li><a href="#part-e--检查已训练好的参考产物">Part E · 检查已训练好的参考产物</a></li>
+    <li><a href="#part-f--编码--解码的数据流讲清方向实现留给你">Part F · 编码 / 解码的数据流（讲清方向，实现留给你）</a></li>
+    <li><a href="#part-g---你的任务一train_bpe-引导骨架">Part G · ✏️ 你的任务（一）：<code>train_bpe</code> 引导骨架</a></li>
+    <li><a href="#part-g---你的任务二tokenizer-引导骨架">Part G · ✏️ 你的任务（二）：<code>Tokenizer</code> 引导骨架</a></li>
+    <li><a href="#-拓展实验自己动手加深理解">🔬 拓展实验（自己动手，加深理解）</a></li>
+    <li><a href="#回答">回答</a></li>
+    <li><a href="#-作业连接">✏️ 作业连接</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <!-- Generated by scripts/notebook-to-post. Edit the notebook and regenerate this file. -->
+
+
+<p><strong>CS336 Assignment 1 · 交互式学习笔记本</strong></p>
+<p>分词器（Tokenizer）是整条流水线的<strong>入口</strong>：它把人类的文本变成模型能吃的一串整数 id，再把 id 变回文本。本作业用的是 <strong>字节级 BPE（Byte-level Byte-Pair Encoding）</strong>，也就是 GPT-2 系列用的方案。这一章帮你建立三件事的直觉：<strong>字节表示</strong>、<strong>BPE 训练在数什么/合并什么</strong>、以及<strong>编码/解码的数据流</strong>——最后给出带步骤注释的骨架让你自己写实现。</p>
+
+
+<h2 class="relative group">学习目标 
+    <div id="%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>理解<strong>字节级</strong>表示：任意文本 → UTF-8 字节 → 0–255 的整数序列，为什么&quot;没有 OOV&quot;。</li>
+<li>看懂 <code>gpt2_bytes_to_unicode</code> 这套&quot;字节↔可打印字符&quot;映射，从而能读懂序列化后的 vocab / merges 文件。</li>
+<li>用文字讲清 <strong>BPE 训练</strong>：从 256 个字节 token 起步，反复&quot;统计相邻 pair 频率 → 合并最高频对 → 直到 vocab_size&quot;，以及决定胜负的 <strong>tie-break 规则</strong>。</li>
+<li><strong>检查已训练好的参考产物</strong>（reference vocab / merges），直观看到&quot;训练输出&quot;长什么样。</li>
+<li>理解<strong>编码/解码</strong>的数据流，并拿到 <code>train_bpe</code> 与 <code>Tokenizer</code> 的<strong>引导骨架</strong>。</li>
+</ol>
+<blockquote>
+<p><strong>⚠️ 学术诚信（本章尤其严格）</strong>：BPE 训练循环和 encode 的合并循环是本作业的<strong>核心考点</strong>，本笔记本<strong>绝不实现</strong>它们。下面的代码只做两类<strong>安全的事</strong>：(a)<strong>表示层演示</strong>（字节、映射、正则预分词边界的展示）；(b)<strong>检查已训练好的参考产物</strong>（加载 fixtures 打印出来看）。真正的算法只用<strong>文字</strong>讲清，实现处给 <code>...</code> 留白的<strong>引导骨架</strong>。这里不会出现&quot;我的输出 == 参考输出&quot;这种对拍 cell——那是你自己写完实现后用 <code>pytest</code> 去验证的。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pathlib</span><span class="o">,</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 把仓库根目录加入 import 路径，方便复用 tests/ 里提供的辅助函数与 fixtures</span>
+</span></span><span class="line"><span class="cl"><span class="n">REPO_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&#34;..&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">REPO_ROOT</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">REPO_ROOT</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tests.common</span> <span class="kn">import</span> <span class="n">gpt2_bytes_to_unicode</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">FIX</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">REPO_ROOT</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&#34;tests&#34;</span> <span class="o">/</span> <span class="s2">&#34;fixtures&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;setup ok | fixtures 目录存在:&#34;</span><span class="p">,</span> <span class="n">FIX</span><span class="o">.</span><span class="n">is_dir</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;可用参考产物:&#34;</span><span class="p">,</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">FIX</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&#34;*bpe-reference*&#34;</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&#34;gpt2_vocab.json&#34;</span><span class="p">,</span> <span class="s2">&#34;gpt2_merges.txt&#34;</span><span class="p">])</span>
+</span></span></code></pre></div><pre><code>setup ok | fixtures 目录存在: True
+可用参考产物: ['train-bpe-reference-vocab.json', 'train-bpe-reference-merges.txt', 'gpt2_vocab.json', 'gpt2_merges.txt']
+</code></pre>
+
+
+<h2 class="relative group">Part A · 字节级表示：一切文本都是 0–255 的整数 
+    <div id="part-a--%E5%AD%97%E8%8A%82%E7%BA%A7%E8%A1%A8%E7%A4%BA%E4%B8%80%E5%88%87%E6%96%87%E6%9C%AC%E9%83%BD%E6%98%AF-0255-%E7%9A%84%E6%95%B4%E6%95%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-a--%E5%AD%97%E8%8A%82%E7%BA%A7%E8%A1%A8%E7%A4%BA%E4%B8%80%E5%88%87%E6%96%87%E6%9C%AC%E9%83%BD%E6%98%AF-0255-%E7%9A%84%E6%95%B4%E6%95%B0" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>字节级 BPE 的地基是一个朴素的事实：<strong>任何字符串都能被 UTF-8 编码成一串字节</strong>，每个字节就是一个 <code>0–255</code> 的整数。这带来一个关键性质——<strong>没有 OOV（out-of-vocabulary）</strong>：哪怕遇到训练时从没见过的字、emoji、乱码，也总能拆成字节表示出来。代价是一个多字节字符（如中文、emoji）会占<strong>好几个</strong>字节。</p>
+<p>下面把一段中英混合文本编码成字节看看。注意 ASCII 字符占 1 个字节，而&quot;世&quot;这类字符占 3 个字节。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;hello 世界 🙃&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;原始字符串 :&#34;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;字符数 len(s)      :&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;UTF-8 字节数 len(b):&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;每个字节都是 0-255 的整数:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">逐字符看它占几个字节:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  </span><span class="si">{</span><span class="n">ch</span><span class="si">!r:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">=&gt; 字节表能覆盖任意文本，所以字节级 BPE 永远不会遇到 OOV。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>原始字符串 : hello 世界 🙃
+字符数 len(s)      : 10
+UTF-8 字节数 len(b): 17
+每个字节都是 0-255 的整数:
+[104, 101, 108, 108, 111, 32, 228, 184, 150, 231, 149, 140, 32, 240, 159, 153, 131]
+
+逐字符看它占几个字节:
+     'h' -&gt; [104]
+     'e' -&gt; [101]
+     'l' -&gt; [108]
+     'l' -&gt; [108]
+     'o' -&gt; [111]
+     ' ' -&gt; [32]
+     '世' -&gt; [228, 184, 150]
+     '界' -&gt; [231, 149, 140]
+     ' ' -&gt; [32]
+     '🙃' -&gt; [240, 159, 153, 131]
+
+=&gt; 字节表能覆盖任意文本，所以字节级 BPE 永远不会遇到 OOV。
+</code></pre>
+
+
+<h2 class="relative group">Part B · 字节 ↔ 可打印字符的映射 
+    <div id="part-b--%E5%AD%97%E8%8A%82--%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E7%9A%84%E6%98%A0%E5%B0%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-b--%E5%AD%97%E8%8A%82--%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E7%9A%84%E6%98%A0%E5%B0%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>字节里有很多<strong>不可打印</strong>的值（空格、换行、控制字符），直接写进文件里既难看又容易和分隔符冲突。GPT-2 用一套固定的<strong>双射映射</strong>把 256 个字节各自映到一个<strong>可打印的 Unicode 字符</strong>，这样 vocab / merges 文件就能是纯文本、方便肉眼检查。<code>tests/common.py</code> 里的 <code>gpt2_bytes_to_unicode()</code> 就是这套映射。</p>
+<p>最典型的例子：<strong>空格 <code>chr(32)</code> → <code>'Ġ'</code></strong>、<strong>换行 <code>chr(10)</code> → <code>'Ċ'</code></strong>。所以你在 merges 文件里看到的 <code>Ġ t</code>，其实代表&quot;（空格）&ldquo;这个字节和 <code>t</code> 这个字节。理解这一点，才能读懂后面打印出来的参考产物。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">b2u</span> <span class="o">=</span> <span class="n">gpt2_bytes_to_unicode</span><span class="p">()</span>   <span class="c1"># {0..255: 可打印字符}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这套映射是 256 个字节的双射，示例:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">byte_val</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&#34;t&#34;</span><span class="p">),</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&#34;!&#34;</span><span class="p">),</span> <span class="mi">200</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  字节 </span><span class="si">{</span><span class="n">byte_val</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2">  -&gt;  显示为 </span><span class="si">{</span><span class="n">b2u</span><span class="p">[</span><span class="n">byte_val</span><span class="p">]</span><span class="si">!r}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">关键: 空格 32 -&gt;&#34;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">b2u</span><span class="p">[</span><span class="mi">32</span><span class="p">]),</span> <span class="s2">&#34; 换行 10 -&gt;&#34;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">b2u</span><span class="p">[</span><span class="mi">10</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;所以 merges 文件里的一行 &#39;Ġ t&#39; 表示: (空格字节) 和 (字母 t) 这两个 token 被合并。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>这套映射是 256 个字节的双射，示例:
+  字节  32  -&gt;  显示为 'Ġ'
+  字节  10  -&gt;  显示为 'Ċ'
+  字节   9  -&gt;  显示为 'ĉ'
+  字节 116  -&gt;  显示为 't'
+  字节  33  -&gt;  显示为 '!'
+  字节 200  -&gt;  显示为 'È'
+
+关键: 空格 32 -&gt; 'Ġ'  换行 10 -&gt; 'Ċ'
+所以 merges 文件里的一行 'Ġ t' 表示: (空格字节) 和 (字母 t) 这两个 token 被合并。
+</code></pre>
+
+
+<h2 class="relative group">Part C · BPE 训练在做什么（只讲算法，不写代码） 
+    <div id="part-c--bpe-%E8%AE%AD%E7%BB%83%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88%E5%8F%AA%E8%AE%B2%E7%AE%97%E6%B3%95%E4%B8%8D%E5%86%99%E4%BB%A3%E7%A0%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-c--bpe-%E8%AE%AD%E7%BB%83%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88%E5%8F%AA%E8%AE%B2%E7%AE%97%E6%B3%95%E4%B8%8D%E5%86%99%E4%BB%A3%E7%A0%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>BPE 训练的目标是：从最基础的字节起步，<strong>学出一批&quot;高频组合&quot;作为新 token</strong>，直到词表达到指定大小 <code>vocab_size</code>。核心循环用一句话概括就是——<strong>反复&quot;数相邻对、合并最高频的那一对&rdquo;</strong>。</p>
+<p><strong>初始状态</strong></p>
+<ul>
+<li>词表先放入 256 个<strong>单字节 token</strong>，再加上若干<strong>特殊 token</strong>（如 <code>&lt;|endoftext|&gt;</code>）。</li>
+<li>语料先做<strong>预分词</strong>（pre-tokenization，见 Part D），每个 pre-token 变成一串字节 token。</li>
+</ul>
+<p><strong>重复以下步骤，直到 <code>len(vocab) == vocab_size</code>：</strong></p>
+<ol>
+<li><strong>统计</strong>当前所有序列里<strong>相邻 token 对</strong>（bigram）的出现频率。</li>
+<li><strong>选出频率最高的那一对</strong>。若多个对并列最高，用 handout 规定的 <strong>tie-break 规则</strong>打破平局（例如按对应字节序比较，取&quot;较大&quot;的那一对——<strong>务必以 handout 为准</strong>，这一步选错，你的 merges 顺序就会和参考答案对不上）。</li>
+<li>把这一对<strong>记录为一条 merge</strong>（记录顺序 = 合并的先后顺序），并在词表里新增这个合并后的 token。</li>
+<li>在<strong>所有序列</strong>里把这一对相邻 token <strong>替换成</strong>新 token，然后回到第 1 步。</li>
+</ol>
+<p><strong>输出两样东西</strong></p>
+<ul>
+<li><code>vocab</code>: <code>dict[int, bytes]</code>，token id → token 的字节内容。</li>
+<li><code>merges</code>: <code>list[tuple[bytes, bytes]]</code>，按创建顺序排列的合并规则。</li>
+</ul>
+<blockquote>
+<p>直觉：高频的字母组合（如 <code>t</code>+<code>he</code> → <code>the</code>）会先被合并成一个 token，于是常见词只需很少的 token 就能表示，而罕见串仍可退回到字节，两全其美。</p></blockquote>
+
+
+<h3 class="relative group">🖐️ 纸面手推（放这里体会，别用代码去实现这个循环） 
+    <div id="-%E7%BA%B8%E9%9D%A2%E6%89%8B%E6%8E%A8%E6%94%BE%E8%BF%99%E9%87%8C%E4%BD%93%E4%BC%9A%E5%88%AB%E7%94%A8%E4%BB%A3%E7%A0%81%E5%8E%BB%E5%AE%9E%E7%8E%B0%E8%BF%99%E4%B8%AA%E5%BE%AA%E7%8E%AF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E7%BA%B8%E9%9D%A2%E6%89%8B%E6%8E%A8%E6%94%BE%E8%BF%99%E9%87%8C%E4%BD%93%E4%BC%9A%E5%88%AB%E7%94%A8%E4%BB%A3%E7%A0%81%E5%8E%BB%E5%AE%9E%E7%8E%B0%E8%BF%99%E4%B8%AA%E5%BE%AA%E7%8E%AF" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>拿一个玩具&quot;语料&quot;：只有一个词 <code>low</code>，出现了 <strong>5 次</strong>（真实训练里当然是整篇文本，这里极简化）。初始每个 pre-token 是字节序列 <code>l o w</code>。</p>
+<table>
+  <thead>
+      <tr>
+          <th>轮次</th>
+          <th>当前序列</th>
+          <th>相邻对计数</th>
+          <th>最高频对</th>
+          <th>新 merge</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td><code>l o w</code> ×5</td>
+          <td><code>(l,o)</code>=5, <code>(o,w)</code>=5</td>
+          <td>平局 → 按 tie-break 选</td>
+          <td>记作 merge #1，假设选 <code>(o,w)</code>→<code>ow</code></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td><code>l ow</code> ×5</td>
+          <td><code>(l,ow)</code>=5</td>
+          <td><code>(l,ow)</code></td>
+          <td>merge #2：<code>(l,ow)</code>→<code>low</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>两轮后词表新增了 <code>ow</code>、<code>low</code> 两个 token。<strong>注意第 1 轮的平局</strong>：真实语料里平局非常常见，所以 tie-break 规则不是细节而是正确性关键——它直接决定 merges 的<strong>顺序</strong>，而测试是<strong>逐条比对顺序</strong>的。</p>
+<blockquote>
+<p>练习：把语料换成 <code>low</code>×5 + <code>lower</code>×2，自己在纸上多推两轮，感受计数如何随合并变化。<strong>不要</strong>写代码实现这个循环——那是作业本体。</p></blockquote>
+
+
+<h2 class="relative group">Part D · 预分词（pre-tokenization）：先切成&quot;词块&quot;再谈合并 
+    <div id="part-d--%E9%A2%84%E5%88%86%E8%AF%8Dpre-tokenization%E5%85%88%E5%88%87%E6%88%90%E8%AF%8D%E5%9D%97%E5%86%8D%E8%B0%88%E5%90%88%E5%B9%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-d--%E9%A2%84%E5%88%86%E8%AF%8Dpre-tokenization%E5%85%88%E5%88%87%E6%88%90%E8%AF%8D%E5%9D%97%E5%86%8D%E8%B0%88%E5%90%88%E5%B9%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>如果直接在整段文本的字节流上做 BPE，合并会<strong>跨越词边界甚至跨越空格</strong>，学出一些奇怪的 token。GPT-2 的做法是先用一个<strong>正则表达式</strong>把文本切成&quot;预分词块&quot;（大致是&quot;词 / 标点 / 带前导空格的词&quot;），<strong>BPE 合并只在每个块内部进行，不跨块</strong>。</p>
+<ul>
+<li>这个正则<strong>由 handout 直接给出</strong>（GPT-2 的标准 pattern），你不需要自己发明，用 <code>regex</code> 模块（不是标准库 <code>re</code>）来跑它。</li>
+<li>处理大文件时，<code>cs336_basics/pretokenization_example.py</code> 提供了 <code>find_chunk_boundaries</code>：在<strong>特殊 token</strong>（如 <code>&lt;|endoftext|&gt;</code>）处切分文件，方便<strong>并行</strong>统计各块的 pre-token 计数——特殊 token 是不能被合并&quot;吃掉&quot;的天然边界。</li>
+</ul>
+<p>下面<strong>只做表示层演示</strong>：看一段文本被切成哪些块。注意每个块常常带一个<strong>前导空格</strong>（映射后就是那个 <code>Ġ</code>），以及标点会单独成块。<strong>这一步不是 BPE 合并，只是把文本切成待处理的小段。</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">GPT2_PAT</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;&#39;(?:[sdmt]|ll|ve|re)| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sample</span> <span class="o">=</span> <span class="s2">&#34;the cat sat on the mat. It&#39;s low-cost!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">pre_tokens</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">GPT2_PAT</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;原文:&#34;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;预分词后的 pre-token (共 </span><span class="si">%d</span><span class="s2"> 个):&#34;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">pre_tokens</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">pre_token</span> <span class="ow">in</span> <span class="n">pre_tokens</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  </span><span class="si">{</span><span class="n">pre_token</span><span class="si">!r}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>原文: &quot;the cat sat on the mat. It's low-cost!&quot;
+预分词后的 pre-token (共 13 个):
+  'the'
+  ' cat'
+  ' sat'
+  ' on'
+  ' the'
+  ' mat'
+  '.'
+  ' It'
+  &quot;'s&quot;
+  ' low'
+  '-'
+  'cost'
+  '!'
+</code></pre>
+
+
+<h2 class="relative group">Part E · 检查已训练好的参考产物 
+    <div id="part-e--%E6%A3%80%E6%9F%A5%E5%B7%B2%E8%AE%AD%E7%BB%83%E5%A5%BD%E7%9A%84%E5%8F%82%E8%80%83%E4%BA%A7%E7%89%A9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-e--%E6%A3%80%E6%9F%A5%E5%B7%B2%E8%AE%AD%E7%BB%83%E5%A5%BD%E7%9A%84%E5%8F%82%E8%80%83%E4%BA%A7%E7%89%A9" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>光讲算法太抽象。这里<strong>加载课程提供的、已经训练好的参考产物</strong>，直观看看&quot;训练输出&quot;到底长什么样。我们用和 <code>tests/</code> 完全一致的方式加载：文件里存的是 <code>gpt2_bytes_to_unicode</code> 映射后的可打印字符串，加载时用<strong>逆映射</strong>把它们还原回真正的 <code>bytes</code>。</p>
+<blockquote>
+<p>这是<strong>纯检查</strong>：加载别人训练好的结果打印出来看，不涉及任何训练/编码算法。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 逆映射: 可打印字符 -&gt; 原始字节整数 (与 tests 中的做法一致)</span>
+</span></span><span class="line"><span class="cl"><span class="n">byte_decoder</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">b2u</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">load_ref_vocab</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">raw</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>                      <span class="c1"># {可打印字符串: id}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="n">idx</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">byte_decoder</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tok</span><span class="p">)</span> <span class="c1"># -&gt; {id: bytes}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">tok</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">load_ref_merges</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34; &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">parts</span>
+</span></span><span class="line"><span class="cl">                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">bytes</span><span class="p">(</span><span class="n">byte_decoder</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">a</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">bytes</span><span class="p">(</span><span class="n">byte_decoder</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">b</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">out</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">vocab</span> <span class="o">=</span> <span class="n">load_ref_vocab</span><span class="p">(</span><span class="n">FIX</span> <span class="o">/</span> <span class="s2">&#34;train-bpe-reference-vocab.json&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">merges</span> <span class="o">=</span> <span class="n">load_ref_merges</span><span class="p">(</span><span class="n">FIX</span> <span class="o">/</span> <span class="s2">&#34;train-bpe-reference-merges.txt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;参考词表大小 len(vocab):&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">),</span> <span class="s2">&#34; (= 256 字节 + 特殊token + 合并出的新token)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;合并规则条数 len(merges):&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">merges</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;验证关系: 256 + 1个特殊token + len(merges) =&#34;</span><span class="p">,</span> <span class="mi">256</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">merges</span><span class="p">))</span>
+</span></span></code></pre></div><pre><code>参考词表大小 len(vocab): 500  (= 256 字节 + 特殊token + 合并出的新token)
+合并规则条数 len(merges): 243
+验证关系: 256 + 1个特殊token + len(merges) = 500
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;最早学到的前 15 条 merge (越靠前 = 越高频、越早合并):&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">merges</span><span class="p">[:</span><span class="mi">15</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">merged</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  #</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">&lt;2d</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">a</span><span class="si">!r:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">b</span><span class="si">!r:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">merged</span><span class="si">!r}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">注意最早的合并几乎都是最常见的字母组合 / 带空格的常见词片段。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>最早学到的前 15 条 merge (越靠前 = 越高频、越早合并):
+  #0       b' ' + b't'     -&gt; b' t'
+  #1       b' ' + b'a'     -&gt; b' a'
+  #2       b'h' + b'e'     -&gt; b'he'
+  #3       b'i' + b'n'     -&gt; b'in'
+  #4      b' t' + b'he'    -&gt; b' the'
+  #5       b'r' + b'e'     -&gt; b're'
+  #6       b' ' + b'o'     -&gt; b' o'
+  #7       b' ' + b','     -&gt; b' ,'
+  #8       b'e' + b'r'     -&gt; b'er'
+  #9       b' ' + b's'     -&gt; b' s'
+  #10      b'a' + b't'     -&gt; b'at'
+  #11      b' ' + b'.'     -&gt; b' .'
+  #12      b'n' + b'd'     -&gt; b'nd'
+  #13      b'i' + b's'     -&gt; b'is'
+  #14      b'o' + b'r'     -&gt; b'or'
+
+注意最早的合并几乎都是最常见的字母组合 / 带空格的常见词片段。
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 看几个不同“年龄”的 token：早期的是单字节，后期的是合并出来的长片段</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;按 id 抽样看 token 的字节内容:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">tid</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">257</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">499</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tok</span> <span class="o">=</span> <span class="n">vocab</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printable</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">b2u</span><span class="p">[</span><span class="n">byte</span><span class="p">]</span> <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">tok</span><span class="p">)</span>   <span class="c1"># 还原成文件里那种可打印形式</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  id=</span><span class="si">{</span><span class="n">tid</span><span class="si">:</span><span class="s2">&lt;4d</span><span class="si">}</span><span class="s2"> bytes=</span><span class="si">{</span><span class="n">tok</span><span class="si">!r:</span><span class="s2">&lt;16</span><span class="si">}</span><span class="s2"> 长度=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span><span class="si">}</span><span class="s2">  显示形式=</span><span class="si">{</span><span class="n">printable</span><span class="si">!r}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">观察: id&lt;256 基本是单字节 token; id 越大越可能是多字节的合并片段。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>按 id 抽样看 token 的字节内容:
+  id=0    bytes=b'&lt;|endoftext|&gt;' 长度=13  显示形式='&lt;|endoftext|&gt;'
+  id=65   bytes=b'a'             长度=1  显示形式='a'
+  id=97   bytes=b'\xa3'          长度=1  显示形式='£'
+  id=256  bytes=b'\xad'          长度=1  显示形式='Ń'
+  id=257  bytes=b' t'            长度=2  显示形式='Ġt'
+  id=300  bytes=b' e'            长度=2  显示形式='Ġe'
+  id=400  bytes=b' ('            长度=2  显示形式='Ġ('
+  id=499  bytes=b' ver'          长度=4  显示形式='Ġver'
+
+观察: id&lt;256 基本是单字节 token; id 越大越可能是多字节的合并片段。
+</code></pre>
+<p>下面把整张参考词表里每个 token 的<strong>字节长度</strong>画成直方图。它能让你一眼看到训练的效果：大量 token 仍是 1 个字节（保证无 OOV 的兜底），但也长出了不少 2–5 字节的&quot;常见片段&quot;。这就是 BPE 在&quot;覆盖能力&quot;和&quot;压缩率&quot;之间的权衡。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">vocab</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl"><span class="n">maxlen</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxlen</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">&#34;left&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&#34;white&#34;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;#4C78A8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;token length (bytes)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;number of tokens&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;Byte length of tokens in the reference BPE vocab&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxlen</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&#34;y&#34;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;最长 token 的字节长度:&#34;</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;单字节 token 数量:&#34;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">L</span> <span class="ow">in</span> <span class="n">lengths</span> <span class="k">if</span> <span class="n">L</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&#34;(字节兜底，保证无 OOV)&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /coding/cs336-assign1-11/index_files/index_15_0_hu_b10c396e9cfcf518.png 330w,
+        /coding/cs336-assign1-11/index_files/index_15_0_hu_9dad1f198bbdbfa9.png 660w,
+        /coding/cs336-assign1-11/index_files/index_15_0_hu_ee14fcf036aa5c1c.png 1024w,
+        /coding/cs336-assign1-11/index_files/index_15_0_hu_10568a193096d721.png 2x"
+        src="/coding/cs336-assign1-11/index_files/index_15_0_hu_9dad1f198bbdbfa9.png"
+        alt="png"
+      />
+      
+    </figure>
+</p>
+<pre><code>最长 token 的字节长度: 13
+单字节 token 数量: 256 (字节兜底，保证无 OOV)
+</code></pre>
+
+
+<h2 class="relative group">Part F · 编码 / 解码的数据流（讲清方向，实现留给你） 
+    <div id="part-f--%E7%BC%96%E7%A0%81--%E8%A7%A3%E7%A0%81%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81%E8%AE%B2%E6%B8%85%E6%96%B9%E5%90%91%E5%AE%9E%E7%8E%B0%E7%95%99%E7%BB%99%E4%BD%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-f--%E7%BC%96%E7%A0%81--%E8%A7%A3%E7%A0%81%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81%E8%AE%B2%E6%B8%85%E6%96%B9%E5%90%91%E5%AE%9E%E7%8E%B0%E7%95%99%E7%BB%99%E4%BD%A0" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>有了 <code>vocab</code> 和 <code>merges</code>，<code>Tokenizer</code> 做两件互逆的事：</p>
+<p><strong>encode（文本 → id 列表）</strong></p>
+<ol>
+<li>先把<strong>特殊 token</strong> 单独抠出来（它们永不被拆分，直接映射到自己的 id）。</li>
+<li>对普通文本做<strong>预分词</strong>（Part D 的正则），每个 pre-token 变成字节序列。</li>
+<li>在每个 pre-token 内，<strong>按 <code>merges</code> 的顺序</strong>反复施加合并（谁先在 merges 里出现就先合并谁）——这一步就是 BPE 的&quot;应用&quot;，是本作业的核心考点。</li>
+<li>把最终的字节 token 通过 <code>vocab</code> 的<strong>逆查表</strong>换成整数 id。</li>
+<li>还要提供 <code>encode_iterable</code>：能对一个<strong>行迭代器</strong>惰性地产出 id，用于流式处理大文件而不爆内存。</li>
+</ol>
+<p><strong>decode（id 列表 → 文本）</strong></p>
+<ol>
+<li>用 <code>vocab</code> 把每个 id 换回它的 <code>bytes</code>。</li>
+<li>把这些 <code>bytes</code> <strong>按顺序拼接</strong>成一个大的字节串。</li>
+<li>用 <code>utf-8</code> 解码回字符串（注意：单个 token 可能是&quot;半个&quot;多字节字符，所以<strong>要先拼接再解码</strong>，且解码要能容错处理非法字节）。</li>
+</ol>
+<blockquote>
+<p>下面<strong>只在表示层</strong>验证一个直觉——单个 token 的 <code>bytes</code> 未必能独立解码成合法字符，从而理解 decode 为什么必须&quot;先拼接全部、再一次性 utf-8 解码&quot;。<strong>这不是 decode 的实现</strong>（不做查表+拼接的完整流程），只是观察一个字节片段的性质。</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 表示层观察: 一个多字节字符被拆成的“半个字符”字节，单独解码会失败/乱码</span>
+</span></span><span class="line"><span class="cl"><span class="n">partial</span> <span class="o">=</span> <span class="s2">&#34;世&#34;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>     <span class="c1"># 只取“世”的第一个字节</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;“世”的完整 UTF-8 字节:&#34;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&#34;世&#34;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;只取第一个字节:&#34;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">partial</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;单独 strict 解码:&#34;</span><span class="p">,</span> <span class="n">partial</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">UnicodeDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;单独 strict 解码 -&gt; 抛异常:&#34;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;errors=&#39;replace&#39; 容错解码:&#34;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">partial</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&#34;replace&#34;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">=&gt; 所以 decode 必须先把所有 token 的 bytes 拼起来，再整体 utf-8 解码(并容错)。&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>“世”的完整 UTF-8 字节: [228, 184, 150]
+只取第一个字节: [228]
+单独 strict 解码 -&gt; 抛异常: UnicodeDecodeError
+errors='replace' 容错解码: '�'
+
+=&gt; 所以 decode 必须先把所有 token 的 bytes 拼起来，再整体 utf-8 解码(并容错)。
+</code></pre>
+
+
+<h2 class="relative group">Part G · ✏️ 你的任务（一）：<code>train_bpe</code> 引导骨架 
+    <div id="part-g---%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1%E4%B8%80train_bpe-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-g---%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1%E4%B8%80train_bpe-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>下面是<strong>给你填的骨架</strong>（<code>...</code> 处留白，不可直接运行出结果）。它只列出<strong>步骤思路</strong>，不含任何求解行——数 pair、选最高频、应用合并这些<strong>必须你自己写</strong>。动手前想清楚三件事：</p>
+<ul>
+<li><strong>数据结构</strong>：pre-token 计数用什么装？为了避免每轮重扫全部文本，能不能维护&quot;每个 pre-token 的当前 token 序列 + 它的出现次数&quot;？</li>
+<li><strong>tie-break</strong>：并列最高频时，严格按 <strong>handout 的规则</strong>选，否则 merges 顺序会错。先在小 vocab 上和参考产物对拍。</li>
+<li><strong>效率</strong>：<code>test_train_bpe_speed</code> 要求 <code>corpus.en</code> 在 1.5s 内跑完。朴素每轮重新统计是 O(n²) 级别；想想合并一对后，<strong>只有邻近的计数会变</strong>。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">train_bpe</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">special_tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 1: 初始化 vocab（一个dict）</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 先放 256 个单字节 token，再加入 special_tokens</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vocab</span> <span class="o">=</span> <span class="p">{</span><span class="n">index</span> <span class="p">:</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">index</span><span class="p">])</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">)}</span> <span class="c1">#注意这里的bytes([index])写法，不应该写bytes(index)，因为我们是想让index变成单个byte token</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">special_token</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">special_tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vocab</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">256</span><span class="p">]</span> <span class="o">=</span> <span class="n">special_token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 2: 读语料 + 预分词，得到 {pre_token(字节序列): 出现次数} 的计数</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#（大文件可用 pretokenization_example.find_chunk_boundaries 在特殊token处切块并行）</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 读语料</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># text是UTF-8编码的字符串，type是str</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 在切分语料的时候，为了实现更效率的切分，更好的利用我们的CPU资源，可以使用多进程</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 多进程切分完成以后，先用special token切分，然后用regex实现正则表达式的切分，我们的text（str）就变成了一个个单词</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 然后单词的str去调用encode方法，就变成了bytes数组</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 准备一个记数表（byte-token tuple -&gt; count）去记录每种pretoken的byte序列出现了多少次，用来实现去重</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 计数表中的例子：(b&#34;h&#34;, b&#34;e&#34;, b&#34;l&#34;, b&#34;l&#34;, b&#34;o&#34;) -&gt; 5,意思是hello出现了五次</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pretoken</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">special_pattern</span> <span class="o">=</span> <span class="s2">&#34;|&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">special_tokens</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">special_tokens</span> <span class="o">!=</span> <span class="p">[]):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">parts</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">special_pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 接下来把text的str列表进行regex分割，然后转成bytes tuple并计数</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PAT</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;&#34;&#34;&#39;(?:[sdmt]|ll|ve|re)| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+&#34;&#34;&#34;</span> <span class="c1"># GPT-2正则</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 统计pretoken的频率,之后用于统计相邻token pair频率</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">parts_after_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">PAT</span><span class="p">,</span> <span class="n">part</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">part_after_re</span> <span class="ow">in</span> <span class="n">parts_after_re</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pretoken</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">bytes</span><span class="p">([</span><span class="n">byte</span><span class="p">])</span> <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">part_after_re</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 3: 循环，直到 len(vocab) == vocab_size:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">merges</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">vocab_size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3a. 统计所有相邻 token 对的频率(按 pretoken 数量加权)，记录在 pair_count 中</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pair_count</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">pretoken_tuple</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pretoken</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pretoken_tuple</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">pair_count</span><span class="p">[(</span><span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])]</span> <span class="o">+=</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="ow">not</span> <span class="n">pair_count</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3b. 选频率最高的对；平局用 handout 的 tie-break 规则，也就是：频率相同时用更大的字典序的</span>
+</span></span><span class="line"><span class="cl">        <span class="n">max_pair</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">pair_count</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pair</span><span class="p">:</span> <span class="p">(</span><span class="n">pair_count</span><span class="p">[</span><span class="n">pair</span><span class="p">],</span> <span class="n">pair</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3c. 记录这条 merge，并把合并后的新 token 加进 vocab</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vocab</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)]</span> <span class="o">=</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#max_pair是(b&#34;h&#34;,b&#34;e&#34;)，vocab中加入的新词应该是b&#34;he&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">merges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_pair</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 更新pretoken</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 遍历每一个pre_token，检查有没有可以合并的bytes</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3d. 在每个 new_pretoken 序列里把 max_pair 替换成新 token</span>
+</span></span><span class="line"><span class="cl">        <span class="n">new_pretoken_counts</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">pretoken_tuple</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pretoken</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="n">new_pretoken</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pretoken_tuple</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># 当前 token 和下一个 token 正好组成 max_pair</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pretoken_tuple</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                    <span class="ow">and</span> <span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="ow">and</span> <span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1"># 合并两个 bytes token</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">new_pretoken</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">max_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span> <span class="c1"># 已经处理了两个 token，所以向后移动两位</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1"># 没有匹配到 max_pair，保留当前 token</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">new_pretoken</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pretoken_tuple</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># list 转回 tuple</span>
+</span></span><span class="line"><span class="cl">            <span class="n">new_pretoken_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_pretoken</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 保留原 pretoken 的出现次数</span>
+</span></span><span class="line"><span class="cl">            <span class="n">new_pretoken_counts</span><span class="p">[</span><span class="n">new_pretoken_tuple</span><span class="p">]</span> <span class="o">+=</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 用新的统计结果替换旧的 pretoken</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pretoken</span> <span class="o">=</span> <span class="n">new_pretoken_counts</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="c1"># step 4: 返回 (vocab, merges)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">vocab</span><span class="p">,</span> <span class="n">merges</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义(未实现)。填好后到 tests/adapters.py 的 run_train_bpe 里接线，再跑:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_train_bpe.py -x&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义(未实现)。填好后到 tests/adapters.py 的 run_train_bpe 里接线，再跑:
+  pytest tests/test_train_bpe.py -x
+</code></pre>
+
+
+<h2 class="relative group">Part G · ✏️ 你的任务（二）：<code>Tokenizer</code> 引导骨架 
+    <div id="part-g---%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1%E4%BA%8Ctokenizer-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#part-g---%E4%BD%A0%E7%9A%84%E4%BB%BB%E5%8A%A1%E4%BA%8Ctokenizer-%E5%BC%95%E5%AF%BC%E9%AA%A8%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p><code>Tokenizer</code> 需要 <code>encode</code> / <code>encode_iterable</code> / <code>decode</code> 三个方法（参考 handout 与 <code>tests/test_tokenizer.py</code> 里对各种边界情况的测试：空串、单个 unicode 字符、特殊 token、内存上限等）。骨架同样只列步骤，<strong>合并循环和查表都留给你写</strong>。</p>
+<ul>
+<li><strong>encode 里的合并</strong>：怎样&quot;按 merges 顺序&quot;应用？一个思路是把 merges 的先后做成&quot;优先级&quot;，每步在当前序列里找<strong>优先级最高的可合并相邻对</strong>并合并，直到没有可合并的对。想清楚终止条件。</li>
+<li><strong>特殊 token</strong>：要<strong>先</strong>把它们从文本里切出来（用 <code>re.split</code> 保留分隔符的技巧），避免被当普通文本拆碎；注意有的特殊 token 可能是另一个的前缀。</li>
+<li><strong>decode 的容错</strong>：见 Part F —— 先拼接全部 bytes，再 <code>utf-8</code> 解码并容错。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Tokenizer</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab</span><span class="p">,</span> <span class="n">merges</span><span class="p">,</span> <span class="n">special_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 存下 vocab / merges / special_tokens</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span> <span class="o">=</span> <span class="n">vocab</span> <span class="c1"># id -&gt; bytes</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">merges</span> <span class="o">=</span> <span class="n">merges</span> <span class="c1"># 记录需要合并的 token pair</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">special_tokens</span> <span class="o">=</span> <span class="n">special_tokens</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2: 预计算好方便查的结构</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># id -&gt; bytes 的逆表，方便 encode 时快速进行</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># bytes -&gt; id</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">byte_to_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">token_bytes</span><span class="p">:</span> <span class="n">token_id</span> <span class="k">for</span> <span class="n">token_id</span><span class="p">,</span> <span class="n">token_bytes</span> <span class="ow">in</span> <span class="n">vocab</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># merges 的优先级表</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 找到正确的优先级对应才能正确的进行merge</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">ranks</span> <span class="o">=</span> <span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">rank</span> <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">merges</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 先把 special_tokens 从 text 中切出来(它们直接映射到自己的 id)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">special_tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># special token 可能互相重叠，因此优先匹配更长的</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sorted_special_tokens</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">special_tokens</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 通过加 ( 和 )，变成捕获组</span>
+</span></span><span class="line"><span class="cl">            <span class="n">special_pattern</span> <span class="o">=</span> <span class="s2">&#34;(&#34;</span> <span class="o">+</span> <span class="s2">&#34;|&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">sorted_special_tokens</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;)&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">parts</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">special_pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2: 普通文本段落 -&gt; 预分词(Part D 的正则) -&gt; 每段变字节序列</span>
+</span></span><span class="line"><span class="cl">        <span class="n">PAT</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;&#34;&#34;&#39;(?:[sdmt]|ll|ve|re)| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+&#34;&#34;&#34;</span> <span class="c1"># GPT-2正则</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 是special_tokens，直接得到对应id</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">special_tokens</span> <span class="ow">and</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">special_tokens</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">byte_to_id</span><span class="p">[</span><span class="n">part</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">pre_tokens</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">PAT</span><span class="p">,</span> <span class="n">part</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">pre_token</span> <span class="ow">in</span> <span class="n">pre_tokens</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">raw_bytes</span> <span class="o">=</span> <span class="n">pre_token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">byte_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">bytes</span><span class="p">([</span><span class="n">b</span><span class="p">])</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">raw_bytes</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="c1"># step 3: 对这个 byte_tokens，按 merges 的优先级反复合并相邻对，直到不能再合并</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="c1"># 找出当前所有相邻 pair</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">byte_tokens</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">byte_tokens</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">byte_tokens</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                        <span class="c1"># 只保留存在于 self.ranks 里的 pair</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">mergeable_pairs</span> <span class="o">=</span> <span class="p">[</span><span class="n">pair</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span> <span class="k">if</span> <span class="n">pair</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranks</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                        <span class="c1"># 如果一个都不能合并，就结束</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">mergeable_pairs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                        <span class="c1"># 找优先级最高的 pair</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">best_pair</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">mergeable_pairs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pair</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranks</span><span class="p">[</span><span class="n">pair</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                        <span class="c1"># 把当前 byte_tokens 里所有这个 pair 合并</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">new_byte_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                        <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">byte_tokens</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">byte_tokens</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">byte_tokens</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">byte_tokens</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="n">best_pair</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">new_byte_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">byte_tokens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">byte_tokens</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="c1"># 两个bytes 可以用 + 来直接合并</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">new_byte_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">byte_tokens</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                        <span class="n">byte_tokens</span> <span class="o">=</span> <span class="n">new_byte_tokens</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">                    <span class="c1"># step 4: 把最终 token 的 bytes 逐个查逆表得到 id，拼成 id 列表返回</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">ids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">byte_to_id</span><span class="p">[</span><span class="n">byte</span><span class="p">]</span> <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">byte_tokens</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ids</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">encode_iterable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterable</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 对 iterable(如文件的行) 逐段调用 encode 的逻辑，惰性 yield 出 id</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># iterable 是一个储存着一行行文本的数组</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># yield 用于流式处理大文件，避免一次性读入内存</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">yield</span> <span class="nb">id</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 1: 每个 id -&gt; self.vocab[id] 得到 bytes</span>
+</span></span><span class="line"><span class="cl">        <span class="n">id_bytes</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">id_bytes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="nb">id</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 2: 把这些 bytes 按顺序拼接成一个大字节串</span>
+</span></span><span class="line"><span class="cl">        <span class="n">byte_str</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">id_bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># step 3: utf-8 解码(带容错) 得到最终字符串</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 如果遇到非法 UTF-8 字节序列，不报错，而是用替代字符 � 代替。</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">byte_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&#34;replace&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;骨架已定义(未实现)。填好后到 get_tokenizer 接线，再跑:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  pytest tests/test_tokenizer.py -x&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>骨架已定义(未实现)。填好后到 get_tokenizer 接线，再跑:
+  pytest tests/test_tokenizer.py -x
+</code></pre>
+
+
+<h2 class="relative group">🔬 拓展实验（自己动手，加深理解） 
+    <div id="-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%8B%93%E5%B1%95%E5%AE%9E%E9%AA%8C%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li><strong>tie-break 的威力</strong>：在<strong>极小</strong> vocab（如 <code>vocab_size=257</code>，只学 1 条 merge）上跑你的 <code>train_bpe</code>，把学到的那 1 条 merge 和 <code>train-bpe-reference-merges.txt</code> 的<strong>第一行</strong>对比。如果对不上，问题几乎一定出在 tie-break 或 pair 统计上——这是最省时间的调试切入点。</li>
+<li><strong>预分词边界</strong>：把 Part D 的 <code>sample</code> 换成带换行、数字、连续空格、中文的字符串，观察正则怎么切。想想为什么&quot;数字&quot;和&quot;字母&quot;要分开成不同的块。</li>
+<li><strong>无 OOV 验证</strong>：随便造一个训练语料里绝不会出现的乱码串（emoji + 生僻字），确认你的 <code>encode</code> 仍能编码、<code>decode</code> 能还原（往返一致）。</li>
+<li><strong>压缩率</strong>：对同一段文本，比较&quot;字节数&quot;和&quot;你的 tokenizer 产生的 id 数&quot;，算一下平均每个 token 覆盖几个字节。换更大的 <code>vocab_size</code> 再看，理解词表大小与压缩率的关系。</li>
+<li><strong>和 tiktoken 对拍</strong>（理解用，别抄实现）：<code>tests/test_tokenizer.py</code> 会拿你的输出和 <code>tiktoken</code> 的 GPT-2 编码逐一比对。先读那些测试，理解它在卡哪些边界情况。</li>
+</ol>
+
+
+<h2 class="relative group">回答 
+    <div id="%E5%9B%9E%E7%AD%94" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%9B%9E%E7%AD%94" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ol>
+<li>略</li>
+<li>GPT-2 的预分词正则会根据字符类型切分文本：字母、数字、标点、空白等会形成不同的块，中文属于 Unicode 字母，也会按字母规则匹配。
+数字和字母分开，是为了限制 BPE 的合并范围，避免学习出大量类似 <code>abc123</code>、<code>test2026</code> 这种偶然的“字母+数字”组合，从而提高 token 的复用性。</li>
+<li>略</li>
+<li>vocab_size 越大，BPE 能合并出更多较长的 token，因此同一文本需要的 token 数通常越少，平均每个 token 覆盖的字节数越多，压缩率越高。</li>
+<li>略</li>
+</ol>
+
+
+<h2 class="relative group">✏️ 作业连接 
+    <div id="-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%9C%E4%B8%9A%E8%BF%9E%E6%8E%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应测试 / <code>run_*</code></th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>train_bpe</code></td>
+          <td><code>run_train_bpe</code> / <code>tests/test_train_bpe.py</code></td>
+          <td>从 256 字节起步，循环&quot;数对→选最高频(tie-break)→合并&quot;；注意 1.5s 速度上限</td>
+      </tr>
+      <tr>
+          <td><code>Tokenizer.encode</code></td>
+          <td><code>get_tokenizer</code> / <code>tests/test_tokenizer.py</code></td>
+          <td>预分词后<strong>按 merges 顺序</strong>合并；特殊 token 先切出来</td>
+      </tr>
+      <tr>
+          <td><code>Tokenizer.encode_iterable</code></td>
+          <td>同上</td>
+          <td>惰性产出 id，用于流式处理大文件</td>
+      </tr>
+      <tr>
+          <td><code>Tokenizer.decode</code></td>
+          <td>同上</td>
+          <td>id→bytes→<strong>先拼接后</strong> utf-8 解码(容错)</td>
+      </tr>
+  </tbody>
+</table>
+<p>接线方式看 <code>tests/adapters.py</code> 里 <code>run_train_bpe</code> / <code>get_tokenizer</code> 的 docstring。<strong>建议路线</strong>：先在 <code>corpus.en</code> 这种小语料 + 小 <code>vocab_size</code> 上跑通、和参考产物对拍<strong>正确性</strong>，再回头优化<strong>速度</strong>（增量更新 pair 计数）。</p>
+
+
+<h2 class="relative group">小结 
+    <div id="%E5%B0%8F%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B0%8F%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li><strong>字节级</strong>表示：文本 → UTF-8 字节 → 0–255 整数，天然<strong>无 OOV</strong>，代价是多字节字符占多个字节。</li>
+<li><code>gpt2_bytes_to_unicode</code> 把字节映到可打印字符（空格→<code>Ġ</code>），让 vocab / merges 文件可读；读产物前先记住这套映射。</li>
+<li><strong>训练 = 反复&quot;数相邻对 → 合并最高频对&quot;</strong>，直到 <code>vocab_size</code>；<strong>tie-break 规则</strong>决定 merges 顺序，是正确性关键。</li>
+<li><strong>预分词</strong>用 handout 给的正则先切块，合并只在块内进行；特殊 token 是天然边界。</li>
+<li><strong>encode</strong> = 预分词 → 按 merges 顺序合并 → 查表得 id；<strong>decode</strong> = id→bytes→拼接→utf-8 解码。</li>
+<li>本章代码只做<strong>表示层演示</strong>和<strong>检查参考产物</strong>；训练循环与 encode 合并循环请你在 <code>cs336_basics/</code> 里亲手实现，用 <code>pytest</code> 对拍验证。</li>
+</ul>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/coding/cs336-assign1-10/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-10/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-10/">assign1 data batching 和 checkpoint保存</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-11T00:00:00&#43;00:00">11 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5920 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-9/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-9/">assign1 AdamW优化器，梯度和学习率 </div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8850 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/coding/cs336-assign1-1/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/coding/cs336-assign1-1/">assign1 线形层和嵌入层</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-08-02T00:00:00&#43;00:00">2 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4098 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_coding\/cs336-assign1-11\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-11\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/coding/cs336-assign1-10/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >assign1 data batching 和 checkpoint保存</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-11T00:00:00&#43;00:00">11 August 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/coding/leetcode_notes/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >LeetCode 刷题笔记</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="Tags">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="Categories">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      2026 清酒 转载请标明出处
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://qingjiusy.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

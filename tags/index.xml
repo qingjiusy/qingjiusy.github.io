@@ -2,199 +2,199 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on QingJiu</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://qingjiusy.github.io/tags/</link>
     <description>Recent content in Tags on QingJiu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>2026 清酒 转载请标明出处</copyright>
-    <lastBuildDate>Fri, 04 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Cs336</title>
-      <link>http://localhost:1313/tags/cs336/</link>
-      <pubDate>Fri, 04 Sep 2026 00:00:00 +0000</pubDate>
-      
-      <guid>http://localhost:1313/tags/cs336/</guid>
-      <description></description>
-      
-    </item>
+    <lastBuildDate>Sat, 29 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Ai Infra</title>
-      <link>http://localhost:1313/tags/ai-infra/</link>
+      <link>https://qingjiusy.github.io/tags/ai-infra/</link>
       <pubDate>Sat, 29 Aug 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/ai-infra/</guid>
+      <guid>https://qingjiusy.github.io/tags/ai-infra/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>LeetCode</title>
-      <link>http://localhost:1313/tags/leetcode/</link>
+      <link>https://qingjiusy.github.io/tags/leetcode/</link>
       <pubDate>Mon, 17 Aug 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/leetcode/</guid>
+      <guid>https://qingjiusy.github.io/tags/leetcode/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>Python</title>
-      <link>http://localhost:1313/tags/python/</link>
+      <link>https://qingjiusy.github.io/tags/python/</link>
       <pubDate>Mon, 17 Aug 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/python/</guid>
+      <guid>https://qingjiusy.github.io/tags/python/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>算法</title>
-      <link>http://localhost:1313/tags/%E7%AE%97%E6%B3%95/</link>
+      <link>https://qingjiusy.github.io/tags/%E7%AE%97%E6%B3%95/</link>
       <pubDate>Mon, 17 Aug 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/%E7%AE%97%E6%B3%95/</guid>
+      <guid>https://qingjiusy.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Cs336</title>
+      <link>https://qingjiusy.github.io/tags/cs336/</link>
+      <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/tags/cs336/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>PyTorch</title>
-      <link>http://localhost:1313/tags/pytorch/</link>
+      <link>https://qingjiusy.github.io/tags/pytorch/</link>
       <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/pytorch/</guid>
+      <guid>https://qingjiusy.github.io/tags/pytorch/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>Torch</title>
-      <link>http://localhost:1313/tags/torch/</link>
+      <link>https://qingjiusy.github.io/tags/torch/</link>
       <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/torch/</guid>
+      <guid>https://qingjiusy.github.io/tags/torch/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>深度学习</title>
-      <link>http://localhost:1313/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+      <link>https://qingjiusy.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+      <guid>https://qingjiusy.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>Llm</title>
-      <link>http://localhost:1313/tags/llm/</link>
+      <link>https://qingjiusy.github.io/tags/llm/</link>
       <pubDate>Thu, 30 Jul 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/llm/</guid>
+      <guid>https://qingjiusy.github.io/tags/llm/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>Agent</title>
-      <link>http://localhost:1313/tags/agent/</link>
+      <link>https://qingjiusy.github.io/tags/agent/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/agent/</guid>
+      <guid>https://qingjiusy.github.io/tags/agent/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>Harness</title>
-      <link>http://localhost:1313/tags/harness/</link>
+      <link>https://qingjiusy.github.io/tags/harness/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/harness/</guid>
+      <guid>https://qingjiusy.github.io/tags/harness/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>Go</title>
-      <link>http://localhost:1313/tags/go/</link>
+      <link>https://qingjiusy.github.io/tags/go/</link>
       <pubDate>Wed, 07 May 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/go/</guid>
+      <guid>https://qingjiusy.github.io/tags/go/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>后端</title>
-      <link>http://localhost:1313/tags/%E5%90%8E%E7%AB%AF/</link>
+      <link>https://qingjiusy.github.io/tags/%E5%90%8E%E7%AB%AF/</link>
       <pubDate>Wed, 07 May 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/%E5%90%8E%E7%AB%AF/</guid>
+      <guid>https://qingjiusy.github.io/tags/%E5%90%8E%E7%AB%AF/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>TypeScript</title>
-      <link>http://localhost:1313/tags/typescript/</link>
+      <link>https://qingjiusy.github.io/tags/typescript/</link>
       <pubDate>Wed, 26 Mar 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/typescript/</guid>
+      <guid>https://qingjiusy.github.io/tags/typescript/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>前端</title>
-      <link>http://localhost:1313/tags/%E5%89%8D%E7%AB%AF/</link>
+      <link>https://qingjiusy.github.io/tags/%E5%89%8D%E7%AB%AF/</link>
       <pubDate>Wed, 26 Mar 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/%E5%89%8D%E7%AB%AF/</guid>
+      <guid>https://qingjiusy.github.io/tags/%E5%89%8D%E7%AB%AF/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>React</title>
-      <link>http://localhost:1313/tags/react/</link>
+      <link>https://qingjiusy.github.io/tags/react/</link>
       <pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/react/</guid>
+      <guid>https://qingjiusy.github.io/tags/react/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>Hugo部署</title>
-      <link>http://localhost:1313/tags/hugo%E9%83%A8%E7%BD%B2/</link>
+      <link>https://qingjiusy.github.io/tags/hugo%E9%83%A8%E7%BD%B2/</link>
       <pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/hugo%E9%83%A8%E7%BD%B2/</guid>
+      <guid>https://qingjiusy.github.io/tags/hugo%E9%83%A8%E7%BD%B2/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>实习体验</title>
-      <link>http://localhost:1313/tags/%E5%AE%9E%E4%B9%A0%E4%BD%93%E9%AA%8C/</link>
+      <link>https://qingjiusy.github.io/tags/%E5%AE%9E%E4%B9%A0%E4%BD%93%E9%AA%8C/</link>
       <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/%E5%AE%9E%E4%B9%A0%E4%BD%93%E9%AA%8C/</guid>
+      <guid>https://qingjiusy.github.io/tags/%E5%AE%9E%E4%B9%A0%E4%BD%93%E9%AA%8C/</guid>
       <description></description>
       
     </item>
     
     <item>
       <title>杂谈</title>
-      <link>http://localhost:1313/tags/%E6%9D%82%E8%B0%88/</link>
+      <link>https://qingjiusy.github.io/tags/%E6%9D%82%E8%B0%88/</link>
       <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/%E6%9D%82%E8%B0%88/</guid>
+      <guid>https://qingjiusy.github.io/tags/%E6%9D%82%E8%B0%88/</guid>
       <description></description>
       
     </item>
