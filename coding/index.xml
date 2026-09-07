@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>2026 清酒 转载请标明出处</copyright>
-    <lastBuildDate>Sat, 05 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/coding/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/coding/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>C/C&#43;&#43; 基础知识坑</title>
+      <link>https://qingjiusy.github.io/coding/aiinfra_coding2/</link>
+      <pubDate>Sun, 06 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/aiinfra_coding2/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/aiinfra_coding2/featured.PNG" />
+    </item>
     
     <item>
       <title>assign1 bpe 和 tokenizer</title>
@@ -21,12 +31,12 @@
     
     <item>
       <title>python基础知识坑</title>
-      <link>https://qingjiusy.github.io/coding/aiinfra1/</link>
+      <link>https://qingjiusy.github.io/coding/aiinfra_coding1/</link>
       <pubDate>Sat, 29 Aug 2026 00:00:00 +0000</pubDate>
       
-      <guid>https://qingjiusy.github.io/coding/aiinfra1/</guid>
+      <guid>https://qingjiusy.github.io/coding/aiinfra_coding1/</guid>
       <description>blog</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/aiinfra1/featured.PNG" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/aiinfra_coding1/featured.PNG" />
     </item>
     
     <item>

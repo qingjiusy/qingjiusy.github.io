@@ -3,14 +3,14 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://qingjiusy.github.io/coding/cs336-assign1-11/</loc>
-    <lastmod>2026-09-05T00:00:00+00:00</lastmod>
+    <loc>https://qingjiusy.github.io/coding/aiinfra_coding2/</loc>
+    <lastmod>2026-09-06T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://qingjiusy.github.io/coding/</loc>
-    <lastmod>2026-09-05T00:00:00+00:00</lastmod>
+    <lastmod>2026-09-06T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://qingjiusy.github.io/</loc>
-    <lastmod>2026-09-05T00:00:00+00:00</lastmod>
+    <lastmod>2026-09-06T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -41,7 +41,13 @@
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/coding/aiinfra1/</loc>
+    <loc>https://qingjiusy.github.io/coding/cs336-assign1-11/</loc>
+    <lastmod>2026-09-05T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://qingjiusy.github.io/coding/aiinfra_coding1/</loc>
     <lastmod>2026-08-29T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
