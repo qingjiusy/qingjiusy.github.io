@@ -112,7 +112,7 @@
     "keywords": ["ai infra"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "5337"
+    "wordCount": "8197"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5337 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
+  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8197 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">17 分钟</span>
   
 
   
@@ -753,6 +753,14 @@
         <li><a href="#43-对象存储期与生命周期">4.3 对象存储期与生命周期</a></li>
         <li><a href="#44-raii把资源绑定到对象生命周期">4.4 RAII：把资源绑定到对象生命周期</a></li>
         <li><a href="#45-智能指针与所有权">4.5 智能指针与所有权</a></li>
+        <li><a href="#c-对象的拷贝与移动">C++ 对象的拷贝与移动</a>
+          <ul>
+            <li><a href="#拷贝构造">拷贝构造</a></li>
+            <li><a href="#拷贝赋值">拷贝赋值</a></li>
+            <li><a href="#移动构造">移动构造</a></li>
+            <li><a href="#移动赋值">移动赋值</a></li>
+          </ul>
+        </li>
         <li><a href="#46-拷贝移动与-rule-of-zero">4.6 拷贝、移动与 Rule of Zero</a></li>
         <li><a href="#47-const把不可修改写进接口">4.7 <code>const</code>：把不可修改写进接口</a></li>
         <li><a href="#48-未定义行为为什么危险">4.8 未定义行为为什么危险</a></li>
@@ -790,6 +798,14 @@
         <li><a href="#43-对象存储期与生命周期">4.3 对象存储期与生命周期</a></li>
         <li><a href="#44-raii把资源绑定到对象生命周期">4.4 RAII：把资源绑定到对象生命周期</a></li>
         <li><a href="#45-智能指针与所有权">4.5 智能指针与所有权</a></li>
+        <li><a href="#c-对象的拷贝与移动">C++ 对象的拷贝与移动</a>
+          <ul>
+            <li><a href="#拷贝构造">拷贝构造</a></li>
+            <li><a href="#拷贝赋值">拷贝赋值</a></li>
+            <li><a href="#移动构造">移动构造</a></li>
+            <li><a href="#移动赋值">移动赋值</a></li>
+          </ul>
+        </li>
         <li><a href="#46-拷贝移动与-rule-of-zero">4.6 拷贝、移动与 Rule of Zero</a></li>
         <li><a href="#47-const把不可修改写进接口">4.7 <code>const</code>：把不可修改写进接口</a></li>
         <li><a href="#48-未定义行为为什么危险">4.8 未定义行为为什么危险</a></li>
@@ -1122,7 +1138,42 @@ A20 A21 A22 A23
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">private</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">FILE</span><span class="o">*</span> <span class="n">handle_</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>无论函数正常返回还是构造函数抛出异常，局部对象的析构函数都会执行。但是如果析构函数自己抛异常，就会导致释放资源失败。</p>
+</span></span></code></pre></div><p>函数正常离开作用域，或者因为异常进行栈展开时，已经成功构造完成的局部对象都会被析构。
+但如果某个对象自己的构造函数抛出异常，那么这个对象本身还没有构造完成，因此不会调用它自己的析构函数；已经构造完成的成员和基类会被正确析构。</p>
+<p>但是要注意，如果一个对象构造失败时，C++ 会<strong>自动销毁在这次构造过程中已经成功构造完成的子对象</strong>，包括成员对象和基类对象。举一个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">()</span><span class="c1">// 构造函数名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 成员初始化列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">:</span> <span class="n">b_</span><span class="p">(),</span> <span class="c1">//调用B 的默认构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="n">c_</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">          <span class="n">d_</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 构造函数的函数体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// A 的所有成员都已经构造成功
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">&#34;A 构造过程中发生错误&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 声明 A 有这些成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 成员真正的构造顺序，是按照成员声明顺序，而不是初始化列表里写的顺序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">B</span> <span class="n">b_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">C</span> <span class="n">c_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">D</span> <span class="n">d_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;捕获异常：&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在这里，我们假设成员初始化可以正常进行，B C D 都可以正常构造初始化。我们进入到 A 的构造函数后会发生异常的话，具体执行流程大概是：
+<code>B 构造 --&gt; C 构造 --&gt; D 构造 --&gt; 进入 A 构造函数主体 --&gt; throw --&gt; D 析构 --&gt; C 析构 --&gt; B 析构 --&gt; catch成功，输出&quot;捕获异常：A 构造过程中发生错误&quot;</code></p>
+<p>注意，<strong>没有 A 析构</strong>！因为 A 自己还没有构造完成。</p>
+<p>但是如果析构函数自己抛异常，就会导致释放资源失败。析构函数原则上不应该让异常逃出去。</p>
 <p>另外在构造函数里就应该对所有资源初始化，比如类A有一个成员变量类B，A的构造函数需要初始化类B。</p>
 <p>另外来看这个情况：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="p">{</span>
@@ -1179,6 +1230,323 @@ A20 A21 A22 A23
   </tbody>
 </table>
 <p>如果所有权没有共享需求，<strong>不要使用 <code>shared_ptr</code></strong>。“避免思考所有权”不是共享所有权的合理理由。</p>
+
+
+<h3 class="relative group">C++ 对象的拷贝与移动 
+    <div id="c-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8B%B7%E8%B4%9D%E4%B8%8E%E7%A7%BB%E5%8A%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#c-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8B%B7%E8%B4%9D%E4%B8%8E%E7%A7%BB%E5%8A%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>因为程序里面经常要把一个对象的数据交给另一个对象。但是这个“交给”有两种完全不同的需求：</p>
+<ol>
+<li>希望保留原对象并得到一份独立副本 → 拷贝</li>
+<li>当原对象不再需要、只想高效地把内部资源交给另一个对象 → 移动</li>
+</ol>
+<p>而根据接收对象是新建还是已经存在，又分别产生拷贝构造、移动构造、拷贝赋值和移动赋值。</p>
+<p>总体来看是这样的：</p>
+<table>
+  <thead>
+      <tr>
+          <th>我要做什么</th>
+          <th>新对象</th>
+          <th>已存在对象</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>复制</td>
+          <td>拷贝构造</td>
+          <td>拷贝赋值</td>
+      </tr>
+      <tr>
+          <td>转移资源</td>
+          <td>移动构造</td>
+          <td>移动赋值</td>
+      </tr>
+  </tbody>
+</table>
+
+
+<h4 class="relative group">拷贝构造 
+    <div id="%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>用一个已经存在的对象，创建一个新的同类型对象。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 类定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 对象a
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Person</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;Tom&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 对象b
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 注意 b 是一个全新的对象，使用了拷贝构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Person</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 另外几种拷贝构造形态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Person</span> <span class="nf">c</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>       <span class="c1">// 同样是用 a 创建新对象 c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">Person</span> <span class="n">p</span><span class="p">);</span> <span class="c1">// 按值传参，也会拷贝构造参数 p
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">foo</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 从结果来看会有
+</span></span></span><span class="line"><span class="cl"><span class="c1">// a.name = &#34;Tom&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// a.age  = 20
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// b.name = &#34;Tom&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// b.age  = 20
+</span></span></span></code></pre></div><p>注意这里的 b 是一个全新的对象。之后如果<code>b.age = 30;</code>，不会把<code>a.age</code>变成30。</p>
+<p>拷贝构造函数具体如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Person 的拷贝构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 意思是 给我一个已经存在的 Person -&gt; 根据它构造一个新的 Person
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Person</span><span class="p">(</span><span class="k">const</span> <span class="n">Person</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">name</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">name</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">age</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">age</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>注意这里的参数用的是<code>const Person&amp;</code>，因为我们只是读取原对象，不想修改它。</p>
+<p>如果我们不写拷贝构造，很多情况下编译器会自动生成。对普通成员来说，这通常没问题；但是真正麻烦的是裸指针。来看一个这个情况：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Buffer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Buffer</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Buffer</span> <span class="nf">a</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Buffer</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</span></span></code></pre></div><p>如果我们什么都不写，编译器默认会把成员 data 的值复制过去，但是在这里 data 是一个指针。这样的话 a.data 和 b.data 相同，这两个对象指向了同一块内存，这就是浅拷贝，很危险。</p>
+<p>因为如果这个类的析构函数不写<code>delete[] data</code>的话，这块 new 出来的内存会泄露。</p>
+<p>如果这个类写了一个负责<code>delete[] data</code>的析构函数，销毁 a 和 b 的话，会导致同一块内存释放两次，因此对于自己管理资源的类，默认拷贝往往不够。我们要自己去写深拷贝。</p>
+<p>所以可以写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Buffer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Buffer</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">size_</span><span class="p">(</span><span class="n">size</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="n">data_</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">size</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 拷贝构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Buffer</span><span class="p">(</span><span class="k">const</span> <span class="n">Buffer</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">size_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">size_</span><span class="p">),</span> <span class="c1">// 复制大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="n">data_</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">other</span><span class="p">.</span><span class="n">size_</span><span class="p">])</span> <span class="c1">//重新去申请一块自己的内存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 把内容一个个复制过去
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size_</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">data_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">Buffer</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span><span class="p">[]</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">*</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">拷贝赋值 
+    <div id="%E6%8B%B7%E8%B4%9D%E8%B5%8B%E5%80%BC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8B%B7%E8%B4%9D%E8%B5%8B%E5%80%BC" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>把一个已经存在的对象的内容，复制给另一个已经存在的同类型对象。要注意和 拷贝构造 进行区分。</p>
+<p>拷贝赋值函数大概长成<code>Buffer&amp; operator=(const Buffer&amp; other)</code>，具体一点就是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Buffer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Buffer</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Buffer</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 把 other 的内容复制给当前对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Buffer</span> <span class="nf">a</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Buffer</span> <span class="nf">b</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// 拷贝赋值，也就是b.operator=(a)
+</span></span></span></code></pre></div><p>拷贝赋值通常比拷贝构造更加麻烦一点，因为 b 原来可能有自己的资源，所以通常要先处理旧资源，然后再复制，比如看下面这个有资源的情况：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 一块有内存资源的buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Buffer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Buffer</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">size_</span><span class="p">(</span><span class="n">size</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="n">data_</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">size</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 拷贝赋值函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Buffer</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Buffer</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 解决了自赋值的特殊情况
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span><span class="p">[]</span> <span class="n">data_</span><span class="p">;</span> <span class="c1">// 释放当前对象原来的资源
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="n">size_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">size_</span><span class="p">;</span> <span class="c1">// 复制 other 的 size
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">data_</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">size_</span><span class="p">];</span> <span class="c1">// 重新申请一块新的内存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 把 other 的数据复制过来
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size_</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">data_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 返回当前对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">Buffer</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span><span class="p">[]</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">*</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>通过上面的操作，我们可以先释放自己原先的资源，然后再复制。同时注意到我们这里的<code>if (this == &amp;other)</code>判断，通过这个方法我们讨论了自赋值（self-assignment）的情况。如果不写，我们的拷贝赋值函数会先把 a 自己的数据删掉，然后又想从已经释放的内存里读，这显然有问题。</p>
+<p>这里拷贝赋值函数中的<code>this</code>是一个指针，指向当前对象。所以<code>*this</code>就是这个对象本身。</p>
+<p>另外，这里的拷贝赋值函数中返回的是<code>Buffer&amp;</code>而不是<code>void</code>，因为这样可以支持<code>a = b = c;</code>，实际的结合顺序就大概是<code>a = (b = c);</code>。先<code>b = c;</code>然后返回 b 自己，然后<code>a = b;</code>。所以赋值运算符通常返回<code>T&amp;</code>，也就是当前对象的引用。</p>
+
+
+<h4 class="relative group">移动构造 
+    <div id="%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>如果原对象已经不打算继续使用了，创建新对象时，就不需要把资源完整复制一份。因为既然原对象不需要那些资源了，为什么不直接把资源交给新对象呢？这就是一种移动。</p>
+<p>来看一个移动构造的代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Buffer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Buffer</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">size_</span><span class="p">(</span><span class="n">size</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="n">data_</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">size</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 移动构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// noexcept 表示这个移动构造函数承诺不会抛异常。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Buffer</span><span class="p">(</span><span class="n">Buffer</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">noexcept</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">size_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">size_</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="n">data_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="p">)</span> <span class="c1">// 注意这里是复制指针里面保存的地址。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">other</span><span class="p">.</span><span class="n">size_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">other</span><span class="p">.</span><span class="n">data_</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span> <span class="c1">// 把原来的指针清空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">Buffer</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span><span class="p">[]</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">*</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Buffer</span> <span class="nf">a</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Buffer</span> <span class="n">b</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">// 调用移动构造
+</span></span></span></code></pre></div><p>注意，这里要把<code>a.data_</code>设成 nullptr，也就是清空指针。必须取消 other 对原内存的所有权，设置为 nullptr 只是其中一种方式。
+因为两个对象最终都会析构。如果我们移动之后不写<code>other.data_ = nullptr;</code>，a和b会在析构函数中释放同一个资源，会 double free 出错，所以我们必须把资源的原拥有者清空。清空以后之后它做 <code>delete[] nullptr;</code> 操作是安全的，什么都不会发生。</p>
+<p>接下来解释一下<code>std::move(a)</code>操作，它本身并不会移动任何东西。它是告诉编译器 a 可以被当成一个可以被移动的对象。然后编译器就会选择用移动构造来进行资源转移。</p>
+<p>注意，要区分<code>Buffer b = std::move(a)</code>和<code>Buffer b = a;</code>，前者是移动构造，后者是拷贝构造。</p>
+<p>移动之后 a 还是一个合法对象，但是它很有可能里面的内容变化了。a 以后还是会正常析构的。</p>
+<p>由于移动构造是直接转移资源，而不用申请新资源，通常只需要转移几个内部成员，因此常常非常快，效率非常高。</p>
+
+
+<h4 class="relative group">移动赋值 
+    <div id="%E7%A7%BB%E5%8A%A8%E8%B5%8B%E5%80%BC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%A7%BB%E5%8A%A8%E8%B5%8B%E5%80%BC" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>两个对象都已经存在，把右边对象的资源转移给左边对象。</p>
+<p>在接管 a 的资源之前，必须妥善处理 b 原有的资源，可以直接释放，也可以通过交换等方式转移。这就是移动赋值和移动构造最大的区别。</p>
+<p>来实现一个移动赋值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Buffer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Buffer</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">size_</span><span class="p">(</span><span class="n">size</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="n">data_</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">size</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 移动赋值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// noexcept 表示承诺不会抛异常。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Buffer</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Buffer</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">noexcept</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 防止自己移动给自己
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 释放左边（当前对象）原来的资源
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">delete</span><span class="p">[]</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 接管右边的资源
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">data_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">size_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">size_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 把右边的资源清空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">other</span><span class="p">.</span><span class="n">data_</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">other</span><span class="p">.</span><span class="n">size_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">Buffer</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span><span class="p">[]</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">*</span> <span class="n">data_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Buffer</span> <span class="nf">a</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Buffer</span> <span class="nf">b</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">// 调用移动赋值
+</span></span></span></code></pre></div><p>注意这里也一定让原对象不再拥有资源，原因和之前的移动构造一样，防止同样的资源被释放两次。</p>
 
 
 <h3 class="relative group">4.6 拷贝、移动与 Rule of Zero 
