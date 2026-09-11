@@ -112,7 +112,7 @@
     "keywords": ["ai infra"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "3433"
+    "wordCount": "5337"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3433 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
+  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5337 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
   
 
   
@@ -926,7 +926,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>  <span class="c1">// 8
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>可以先用这张表建立直觉：</p>
+</span></span></code></pre></div><p>注意要区分一个容易混淆的点，当 &amp; 出现在表达式里：<code>&amp;x</code>，表示取 x 的地址；如果 &amp; 出现在“类型声明”里，如<code>int&amp; ref = x</code>，则表示ref 是一个 int 的引用。</p>
+<p>可以先用这张表建立直觉：</p>
 <table>
   <thead>
       <tr>
@@ -953,7 +954,7 @@
           <td>引用 <code>T&amp;</code></td>
           <td>语言语义上必须绑定对象</td>
           <td>不可以重新绑定</td>
-          <td>必须存在的别名、函数参数</td>
+          <td>必须存在的别名、常用于函数参数</td>
       </tr>
       <tr>
           <td>常量引用 <code>const T&amp;</code></td>
@@ -963,12 +964,13 @@
       </tr>
   </tbody>
 </table>
-<p>函数参数表达的接口意图应尽可能清晰：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">consume</span><span class="p">(</span><span class="n">T</span> <span class="n">value</span><span class="p">);</span>          <span class="c1">// 按值：函数获得自己的对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>          <span class="c1">// 可变借用：函数会修改调用方对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">inspect</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>   <span class="c1">// 只读借用：避免复制
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">optional</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">value</span><span class="p">);</span>        <span class="c1">// 指针可能为空，通常不拥有对象
-</span></span></span></code></pre></div><p>对小型标量（<code>int</code>、<code>float</code>、指针）按值传递通常最清楚；不要机械地把所有参数都改成引用。</p>
+<p>对于<code>const T&amp;</code>，可以理解为给原对象起一个“只读别名”。我们可以用过 ref 读取，但是不能通过 ref 修改。</p>
+<p>函数参数表达的接口意图应尽可能清晰。函数参数类型本身就在告诉调用者：这个函数准备怎么对待你的对象。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">consume</span><span class="p">(</span><span class="n">T</span> <span class="n">value</span><span class="p">);</span>          <span class="c1">// 复制一份传进来的值，修改它不会影响外面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>          <span class="c1">// 直接操作外面的原对象，可以修改它
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">inspect</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>   <span class="c1">// 直接读取原对象，不复制，也不能修改
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">optional</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">value</span><span class="p">);</span>        <span class="c1">// 传对象地址，也可以传 nullptr
+</span></span></span></code></pre></div><p>对小型标量（<code>int</code>、<code>float</code>、指针）按值传递通常最清楚；不要机械地把所有参数都改成引用。不是“引用能避免复制”，就应该把所有函数参数都写成引用。</p>
 
 
 <h3 class="relative group">4.2 数组、指针与连续内存 
@@ -987,7 +989,10 @@
 </span></span><span class="line"><span class="cl">        <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">factor</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>现代 C++ 中优先用能表达长度的类型：</p>
+</span></span></code></pre></div><p>如果使用上面这个函数，C/C++ 的原生数组传给函数时，通常只会变成“指向第一个元素的指针”，数组长度不会一起传过去。比如调用<code>scale(arr, 4, 2.0f);</code>，传入的arr相当于传成<code>&amp;arr[0]</code>，因此我们只知道数据从哪里开始，而不知道一共有多少个元素。所以函数必须额外传一个<code>std::size_t size</code>告诉它长度。</p>
+<blockquote>
+<p><code>std::size_t</code>：C++ 中专门用于表示对象大小、元素数量和下标的<strong>非负整数类型（≥0）</strong>。</p></blockquote>
+<p>而在现代 C++ 中优先用能表达长度的类型：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;span&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">scale</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">values</span><span class="p">,</span> <span class="kt">float</span> <span class="n">factor</span><span class="p">)</span> <span class="p">{</span>
@@ -995,11 +1000,25 @@
 </span></span><span class="line"><span class="cl">        <span class="n">value</span> <span class="o">*=</span> <span class="n">factor</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p><code>std::span</code> 不拥有数据，只是“指针 + 长度”的轻量视图。调用期间底层内存必须仍然有效。</p>
-<p>二维矩阵通常线性存放。行主序矩阵 <code>A[M][N]</code> 的 <code>(row, col)</code> 对应偏移：</p>
+</span></span></code></pre></div><blockquote>
+<p><code>std::span&lt;T&gt;</code>：对一段连续 T 数据的非拥有视图，可理解为“指针 + 长度”；它不复制、不管理数据，因此底层数据在使用 span 期间必须保持有效。</p>
+<p>比如对于一个<code>std::span&lt;int&gt; values</code>，我们可以使用<code>values[i]</code>和<code>values.size()</code></p></blockquote>
+<p>二维矩阵通常线性存放。行主序（C/C++ 的二维原生数组采用行主序：先存完第 0 行，再存第 1 行，再存第 2 行）矩阵 <code>A[M][N]</code> 的 <code>(row, col)</code> 对应偏移。这意味着你看到的是二维矩阵，但计算机内存本质上是一条一维的连续空间：</p>
 $$
 \text{offset} = row \times N + col
-$$<p>这个公式会在 CUDA 中反复出现。访问顺序是否连续，直接影响 CPU cache 和 GPU 合并访存效率。</p>
+$$<p>这个公式会在 CUDA 中反复出现。访问顺序是否连续，直接影响 CPU cache 和 GPU 合并访存效率。<strong>按内存真正的排列顺序访问，通常会更快</strong>。</p>
+<p>比如对于一个矩阵：</p>
+<pre tabindex="0"><code>A00 A01 A02 A03
+A10 A11 A12 A13
+A20 A21 A22 A23
+</code></pre><p>如果我们遍历的顺序是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 访问顺序：A00 → A01 → A02 → A03 → A10 → A11 → ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">M</span><span class="p">;</span> <span class="o">++</span><span class="n">row</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">col</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">use</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这样的遍历顺序和内存排列完全一致，这就是<strong>连续访问</strong>。这对于CPU很友好，因为 CPU 读取一个元素时，通常会顺便把附近的一块数据装入CPU cache。而对于GPU来说，CUDA 中有很多线程，如果相邻线程访问相邻地址还有利于合并访存（把访问合并成较少的内存事务），效率很高。</p>
 
 
 <h3 class="relative group">4.3 对象存储期与生命周期 
@@ -1012,22 +1031,58 @@ $$<p>这个公式会在 CUDA 中反复出现。访问顺序是否连续，直接
     </span>        
     
 </h3>
-<p>常见存储位置的说法是“栈”和“堆”，但更准确地应关注<strong>对象的存储期和所有权</strong>：</p>
+<p>常见存储位置的说法是“栈”和“堆”，但更准确地应关注<strong>对象的存储期和所有权</strong>，也就是说更重要的是搞清楚：这个对象什么时候创建、什么时候销毁，以及谁负责销毁它：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">example</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">local</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                  <span class="c1">// 自动存储期，离开作用域销毁
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>  <span class="c1">// 动态分配，必须显式 delete[]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">delete</span><span class="p">[]</span> <span class="n">buffer</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>手工 <code>new</code>/<code>delete</code> 容易产生：</p>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">local</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                  <span class="c1">// local 是一个局部变量。执行到变量声明时被创建，函数结束、离开作用域时，它会自动销毁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//new T[...] 创建动态数组，并返回数组首元素的地址，因此返回类型是 T*；所以接收它的变量自然是指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>  <span class="c1">// 这块内存是在程序运行过程中，通过 new 主动申请出来的（动态分配）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">delete</span><span class="p">[]</span> <span class="n">buffer</span><span class="p">;</span> <span class="c1">// 手动删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>在上面的代码中。buffer 本身只是一个指针变量 float* buffer，它是局部变量，所以 buffer 自己会在函数结束时自动消失，但是<code>new float[1024]</code>创建出来的那块内存不会因为函数结束自动释放。因此必须要<code>delete[] buffer</code>来手动销毁这个动态对象，如果我们不在 example 内销毁的话，函数结束之后 buffer 被销毁，指针没了，但是float[1024]还在，但是却再也找不到它，这就是<strong>内存泄漏</strong>。</p>
+<p>手工 <code>new</code>/<code>delete</code> 容易产生：</p>
 <ul>
-<li>内存泄漏：忘记释放；</li>
-<li>重复释放：同一地址释放两次；</li>
-<li>悬空指针：对象已销毁，指针仍被使用；</li>
-<li>分配/释放形式不匹配：<code>new[]</code> 配了 <code>delete</code>；</li>
-<li>异常路径泄漏：释放前函数提前退出。</li>
+<li>
+<p>内存泄漏：忘记释放；
+就比如上面的操作如果不写<code>delete[] buffer</code>就会导致内存泄漏。</p>
+</li>
+<li>
+<p>重复释放：同一地址释放两次；
+比如把同一个内存释放两次：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">float</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">delete</span><span class="p">[]</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">delete</span><span class="p">[]</span> <span class="n">p</span><span class="p">;</span>   <span class="c1">// 错误
+</span></span></span></code></pre></div></li>
+<li>
+<p>悬空指针：对象已销毁，指针仍被使用；
+例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">float</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">delete</span><span class="p">[]</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>   <span class="c1">// 错误
+</span></span></span></code></pre></div></li>
+<li>
+<p>分配/释放形式不匹配：<code>new[]</code> 配了 <code>delete</code>；
+注意在cpp中，数组分配必须对应数组释放，也就是 new T 对应 delete，而 new T[] 对应 delete[]</p>
+</li>
+<li>
+<p>异常路径泄漏：释放前函数提前退出。也就是本来打算在函数最后 delete，但函数中途因为异常或提前 return 离开了，于是 delete 根本没执行。</p>
+</li>
 </ul>
-<p>因此现代 C++ 的默认原则是：<strong>让资源由对象管理，让对象由作用域管理。</strong></p>
-
+<p>因此现代 C++ 的默认原则是：**让资源由对象管理，让对象由作用域管理。**现代 C++ 关注“谁拥有对象、对象何时销毁”：局部对象由作用域自动管理；动态资源应交给 vector、string、unique_ptr 等 RAII 对象管理，尽量避免直接使用 new/delete。</p>
+<p>比如下面这个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 曾经的做法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">example</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span><span class="o">*</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span><span class="p">[]</span> <span class="n">buffer</span><span class="p">;</span> <span class="c1">// 手动销毁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//现代C++更推荐：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">example</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">buffer</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span><span class="c1">// 使用 buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="c1">// 离开函数时自动释放
+</span></span></span></code></pre></div>
 
 <h3 class="relative group">4.4 RAII：把资源绑定到对象生命周期 
     <div id="44-raii%E6%8A%8A%E8%B5%84%E6%BA%90%E7%BB%91%E5%AE%9A%E5%88%B0%E5%AF%B9%E8%B1%A1%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F" class="anchor"></div>
@@ -1039,30 +1094,42 @@ $$<p>这个公式会在 CUDA 中反复出现。访问顺序是否连续，直接
     </span>        
     
 </h3>
-<p>RAII（Resource Acquisition Is Initialization）在构造时获取资源，在析构时释放资源：</p>
+<p>RAII（Resource Acquisition Is Initialization）在构造时获取资源，在析构时释放资源。也就是把“资源的释放”绑定到一个 C++ 对象（根据某个类型/类实际创建出来的一个具体实例）的生命周期上，这样对象销毁时，资源就自动释放。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdexcept&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">File</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义了一个叫 File 的类型，它专门负责“打开一个文件，并在自己销毁时把文件关掉”
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">File</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="k">explicit</span> <span class="n">File</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">handle_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">fopen</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">&#34;rb&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">explicit</span> <span class="n">File</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">path</span><span class="p">)</span> <span class="c1">// 构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">:</span> <span class="n">handle_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">fopen</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">&#34;rb&#34;</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">handle_</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">&#34;failed to open file&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">File</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">fclose</span><span class="p">(</span><span class="n">handle_</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 析构函数，对象被销毁的时候，C++ 自动调用这个函数！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">~</span><span class="n">File</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">fclose</span><span class="p">(</span><span class="n">handle_</span><span class="p">);</span> <span class="c1">// 关闭文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">File</span><span class="p">(</span><span class="k">const</span> <span class="n">File</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 禁止复制 File 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">File</span><span class="p">(</span><span class="k">const</span> <span class="n">File</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">File</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">File</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 下面的变量只能在 File 类内部使用，外面不能随便访问
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 也就是对象内部保存的资源
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">private</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">FILE</span><span class="o">*</span> <span class="n">handle_</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>无论函数正常返回还是抛出异常，局部对象的析构函数都会执行。文件、锁、主机内存、GPU 内存、CUDA Stream 都可以用同一思想管理。</p>
+</span></span></code></pre></div><p>无论函数正常返回还是构造函数抛出异常，局部对象的析构函数都会执行。但是如果析构函数自己抛异常，就会导致释放资源失败。</p>
+<p>另外在构造函数里就应该对所有资源初始化，比如类A有一个成员变量类B，A的构造函数需要初始化类B。</p>
+<p>另外来看这个情况：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">pa</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="c1">// 退出一个 {} 块
+</span></span></span></code></pre></div><p>这个时候就算 A 是RAII的类，但是我们是通过 new 构造的对象，对于这个对象，我们析构的时机是<code>delete</code>，什么时候 delete 什么时候才析构。</p>
+<p>文件、锁、主机内存、GPU 内存、CUDA Stream 都可以用同一思想管理。</p>
 <p>实际项目中优先使用标准库已有的 RAII 类型，如 <code>std::vector</code>、<code>std::string</code>、<code>std::fstream</code>、<code>std::lock_guard</code> 和智能指针，不要重复造轮子。</p>
 
 
@@ -1092,26 +1159,26 @@ $$<p>这个公式会在 CUDA 中反复出现。访问顺序是否连续，直接
       <tr>
           <td><code>std::unique_ptr&lt;T&gt;</code></td>
           <td>唯一拥有，可移动不可复制</td>
-          <td>成本接近裸指针，默认首选</td>
+          <td>成本接近裸指针，默认首选。unique 被销毁，Buffer 也自动释放</td>
       </tr>
       <tr>
           <td><code>std::shared_ptr&lt;T&gt;</code></td>
           <td>引用计数共享拥有</td>
-          <td>有计数与控制块成本，循环引用需 <code>weak_ptr</code></td>
+          <td>最后一个 shared_ptr 消失的时候自动会释放 Buffer。因此 shared_ptr 内部会维护一个引用计数，有计数与控制块成本，循环引用需 <code>weak_ptr</code></td>
       </tr>
       <tr>
           <td><code>std::weak_ptr&lt;T&gt;</code></td>
           <td>不增加引用计数的观察者</td>
-          <td>使用前要 <code>lock()</code> 检查对象是否仍存在</td>
+          <td>因为 weak_ptr 不拥有对象，所以你观察的对象可能已经没了。所以使用前要 <code>lock()</code> 检查对象是否仍存在</td>
       </tr>
       <tr>
           <td><code>T*</code> / <code>T&amp;</code></td>
-          <td>通常表示非拥有访问</td>
+          <td>通常表示非拥有访问，不负责管理它的生命周期</td>
           <td>被指向对象必须活得足够久</td>
       </tr>
   </tbody>
 </table>
-<p>如果所有权没有共享需求，不要使用 <code>shared_ptr</code>。“避免思考所有权”不是共享所有权的合理理由。</p>
+<p>如果所有权没有共享需求，<strong>不要使用 <code>shared_ptr</code></strong>。“避免思考所有权”不是共享所有权的合理理由。</p>
 
 
 <h3 class="relative group">4.6 拷贝、移动与 Rule of Zero 
@@ -1687,7 +1754,7 @@ $$<p>这个公式会在 CUDA 中反复出现。访问顺序是否连续，直接
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>89897 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">180 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>93100 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">186 分钟</span>
   
 
   
