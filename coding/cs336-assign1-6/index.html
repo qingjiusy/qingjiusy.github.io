@@ -112,7 +112,7 @@
     "keywords": ["cs336"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "5983"
+    "wordCount": "5985"
   }]
   </script>
 
@@ -733,7 +733,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5983 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5985 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -898,13 +898,6 @@
         <li><a href="#3-缩放注意力分数scaled-attention-score">3. 缩放注意力分数（Scaled Attention Score）</a></li>
         <li><a href="#4-mask-后的-attention-logits">4. Mask 后的 Attention Logits</a></li>
         <li><a href="#5-注意力权重attention-weight">5. 注意力权重（Attention Weight）</a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li>
-      <ul>
         <li><a href="#6-注意力输出attention-output">6. 注意力输出（Attention Output）</a></li>
       </ul>
     </li>
@@ -948,13 +941,6 @@
         <li><a href="#3-缩放注意力分数scaled-attention-score">3. 缩放注意力分数（Scaled Attention Score）</a></li>
         <li><a href="#4-mask-后的-attention-logits">4. Mask 后的 Attention Logits</a></li>
         <li><a href="#5-注意力权重attention-weight">5. 注意力权重（Attention Weight）</a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li>
-      <ul>
         <li><a href="#6-注意力输出attention-output">6. 注意力输出（Attention Output）</a></li>
       </ul>
     </li>
@@ -1483,39 +1469,17 @@ $$<p>其中：</p>
     
 </h3>
 <p>随后按行进行 Softmax：</p>
-
-
-<h1 class="relative group">$$
-A 
-    <div id="a" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#a" aria-label="锚点">#</a>
-    </span>        
-    
-</h1>
-<p>\operatorname{softmax}(L)
-$$</p>
-<p>即：</p>
-
-
-<h1 class="relative group">$$
-a_{ij} 
-    <div id="a_ij" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#a_ij" aria-label="锚点">#</a>
-    </span>        
-    
-</h1>
-<p>\frac{\exp(L_{ij})}
+$$
+A
+=%
+\operatorname{softmax}(L)
+$$<p>即：</p>
+$$
+a_{ij}
+=%
+\frac{\exp(L_{ij})}
 {\sum_t\exp(L_{it})}
-$$</p>
-<p>其中：</p>
+$$<p>其中：</p>
 $$
 a_{ij}
 $$<p>表示 <strong>第 $i$ 个 Query 最终从第 $j$ 个 Value 获取多少比例的信息</strong>。</p>
