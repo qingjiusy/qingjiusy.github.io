@@ -112,7 +112,7 @@
     "keywords": ["ai infra"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "8197"
+    "wordCount": "11468"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8197 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">17 分钟</span>
+  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>11468 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">23 分钟</span>
   
 
   
@@ -1229,6 +1229,12 @@ A20 A21 A22 A23
       </tr>
   </tbody>
 </table>
+<p>注意，上面的各个类型中写到的T<strong>表示管理的对象是T类型</strong>，而不是“我要传进去的指针是什么类型”。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 构造了一个 std::shared_ptr&lt;Widget&gt; 类型的对象 t
+</span></span></span><span class="line"><span class="cl"><span class="c1">// p_widget 是传入的裸指针，它指向一个已经存在的 Widget 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1">// t 构造完成后，也指向 p_widget 所指向的同一个 Widget 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">(</span><span class="n">p_widget</span><span class="p">);</span>
+</span></span></code></pre></div><p>看上面这一段代码，由于p_widget指针显然本身就存在有意义，因此被指向的那个 Widget 对象必须在更早之前就已经被构造好了（也就是说它不是在<code>std::shared_ptr&lt;T&gt;</code>的构造函数里面被构造的）</p>
 <p>如果所有权没有共享需求，<strong>不要使用 <code>shared_ptr</code></strong>。“避免思考所有权”不是共享所有权的合理理由。</p>
 
 
@@ -1559,19 +1565,25 @@ A20 A21 A22 A23
     </span>        
     
 </h3>
-<p><code>std::vector</code> 等容器拥有资源，复制会复制内容，移动则转移内部资源：</p>
+<p><code>std::vector</code> 等容器拥有资源，复制会复制内容，移动则转移内部资源。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">make_buffer</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">values</span><span class="p">(</span><span class="mi">1&#39;000&#39;000</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">values</span><span class="p">;</span>  <span class="c1">// 编译器通常消除复制，必要时可移动
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">values</span><span class="p">(</span><span class="mi">1&#39;000&#39;000</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">);</span> <span class="c1">// 构建一个std::vector&lt;float&gt;这个类的对象values
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">values</span><span class="p">;</span>  <span class="c1">// 编译器通常消除复制，必要时可移动（也就是 C++ 的返回规则允许编译器在合适情况下自动使用移动语义）
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">make_buffer</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>  <span class="c1">// a 仍有效，但内容处于未指定状态
-</span></span></span></code></pre></div><p>如果类只由标准库 RAII 成员组成，通常无需手写析构、复制和移动操作，这就是 <strong>Rule of Zero</strong>。只有直接管理特殊资源时才需要自定义这些操作，并清晰定义所有权。</p>
-<p>不要随手对返回值写 <code>std::move</code>；它可能阻止返回值优化。也不要在移动后假设源对象仍保留原内容。</p>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 进行移动构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>  <span class="c1">// a 仍有效，a这个对象还活着，没有被销毁，但内容处于未指定状态
+</span></span></span></code></pre></div><p>在上面的 vector 对象中，它本身并不是直接装着这一百万个 float。它内部主要保存指向一块动态内存的信息（比如有指针），而真正的一百万个 float 通常在 heap（堆）上。当 vector 被析构的时候，它要释放这块内存。</p>
+<p>而针对这个<code>std::vector&lt;float&gt;</code>类的示例 a 和 b，它的拷贝和移动就涉及到我们上一节讲到的 <strong>C++ 对象的拷贝构造，拷贝赋值，移动构造，移动赋值</strong>。比如<code>auto b = std::move(a);</code>，就是移动构造。</p>
+<p>另外，上面的代码会涉及到NRVO（Named Return Value Optimization），也就是“具名返回值优化”。看<code>make_buffer()</code>函数，里面的values 是一个有名字的局部对象，所以叫 Named Return Value。正常直觉可能是“先构造 values -&gt; 再把 values 复制/移动成返回值 -&gt; 再得到外面的 a”，但是NRVO 会尽量把中间步骤直接消掉。比如<code>auto a = make_buffer();</code>，编译器可以直接让函数里的 values 构造在 a 最终要使用的位置。所以最理想的情况就是 0 次拷贝，0 次移动。</p>
+<p>如果类只由标准库 RAII 成员组成，通常无需手写析构、复制和移动操作，这就是 <strong>Rule of Zero</strong>。只有直接管理特殊资源时才需要自定义这些操作，并清晰定义所有权。如果你的类里的成员本身已经会正确管理资源，那么你的类尽量一个特殊资源管理函数都不要手写。</p>
+<p>不要随手对返回值写 <code>std::move</code>；它可能阻止返回值优化，因为编译器可能直接做 NRVO，如果自己写<code>return std::move(v)</code>，这可能让NRVO 无法发生。</p>
+<p>也不要在移动后假设源对象仍保留原内容。因为移动之后，源对象虽然还是一个合法对象，但内容已经是未指定状态。</p>
 
 
 <h3 class="relative group">4.7 <code>const</code>：把不可修改写进接口 
@@ -1584,17 +1596,84 @@ A20 A21 A22 A23
     </span>        
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">float</span><span class="o">*</span> <span class="n">p1</span><span class="p">;</span>        <span class="c1">// 指向 const float：不能通过 p1 改值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">float</span><span class="o">*</span> <span class="k">const</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>  <span class="c1">// const 指针：不能让 p2 改指向
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">float</span><span class="o">*</span> <span class="k">const</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
-</span></span></code></pre></div><p>成员函数末尾的 <code>const</code> 表示不修改对象的可观察状态：</p>
+<p>C++ 里 const 有三种核心用法：限制“值能不能改”、限制“指针能不能改指向”、以及限制成员函数能不能修改对象。</p>
+<p>来看下面的，注意p1 是一个“指向 const float 的指针”，但是“指向 const float 的指针”不是说被指向的对象本身必须声明成 const float。所以被指向的对象本身是可以修改的，只是“不能通过 p1 修改”。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// const 修饰的是 float，p1 是一个“指向 const float 的指针”。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">float</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">float</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">2.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">float</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">;</span>      <span class="c1">// 可以，p1 可以改指向
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">*</span><span class="n">p1</span> <span class="o">=</span> <span class="mf">3.0f</span><span class="p">;</span>   <span class="c1">// 不可以，不能通过 p1 修改它指向的 float
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 因此并不是说那个 float 本身一定不可修改，而是“不能通过 p1 修改”。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">x</span> <span class="o">=</span> <span class="mf">5.0f</span><span class="p">;</span>  <span class="c1">// x可以修改
+</span></span></span></code></pre></div><p>而<code>float* const</code>的意思是：指针不能变化指向，但指针指向的东西可以改。和上面的正相反。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// const 修饰的是指针 p2 本身，p2 是一个 const 指针，指向 float。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">float</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">float</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">2.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">float</span><span class="o">*</span> <span class="k">const</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>  <span class="c1">// const 指针：不能让 p2 改指向
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">p2</span> <span class="o">=</span> <span class="mf">3.0f</span><span class="p">;</span>   <span class="c1">// 可以修改 x
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">;</span>      <span class="c1">// 不可以，p2 不能换指向
+</span></span></span></code></pre></div><p>而最后这个，显然相当于两层都锁死：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">float</span><span class="o">*</span> <span class="k">const</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">p3</span> <span class="o">=</span> <span class="mf">3.0f</span><span class="p">;</span>   <span class="c1">// 不可以
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p3</span> <span class="o">=</span> <span class="n">other</span><span class="p">;</span>   <span class="c1">// 不可以
+</span></span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th>写法</th>
+          <th style="text-align: right">指针能改指向？</th>
+          <th style="text-align: right">能通过指针改值？</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>float* p</code></td>
+          <td style="text-align: right">✅</td>
+          <td style="text-align: right">✅</td>
+      </tr>
+      <tr>
+          <td><code>const float* p</code></td>
+          <td style="text-align: right">✅</td>
+          <td style="text-align: right">❌</td>
+      </tr>
+      <tr>
+          <td><code>float* const p</code></td>
+          <td style="text-align: right">❌</td>
+          <td style="text-align: right">✅</td>
+      </tr>
+      <tr>
+          <td><code>const float* const p</code></td>
+          <td style="text-align: right">❌</td>
+          <td style="text-align: right">❌</td>
+      </tr>
+  </tbody>
+</table>
+<p>一个很好用的阅读技巧是：从变量名往左读。比如<code>float* const p2;</code>，我们从变量名p2开始从右往左读就是p2 -&gt; const -&gt; pointer -&gt; to float，所以 p2 是一个 const pointer to float。</p>
+<p>而成员函数末尾的 <code>const</code> 表示不修改对象的可观察状态。这里面的<code>size() const</code>其实和前面的指针 const 是同一个思想：这个函数承诺不会修改当前对象的状态。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TensorView</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">size_</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// std::size_t：返回值类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// size()：函数名，参数为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// const：这个成员函数不会修改对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">size_</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size_</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p><code>const</code> 有助于编译器和读者验证接口，但不能自动解决并发安全与底层别名问题。</p>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">TensorView</span> <span class="n">view</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">view</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>   <span class="c1">// 可以进行
+</span></span></span></code></pre></div><p>这个const很重要，因为它允许你对 const 对象调用上面这个函数<code>view.size(); </code>，但是如果在类的成员函数里面是那么写的，缺少了这个const：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">size_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>那么在构造这个对象的情况下<code>const TensorView view;</code>，不可以调用<code>view.size(); </code>。因为编译器会认为：size() 没承诺不修改 view，所以不能让它操作 const 对象。因此这种查询类函数基本都应该写成 const。</p>
+<p><code>const</code> 有助于编译器和读者验证接口，但不能自动解决并发安全与底层别名问题（上面说的const float* p只代表你不能通过 p 修改它，并不意味着这个对象在整个程序里永远不会被修改）。要明确 const 不等于线程安全。</p>
 
 
 <h3 class="relative group">4.8 未定义行为为什么危险 
@@ -1607,14 +1686,26 @@ A20 A21 A22 A23
     </span>        
     
 </h3>
-<p>越界访问、使用悬空引用、有符号整数溢出、数据竞争等可能触发未定义行为（Undefined Behavior，UB）。编译器可以假设 UB 永不发生，并据此优化；程序结果不一定只是“报错”，也可能在调试版正常、优化版悄悄算错。</p>
+<p>越界访问、使用悬空引用、有符号整数溢出、数据竞争等可能触发未定义行为（Undefined Behavior，UB）。</p>
+<p>看看下面这个例子，首先明确<code>vector::operator[]</code>默认不会检查下标是否合法。也就是<code>values[4] = 1</code>这个越界行为不会抛异常并导致程序退出。而是在实际中会：程序直接去访问它认为 values[4] 所在的内存，但是那块内存不属于这个 vector，因此发生未定义行为（Undefined Behavior，UB）。因此可能会有各种各样的情况产生，这也就是 UB 最危险的地方：“没崩”不代表代码是对的。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">values</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">values</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// 越界，未定义行为
-</span></span></span></code></pre></div><p>调试时可启用警告和 Sanitizer：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">g++ -std<span class="o">=</span>c++20 -Wall -Wextra -Wpedantic <span class="se">\
+</span></span></span></code></pre></div><blockquote>
+<p><strong>[] 和 .at() 的区别：</strong></p>
+<p>上面的代码之所以直接 UB，是因为 [] 不检查边界。
+如果写<code>values.at(4) = 1;</code>，则 .at() 会进行边界检查。</p>
+<p>实际工程里，如果索引来源不可信，.at() 有时会更安全。</p></blockquote>
+<p>编译器可以假设 UB 永不发生，并据此优化；程序结果不一定只是“报错”，也可能在调试版正常、优化版悄悄算错。</p>
+<p>因为很多 UB 在编译器不一定报错，在运行时也不一定崩溃。因此 C++ 开发里r调试时可启用警告和 Sanitizer。你可以理解为编译时给程序插入大量运行时检查代码。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -Wall -Wextra -Wpedantic 是编译器警告</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -fsanitize=address 是 AddressSanitizer，简称 ASan，主要查内存错误</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -fsanitize=undefined 是 UndefinedBehaviorSanitizer，简称 UBSan，它检查很多UB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -fsanitize=address,undefined 这两个通常一起开</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -g 表示加入调试信息，这样 Sanitizer 才能比较清楚地告诉你 main.cpp:15，开发的时候很有用</span>
+</span></span><span class="line"><span class="cl">g++ -std<span class="o">=</span>c++20 -Wall -Wextra -Wpedantic <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>    -fsanitize<span class="o">=</span>address,undefined -g main.cpp -o app
 </span></span><span class="line"><span class="cl">./app
-</span></span></code></pre></div><p>AddressSanitizer 常用于发现越界、use-after-free；UndefinedBehaviorSanitizer 检查多类 UB；ThreadSanitizer 可定位数据竞争，但通常不能和 AddressSanitizer 同时启用。</p>
+</span></span></code></pre></div><p>AddressSanitizer 常用于发现越界、use-after-free；UndefinedBehaviorSanitizer 检查多类 UB；ThreadSanitizer 可定位数据竞争，比如<code>g++ -std=c++20 -fsanitize=thread -g main.cpp -o app</code>，但通常不能和 AddressSanitizer 同时启用（因为它们的运行时机制通常互不兼容）。所以一般两个都要检查的情况下，是去分别编译两版。</p>
 
 
 <h2 class="relative group">5. C++ 编译、链接、模板与构建系统 
@@ -1644,18 +1735,35 @@ A20 A21 A22 A23
 </span></span><span class="line"><span class="cl">      └─ 编译：语法/类型检查并生成汇编
 </span></span><span class="line"><span class="cl">          └─ 汇编：生成目标文件 .o
 </span></span><span class="line"><span class="cl">              └─ 链接：解析符号并生成可执行文件或库
-</span></span></code></pre></div><p>可以逐步观察：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">g++ -E main.cpp -o main.ii       <span class="c1"># 只预处理</span>
+</span></span></code></pre></div><p>上面的链接“解析符号”中的符号，可以粗略理解成函数名和全局变量名。</p>
+<p>源文件 .cpp 是C++ 源代码，CPU 根本看不懂。而CPU 最后只能执行类似 010010&hellip; 这样的机器指令，所以需要编译工具链把 C++ 一步步变成机器码。</p>
+<p>可以逐步观察：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -E 表示到预处理阶段结束就停下来，不继续编译</span>
+</span></span><span class="line"><span class="cl">g++ -E main.cpp -o main.ii       <span class="c1"># 只预处理</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -S 表示编译到汇编代码就停止</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 语法错误通常在这里发现</span>
 </span></span><span class="line"><span class="cl">g++ -S main.ii -o main.s         <span class="c1"># 生成汇编</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -c 表示生成目标文件，但是不要链接</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># g++ -c main.cpp 一次性做了预处理，编译，汇编，只是没有执行最后的链接</span>
 </span></span><span class="line"><span class="cl">g++ -c main.cpp -o main.o        <span class="c1"># 生成目标文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># linker（链接器）找到不同文件之间的关联，然后把它们链接起来，最后得到app，这才是完整的可执行程序</span>
 </span></span><span class="line"><span class="cl">g++ main.o -o app                <span class="c1"># 链接</span>
-</span></span></code></pre></div><p>头文件通常放声明，源文件放定义：</p>
+</span></span></code></pre></div><p>头文件通常放声明：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// add.h
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 防止同一个头文件在一个编译单元里被重复包含。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#pragma once
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">lhs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rhs</span><span class="p">);</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// add.cpp
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 是声明 declaration。意思是告诉编译器：存在一个函数叫 add，接收两个 int，返回一个 int。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">lhs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rhs</span><span class="p">);</span>
+</span></span></code></pre></div><p>源文件放定义：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// add.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;add.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">lhs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义 definition，真正告诉编译器 add 到底要干什么。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">lhs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">lhs</span> <span class="o">+</span> <span class="n">rhs</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
@@ -1670,11 +1778,12 @@ A20 A21 A22 A23
     </span>        
     
 </h3>
-<p>三类错误不要混在一起：</p>
+<p>当程序出错时，我们先判断它死在哪个阶段。三类错误不要混在一起：</p>
 <table>
   <thead>
       <tr>
           <th>阶段</th>
+          <th>理解</th>
           <th>典型报错</th>
           <th>常见原因</th>
       </tr>
@@ -1682,26 +1791,35 @@ A20 A21 A22 A23
   <tbody>
       <tr>
           <td>编译</td>
+          <td>单个 .cpp 不合法，也就是编译器正在处理某一个 .cpp，它甚至没法成功生成 main.o</td>
           <td><code>not declared</code>、类型不匹配</td>
           <td>缺声明、模板实例化失败、语法错误</td>
       </tr>
       <tr>
           <td>链接</td>
+          <td>每个 .cpp 单独都没问题，但链接起来失败</td>
           <td><code>undefined reference</code></td>
           <td>只声明未定义、漏链接库、ABI/签名不一致</td>
       </tr>
       <tr>
           <td>运行时装载</td>
+          <td>操作系统启动程序时，找不到它依赖的动态库</td>
           <td><code>cannot open shared object file</code></td>
           <td>动态库不在搜索路径、架构不匹配</td>
       </tr>
   </tbody>
 </table>
+<p>上面的漏链接库的含义是：假设使用某个第三方库，头文件已经 include，但是编译成最终程序时，没有告诉 linker 去链接那个库。比如本来需要<code>g++ main.o -lsome_library -o app</code>，但是却写成<code>g++ main.o -o app</code>。这时候链接器就会报：undefined reference to some_library_function，也就是漏链接库。</p>
+<p>可执行文件可能依赖一些动态库。程序启动时，操作系统的动态装载器会把这些库加载进来。</p>
+<p>那么为什么“链接成功”之后还会找不到动态库？</p>
+<p>因为“链接阶段”和“运行阶段”可能发生在不同环境。例如编译的时候，<code>/home/user/my_lib/libfoo.so</code>存在。所以 linker 不报错，但你把 app 复制到另外一台电脑的时候，libfoo.so 没有复制，于是启动时报错：cannot open shared object file。</p>
+<p>还有一种可能是动态库不在搜索路径，因为操作系统不会把整块硬盘全搜一遍去找动态库，它会按照特定路径查找，如果系统不知道这里需要搜索，就有可能报运行时装载出错。</p>
 <p>定位符号和依赖的常用命令：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nm -C build/app <span class="p">|</span> less          <span class="c1"># 查看并反修饰 C++ 符号</span>
-</span></span><span class="line"><span class="cl">ldd build/app                   <span class="c1"># Linux：查看动态库依赖</span>
-</span></span><span class="line"><span class="cl">readelf -d build/app            <span class="c1"># 查看 ELF 动态段</span>
-</span></span></code></pre></div><p>在 macOS 上，对应工具通常是 <code>otool -L</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nm -C build/app <span class="p">|</span> less          <span class="c1"># 查看并反修饰 C++ 符号，比如函数/全局变量</span>
+</span></span><span class="line"><span class="cl">ldd build/app                   <span class="c1"># Linux：查看动态库依赖。以及系统准备从哪里加载它们</span>
+</span></span><span class="line"><span class="cl">readelf -d build/app            <span class="c1"># 查看 ELF 动态段，也就是说可以看到这个 app 需要什么动态库</span>
+</span></span></code></pre></div><p>比如出现<code>undefined reference to foo</code>的报错，我们可以用<code>nm -C xxx.o</code>去检查到底有没有 foo 这个 symbol；而针对<code>libfoo.so: cannot open</code>这样的报错，我们更应该用<code>ldd app</code>去检查，可能得到libfoo.so =&gt; not found 这样的结果。</p>
+<p>在 macOS 上，对应工具通常是 <code>otool -L</code>，替换Linux 系统的<code>ldd app</code>指令。</p>
 
 
 <h3 class="relative group">5.3 静态库与动态库 
@@ -1715,7 +1833,7 @@ A20 A21 A22 A23
     
 </h3>
 <ul>
-<li>静态库（Linux 常见 <code>.a</code>）在链接时把所需代码并入目标文件；部署直接，但产物可能更大；</li>
+<li>静态库（Linux 常见 <code>.a</code>）在链接时从静态库中提取所需代码，并入最终可执行文件/最终二进制文件；部署直接，但产物可能更大；</li>
 <li>动态库（Linux <code>.so</code>、macOS <code>.dylib</code>）在装载/运行时解析；可被多个程序共享，但要处理搜索路径与 ABI 兼容。</li>
 </ul>
 <p>Linux 动态库搜索会受到二进制的 RPATH/RUNPATH、<code>LD_LIBRARY_PATH</code>、系统缓存与默认目录影响。临时设置 <code>LD_LIBRARY_PATH</code> 适合诊断，不应成为掩盖安装布局问题的长期万能方案。</p>
@@ -2122,7 +2240,7 @@ A20 A21 A22 A23
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>93100 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">186 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>99737 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">200 分钟</span>
   
 
   
