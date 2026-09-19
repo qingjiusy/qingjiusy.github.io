@@ -114,7 +114,7 @@
     "keywords": ["LeetCode","算法","Python"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "99737"
+    "wordCount": "99819"
   }]
   </script>
 
@@ -735,7 +735,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>99737 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">200 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>99819 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">200 分钟</span>
   
 
   
@@ -4284,7 +4284,7 @@
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2C</p>
 
 
 <h3 class="relative group">题型 
@@ -5394,7 +5394,7 @@ ans最好使用两个参数来表示比较简单，分别是ans_left（答案子
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -5614,7 +5614,7 @@ ans最好使用两个参数来表示比较简单，分别是ans_left（答案子
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -6393,7 +6393,7 @@ top, bottom, left, right = 0, m - 1, 0, n - 1</p>
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2C</p>
 
 
 <h3 class="relative group">题型 
@@ -6560,7 +6560,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2C</p>
 
 
 <h3 class="relative group">题型 
@@ -6793,7 +6793,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -8898,7 +8898,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>2B</p>
+<p>3C</p>
 
 
 <h3 class="relative group">题型 
@@ -8937,7 +8937,10 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>构建left和right双指针，指向数组的起点下标和终点下标，其中[left, right]应该是一个闭区间。然后我们的mid应该取数组中的中间位置：<code>mid = (left + right) // 2</code>。我们每次去对比mid下标位置的元素大小，如果小于target，则mid需要向右移动；如果nums[mid]大于target，则mid需要向左移动。每次移动前我们都要先去判定下一次移动合不合法，会不会超出数组的范围；还要注意判定，如果向右移动时，右边一位元素要大于target，则说明此数组中不存在target，而且这个mid + 1位置就应该是我们target的插入位置。注意如果我们的target小于数组中的所有元素的话，最终肯定会落到mid = 0的时候，如果这个时候检查出来仍然小于nums[0]，我们就要return 0。</p>
+<p>做法一：
+构建left和right双指针，指向数组的起点下标和终点下标，其中[left, right]应该是一个闭区间。然后我们的mid应该取数组中的中间位置：<code>mid = (left + right) // 2</code>。我们每次去对比mid下标位置的元素大小，如果小于target，则mid需要向右移动；如果nums[mid]大于target，则mid需要向左移动。每次移动前我们都要先去判定下一次移动合不合法，会不会超出数组的范围；还要注意判定，如果向右移动时，右边一位元素要大于target，则说明此数组中不存在target，而且这个mid + 1位置就应该是我们target的插入位置。注意如果我们的target小于数组中的所有元素的话，最终肯定会落到mid = 0的时候，如果这个时候检查出来仍然小于nums[0]，我们就要return 0。</p>
+<p>做法二：
+可以用边界二分的思路。</p>
 
 
 <h3 class="relative group">实现要点 
@@ -8950,7 +8953,9 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>注意在mid每次对比完成需要移动的时候，我们应该保证移动完成后的区间[left, right]不应该包含刚刚检查过的mid。所以更新应该是<code>left = mid + 1</code>或者<code>right = mid - 1</code>。</p>
+<p>做法一：
+注意在mid每次对比完成需要移动的时候，我们应该保证移动完成后的区间[left, right]不应该包含刚刚检查过的mid。所以更新应该是<code>left = mid + 1</code>或者<code>right = mid - 1</code>。</p>
+<p>做法二：</p>
 
 
 <h3 class="relative group">易错点 
@@ -8963,8 +8968,10 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>我们每次移动都要进行目前位置的判断，是否有可能会有提前返回。
+<p>做法一：
+我们每次移动都要进行目前位置的判断，是否有可能会有提前返回。
 提前返回有三类情况：插入头部、插入尾部、插入到mid和mid+1中间。因为我们要去检查nums[mid+1]，所以一定要进行检查，不然的话就可以不用if，直接交给while来判断。</p>
+<p>做法二：</p>
 
 
 <h3 class="relative group">复杂度 
@@ -8977,7 +8984,11 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>时间复杂度 O(logN)
+<p>做法一：
+时间复杂度 O(logN)
+空间复杂度 O(1)</p>
+<p>做法二：
+时间复杂度 O(logN)
 空间复杂度 O(1)</p>
 
 
@@ -9628,7 +9639,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -9837,7 +9848,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -10053,7 +10064,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -12578,7 +12589,7 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] 
     </span>        
     
 </h3>
-<p>2B</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -16068,7 +16079,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>3B</p>
+<p>4A</p>
 
 
 <h3 class="relative group">题型 
@@ -16394,7 +16405,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>1A</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -16939,7 +16950,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>2B</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -17050,7 +17061,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>3B</p>
+<p>4A</p>
 
 
 <h3 class="relative group">题型 
@@ -17770,7 +17781,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>1B</p>
+<p>2B</p>
 
 
 <h3 class="relative group">题型 
@@ -17892,7 +17903,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>1B</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -18086,7 +18097,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>1B</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -18212,7 +18223,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>0B</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
@@ -18267,7 +18278,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>注意，我们在要保证 None 的结点可以存在并对比，并且每一步只往前更新一步：</p>
+<p>注意，我们在要保证 None 的结点可以存在（因为需要靠两个都是None的时候退出while循环）并对比，并且每一步只往前更新一步：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">while</span><span class="p">(</span><span class="n">nodeA</span> <span class="o">!=</span> <span class="n">nodeB</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">nodeA</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="n">nodeA</span> <span class="o">=</span> <span class="n">headB</span>
@@ -18350,7 +18361,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>0B</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
