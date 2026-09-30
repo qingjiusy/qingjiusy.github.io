@@ -112,7 +112,7 @@
     "keywords": ["ai infra"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "11468"
+    "wordCount": "13616"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>11468 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">23 分钟</span>
+  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13616 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">28 分钟</span>
   
 
   
@@ -1832,11 +1832,14 @@ A20 A21 A22 A23
     </span>        
     
 </h3>
+<p>静态库是“编译链接时把需要的代码拷进你的程序里”，动态库是“程序运行时再去外面找库来用”。</p>
 <ul>
 <li>静态库（Linux 常见 <code>.a</code>）在链接时从静态库中提取所需代码，并入最终可执行文件/最终二进制文件；部署直接，但产物可能更大；</li>
 <li>动态库（Linux <code>.so</code>、macOS <code>.dylib</code>）在装载/运行时解析；可被多个程序共享，但要处理搜索路径与 ABI 兼容。</li>
 </ul>
-<p>Linux 动态库搜索会受到二进制的 RPATH/RUNPATH、<code>LD_LIBRARY_PATH</code>、系统缓存与默认目录影响。临时设置 <code>LD_LIBRARY_PATH</code> 适合诊断，不应成为掩盖安装布局问题的长期万能方案。</p>
+<p>Linux 动态库搜索会受到二进制的 RPATH/RUNPATH、<code>LD_LIBRARY_PATH</code>、系统缓存与默认目录影响。</p>
+<p>临时设置 <code>LD_LIBRARY_PATH</code> 适合诊断，可以去判断程序本身坏没坏，如果设置好<code>LD_LIBRARY_PATH</code>以后程序运行正常了，那么问题是动态库搜索路径。</p>
+<p>但是这个不应成为掩盖安装布局问题的长期万能方案。引入如果每次都要<code>export LD_LIBRARY_PATH=/xxx/xxx/xxx</code>才能启动程序的话，说明程序安装时没有正确告诉系统它的动态库在哪里。</p>
 
 
 <h3 class="relative group">5.4 ABI：源码兼容不代表二进制兼容 
@@ -1849,7 +1852,8 @@ A20 A21 A22 A23
     </span>        
     
 </h3>
-<p>ABI（Application Binary Interface）规定二进制层面的调用约定、名称修饰、对象布局和标准库类型实现等。以下情况都可能造成 ABI 不兼容：</p>
+<p>ABI（Application Binary Interface）规定二进制层面的调用约定、名称修饰（用不同的机器码里的符号来区分重载过的名称）、对象布局和标准库类型实现等。ABI 本质是不同二进制模块之间必须遵守的“机器级协议”。</p>
+<p>以下情况都可能造成 ABI 不兼容：</p>
 <ul>
 <li>编译器或标准库不一致；</li>
 <li>编译选项改变对象布局或 C++ ABI；</li>
@@ -1858,6 +1862,21 @@ A20 A21 A22 A23
 <li>CPU 架构不同。</li>
 </ul>
 <p>Python C++ 扩展“能编译但导入失败”时，除了 Python 路径，还要检查扩展和依赖库的 ABI、架构与符号。</p>
+<p>所以能生成 .so，并不代表这个 .so 能被当前 Python 正常加载。</p>
+<p>根据上面讲的一系列可能出错的地方，我们给出一个链路的例子来说明：</p>
+<pre tabindex="0"><code>Python import
+   ↓
+找到模块文件
+   ↓
+如果是 C/C++ 扩展，加载 .so
+   ↓
+加载它依赖的其他 .so
+   ↓
+解析其中需要的符号
+</code></pre><p><code>ImportError</code>，这是Python 层面的“导入失败”总称之一。也就是Python 找到了某个模块，但在真正加载过程中失败，就可能抛出这个error。它本身比较宽泛，真正原因通常要看后面的错误信息。比如<code>ImportError: libfoo.so: cannot open shared object file</code>表示依赖的动态库没找到; <code>ImportError: undefined symbol: xxx</code>表示动态库找到了，但某个需要的符号不存在。所以可以把这个异常理解为Python 对“这个模块没能成功加载”的上层异常。</p>
+<p><code>ModuleNotFoundError</code>：更像是Python 连模块本身都没找到。</p>
+<p><code>undefined symbol</code>：是 链接 / ABI 层面的问题。例如我们刚刚提到的类似如<code>ImportError: xxx.so: undefined symbol: _ZN...</code>这样的报错。意思是 xxx.so 已经找到了，也开始加载了，但它说“我需要一个叫某某的符号”，系统却没能在相关依赖库里找到这个符号。</p>
+<p><code>.so not found</code>：是动态库搜索路径问题，是需要的动态库文件没找到。</p>
 
 
 <h3 class="relative group">5.5 模板：在编译期生成类型特化代码 
@@ -1877,23 +1896,32 @@ A20 A21 A22 A23
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>        <span class="c1">// 实例化 add&lt;int&gt;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">);</span>  <span class="c1">// 实例化 add&lt;float&gt;
-</span></span></span></code></pre></div><p>模板定义通常要放在头文件中，因为编译器在使用点需要看到完整定义才能实例化。CUDA 和高性能计算代码大量使用模板来表达：</p>
+</span></span></span></code></pre></div><p>模板本身可以理解成代码生成规则，而不是一开始就存在的普通函数。模板只是告诉编译器如果以后有人用某个类型 T 调用我，就按照这个格式生成函数。之后我们写了真正的函数，比如<code>add(1, 2)</code>，编译器才生成 add<int>，也就是模板实例化。</p>
+<p>模板定义通常要放在头文件中，因为编译器在使用点需要看到完整定义才能实例化。CUDA 和高性能计算代码大量使用模板来表达（因为高性能代码里，经常希望很多东西在编译期就确定）：</p>
 <ul>
 <li>数据类型：<code>float</code>、<code>half</code>、<code>bfloat16</code>；</li>
 <li>tile 大小和线程块配置；</li>
 <li>布局与转置选项；</li>
 <li>编译期分支和特化实现。</li>
 </ul>
+<p>CUDA 大量使用模板，把 dtype、尺寸、tile、layout 等信息提前到编译期，从而生成针对具体配置高度优化的代码。比如对于一个循环，如果编译器能明确知道循环次数为4，就可能直接把原本的循环展开，这样可以减少一大部分循环控制开销。或者编译器能知道一个block 有 256 threads，就可以针对这个版本决定寄存器怎么分配，shared memory 怎么安排，循环怎么展开，线程之间如何分工。还可能可以在编译期分支消除，比运行时更容易生成极简代码。</p>
+<p>模板根据模板参数在编译期实例化出具体代码，并且还可以针对特定类型或参数提供特化实现。</p>
 <p>非类型模板参数可以把尺寸变成编译期常量：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">sum</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;&amp;</span> <span class="n">values</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// typename T表示元素类型，std::size_t N表示一个具体的整数值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span> <span class="c1">// 这个 N 就叫非类型模板参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">T</span> <span class="n">sum</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;&amp;</span> <span class="n">values</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">result</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="nl">value</span> <span class="p">:</span> <span class="n">values</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">+=</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>模板错误往往很长。定位时从最前面的“用户代码实例化位置”和最底层的真正约束失败开始看，不要被中间几十层展开吓住。</p>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 编译器会推导出T = int，N = 3
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 也就是说，编译器在编译阶段就已经知道N == 3，而不是程序运行起来以后才知道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">// 相当于实例化 sum&lt;int, 3&gt;
+</span></span></span></code></pre></div><p>模板错误往往很长。定位时从最前面的“用户代码实例化位置”和最底层的真正约束失败开始看，不要被中间几十层展开吓住。</p>
 
 
 <h3 class="relative group">5.6 STL 容器与迭代器 
@@ -1944,8 +1972,11 @@ A20 A21 A22 A23
 </table>
 <p><code>std::vector</code> 扩容可能重新分配内存，使原有指针、引用和迭代器失效：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">values</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">values</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span>  <span class="c1">// 已知规模时可减少重复扩容
-</span></span></span></code></pre></div><p>性能敏感代码除了看大 O 复杂度，还要看连续性、分配次数、缓存局部性和元素大小。很多场景中，线性扫描连续 <code>vector</code> 比理论查找复杂度更低但指针跳转频繁的结构更快。</p>
+</span></span><span class="line"><span class="cl"><span class="c1">// 先预留能够容纳 1024 个 int 的内存，因为已知规模时可减少重复扩容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">values</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span>  
+</span></span></code></pre></div><p>这样子<code>reserve</code>会提高性能。因为我们实现预留内存就避免了后续的重复扩容，每次扩容都可能做一遍：申请新内存 -&gt; 复制 / move 原来的元素 -&gt; 释放旧内存。比较低效。</p>
+<p>性能敏感代码除了看大 O 复杂度，还要看连续性、分配次数、缓存局部性和元素大小。很多场景中，线性扫描连续 <code>vector</code> 比理论查找复杂度更低但指针跳转频繁的结构更快。</p>
+<p>Big-O 描述的是增长趋势，<strong>不等于真实运行速度</strong>。所以在 C++ 里，std::vector 往往是默认优先考虑的数据结构，并不只是因为它接口简单，更重要的是它的连续内存布局非常符合现代 CPU/GPU 的访问特点。</p>
 
 
 <h3 class="relative group">5.7 最小 CMake 项目 
@@ -1960,24 +1991,33 @@ A20 A21 A22 A23
 </h3>
 <p>目录：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">vector_ops/
-</span></span><span class="line"><span class="cl">├── CMakeLists.txt
-</span></span><span class="line"><span class="cl">├── include/vector_ops.h
-</span></span><span class="line"><span class="cl">└── src/vector_ops.cpp
+</span></span><span class="line"><span class="cl">├── CMakeLists.txt          告诉 CMake 项目该怎么编译
+</span></span><span class="line"><span class="cl">├── include/vector_ops.h    头文件，声明接口
+</span></span><span class="line"><span class="cl">└── src/vector_ops.cpp      实现代码
 </span></span></code></pre></div><p><code>CMakeLists.txt</code>：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.20</span><span class="p">)</span><span class="err">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="err">&lt;!--</span> <span class="err">这个项目要求</span> <span class="err">CMake</span> <span class="err">版本至少为</span> <span class="err">3.20。</span> <span class="err">--&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.20</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;!--</span> <span class="err">项目名：vector_ops。使用语言：C++</span> <span class="err">--&gt;
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">project</span><span class="p">(</span><span class="s">vector_ops</span> <span class="s">LANGUAGES</span> <span class="s">CXX</span><span class="p">)</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;!--</span> <span class="err">要构建一个叫</span> <span class="err">vector_ops</span> <span class="err">的库，它的源码是</span> <span class="err">src/vector_ops.cpp</span> <span class="err">--&gt;
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">add_library</span><span class="p">(</span><span class="s">vector_ops</span> <span class="s">src/vector_ops.cpp</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;!--</span> <span class="err">给</span> <span class="err">vector_ops</span> <span class="err">这个</span> <span class="err">target</span> <span class="err">添加</span> <span class="err">include/</span> <span class="err">头文件搜索路径</span> <span class="err">--&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;!--</span> <span class="err">其中PUBLIC</span> <span class="err">表示：vector_ops</span> <span class="err">自己需要这个</span> <span class="err">include</span> <span class="err">路径，并且使用</span> <span class="err">vector_ops</span> <span class="err">的其他</span> <span class="err">target</span> <span class="err">也需要这个路径</span> <span class="err">--&gt;
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="s">vector_ops</span> <span class="s">PUBLIC</span> <span class="s">include</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;!--</span> <span class="err">vector_ops</span> <span class="err">需要</span> <span class="err">C++20</span> <span class="err">--&gt;
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">target_compile_features</span><span class="p">(</span><span class="s">vector_ops</span> <span class="s">PUBLIC</span> <span class="s">cxx_std_20</span><span class="p">)</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;!--</span> <span class="err">判断编译器是什么</span> <span class="err">--&gt;
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER_ID</span> <span class="s">MATCHES</span> <span class="s2">&#34;GNU|Clang&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="err">&lt;!--</span> <span class="err">编译</span> <span class="err">vector_ops</span> <span class="err">时，加上这些编译器参数</span> <span class="err">--&gt;
 </span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="nb">target_compile_options</span><span class="p">(</span><span class="s">vector_ops</span> <span class="s">PRIVATE</span> <span class="s">-Wall</span> <span class="s">-Wextra</span> <span class="s">-Wpedantic</span><span class="p">)</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">endif</span><span class="p">()</span><span class="err">
 </span></span></span></code></pre></div><p>构建：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake -S . -B build -DCMAKE_BUILD_TYPE<span class="o">=</span>Release
 </span></span><span class="line"><span class="cl">cmake --build build --parallel
-</span></span></code></pre></div><p>现代 CMake 的核心是 <strong>target</strong>。用 <code>target_include_directories</code>、<code>target_link_libraries</code>、<code>target_compile_features</code> 描述依赖，少用全局的 <code>include_directories</code> 和手工拼接编译命令。</p>
+</span></span></code></pre></div><p>现代 CMake 的核心是 <strong>target</strong>。现代 CMake把每一个要构建的东西都当成独立的 target，然后分别描述它们需要什么。</p>
+<p>用 <code>target_include_directories</code>、<code>target_link_libraries</code>、<code>target_compile_features</code> 描述依赖，少用全局的 <code>include_directories</code> 和手工拼接编译命令。</p>
 
 
 <h3 class="relative group">5.8 C++ 并发的最小认知 
@@ -1990,17 +2030,39 @@ A20 A21 A22 A23
     </span>        
     
 </h3>
-<p>多个线程并发访问同一内存，其中至少一个写入且缺乏同步，就可能形成数据竞争，属于未定义行为。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;mutex&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">mutex</span> <span class="n">mutex</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<p><strong>多个线程并发访问同一内存，其中至少一个写入且缺乏同步，就可能形成数据竞争</strong>，属于未定义行为。</p>
+<p>如果一开始那么写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">increment</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">guard</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">counter</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>互斥锁保证临界区互斥，原子类型适合简单共享状态，条件变量用于等待状态变化。不要把 <code>volatile</code> 当作线程同步工具；它不提供原子性或线程间 happens-before 关系。</p>
+</span></span></code></pre></div><p>因为没有锁，所以如果线程 A 和线程 B 同时执行 increment()，最后结果不一定就是加 2，可能会是：</p>
+<pre tabindex="0"><code>线程 A：读取 0
+线程 B：读取 0
+
+线程 A：计算 1
+线程 B：计算 1
+
+线程 A：写入 1
+线程 B：写入 1
+</code></pre><p>最终counter = 1，而不是2。更严重的是，在 C++ 里这种 data race（数据竞争）属于 Undefined Behavior，未定义行为。所以不能简单理解成“偶尔算错”，理论上程序可能产生任意异常结果。</p>
+<p>正确的做法是这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;mutex&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">mutex</span> <span class="n">mutex</span><span class="p">;</span> <span class="c1">// 互斥锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">increment</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 使用 RAII 思想，更加安全
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">guard</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">counter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>当线程 A 拿到锁以后执行<code>++counter;</code>线程 B 想执行同一段受锁保护的代码，就必须等待。这样最终counter = 2。这里被锁保护起来的代码，也就是<code>++counter;</code>叫做临界区（同一时刻只能允许一个线程执行的共享数据操作区域）。</p>
+<p>互斥锁保证临界区互斥，原子类型适合简单共享状态，条件变量（条件没满足时让线程睡眠，条件发生变化时再把它叫醒）用于等待状态变化。</p>
+<p>首先解释一下<code>volatile</code>在干嘛，可以把它理解成对编译器优化器说：
+<em>“这个变量的值可能在你看不到的地方发生变化，所以每次代码要求读它时，都真的去内存/对应位置读；每次要求写它时，也真的执行写操作，不要自作主张省略。”</em></p>
+<p>不要把 <code>volatile</code> 当作线程同步工具；它不提供原子性或线程间 happens-before 关系。volatile 解决的是“编译器不要随便优化这次内存访问”，而 atomic/mutex 解决的是“多个线程之间如何正确协调访问”。</p>
 <p>高性能并发优化前，首先保证正确性，并使用 ThreadSanitizer 等工具检查数据竞争。</p>
 
           
@@ -2240,7 +2302,7 @@ A20 A21 A22 A23
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>109599 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">219 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>123257 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">247 分钟</span>
   
 
   
