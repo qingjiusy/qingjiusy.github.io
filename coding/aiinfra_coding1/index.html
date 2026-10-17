@@ -255,14 +255,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Lives">
+          <p class="text-sm font-sm" title="">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Codings">
+          <p class="text-sm font-sm" title="">
             code
           </p>
         </a>
@@ -463,7 +463,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Lives">
+        <p class="text-sm font-small" title="">
             生活
         </p>
     </a>
@@ -472,7 +472,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Codings">
+        <p class="text-sm font-small" title="">
             code
         </p>
     </a>
@@ -538,7 +538,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/aiinfra_coding1/featured_hu_94326181bb325abc.PNG);">
+    style="background-image:url(/coding/aiinfra_coding1/featured_hu3895917425846982312.PNG);">
     
 
 
@@ -640,7 +640,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
@@ -1182,45 +1182,45 @@
 <p><code>Iterator[T]</code> 表示“迭代器类型”，其中 T 是每次调用 <code>next()</code> 时返回的元素类型。Batch 本身更准确地说是“可迭代对象”，因为它实现了 <strong>iter</strong>；真正的迭代器是 iter(self.samples) 返回的对象。具体关于这一块我们在 2.5 中介绍。</p>
 <p>常见特殊方法及用途：</p>
 <table>
-  <thead>
-      <tr>
-          <th>方法</th>
-          <th>触发方式</th>
-          <th>典型用途</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>__init__</code></td>
-          <td>创建实例后</td>
-          <td>初始化实例状态</td>
-      </tr>
-      <tr>
-          <td><code>__repr__</code></td>
-          <td><code>repr(obj)</code>、调试器</td>
-          <td>无歧义的调试表示</td>
-      </tr>
-      <tr>
-          <td><code>__call__</code></td>
-          <td><code>obj(...)</code></td>
-          <td>让实例表现得像函数</td>
-      </tr>
-      <tr>
-          <td><code>__enter__</code> / <code>__exit__</code></td>
-          <td><code>with</code></td>
-          <td>管理资源生命周期</td>
-      </tr>
-      <tr>
-          <td><code>__iter__</code> / <code>__next__</code></td>
-          <td><code>for</code>、<code>next</code></td>
-          <td>定义迭代协议</td>
-      </tr>
-      <tr>
-          <td><code>__getitem__</code></td>
-          <td><code>obj[key]</code></td>
-          <td>索引、切片或映射访问</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>方法</th>
+<th>触发方式</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>__init__</code></td>
+<td>创建实例后</td>
+<td>初始化实例状态</td>
+</tr>
+<tr>
+<td><code>__repr__</code></td>
+<td><code>repr(obj)</code>、调试器</td>
+<td>无歧义的调试表示</td>
+</tr>
+<tr>
+<td><code>__call__</code></td>
+<td><code>obj(...)</code></td>
+<td>让实例表现得像函数</td>
+</tr>
+<tr>
+<td><code>__enter__</code> / <code>__exit__</code></td>
+<td><code>with</code></td>
+<td>管理资源生命周期</td>
+</tr>
+<tr>
+<td><code>__iter__</code> / <code>__next__</code></td>
+<td><code>for</code>、<code>next</code></td>
+<td>定义迭代协议</td>
+</tr>
+<tr>
+<td><code>__getitem__</code></td>
+<td><code>obj[key]</code></td>
+<td>索引、切片或映射访问</td>
+</tr>
+</tbody>
 </table>
 
 
@@ -1413,7 +1413,8 @@
 </span></span></code></pre></div><blockquote>
 <p>解释一下*args 和 **kwargs：</p>
 <p>如果 wrapper 写成 <code>def wrapper(values):</code>，那么它只能包装这种函数：<code>def foo(values):</code>。
-但装饰器通常希望什么函数都能包装。所以写成<code>def wrapper(*args, **kwargs):</code>，就是不管原函数有多少位置参数、关键字参数，我全部接住。</p></blockquote>
+但装饰器通常希望什么函数都能包装。所以写成<code>def wrapper(*args, **kwargs):</code>，就是不管原函数有多少位置参数、关键字参数，我全部接住。</p>
+</blockquote>
 <p>装饰器适合日志、缓存、权限检查和性能观测，很适合复用；如果只是单个调用点需要计时，一个普通的 <code>with timer():</code> 往往更直白，不必为了“高级”而使用装饰器。</p>
 <p>因为装饰器不仅是为了复用，也是为了把某种行为绑定到函数本身；with 更适合绑定到某一段代码执行范围。</p>
 
@@ -1607,35 +1608,35 @@
 <p>不要一看到“任务很多”就想着开线程。先看任务到底是在“等”，还是在“算”。因为不同瓶颈，对应的并发方式完全不同。</p>
 <p>选择并发模型前，先判断瓶颈：</p>
 <table>
-  <thead>
-      <tr>
-          <th>任务类型</th>
-          <th>典型例子</th>
-          <th>常见选择</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>I/O 密集</td>
-          <td>请求服务、读取大量小文件</td>
-          <td>线程（threading）或 <code>asyncio</code></td>
-      </tr>
-      <tr>
-          <td>Python CPU 密集</td>
-          <td>纯 Python 解析、复杂循环</td>
-          <td>多进程（multiprocessing）或原生扩展</td>
-      </tr>
-      <tr>
-          <td>原生算子密集</td>
-          <td>NumPy/PyTorch/CUDA 运算</td>
-          <td>由底层线程池/GPU 并行，Python 负责调度</td>
-      </tr>
-      <tr>
-          <td>大数据跨进程</td>
-          <td>数据加载、共享缓存</td>
-          <td>多进程 + 共享内存，避免频繁序列化大对象</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>任务类型</th>
+<th>典型例子</th>
+<th>常见选择</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I/O 密集</td>
+<td>请求服务、读取大量小文件</td>
+<td>线程（threading）或 <code>asyncio</code></td>
+</tr>
+<tr>
+<td>Python CPU 密集</td>
+<td>纯 Python 解析、复杂循环</td>
+<td>多进程（multiprocessing）或原生扩展</td>
+</tr>
+<tr>
+<td>原生算子密集</td>
+<td>NumPy/PyTorch/CUDA 运算</td>
+<td>由底层线程池/GPU 并行，Python 负责调度</td>
+</tr>
+<tr>
+<td>大数据跨进程</td>
+<td>数据加载、共享缓存</td>
+<td>多进程 + 共享内存，避免频繁序列化大对象</td>
+</tr>
+</tbody>
 </table>
 <p>针对I/O 密集任务，我们非常适合使用线程（threading）或 <code>asyncio</code>，核心思想都是<strong>某个任务等待 I/O 时，让别的任务运行</strong>。那么为什么Python 线程适合 I/O？这就需要我们了解下一章的GIL。</p>
 <p>针对CPU 密集型任务，多进程可以处理是因为每个进程有自己的 Python Interpreter，也有自己的 GIL，所以可以真正并行。</p>
@@ -1778,7 +1779,8 @@
 <p>核心就是<strong>进程之间不像线程那样天然共享同一个 Python 内存空间</strong>。</p>
 <p>如果每个任务只做几十微秒工作，调度成本可能比计算更高。应增大任务粒度，也就是一次分配出去更多工作，让“实际计算时间”远大于“调度和通信时间”，并尽量避免来回传递大型数组或张量。</p>
 <blockquote>
-<p><strong>GPU 关联</strong>：CUDA 不是普通的 Python 内存状态，父进程已经初始化 CUDA 以后，再用fork复制出子进程，子进程拿到的CUDA状态可能是不完整或不安全的。因此不要在父进程初始化CUDA后随意 <code>fork</code>。</p></blockquote>
+<p><strong>GPU 关联</strong>：CUDA 不是普通的 Python 内存状态，父进程已经初始化 CUDA 以后，再用fork复制出子进程，子进程拿到的CUDA状态可能是不完整或不安全的。因此不要在父进程初始化CUDA后随意 <code>fork</code>。</p>
+</blockquote>
 
 
 <h3 class="relative group">3.5 <code>asyncio</code>：协作式 I/O 并发 
@@ -1909,38 +1911,38 @@
 </span></span><span class="line"><span class="cl">stats 30
 </span></span></code></pre></div><p>cProfile 记录每个 Python 函数被调用多少次，以及它们花了多少时间。一个比较常见的输出列大概是：</p>
 <table>
-  <thead>
-      <tr>
-          <th>项目</th>
-          <th>说明</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>ncalls</code></td>
-          <td>函数被调用的次数。</td>
-      </tr>
-      <tr>
-          <td><code>tottime</code></td>
-          <td>函数<strong>自身</strong>消耗的总时间，不包括它调用的其他函数。</td>
-      </tr>
-      <tr>
-          <td><code>percall</code></td>
-          <td><code>tottime / ncalls</code>，函数每次调用平均自身耗时。</td>
-      </tr>
-      <tr>
-          <td><code>cumtime</code></td>
-          <td>函数自身 + 它调用的所有子函数的累计耗时。</td>
-      </tr>
-      <tr>
-          <td><code>percall</code></td>
-          <td><code>cumtime / 原始调用次数</code>，每次调用平均累计耗时。</td>
-      </tr>
-      <tr>
-          <td><code>filename:lineno(function)</code></td>
-          <td>函数所在的文件名、定义行号以及函数名。</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ncalls</code></td>
+<td>函数被调用的次数。</td>
+</tr>
+<tr>
+<td><code>tottime</code></td>
+<td>函数<strong>自身</strong>消耗的总时间，不包括它调用的其他函数。</td>
+</tr>
+<tr>
+<td><code>percall</code></td>
+<td><code>tottime / ncalls</code>，函数每次调用平均自身耗时。</td>
+</tr>
+<tr>
+<td><code>cumtime</code></td>
+<td>函数自身 + 它调用的所有子函数的累计耗时。</td>
+</tr>
+<tr>
+<td><code>percall</code></td>
+<td><code>cumtime / 原始调用次数</code>，每次调用平均累计耗时。</td>
+</tr>
+<tr>
+<td><code>filename:lineno(function)</code></td>
+<td>函数所在的文件名、定义行号以及函数名。</td>
+</tr>
+</tbody>
 </table>
 <p>cProfile 中的 <code>cumtime</code> 就是这个函数本身 + 它调用的所有下层函数，总共消耗了多少时间。通过 <code>python -m cProfile -s cumulative demo.py</code> 我们让 cProfile 中 cumtime 的结果按照累计时间排序，适合用它找哪个函数树占用了最多运行时间。</p>
 <p><code>tottime</code>就是函数自身执行的时间。不包括它调用其他函数的时间。<code>python -m cProfile -s time demo.py</code>是让我们的结果按照 cProfile 中 tottime 进行排序。</p>
@@ -2026,7 +2028,7 @@
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/leetcode_notes/featured_hu_bf13710d312af7e3.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/leetcode_notes/featured_hu15805783810846214210.PNG);"></div>
         
       
 
@@ -2077,7 +2079,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>123257 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">247 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>133158 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">266 分钟</span>
   
 
   
@@ -2108,7 +2110,7 @@
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-10/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-10/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -2190,7 +2192,7 @@
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -2241,7 +2243,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8850 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8827 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
   
 
   
@@ -2279,8 +2281,8 @@
           
         
       <script>
-        var oid = "views_coding\/aiinfra_coding1\/index.md"
-        var oid_likes = "likes_coding\/aiinfra_coding1\/index.md"
+        var oid = "views_coding\\aiinfra_coding1\\index.md"
+        var oid_likes = "likes_coding\\aiinfra_coding1\\index.md"
       </script>
       
       
@@ -2373,7 +2375,7 @@
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="Tags">
+            title="">
             
             Tags
           </a>
@@ -2381,7 +2383,7 @@
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="Categories">
+            title="">
             
             Categories
           </a>
