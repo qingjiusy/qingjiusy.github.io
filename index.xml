@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>2026 清酒 转载请标明出处</copyright>
-    <lastBuildDate>Sun, 06 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://qingjiusy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SQL 刷题笔记：窗口函数到底怎么用</title>
+      <link>https://qingjiusy.github.io/coding/mysql_window_function/</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingjiusy.github.io/coding/mysql_window_function/</guid>
+      <description>blog</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://qingjiusy.github.io/coding/mysql_window_function/featured.PNG" />
+    </item>
     
     <item>
       <title>C/C&#43;&#43; 基础知识坑</title>

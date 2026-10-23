@@ -112,7 +112,7 @@
     "keywords": ["cs336"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "5984"
+    "wordCount": "5985"
   }]
   </script>
 
@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Lives">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Codings">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Lives">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Codings">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-6/featured_hu15877482033400326244.JPG);">
+    style="background-image:url(/coding/cs336-assign1-6/featured_hu_fdbc5ba662749d7d.JPG);">
     
 
 
@@ -733,7 +733,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5984 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5985 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
     
   
   <div class="place-self-center">
@@ -1060,8 +1060,7 @@
 <li>拿到 <code>ScaledDotProductAttention</code> 的<strong>引导骨架</strong>，知道自己该在 <code>cs336_basics/</code> 里写什么，以及必须支持任意前导 batch 维（4D 测试）。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信</strong>：本章用内置件 <code>F.scaled_dot_product_attention</code> / <code>F.softmax</code> 当&quot;黑盒教具&quot;来展示注意力的<strong>行为与性质</strong>（比如注意力权重热图），<strong>不</strong>展示&quot;某表达式恰好等于测试参考输出&quot;这种解答。核心实现表达式一律留白（<code>...</code>）给你自己写。</p>
-</blockquote>
+<p><strong>学术诚信</strong>：本章用内置件 <code>F.scaled_dot_product_attention</code> / <code>F.softmax</code> 当&quot;黑盒教具&quot;来展示注意力的<strong>行为与性质</strong>（比如注意力权重热图），<strong>不</strong>展示&quot;某表达式恰好等于测试参考输出&quot;这种解答。核心实现表达式一律留白（<code>...</code>）给你自己写。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
@@ -1128,11 +1127,7 @@ tensor([[1.0000, 0.9000, 0.0000, 0.1000],
 </h2>
 <p><code>scores</code> 会直接喂给 softmax。问题来了：<strong>当特征维度 <code>d_k</code> 变大时，点积的数值尺度会随之变大。</strong></p>
 <p>直觉：<code>q · k = Σ_{t=1}^{d_k} q_t k_t</code> 是 <code>d_k</code> 个独立项之和。若各分量 ~ N(0,1) 且相互独立，则每一项方差≈1，求和后方差≈<code>d_k</code>——<strong>方差随 <code>d_k</code> 线性增长</strong>。下面用采样实验验证。</p>
-<p>而根据方差的缩放规律：</p>
-$$\operatorname{Var}(aX)=a^2\operatorname{Var}(X)$$
-<p>，我们显然可以得到</p>
-$$\operatorname{Var}(z)=\operatorname{Var}\left(\frac{q\cdot k}{\sqrt{d_k}}\right)=\frac{1}{d_k}\operatorname{Var}(q\cdot k)\approx\frac{1}{d_k}\cdot d_k=1$$
-<p>。
+$$\operatorname{Var}(aX)=a^2\operatorname{Var}(X)$$$$\operatorname{Var}(z)=\operatorname{Var}\left(\frac{q\cdot k}{\sqrt{d_k}}\right)=\frac{1}{d_k}\operatorname{Var}(q\cdot k)\approx\frac{1}{d_k}\cdot d_k=1$$<p>。
 因此我们应该除d_k的根号，<strong>让送入 softmax 的 logits 不会随着 head dimension 增大而越来越大，从而避免 softmax 过度饱和。</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 方差实验：随机 q, k ~ N(0,1)，统计点积 q·k 的方差随 d_k 的变化</span>
 </span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -1166,11 +1161,11 @@ $$\operatorname{Var}(z)=\operatorname{Var}\left(\frac{q\cdot k}{\sqrt{d_k}}\righ
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-6/index_files/index_5_0_hu15679469926632828684.png 330w,
-        /coding/cs336-assign1-6/index_files/index_5_0_hu1845171960248582052.png 660w,
-        /coding/cs336-assign1-6/index_files/index_5_0_hu3125716862189895603.png 1024w,
-        /coding/cs336-assign1-6/index_files/index_5_0_hu12179811358456289273.png 2x"
-        src="/coding/cs336-assign1-6/index_files/index_5_0_hu1845171960248582052.png"
+        /coding/cs336-assign1-6/index_files/index_5_0_hu_709aa192653a27c6.png 330w,
+        /coding/cs336-assign1-6/index_files/index_5_0_hu_786c3f702ee37bb9.png 660w,
+        /coding/cs336-assign1-6/index_files/index_5_0_hu_de81951bc1c22a88.png 1024w,
+        /coding/cs336-assign1-6/index_files/index_5_0_hu_e818fd3a4ae653e0.png 2x"
+        src="/coding/cs336-assign1-6/index_files/index_5_0_hu_786c3f702ee37bb9.png"
         alt="png"
       />
       
@@ -1245,11 +1240,11 @@ scale=10  softmax=[1. 0. 0. 0.]   max_prob=1.000
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-6/index_files/index_9_0_hu15560978165200801076.png 330w,
-        /coding/cs336-assign1-6/index_files/index_9_0_hu4096698782198135998.png 660w,
-        /coding/cs336-assign1-6/index_files/index_9_0_hu10907926152401751682.png 1024w,
-        /coding/cs336-assign1-6/index_files/index_9_0_hu17726088834645747554.png 2x"
-        src="/coding/cs336-assign1-6/index_files/index_9_0_hu4096698782198135998.png"
+        /coding/cs336-assign1-6/index_files/index_9_0_hu_a2474003b593bcb7.png 330w,
+        /coding/cs336-assign1-6/index_files/index_9_0_hu_70533aeaa8097304.png 660w,
+        /coding/cs336-assign1-6/index_files/index_9_0_hu_a6c957e0421cbe18.png 1024w,
+        /coding/cs336-assign1-6/index_files/index_9_0_hu_4cab3e1375e5543c.png 2x"
+        src="/coding/cs336-assign1-6/index_files/index_9_0_hu_70533aeaa8097304.png"
         alt="png"
       />
       
@@ -1272,8 +1267,7 @@ scale=10  softmax=[1. 0. 0. 0.]   max_prob=1.000
 </h3>
 <p>我们想直接&quot;看到&quot;注意力权重矩阵，但 <code>F.scaled_dot_product_attention</code> 只返回<strong>聚合后的输出</strong>、不返回权重。这里有个干净的<strong>黑盒小技巧</strong>：</p>
 <blockquote>
-<p>令 <code>V = 单位矩阵 I</code>（形状 <code>keys × keys</code>），那么输出的第 <code>i</code> 行恰好就是 query_i 对各 key 的<strong>权重分布</strong>！</p>
-</blockquote>
+<p>令 <code>V = 单位矩阵 I</code>（形状 <code>keys × keys</code>），那么输出的第 <code>i</code> 行恰好就是 query_i 对各 key 的<strong>权重分布</strong>！</p></blockquote>
 <p>因为&quot;对 value 加权求和&quot;里，如果每个 value 就是一个 one-hot 基向量，加权和自然还原出权重本身。这样我们把 SDPA 当纯黑盒用，就能画权重热图、对比加不加因果 mask。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># V = 单位矩阵 -&gt; F.scaled_dot_product_attention 的输出 = 注意力权重矩阵</span>
 </span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
@@ -1302,11 +1296,11 @@ scale=10  softmax=[1. 0. 0. 0.]   max_prob=1.000
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-6/index_files/index_11_0_hu9501837154752087499.png 330w,
-        /coding/cs336-assign1-6/index_files/index_11_0_hu3776733654127999381.png 660w,
-        /coding/cs336-assign1-6/index_files/index_11_0_hu9476821800784909593.png 1024w,
-        /coding/cs336-assign1-6/index_files/index_11_0_hu1792969708397818189.png 2x"
-        src="/coding/cs336-assign1-6/index_files/index_11_0_hu3776733654127999381.png"
+        /coding/cs336-assign1-6/index_files/index_11_0_hu_c4c6b36c5bc0c06a.png 330w,
+        /coding/cs336-assign1-6/index_files/index_11_0_hu_b76ffe94ad88f3fb.png 660w,
+        /coding/cs336-assign1-6/index_files/index_11_0_hu_b1cf3c5a93f99c59.png 1024w,
+        /coding/cs336-assign1-6/index_files/index_11_0_hu_9e87a7635cfe0756.png 2x"
+        src="/coding/cs336-assign1-6/index_files/index_11_0_hu_b76ffe94ad88f3fb.png"
         alt="png"
       />
       
@@ -1337,8 +1331,7 @@ X
 \rightarrow \text{Mask}
 \rightarrow \text{Softmax}
 \rightarrow AV
-$$
-<p>下面介绍每一步对应的名词。</p>
+$$<p>下面介绍每一步对应的名词。</p>
 
 
 <h3 class="relative group">1. Query、Key、Value（Q、K、V） 
@@ -1354,18 +1347,14 @@ $$
 <p>输入序列表示为：</p>
 $$
 X\in\mathbb{R}^{n\times d_{\text{model}}}
-$$
-<p>经过三个不同的线性变换得到：</p>
+$$<p>经过三个不同的线性变换得到：</p>
 $$
 Q=XW_Q
-$$
-$$
+$$$$
 K=XW_K
-$$
-$$
+$$$$
 V=XW_V
-$$
-<p>它们可以简单理解为：</p>
+$$<p>它们可以简单理解为：</p>
 <ul>
 <li><strong>Query（查询）：我想寻找什么信息。</strong></li>
 <li><strong>Key（键）：我具有什么特征，可以被别人匹配。</strong></li>
@@ -1374,16 +1363,13 @@ $$
 <p>对于第 $i$ 个 Query 和第 $j$ 个 Key：</p>
 $$
 q_i
-$$
-<p>表示第 $i$ 个 Token 希望寻找的信息。</p>
+$$<p>表示第 $i$ 个 Token 希望寻找的信息。</p>
 $$
 k_j
-$$
-<p>表示第 $j$ 个 Token 用于被匹配的特征。</p>
+$$<p>表示第 $j$ 个 Token 用于被匹配的特征。</p>
 $$
 v_j
-$$
-<p>表示第 $j$ 个 Token 最终提供的信息。</p>
+$$<p>表示第 $j$ 个 Token 最终提供的信息。</p>
 <hr>
 
 
@@ -1400,12 +1386,10 @@ $$
 <p>首先计算 Query 与 Key 的点积：</p>
 $$
 S=QK^\top
-$$
-<p>其中：</p>
+$$<p>其中：</p>
 $$
 s_{ij}=q_i\cdot k_j
-$$
-<p>表示 <strong>第 $i$ 个 Query 与第 $j$ 个 Key 的匹配程度</strong>。</p>
+$$<p>表示 <strong>第 $i$ 个 Query 与第 $j$ 个 Key 的匹配程度</strong>。</p>
 <p>此时得到的称为 <strong>注意力分数（Attention Score）</strong>，也常被称为：</p>
 <ul>
 <li>Raw Attention Score</li>
@@ -1434,16 +1418,13 @@ $$
 <p>为了防止维度 $d_k$ 增大导致点积越来越大，需要除以：</p>
 $$
 \sqrt{d_k}
-$$
-<p>得到：</p>
+$$<p>得到：</p>
 $$
 \frac{QK^\top}{\sqrt{d_k}}
-$$
-<p>对应单个元素：</p>
+$$<p>对应单个元素：</p>
 $$
 \frac{q_i\cdot k_j}{\sqrt{d_k}}
-$$
-<p>这一步得到的通常称为：</p>
+$$<p>这一步得到的通常称为：</p>
 <ul>
 <li>Scaled Attention Score</li>
 <li>Attention Logits（很多论文也这样称呼）</li>
@@ -1468,8 +1449,7 @@ L=
 \frac{QK^\top}{\sqrt{d_k}}
 +
 M
-$$
-<p>其中：</p>
+$$<p>其中：</p>
 <ul>
 <li>可见位置加上 $0$；</li>
 <li>被屏蔽位置加上 $-\infty$（实际实现中通常使用一个极大的负数）。</li>
@@ -1493,19 +1473,16 @@ $$
 A
 =%
 \operatorname{softmax}(L)
-$$
-<p>即：</p>
+$$<p>即：</p>
 $$
 a_{ij}
 =%
 \frac{\exp(L_{ij})}
 {\sum_t\exp(L_{it})}
-$$
-<p>其中：</p>
+$$<p>其中：</p>
 $$
 a_{ij}
-$$
-<p>表示 <strong>第 $i$ 个 Query 最终从第 $j$ 个 Value 获取多少比例的信息</strong>。</p>
+$$<p>表示 <strong>第 $i$ 个 Query 最终从第 $j$ 个 Value 获取多少比例的信息</strong>。</p>
 <p>注意力权重具有以下特点：</p>
 <ul>
 <li>每个元素都位于 $[0,1]$；</li>
@@ -1515,8 +1492,7 @@ $$
 <p>矩阵：</p>
 $$
 A
-$$
-<p>也常被称为：</p>
+$$<p>也常被称为：</p>
 <ul>
 <li>Attention Weight Matrix</li>
 <li>Attention Probability Matrix</li>
@@ -1539,15 +1515,12 @@ $$
 <p>最后使用注意力权重对所有 Value 做加权求和：</p>
 $$
 O=AV
-$$
-<p>其中：</p>
+$$<p>其中：</p>
 $$
 o_i=\sum_j a_{ij}v_j
-$$
-<p>表示：</p>
+$$<p>表示：</p>
 <blockquote>
-<p>第 $i$ 个 Token 根据注意力权重，从所有可见 Token 的 Value 中汇总得到的信息。</p>
-</blockquote>
+<p>第 $i$ 个 Token 根据注意力权重，从所有可见 Token 的 Value 中汇总得到的信息。</p></blockquote>
 <p>它通常被称为：</p>
 <ul>
 <li>Attention Output</li>
@@ -1555,8 +1528,7 @@ $$
 </ul>
 <p>需要注意：</p>
 <blockquote>
-<p><strong>Attention Output 并不是 Attention Weight。</strong></p>
-</blockquote>
+<p><strong>Attention Output 并不是 Attention Weight。</strong></p></blockquote>
 <p>Attention Weight 决定<strong>看谁、看多少</strong>；</p>
 <p>Attention Output 则是真正<strong>取回来的信息</strong>。</p>
 
@@ -1686,20 +1658,20 @@ run_scaled_dot_product_attention 里接线，再跑：
     
 </h3>
 <table>
-<thead>
-<tr>
-<th>你要实现</th>
-<th>对应 <code>run_*</code></th>
-<th>一句话提示</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ScaledDotProductAttention</code></td>
-<td><code>run_scaled_dot_product_attention</code></td>
-<td>scores=Q·Kᵀ → /√d_k → (mask 前置极负) → softmax(keys 维) → ·V；全程广播、支持任意前导维</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>ScaledDotProductAttention</code></td>
+          <td><code>run_scaled_dot_product_attention</code></td>
+          <td>scores=Q·Kᵀ → /√d_k → (mask 前置极负) → softmax(keys 维) → ·V；全程广播、支持任意前导维</td>
+      </tr>
+  </tbody>
 </table>
 <p>接线方式看 <code>tests/adapters.py</code> 里 <code>run_scaled_dot_product_attention</code> 的 docstring。softmax 复用你在 <code>run_softmax</code> 里的实现（数值稳定版本）。</p>
 <p>下一章 <code>07_multihead_attention</code>：把单头 SDPA 拆成多头、拼接投影，并接上 RoPE。</p>
@@ -1726,7 +1698,7 @@ run_scaled_dot_product_attention 里接线，再跑：
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1777,7 +1749,7 @@ run_scaled_dot_product_attention 里接线，再跑：
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5660 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -1808,7 +1780,7 @@ run_scaled_dot_product_attention 里接线，再跑：
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1859,7 +1831,7 @@ run_scaled_dot_product_attention 里接线，再跑：
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4692 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4701 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
   
 
   
@@ -1890,7 +1862,7 @@ run_scaled_dot_product_attention 里接线，再跑：
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1979,8 +1951,8 @@ run_scaled_dot_product_attention 里接线，再跑：
           
         
       <script>
-        var oid = "views_coding\\cs336-assign1-6\\index.md"
-        var oid_likes = "likes_coding\\cs336-assign1-6\\index.md"
+        var oid = "views_coding\/cs336-assign1-6\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-6\/index.md"
       </script>
       
       
@@ -2073,7 +2045,7 @@ run_scaled_dot_product_attention 里接线，再跑：
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="">
+            title="Tags">
             
             Tags
           </a>
@@ -2081,7 +2053,7 @@ run_scaled_dot_product_attention 里接线，再跑：
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="">
+            title="Categories">
             
             Categories
           </a>

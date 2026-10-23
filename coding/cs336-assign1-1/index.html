@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Lives">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Codings">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Lives">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Codings">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-1/featured_hu15877482033400326244.JPG);">
+    style="background-image:url(/coding/cs336-assign1-1/featured_hu_fdbc5ba662749d7d.JPG);">
     
 
 
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
     
   
   <div class="place-self-center">
@@ -1044,8 +1044,7 @@
 <li>拿到两个模块的<strong>引导骨架</strong>，知道自己该在 <code>cs336_basics/</code> 里写什么。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信</strong>：下面用 <code>nn.Linear</code> / <code>nn.Embedding</code> 当&quot;参考教具&quot;来展示<strong>行为与性质</strong>，不展示&quot;某表达式恰好等于参考输出&quot;这种解答。真正的实现表达式留白（<code>...</code>）给你写。</p>
-</blockquote>
+<p><strong>学术诚信</strong>：下面用 <code>nn.Linear</code> / <code>nn.Embedding</code> 当&quot;参考教具&quot;来展示<strong>行为与性质</strong>，不展示&quot;某表达式恰好等于参考输出&quot;这种解答。真正的实现表达式留白（<code>...</code>）给你写。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1176,11 +1175,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-1/index_files/index_7_0_hu13671399823786014906.png 330w,
-        /coding/cs336-assign1-1/index_files/index_7_0_hu850346163215325789.png 660w,
-        /coding/cs336-assign1-1/index_files/index_7_0_hu9429917336138780174.png 1024w,
-        /coding/cs336-assign1-1/index_files/index_7_0_hu1239128078051472197.png 2x"
-        src="/coding/cs336-assign1-1/index_files/index_7_0_hu850346163215325789.png"
+        /coding/cs336-assign1-1/index_files/index_7_0_hu_2125990ecc2b9e4f.png 330w,
+        /coding/cs336-assign1-1/index_files/index_7_0_hu_5e535ce6c761066e.png 660w,
+        /coding/cs336-assign1-1/index_files/index_7_0_hu_e6a570802df313dc.png 1024w,
+        /coding/cs336-assign1-1/index_files/index_7_0_hu_fd46a2a378573efe.png 2x"
+        src="/coding/cs336-assign1-1/index_files/index_7_0_hu_5e535ce6c761066e.png"
         alt="png"
       />
       
@@ -1205,8 +1204,7 @@
 </h3>
 <p>下面是<strong>给你填的骨架</strong>（不可直接运行，<code>...</code> 处留白）。关键是想清楚 A.1 里的形状约定：权重是 <code>(d_out, d_in)</code>，输入最后一维是 <code>d_in</code>，输出最后一维要变成 <code>d_out</code>——<strong>哪一维和哪一维收缩？需要转置吗？</strong> 拿个 <code>(2,3)</code> 的小例子在纸上摆一下就清楚了。</p>
 <blockquote>
-<p>提示：初始化用截断正态（handout 有给 std），但<strong>测试会直接塞权重</strong>进来，所以初始化不影响单测、影响的是后面训练。</p>
-</blockquote>
+<p>提示：初始化用截断正态（handout 有给 std），但<strong>测试会直接塞权重</strong>进来，所以初始化不影响单测、影响的是后面训练。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Linear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_in</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">d_out</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -1298,11 +1296,11 @@ id=1 在三个不同位置取到的向量是否完全相同: True
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-1/index_files/index_13_0_hu1922931511191056719.png 330w,
-        /coding/cs336-assign1-1/index_files/index_13_0_hu7134665788950540549.png 660w,
-        /coding/cs336-assign1-1/index_files/index_13_0_hu15943584737016082852.png 1024w,
-        /coding/cs336-assign1-1/index_files/index_13_0_hu17451106431425564624.png 2x"
-        src="/coding/cs336-assign1-1/index_files/index_13_0_hu7134665788950540549.png"
+        /coding/cs336-assign1-1/index_files/index_13_0_hu_66989f705ac52e5f.png 330w,
+        /coding/cs336-assign1-1/index_files/index_13_0_hu_6cddfbcca170a5f6.png 660w,
+        /coding/cs336-assign1-1/index_files/index_13_0_hu_42651a4e15988df1.png 1024w,
+        /coding/cs336-assign1-1/index_files/index_13_0_hu_1959f5cedae6fa11.png 2x"
+        src="/coding/cs336-assign1-1/index_files/index_13_0_hu_6cddfbcca170a5f6.png"
         alt="png"
       />
       
@@ -1410,25 +1408,25 @@ id=1 在三个不同位置取到的向量是否完全相同: True
     
 </h3>
 <table>
-<thead>
-<tr>
-<th>你要实现</th>
-<th>对应 <code>run_*</code></th>
-<th>一句话提示</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Linear</code></td>
-<td><code>run_linear</code></td>
-<td>权重 <code>(d_out,d_in)</code>，前向核对转置方向，支持任意前导维</td>
-</tr>
-<tr>
-<td><code>Embedding</code></td>
-<td><code>run_embedding</code></td>
-<td>用 id 做高级索引取行，别用 one-hot 乘法</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Linear</code></td>
+          <td><code>run_linear</code></td>
+          <td>权重 <code>(d_out,d_in)</code>，前向核对转置方向，支持任意前导维</td>
+      </tr>
+      <tr>
+          <td><code>Embedding</code></td>
+          <td><code>run_embedding</code></td>
+          <td>用 id 做高级索引取行，别用 one-hot 乘法</td>
+      </tr>
+  </tbody>
 </table>
 <p>接线方式看 <code>tests/adapters.py</code> 里 <code>run_linear</code> / <code>run_embedding</code> 的 docstring（提到可用 <code>load_state_dict</code> 或直接 <code>.data</code> 赋值把测试传入的权重装进你的模块）。</p>
 <p>下一章 <code>02_normalization</code>：LayerNorm vs RMSNorm，以及那个决定成败的 <strong>float32 upcast</strong> 数值实验。</p>
@@ -1455,7 +1453,7 @@ id=1 在三个不同位置取到的向量是否完全相同: True
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-0/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-0/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1537,7 +1535,7 @@ id=1 在三个不同位置取到的向量是否完全相同: True
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/knowledege1/featured_hu17091525869089436197.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/knowledege1/featured_hu_afbd216f444a1af.PNG);"></div>
         
       
 
@@ -1619,7 +1617,7 @@ id=1 在三个不同位置取到的向量是否完全相同: True
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/miku2_hu18129456423732209621.png);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/miku2_hu_7e4fde868397b60f.png);"></div>
         
       
 
@@ -1708,8 +1706,8 @@ id=1 在三个不同位置取到的向量是否完全相同: True
           
         
       <script>
-        var oid = "views_coding\\cs336-assign1-1\\index.md"
-        var oid_likes = "likes_coding\\cs336-assign1-1\\index.md"
+        var oid = "views_coding\/cs336-assign1-1\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-1\/index.md"
       </script>
       
       
@@ -1802,7 +1800,7 @@ id=1 在三个不同位置取到的向量是否完全相同: True
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="">
+            title="Tags">
             
             Tags
           </a>
@@ -1810,7 +1808,7 @@ id=1 在三个不同位置取到的向量是否完全相同: True
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="">
+            title="Categories">
             
             Categories
           </a>
