@@ -112,7 +112,7 @@
     "keywords": ["SQL"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2250"
+    "wordCount": "3404"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-10-22T00:00:00&#43;00:00">22 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>2250 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  <time datetime="2026-10-22T00:00:00&#43;00:00">22 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3404 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
   
 
   
@@ -757,6 +757,13 @@
         <li><a href="#回到题目按三个问题拆解">回到题目，按三个问题拆解</a></li>
       </ul>
     </li>
+    <li><a href="#排名窗口函数和聚合函数有什么区别">排名窗口函数和聚合函数有什么区别？</a>
+      <ul>
+        <li><a href="#三种排名函数遇到并列时有什么不同">三种排名函数，遇到并列时有什么不同？</a></li>
+        <li><a href="#为什么只有-row_number-的排序里加了-id">为什么只有 <code>row_number()</code> 的排序里加了 id？</a></li>
+        <li><a href="#刷题时怎么选">刷题时怎么选？</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -779,6 +786,13 @@
         <li><a href="#窗口范围这一次算哪些行">窗口范围：这一次算哪些行？</a></li>
         <li><a href="#不写窗口范围会发生什么">不写窗口范围，会发生什么？</a></li>
         <li><a href="#回到题目按三个问题拆解">回到题目，按三个问题拆解</a></li>
+      </ul>
+    </li>
+    <li><a href="#排名窗口函数和聚合函数有什么区别">排名窗口函数和聚合函数有什么区别？</a>
+      <ul>
+        <li><a href="#三种排名函数遇到并列时有什么不同">三种排名函数，遇到并列时有什么不同？</a></li>
+        <li><a href="#为什么只有-row_number-的排序里加了-id">为什么只有 <code>row_number()</code> 的排序里加了 id？</a></li>
+        <li><a href="#刷题时怎么选">刷题时怎么选？</a></li>
       </ul>
     </li>
   </ul>
@@ -1266,7 +1280,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 从分区开头累计到当前行
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">rows</span><span class="w"> </span><span class="k">between</span><span class="w"> </span><span class="n">unbounded</span><span class="w"> </span><span class="n">preceding</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">row</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 最近三行，包括当前行；不足三行时使用已有行
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 最近三行，包括当前行；不足三行时使用已有的行
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">rows</span><span class="w"> </span><span class="k">between</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">preceding</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">row</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 整个分区
@@ -1351,6 +1365,191 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
 </span></span></span></code></pre></div><p>这一节先记住：<strong>函数决定“算什么”，<code>partition by</code> 决定“和谁一起算”，<code>order by</code> 决定“按什么顺序”，窗口范围决定“当前取哪些行”。</strong> 再遇到长长的 <code>over (...)</code>，就可以逐层拆开看了。
 p</p>
+
+
+<h2 class="relative group">排名窗口函数和聚合函数有什么区别？ 
+    <div id="%E6%8E%92%E5%90%8D%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E5%92%8C%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%8E%92%E5%90%8D%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E5%92%8C%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>看到 <code>row_number()</code>、<code>rank()</code>、<code>dense_rank()</code> 都放在 <code>over (...)</code> 前面，我最开始也会想：它们是不是和 <code>sum()</code> 一样，都是聚合函数？</p>
+<p><strong>这三个是排名类窗口函数，不是聚合函数。</strong> 它们根据窗口中的顺序，为每行计算编号或排名。</p>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>例子</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>聚合函数</td>
+          <td><code>sum()</code>、<code>avg()</code>、<code>count()</code></td>
+          <td>对多行数据求和、求平均值或计数</td>
+      </tr>
+      <tr>
+          <td>排名类窗口函数</td>
+          <td><code>row_number()</code>、<code>rank()</code>、<code>dense_rank()</code></td>
+          <td>为每行计算编号或排名</td>
+      </tr>
+  </tbody>
+</table>
+<p>容易混淆，是因为聚合函数也可以作为窗口函数使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 聚合函数作为窗口函数使用：为每行计算所在分区的总额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">employee</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 排名类窗口函数：为每行计算工资排名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>上面是表达式片段。<code>over</code> 前面的函数决定“算什么”：一个算金额之和，一个算排名。普通的 <code>sum(amount)</code> 可以不带 <code>over</code>；在 MySQL 中，这三个排名函数则需要搭配 <code>over</code> 使用。<a href="https://dev.mysql.com/doc/refman/8.0/en/window-functions-usage.html" target="_blank">MySQL 窗口函数概念说明</a></p>
+
+
+<h3 class="relative group">三种排名函数，遇到并列时有什么不同？ 
+    <div id="%E4%B8%89%E7%A7%8D%E6%8E%92%E5%90%8D%E5%87%BD%E6%95%B0%E9%81%87%E5%88%B0%E5%B9%B6%E5%88%97%E6%97%B6%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%89%E7%A7%8D%E6%8E%92%E5%90%8D%E5%87%BD%E6%95%B0%E9%81%87%E5%88%B0%E5%B9%B6%E5%88%97%E6%97%B6%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>假设有四名员工，按工资从高到低排列：</p>
+<table>
+  <thead>
+      <tr>
+          <th>id</th>
+          <th>员工</th>
+          <th>工资</th>
+          <th><code>row_number()</code></th>
+          <th><code>rank()</code></th>
+          <th><code>dense_rank()</code></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>A</td>
+          <td>90000</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>B</td>
+          <td>85000</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>C</td>
+          <td>85000</td>
+          <td>3</td>
+          <td>2</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>D</td>
+          <td>70000</td>
+          <td>4</td>
+          <td>4</td>
+          <td>3</td>
+      </tr>
+  </tbody>
+</table>
+<ul>
+<li><code>row_number()</code>：每行一个唯一编号，不并列，依次是 <code>1、2、3、4</code>。这里用 id 确定同工资时的先后。</li>
+<li><code>rank()</code>：并列会跳号。B、C 并列第二，D 就排第四。在这个工资降序的例子里，可以理解为“工资比我高的人数 + 1”。</li>
+<li><code>dense_rank()</code>：并列不跳号。相同工资算一档，所以 D 属于第三档工资，排名为 3。</li>
+</ul>
+<p>可以直接运行这个 MySQL 8.0 示例，对照上面的结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">with</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">employee</span><span class="p">,</span><span class="w"> </span><span class="mi">90000</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">salary</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">85000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">85000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">70000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">employee</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">salary_rank</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">salary_dense_rank</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>这里 <code>with</code> 定义了一份临时查询数据，方便直接练习，不需要另建员工表。三种排名函数的规则可参考 <a href="https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html" target="_blank">MySQL 官方说明</a>。</p>
+
+
+<h3 class="relative group">为什么只有 <code>row_number()</code> 的排序里加了 id？ 
+    <div id="%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E6%9C%89-row_number-%E7%9A%84%E6%8E%92%E5%BA%8F%E9%87%8C%E5%8A%A0%E4%BA%86-id" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E6%9C%89-row_number-%E7%9A%84%E6%8E%92%E5%BA%8F%E9%87%8C%E5%8A%A0%E4%BA%86-id" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><code>row_number()</code> 无论如何都会给每行不同的编号。加入唯一的 id，是为了明确同工资时谁先谁后；不加的话，B、C 谁得到 2、谁得到 3，并不确定。</p>
+<p>但 <code>rank()</code> 和 <code>dense_rank()</code> 需要保留“相同工资并列”的含义，因此这里只按工资排序。假如写成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>就会按照“工资和 id 的组合”判断是否并列。id 不同，同工资的员工也不再并列了。</p>
+
+
+<h3 class="relative group">刷题时怎么选？ 
+    <div id="%E5%88%B7%E9%A2%98%E6%97%B6%E6%80%8E%E4%B9%88%E9%80%89" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%88%B7%E9%A2%98%E6%97%B6%E6%80%8E%E4%B9%88%E9%80%89" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>题目需求</th>
+          <th>可以考虑</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>只取前两名员工，人数足够时恰好取两人</td>
+          <td><code>row_number()</code>，并明确同工资时的取舍顺序</td>
+      </tr>
+      <tr>
+          <td>比赛排名，并列后留出被占用的名次</td>
+          <td><code>rank()</code></td>
+      </tr>
+      <tr>
+          <td>找第三高的不同工资</td>
+          <td><code>dense_rank()</code></td>
+      </tr>
+      <tr>
+          <td>找每个部门前三高的不同工资对应的员工</td>
+          <td><code>dense_rank()</code> 配合 <code>partition by</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>比如“每个部门内部按工资排名”对应的表达式是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">department_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p><code>partition by</code> 让各部门独立排名，<code>order by salary desc</code> 让工资越高的人排名越靠前。这里不需要写累计求和用的 <code>rows between ...</code>。</p>
+<p>记忆时可以抓住一句话：<strong><code>row_number()</code> 数行，<code>rank()</code> 排名留空位，<code>dense_rank()</code> 数不同的工资档位。</strong></p>
 
           
           

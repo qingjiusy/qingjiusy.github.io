@@ -114,7 +114,7 @@
     "keywords": ["LeetCode","算法","Python"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "133178"
+    "wordCount": "133307"
   }]
   </script>
 
@@ -735,7 +735,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>133178 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">266 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>133307 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">267 分钟</span>
   
 
   
@@ -6203,7 +6203,7 @@ ans最好使用两个参数来表示比较简单，分别是ans_left（答案子
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -6423,7 +6423,7 @@ ans最好使用两个参数来表示比较简单，分别是ans_left（答案子
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -7602,7 +7602,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -7837,7 +7837,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -10154,7 +10154,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>3B</p>
+<p>4A</p>
 
 
 <h3 class="relative group">题型 
@@ -10995,7 +10995,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>3C</p>
+<p>4B</p>
 
 
 <h3 class="relative group">题型 
@@ -11248,7 +11248,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -11290,12 +11290,12 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
 <p>在这里我们去让相对更大的一半的数，去小根堆，另一半更小的数，去大根堆，最后计算中位数的时候有两种情况：</p>
 <ol>
 <li>如果两个堆大小相同，则中位数是两个堆顶元素的平均数</li>
-<li>如果大根堆的大小更大（我们希望原数组长度为奇数的时候，大根堆的大小 = 小根堆的大小 + 1），大根堆的堆顶元素就是我们的中位数。</li>
+<li>如果小根堆的大小更大（我们希望原数组长度为奇数的时候，小根堆的大小 = 大根堆的大小 + 1），小根堆的堆顶元素就是我们的中位数。</li>
 </ol>
 <p>在更新的时候，要注意：</p>
 <ol>
-<li>我们先去看大根堆是否为空，如果空则元素直接push进大根堆，如果不为空则比较元素和大根堆堆顶元素，如果大于等于堆顶元素则push进堆。然后我们要去判断我们大根堆的大小有没有超出我们的限定范围，如果超出了则pop出堆顶元素，将它push进小根堆。平衡两边堆的大小。</li>
-<li>如果一开始的判断不符合，说明这个元素应该push进小根堆。同样的，我们push进堆以后要去判断目前的堆的大小有没有超出范围。如果超出了就要平衡两边堆的大小。</li>
+<li>我们先去看小根堆是否为空，如果空则元素直接push进小根堆，如果不为空则比较元素和小根堆堆顶元素，如果大于等于堆顶元素则push进堆。然后我们要去判断我们小根堆的大小有没有超出我们的限定范围，如果超出了则pop出堆顶元素，将它push进大根堆。平衡两边堆的大小。</li>
+<li>如果一开始的判断不符合，说明这个元素应该push进大根堆。同样的，我们push进堆以后要去判断目前的堆的大小有没有超出范围。如果超出了就要平衡两边堆的大小。</li>
 </ol>
 
 
@@ -11322,7 +11322,7 @@ return：<strong>停止当前这一层 DFS，不再继续搜索</strong>。
     </span>        
     
 </h3>
-<p>注意在一开始的时候，大根堆小根堆都为空，所以要考虑到堆空的判断，我一开始的判断写了<code>if(not self.larger_heap or num &gt;= self.smaller_heap[0]):</code>，这里就是没有注意到大根堆（存放较小部分的元素）有可能为空。应该改写为<code>if(not self.larger_heap or num &gt;= self.larger_heap[0]):</code></p>
+<p>注意在一开始的时候，大根堆小根堆都为空，所以要考虑到堆空的判断，我一开始的判断写了<code>if(not self.larger_heap or num &gt;= self.smaller_heap[0]):</code>，这里就是没有注意到大根堆（存放较小部分的元素）有可能为空。注意<code>larger_heap</code>应该是小根堆！应该改写为<code>if(not self.larger_heap or num &gt;= self.larger_heap[0]):</code></p>
 
 
 <h3 class="relative group">复杂度 
@@ -12053,7 +12053,7 @@ Hoare做法的partition(left, right) 不负责把 pivot 放到最终位置，而
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -12270,7 +12270,7 @@ Hoare做法的partition(left, right) 不负责把 pivot 放到最终位置，而
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -13739,7 +13739,7 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] 
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -18357,7 +18357,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3C</p>
 
 
 <h3 class="relative group">题型 
@@ -19754,7 +19754,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>2A</p>
+<p>5A</p>
 
 
 <h3 class="relative group">题型 
@@ -19807,7 +19807,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>注意我们的实现上，采用这种最经典的做法，就是一开始把slow都fast设置成head，然后在while循环里面检查它们有没有重叠，重叠了就break这个循环：</p>
+<p>注意我们的实现上，采用这种最经典的做法，就是一开始<strong>把slow都fast设置成head</strong>，然后在while循环里面检查它们有没有重叠，重叠了就break这个循环：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">detectCycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">        <span class="c1"># floyd 判圈法</span>
@@ -19841,6 +19841,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     
 </h3>
 <p>注意我们在退出while循环以后，要先去判断一下是不是因为链表中没有环导致退出的，如果是的话我们要 return None。</p>
+<p>注意初始化的时候要<strong>把slow和fast都设置成head</strong>，因为如果快慢指针如果都不从同一个起始点出发的话，怎么能保证它们最后能走到一起相遇呢？</p>
 
 
 <h3 class="relative group">复杂度 
@@ -21677,7 +21678,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>3B</p>
+<p>4A</p>
 
 
 <h3 class="relative group">题型 
@@ -21690,7 +21691,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>递归 / 迭代 + 层序遍历</p>
+<p>递归 / 迭代 + dfs</p>
 
 
 <h3 class="relative group">识别信号 
@@ -21724,7 +21725,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
 <p>我们将这个问题分解成小问题，也就是两个子节点的子节点要相互沿中间轴对称&hellip; 以此类推，使用递归。
 关键就是<strong>每个树的右子树都与另一个树的左子树镜像对称</strong>！</p>
 <p>做法二：
-有点类似于层序遍历。注意我们每次从队列的头和尾获取两个元素，单纯去对比这两个元素的大小是不是相同的。如果不相同，显然我们的二叉树不沿中间轴对称；如果相同，我们就分别向这个队列的头和尾加入这两个结点的左右结点，为之后的判断做准备。</p>
+有点类似于层序遍历(遍历顺序实际是dfs)。注意我们每次从队列的头和尾获取两个元素，单纯去对比这两个元素的大小是不是相同的。如果不相同，显然我们的二叉树不沿中间轴对称；如果相同，我们就分别向这个队列的头和尾加入这两个结点的左右结点，为之后的判断做准备。</p>
 
 
 <h3 class="relative group">实现要点 
@@ -22322,7 +22323,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>3C</p>
+<p>5A</p>
 
 
 <h3 class="relative group">题型 
@@ -22386,7 +22387,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
 沿左链入栈；弹栈时处理当前结点并将 k -= 1；再转向右子树。</p>
 <p>我们在迭代过程中，在“中”结点的处理步骤中，我们将 k 累减1，当k等于0的时候，说明当前这个结点就是二叉搜索树第 K 小的结点，直接 return 它。</p>
 <p>做法二：
-首先我们先重写我们的 TreeNode 类，新增一个 size 参数。</p>
+首先我们先重写我们的 TreeNode 类，新增一个 size 参数。注意size表示的是<strong>每个结点以自己为根结点的树有的结点个数</strong>！</p>
 <p>因为我们的每个结点的 size 需要知道左右子树中个结点个数，所以我们的统计每个结点为根结点的子树中的结点个数的函数需要使用后序遍历。</p>
 <p>然后我们就要用 size 去寻找目标结点了，我们使用一个while循环去不停寻找，先去看左结点的size（也就是当前结点左子树有多少结点），也就是<code>left_size</code>，如果为空结点则为0。如果<code>k == left_size + 1</code>，说明当前结点就是目标结点，直接返回；如果<code>k &lt; left_size + 1</code>，说明目标结点在当前结点的左子树，我们要移动结点<code>node = node.left</code>，检查左子树；如果<code>k &gt; left_size + 1</code>，说明目标结点在当前结点的右子树，这里有点不一样，我们不仅要移动结点到右结点，还要更新我们的k，因为左子树和原结点我们再也不会去看了，因此我们要改变我们目标k的值，<code>k -= left_size + 1</code>。在这个基础上重新从新的结点（原结点的右结点搜索）。</p>
 
@@ -22576,7 +22577,7 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     </span>        
     
 </h3>
-<p>3C</p>
+<p>5A</p>
 
 
 <h3 class="relative group">题型 
@@ -23308,7 +23309,7 @@ predecessor 不一定是左子树前序遍历真正的最后一个节点。因�
     </span>        
     
 </h3>
-<p>2B</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -23441,7 +23442,7 @@ predecessor 不一定是左子树前序遍历真正的最后一个节点。因�
     </span>        
     
 </h3>
-<p>2B</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -23820,7 +23821,7 @@ predecessor 不一定是左子树前序遍历真正的最后一个节点。因�
     </span>        
     
 </h3>
-<p>2A</p>
+<p>3A</p>
 
 
 <h3 class="relative group">题型 
@@ -24275,7 +24276,7 @@ union(a, b)：O(N)</p>
     </span>        
     
 </h3>
-<p>1B</p>
+<p>2A</p>
 
 
 <h3 class="relative group">题型 
