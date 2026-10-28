@@ -3,147 +3,147 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://qingjiusy.github.io/ja/life/</loc>
+    <loc>http://localhost:1313/ja/life/</loc>
     <lastmod>2025-02-22T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/life/"
+      href="http://localhost:1313/life/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/life/"
+      href="http://localhost:1313/ja/life/"
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/ja/</loc>
+    <loc>http://localhost:1313/ja/</loc>
     <lastmod>2025-02-22T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/"
+      href="http://localhost:1313/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/"
+      href="http://localhost:1313/ja/"
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/ja/life/self_introduction/</loc>
+    <loc>http://localhost:1313/ja/life/self_introduction/</loc>
     <lastmod>2025-02-22T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/life/self_introduction/"
+      href="http://localhost:1313/life/self_introduction/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/life/self_introduction/"
+      href="http://localhost:1313/ja/life/self_introduction/"
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/ja/coding/</loc>
+    <loc>http://localhost:1313/ja/coding/</loc>
     <lastmod>2024-08-19T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/coding/"
+      href="http://localhost:1313/coding/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/coding/"
+      href="http://localhost:1313/ja/coding/"
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/ja/coding/llm_learning4/</loc>
+    <loc>http://localhost:1313/ja/coding/llm_learning4/</loc>
     <lastmod>2024-08-19T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/coding/llm_learning4/"
+      href="http://localhost:1313/coding/llm_learning4/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/coding/llm_learning4/"
+      href="http://localhost:1313/ja/coding/llm_learning4/"
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/ja/coding/llm_learning3/</loc>
+    <loc>http://localhost:1313/ja/coding/llm_learning3/</loc>
     <lastmod>2024-08-17T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/coding/llm_learning3/"
+      href="http://localhost:1313/coding/llm_learning3/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/coding/llm_learning3/"
+      href="http://localhost:1313/ja/coding/llm_learning3/"
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/ja/coding/llm_learning2/</loc>
+    <loc>http://localhost:1313/ja/coding/llm_learning2/</loc>
     <lastmod>2024-08-15T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/coding/llm_learning2/"
+      href="http://localhost:1313/coding/llm_learning2/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/coding/llm_learning2/"
+      href="http://localhost:1313/ja/coding/llm_learning2/"
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/ja/coding/llm_learning1/</loc>
+    <loc>http://localhost:1313/ja/coding/llm_learning1/</loc>
     <lastmod>2024-08-14T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/coding/llm_learning1/"
+      href="http://localhost:1313/coding/llm_learning1/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/coding/llm_learning1/"
+      href="http://localhost:1313/ja/coding/llm_learning1/"
     />
   </url>
   <url>
-    <loc>https://qingjiusy.github.io/ja/life/test/</loc>
+    <loc>http://localhost:1313/ja/life/test/</loc>
     <lastmod>2024-08-10T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://qingjiusy.github.io/life/test/"
+      href="http://localhost:1313/life/test/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://qingjiusy.github.io/ja/life/test/"
+      href="http://localhost:1313/ja/life/test/"
     />
   </url>
 </urlset>
