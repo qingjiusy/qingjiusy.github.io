@@ -112,7 +112,7 @@
     "keywords": ["ai infra"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "13616"
+    "wordCount": "13615"
   }]
   </script>
 
@@ -255,14 +255,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Lives">
+          <p class="text-sm font-sm" title="">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Codings">
+          <p class="text-sm font-sm" title="">
             code
           </p>
         </a>
@@ -463,7 +463,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Lives">
+        <p class="text-sm font-small" title="">
             生活
         </p>
     </a>
@@ -472,7 +472,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Codings">
+        <p class="text-sm font-small" title="">
             code
         </p>
     </a>
@@ -538,7 +538,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/aiinfra_coding2/featured_hu_94326181bb325abc.PNG);">
+    style="background-image:url(/coding/aiinfra_coding2/featured_hu3895917425846982312.PNG);">
     
 
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13616 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">28 分钟</span>
+  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13615 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">28 分钟</span>
   
 
   
@@ -640,7 +640,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
@@ -945,40 +945,40 @@
 </span></span></code></pre></div><p>注意要区分一个容易混淆的点，当 &amp; 出现在表达式里：<code>&amp;x</code>，表示取 x 的地址；如果 &amp; 出现在“类型声明”里，如<code>int&amp; ref = x</code>，则表示ref 是一个 int 的引用。</p>
 <p>可以先用这张表建立直觉：</p>
 <table>
-  <thead>
-      <tr>
-          <th>概念</th>
-          <th>能否为空</th>
-          <th>能否改指向</th>
-          <th>常见用途</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>值 <code>T</code></td>
-          <td>否</td>
-          <td>不适用</td>
-          <td>拥有一个独立对象</td>
-      </tr>
-      <tr>
-          <td>指针 <code>T*</code></td>
-          <td>可以是 <code>nullptr</code></td>
-          <td>可以</td>
-          <td>可选对象、数组、底层接口、非拥有观察</td>
-      </tr>
-      <tr>
-          <td>引用 <code>T&amp;</code></td>
-          <td>语言语义上必须绑定对象</td>
-          <td>不可以重新绑定</td>
-          <td>必须存在的别名、常用于函数参数</td>
-      </tr>
-      <tr>
-          <td>常量引用 <code>const T&amp;</code></td>
-          <td>必须绑定对象</td>
-          <td>不可以</td>
-          <td>避免复制且不允许修改</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>概念</th>
+<th>能否为空</th>
+<th>能否改指向</th>
+<th>常见用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>值 <code>T</code></td>
+<td>否</td>
+<td>不适用</td>
+<td>拥有一个独立对象</td>
+</tr>
+<tr>
+<td>指针 <code>T*</code></td>
+<td>可以是 <code>nullptr</code></td>
+<td>可以</td>
+<td>可选对象、数组、底层接口、非拥有观察</td>
+</tr>
+<tr>
+<td>引用 <code>T&amp;</code></td>
+<td>语言语义上必须绑定对象</td>
+<td>不可以重新绑定</td>
+<td>必须存在的别名、常用于函数参数</td>
+</tr>
+<tr>
+<td>常量引用 <code>const T&amp;</code></td>
+<td>必须绑定对象</td>
+<td>不可以</td>
+<td>避免复制且不允许修改</td>
+</tr>
+</tbody>
 </table>
 <p>对于<code>const T&amp;</code>，可以理解为给原对象起一个“只读别名”。我们可以用过 ref 读取，但是不能通过 ref 修改。</p>
 <p>函数参数表达的接口意图应尽可能清晰。函数参数类型本身就在告诉调用者：这个函数准备怎么对待你的对象。</p>
@@ -1007,7 +1007,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>如果使用上面这个函数，C/C++ 的原生数组传给函数时，通常只会变成“指向第一个元素的指针”，数组长度不会一起传过去。比如调用<code>scale(arr, 4, 2.0f);</code>，传入的arr相当于传成<code>&amp;arr[0]</code>，因此我们只知道数据从哪里开始，而不知道一共有多少个元素。所以函数必须额外传一个<code>std::size_t size</code>告诉它长度。</p>
 <blockquote>
-<p><code>std::size_t</code>：C++ 中专门用于表示对象大小、元素数量和下标的<strong>非负整数类型（≥0）</strong>。</p></blockquote>
+<p><code>std::size_t</code>：C++ 中专门用于表示对象大小、元素数量和下标的<strong>非负整数类型（≥0）</strong>。</p>
+</blockquote>
 <p>而在现代 C++ 中优先用能表达长度的类型：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;span&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1018,11 +1019,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><blockquote>
 <p><code>std::span&lt;T&gt;</code>：对一段连续 T 数据的非拥有视图，可理解为“指针 + 长度”；它不复制、不管理数据，因此底层数据在使用 span 期间必须保持有效。</p>
-<p>比如对于一个<code>std::span&lt;int&gt; values</code>，我们可以使用<code>values[i]</code>和<code>values.size()</code></p></blockquote>
+<p>比如对于一个<code>std::span&lt;int&gt; values</code>，我们可以使用<code>values[i]</code>和<code>values.size()</code></p>
+</blockquote>
 <p>二维矩阵通常线性存放。行主序（C/C++ 的二维原生数组采用行主序：先存完第 0 行，再存第 1 行，再存第 2 行）矩阵 <code>A[M][N]</code> 的 <code>(row, col)</code> 对应偏移。这意味着你看到的是二维矩阵，但计算机内存本质上是一条一维的连续空间：</p>
 $$
 \text{offset} = row \times N + col
-$$<p>这个公式会在 CUDA 中反复出现。访问顺序是否连续，直接影响 CPU cache 和 GPU 合并访存效率。<strong>按内存真正的排列顺序访问，通常会更快</strong>。</p>
+$$
+<p>这个公式会在 CUDA 中反复出现。访问顺序是否连续，直接影响 CPU cache 和 GPU 合并访存效率。<strong>按内存真正的排列顺序访问，通常会更快</strong>。</p>
 <p>比如对于一个矩阵：</p>
 <pre tabindex="0"><code>A00 A01 A02 A03
 A10 A11 A12 A13
@@ -1199,35 +1202,35 @@ A20 A21 A22 A23
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">unique</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Buffer</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span>  <span class="c1">// 唯一所有权
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">shared</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Buffer</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span>  <span class="c1">// 共享所有权
 </span></span></span></code></pre></div><table>
-  <thead>
-      <tr>
-          <th>类型</th>
-          <th>语义</th>
-          <th>成本与注意点</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>std::unique_ptr&lt;T&gt;</code></td>
-          <td>唯一拥有，可移动不可复制</td>
-          <td>成本接近裸指针，默认首选。unique 被销毁，Buffer 也自动释放</td>
-      </tr>
-      <tr>
-          <td><code>std::shared_ptr&lt;T&gt;</code></td>
-          <td>引用计数共享拥有</td>
-          <td>最后一个 shared_ptr 消失的时候自动会释放 Buffer。因此 shared_ptr 内部会维护一个引用计数，有计数与控制块成本，循环引用需 <code>weak_ptr</code></td>
-      </tr>
-      <tr>
-          <td><code>std::weak_ptr&lt;T&gt;</code></td>
-          <td>不增加引用计数的观察者</td>
-          <td>因为 weak_ptr 不拥有对象，所以你观察的对象可能已经没了。所以使用前要 <code>lock()</code> 检查对象是否仍存在</td>
-      </tr>
-      <tr>
-          <td><code>T*</code> / <code>T&amp;</code></td>
-          <td>通常表示非拥有访问，不负责管理它的生命周期</td>
-          <td>被指向对象必须活得足够久</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>类型</th>
+<th>语义</th>
+<th>成本与注意点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std::unique_ptr&lt;T&gt;</code></td>
+<td>唯一拥有，可移动不可复制</td>
+<td>成本接近裸指针，默认首选。unique 被销毁，Buffer 也自动释放</td>
+</tr>
+<tr>
+<td><code>std::shared_ptr&lt;T&gt;</code></td>
+<td>引用计数共享拥有</td>
+<td>最后一个 shared_ptr 消失的时候自动会释放 Buffer。因此 shared_ptr 内部会维护一个引用计数，有计数与控制块成本，循环引用需 <code>weak_ptr</code></td>
+</tr>
+<tr>
+<td><code>std::weak_ptr&lt;T&gt;</code></td>
+<td>不增加引用计数的观察者</td>
+<td>因为 weak_ptr 不拥有对象，所以你观察的对象可能已经没了。所以使用前要 <code>lock()</code> 检查对象是否仍存在</td>
+</tr>
+<tr>
+<td><code>T*</code> / <code>T&amp;</code></td>
+<td>通常表示非拥有访问，不负责管理它的生命周期</td>
+<td>被指向对象必须活得足够久</td>
+</tr>
+</tbody>
 </table>
 <p>注意，上面的各个类型中写到的T<strong>表示管理的对象是T类型</strong>，而不是“我要传进去的指针是什么类型”。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 构造了一个 std::shared_ptr&lt;Widget&gt; 类型的对象 t
@@ -1256,25 +1259,25 @@ A20 A21 A22 A23
 <p>而根据接收对象是新建还是已经存在，又分别产生拷贝构造、移动构造、拷贝赋值和移动赋值。</p>
 <p>总体来看是这样的：</p>
 <table>
-  <thead>
-      <tr>
-          <th>我要做什么</th>
-          <th>新对象</th>
-          <th>已存在对象</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>复制</td>
-          <td>拷贝构造</td>
-          <td>拷贝赋值</td>
-      </tr>
-      <tr>
-          <td>转移资源</td>
-          <td>移动构造</td>
-          <td>移动赋值</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>我要做什么</th>
+<th>新对象</th>
+<th>已存在对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>复制</td>
+<td>拷贝构造</td>
+<td>拷贝赋值</td>
+</tr>
+<tr>
+<td>转移资源</td>
+<td>移动构造</td>
+<td>移动赋值</td>
+</tr>
+</tbody>
 </table>
 
 
@@ -1623,35 +1626,35 @@ A20 A21 A22 A23
 </span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">p3</span> <span class="o">=</span> <span class="mf">3.0f</span><span class="p">;</span>   <span class="c1">// 不可以
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p3</span> <span class="o">=</span> <span class="n">other</span><span class="p">;</span>   <span class="c1">// 不可以
 </span></span></span></code></pre></div><table>
-  <thead>
-      <tr>
-          <th>写法</th>
-          <th style="text-align: right">指针能改指向？</th>
-          <th style="text-align: right">能通过指针改值？</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>float* p</code></td>
-          <td style="text-align: right">✅</td>
-          <td style="text-align: right">✅</td>
-      </tr>
-      <tr>
-          <td><code>const float* p</code></td>
-          <td style="text-align: right">✅</td>
-          <td style="text-align: right">❌</td>
-      </tr>
-      <tr>
-          <td><code>float* const p</code></td>
-          <td style="text-align: right">❌</td>
-          <td style="text-align: right">✅</td>
-      </tr>
-      <tr>
-          <td><code>const float* const p</code></td>
-          <td style="text-align: right">❌</td>
-          <td style="text-align: right">❌</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>写法</th>
+<th style="text-align:right">指针能改指向？</th>
+<th style="text-align:right">能通过指针改值？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>float* p</code></td>
+<td style="text-align:right">✅</td>
+<td style="text-align:right">✅</td>
+</tr>
+<tr>
+<td><code>const float* p</code></td>
+<td style="text-align:right">✅</td>
+<td style="text-align:right">❌</td>
+</tr>
+<tr>
+<td><code>float* const p</code></td>
+<td style="text-align:right">❌</td>
+<td style="text-align:right">✅</td>
+</tr>
+<tr>
+<td><code>const float* const p</code></td>
+<td style="text-align:right">❌</td>
+<td style="text-align:right">❌</td>
+</tr>
+</tbody>
 </table>
 <p>一个很好用的阅读技巧是：从变量名往左读。比如<code>float* const p2;</code>，我们从变量名p2开始从右往左读就是p2 -&gt; const -&gt; pointer -&gt; to float，所以 p2 是一个 const pointer to float。</p>
 <p>而成员函数末尾的 <code>const</code> 表示不修改对象的可观察状态。这里面的<code>size() const</code>其实和前面的指针 const 是同一个思想：这个函数承诺不会修改当前对象的状态。</p>
@@ -1694,7 +1697,8 @@ A20 A21 A22 A23
 <p><strong>[] 和 .at() 的区别：</strong></p>
 <p>上面的代码之所以直接 UB，是因为 [] 不检查边界。
 如果写<code>values.at(4) = 1;</code>，则 .at() 会进行边界检查。</p>
-<p>实际工程里，如果索引来源不可信，.at() 有时会更安全。</p></blockquote>
+<p>实际工程里，如果索引来源不可信，.at() 有时会更安全。</p>
+</blockquote>
 <p>编译器可以假设 UB 永不发生，并据此优化；程序结果不一定只是“报错”，也可能在调试版正常、优化版悄悄算错。</p>
 <p>因为很多 UB 在编译器不一定报错，在运行时也不一定崩溃。因此 C++ 开发里r调试时可启用警告和 Sanitizer。你可以理解为编译时给程序插入大量运行时检查代码。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -Wall -Wextra -Wpedantic 是编译器警告</span>
@@ -1780,34 +1784,34 @@ A20 A21 A22 A23
 </h3>
 <p>当程序出错时，我们先判断它死在哪个阶段。三类错误不要混在一起：</p>
 <table>
-  <thead>
-      <tr>
-          <th>阶段</th>
-          <th>理解</th>
-          <th>典型报错</th>
-          <th>常见原因</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>编译</td>
-          <td>单个 .cpp 不合法，也就是编译器正在处理某一个 .cpp，它甚至没法成功生成 main.o</td>
-          <td><code>not declared</code>、类型不匹配</td>
-          <td>缺声明、模板实例化失败、语法错误</td>
-      </tr>
-      <tr>
-          <td>链接</td>
-          <td>每个 .cpp 单独都没问题，但链接起来失败</td>
-          <td><code>undefined reference</code></td>
-          <td>只声明未定义、漏链接库、ABI/签名不一致</td>
-      </tr>
-      <tr>
-          <td>运行时装载</td>
-          <td>操作系统启动程序时，找不到它依赖的动态库</td>
-          <td><code>cannot open shared object file</code></td>
-          <td>动态库不在搜索路径、架构不匹配</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>阶段</th>
+<th>理解</th>
+<th>典型报错</th>
+<th>常见原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编译</td>
+<td>单个 .cpp 不合法，也就是编译器正在处理某一个 .cpp，它甚至没法成功生成 main.o</td>
+<td><code>not declared</code>、类型不匹配</td>
+<td>缺声明、模板实例化失败、语法错误</td>
+</tr>
+<tr>
+<td>链接</td>
+<td>每个 .cpp 单独都没问题，但链接起来失败</td>
+<td><code>undefined reference</code></td>
+<td>只声明未定义、漏链接库、ABI/签名不一致</td>
+</tr>
+<tr>
+<td>运行时装载</td>
+<td>操作系统启动程序时，找不到它依赖的动态库</td>
+<td><code>cannot open shared object file</code></td>
+<td>动态库不在搜索路径、架构不匹配</td>
+</tr>
+</tbody>
 </table>
 <p>上面的漏链接库的含义是：假设使用某个第三方库，头文件已经 include，但是编译成最终程序时，没有告诉 linker 去链接那个库。比如本来需要<code>g++ main.o -lsome_library -o app</code>，但是却写成<code>g++ main.o -o app</code>。这时候链接器就会报：undefined reference to some_library_function，也就是漏链接库。</p>
 <p>可执行文件可能依赖一些动态库。程序启动时，操作系统的动态装载器会把这些库加载进来。</p>
@@ -1935,40 +1939,40 @@ A20 A21 A22 A23
     
 </h3>
 <table>
-  <thead>
-      <tr>
-          <th>类型</th>
-          <th>内存/访问特征</th>
-          <th>常见用途</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>std::vector&lt;T&gt;</code></td>
-          <td>连续内存，随机访问 O(1)</td>
-          <td>数值缓冲区，默认序列容器</td>
-      </tr>
-      <tr>
-          <td><code>std::array&lt;T, N&gt;</code></td>
-          <td>固定大小、连续内存</td>
-          <td>编译期已知的小数组</td>
-      </tr>
-      <tr>
-          <td><code>std::deque&lt;T&gt;</code></td>
-          <td>分段存储，两端插入高效</td>
-          <td>队列、滑动窗口</td>
-      </tr>
-      <tr>
-          <td><code>std::unordered_map&lt;K,V&gt;</code></td>
-          <td>哈希表，平均 O(1) 查找</td>
-          <td>无序键值索引</td>
-      </tr>
-      <tr>
-          <td><code>std::map&lt;K,V&gt;</code></td>
-          <td>有序树，O(log n)</td>
-          <td>需要有序遍历/范围查询</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>类型</th>
+<th>内存/访问特征</th>
+<th>常见用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std::vector&lt;T&gt;</code></td>
+<td>连续内存，随机访问 O(1)</td>
+<td>数值缓冲区，默认序列容器</td>
+</tr>
+<tr>
+<td><code>std::array&lt;T, N&gt;</code></td>
+<td>固定大小、连续内存</td>
+<td>编译期已知的小数组</td>
+</tr>
+<tr>
+<td><code>std::deque&lt;T&gt;</code></td>
+<td>分段存储，两端插入高效</td>
+<td>队列、滑动窗口</td>
+</tr>
+<tr>
+<td><code>std::unordered_map&lt;K,V&gt;</code></td>
+<td>哈希表，平均 O(1) 查找</td>
+<td>无序键值索引</td>
+</tr>
+<tr>
+<td><code>std::map&lt;K,V&gt;</code></td>
+<td>有序树，O(log n)</td>
+<td>需要有序遍历/范围查询</td>
+</tr>
+</tbody>
 </table>
 <p><code>std::vector</code> 扩容可能重新分配内存，使原有指针、引用和迭代器失效：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">values</span><span class="p">;</span>
@@ -2087,7 +2091,7 @@ A20 A21 A22 A23
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/aiinfra_coding1/featured_hu_f9e92bb46c69fdc6.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/aiinfra_coding1/featured_hu14754171024940339309.PNG);"></div>
         
       
 
@@ -2169,7 +2173,7 @@ A20 A21 A22 A23
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-11/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-11/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -2251,7 +2255,7 @@ A20 A21 A22 A23
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/leetcode_notes/featured_hu_bf13710d312af7e3.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/leetcode_notes/featured_hu15805783810846214210.PNG);"></div>
         
       
 
@@ -2302,7 +2306,7 @@ A20 A21 A22 A23
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>133307 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">267 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>133297 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">267 分钟</span>
   
 
   
@@ -2340,8 +2344,8 @@ A20 A21 A22 A23
           
         
       <script>
-        var oid = "views_coding\/aiinfra_coding2\/index.md"
-        var oid_likes = "likes_coding\/aiinfra_coding2\/index.md"
+        var oid = "views_coding\\aiinfra_coding2\\index.md"
+        var oid_likes = "likes_coding\\aiinfra_coding2\\index.md"
       </script>
       
       
@@ -2434,7 +2438,7 @@ A20 A21 A22 A23
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="Tags">
+            title="">
             
             Tags
           </a>
@@ -2442,7 +2446,7 @@ A20 A21 A22 A23
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="Categories">
+            title="">
             
             Categories
           </a>

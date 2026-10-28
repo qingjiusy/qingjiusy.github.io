@@ -255,14 +255,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Lives">
+          <p class="text-sm font-sm" title="">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Codings">
+          <p class="text-sm font-sm" title="">
             code
           </p>
         </a>
@@ -463,7 +463,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Lives">
+        <p class="text-sm font-small" title="">
             生活
         </p>
     </a>
@@ -472,7 +472,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Codings">
+        <p class="text-sm font-small" title="">
             code
         </p>
     </a>
@@ -538,7 +538,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/mysql_window_function/featured_hu_796d36c9ebe80bc9.PNG);">
+    style="background-image:url(/coding/mysql_window_function/featured_hu17315207644266934403.PNG);">
     
 
 
@@ -640,7 +640,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
@@ -905,46 +905,46 @@
 </h3>
 <p>假设有一张销售记录表 <code>sales</code>，每行代表一笔销售：</p>
 <table>
-  <thead>
-      <tr>
-          <th>id</th>
-          <th>employee</th>
-          <th>sale_date</th>
-          <th>amount</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>1</td>
-          <td>A</td>
-          <td>2026-10-01</td>
-          <td>100</td>
-      </tr>
-      <tr>
-          <td>2</td>
-          <td>A</td>
-          <td>2026-10-02</td>
-          <td>200</td>
-      </tr>
-      <tr>
-          <td>3</td>
-          <td>A</td>
-          <td>2026-10-03</td>
-          <td>150</td>
-      </tr>
-      <tr>
-          <td>4</td>
-          <td>B</td>
-          <td>2026-10-01</td>
-          <td>80</td>
-      </tr>
-      <tr>
-          <td>5</td>
-          <td>B</td>
-          <td>2026-10-02</td>
-          <td>120</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>id</th>
+<th>employee</th>
+<th>sale_date</th>
+<th>amount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>2026-10-01</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2</td>
+<td>A</td>
+<td>2026-10-02</td>
+<td>200</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A</td>
+<td>2026-10-03</td>
+<td>150</td>
+</tr>
+<tr>
+<td>4</td>
+<td>B</td>
+<td>2026-10-01</td>
+<td>80</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B</td>
+<td>2026-10-02</td>
+<td>120</td>
+</tr>
+</tbody>
 </table>
 <p>想自己运行，可以先执行下面的建表和插入语句：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">sales</span><span class="w"> </span><span class="p">(</span><span class="w">
@@ -980,46 +980,46 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">sales</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><table>
-  <thead>
-      <tr>
-          <th>id</th>
-          <th>employee</th>
-          <th>amount</th>
-          <th>total_amount</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>1</td>
-          <td>A</td>
-          <td>100</td>
-          <td>650</td>
-      </tr>
-      <tr>
-          <td>2</td>
-          <td>A</td>
-          <td>200</td>
-          <td>650</td>
-      </tr>
-      <tr>
-          <td>3</td>
-          <td>A</td>
-          <td>150</td>
-          <td>650</td>
-      </tr>
-      <tr>
-          <td>4</td>
-          <td>B</td>
-          <td>80</td>
-          <td>650</td>
-      </tr>
-      <tr>
-          <td>5</td>
-          <td>B</td>
-          <td>120</td>
-          <td>650</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>id</th>
+<th>employee</th>
+<th>amount</th>
+<th>total_amount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>100</td>
+<td>650</td>
+</tr>
+<tr>
+<td>2</td>
+<td>A</td>
+<td>200</td>
+<td>650</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A</td>
+<td>150</td>
+<td>650</td>
+</tr>
+<tr>
+<td>4</td>
+<td>B</td>
+<td>80</td>
+<td>650</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B</td>
+<td>120</td>
+<td>650</td>
+</tr>
+</tbody>
 </table>
 <p><code>sum(amount)</code> 负责说明“做什么计算”，<code>over (...)</code> 负责规定窗口。这里括号里什么都没写，所以把所有记录放在一起求和，每行旁边都得到一个 <code>650</code>。</p>
 <p><strong>窗口函数本身不会把这些明细行合并掉，而是为每行计算一个结果。</strong> 可以把“当前行”理解成：现在正在给哪一行填写结果。</p>
@@ -1045,46 +1045,46 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">sales</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><table>
-  <thead>
-      <tr>
-          <th>id</th>
-          <th>employee</th>
-          <th>amount</th>
-          <th>employee_total</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>1</td>
-          <td>A</td>
-          <td>100</td>
-          <td>450</td>
-      </tr>
-      <tr>
-          <td>2</td>
-          <td>A</td>
-          <td>200</td>
-          <td>450</td>
-      </tr>
-      <tr>
-          <td>3</td>
-          <td>A</td>
-          <td>150</td>
-          <td>450</td>
-      </tr>
-      <tr>
-          <td>4</td>
-          <td>B</td>
-          <td>80</td>
-          <td>200</td>
-      </tr>
-      <tr>
-          <td>5</td>
-          <td>B</td>
-          <td>120</td>
-          <td>200</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>id</th>
+<th>employee</th>
+<th>amount</th>
+<th>employee_total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>100</td>
+<td>450</td>
+</tr>
+<tr>
+<td>2</td>
+<td>A</td>
+<td>200</td>
+<td>450</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A</td>
+<td>150</td>
+<td>450</td>
+</tr>
+<tr>
+<td>4</td>
+<td>B</td>
+<td>80</td>
+<td>200</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B</td>
+<td>120</td>
+<td>200</td>
+</tr>
+</tbody>
 </table>
 <p><code>partition by employee</code> 的意思是：按员工划分分区，各个分区独立计算。</p>
 <p>比如当前行是 <code>id = 2</code>，它属于 A 的分区，所以总额是 <code>100 + 200 + 150 = 450</code>。到了 B 的记录，就只计算 B 的金额。</p>
@@ -1118,52 +1118,52 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">sales</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">employee</span><span class="p">,</span><span class="w"> </span><span class="n">sale_date</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><table>
-  <thead>
-      <tr>
-          <th>id</th>
-          <th>employee</th>
-          <th>sale_date</th>
-          <th>amount</th>
-          <th>running_total</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>1</td>
-          <td>A</td>
-          <td>2026-10-01</td>
-          <td>100</td>
-          <td>100</td>
-      </tr>
-      <tr>
-          <td>2</td>
-          <td>A</td>
-          <td>2026-10-02</td>
-          <td>200</td>
-          <td>300</td>
-      </tr>
-      <tr>
-          <td>3</td>
-          <td>A</td>
-          <td>2026-10-03</td>
-          <td>150</td>
-          <td>450</td>
-      </tr>
-      <tr>
-          <td>4</td>
-          <td>B</td>
-          <td>2026-10-01</td>
-          <td>80</td>
-          <td>80</td>
-      </tr>
-      <tr>
-          <td>5</td>
-          <td>B</td>
-          <td>2026-10-02</td>
-          <td>120</td>
-          <td>200</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>id</th>
+<th>employee</th>
+<th>sale_date</th>
+<th>amount</th>
+<th>running_total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>2026-10-01</td>
+<td>100</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2</td>
+<td>A</td>
+<td>2026-10-02</td>
+<td>200</td>
+<td>300</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A</td>
+<td>2026-10-03</td>
+<td>150</td>
+<td>450</td>
+</tr>
+<tr>
+<td>4</td>
+<td>B</td>
+<td>2026-10-01</td>
+<td>80</td>
+<td>80</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B</td>
+<td>2026-10-02</td>
+<td>120</td>
+<td>200</td>
+</tr>
+</tbody>
 </table>
 <p><code>order by sale_date, id</code> 表示在各自的分区内，先按日期升序排列；如果日期相同，再按唯一的 <code>id</code> 排列，让逐笔累计的顺序明确。</p>
 <p>对 A 来说，累计过程就是：</p>
@@ -1189,30 +1189,30 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">rows</span><span class="w"> </span><span class="k">between</span><span class="w"> </span><span class="n">unbounded</span><span class="w"> </span><span class="n">preceding</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">row</span><span class="w">
 </span></span></span></code></pre></div><p>可以拆成：</p>
 <table>
-  <thead>
-      <tr>
-          <th>写法</th>
-          <th>含义</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>rows</code></td>
-          <td>按排序后的行位置确定范围</td>
-      </tr>
-      <tr>
-          <td><code>between ... and ...</code></td>
-          <td>指定起点和终点，包含两端</td>
-      </tr>
-      <tr>
-          <td><code>unbounded preceding</code></td>
-          <td>当前分区的第一行</td>
-      </tr>
-      <tr>
-          <td><code>current row</code></td>
-          <td>当前行</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>写法</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rows</code></td>
+<td>按排序后的行位置确定范围</td>
+</tr>
+<tr>
+<td><code>between ... and ...</code></td>
+<td>指定起点和终点，包含两端</td>
+</tr>
+<tr>
+<td><code>unbounded preceding</code></td>
+<td>当前分区的第一行</td>
+</tr>
+<tr>
+<td><code>current row</code></td>
+<td>当前行</td>
+</tr>
+</tbody>
 </table>
 <p>连起来就是：<strong>从当前分区第一行，一直算到当前行。</strong></p>
 <p>窗口范围会随当前行的位置变化，但不会越过分区边界。这正好对应“每名员工各自累计”。</p>
@@ -1227,52 +1227,52 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">sales</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">employee</span><span class="p">,</span><span class="w"> </span><span class="n">sale_date</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><table>
-  <thead>
-      <tr>
-          <th>id</th>
-          <th>employee</th>
-          <th>amount</th>
-          <th>参与计算的金额</th>
-          <th>last_two_total</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>1</td>
-          <td>A</td>
-          <td>100</td>
-          <td>100</td>
-          <td>100</td>
-      </tr>
-      <tr>
-          <td>2</td>
-          <td>A</td>
-          <td>200</td>
-          <td>100 + 200</td>
-          <td>300</td>
-      </tr>
-      <tr>
-          <td>3</td>
-          <td>A</td>
-          <td>150</td>
-          <td>200 + 150</td>
-          <td>350</td>
-      </tr>
-      <tr>
-          <td>4</td>
-          <td>B</td>
-          <td>80</td>
-          <td>80</td>
-          <td>80</td>
-      </tr>
-      <tr>
-          <td>5</td>
-          <td>B</td>
-          <td>120</td>
-          <td>80 + 120</td>
-          <td>200</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>id</th>
+<th>employee</th>
+<th>amount</th>
+<th>参与计算的金额</th>
+<th>last_two_total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2</td>
+<td>A</td>
+<td>200</td>
+<td>100 + 200</td>
+<td>300</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A</td>
+<td>150</td>
+<td>200 + 150</td>
+<td>350</td>
+</tr>
+<tr>
+<td>4</td>
+<td>B</td>
+<td>80</td>
+<td>80</td>
+<td>80</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B</td>
+<td>120</td>
+<td>80 + 120</td>
+<td>200</td>
+</tr>
+</tbody>
 </table>
 <p>表里的“参与计算的金额”是为了理解额外加上的说明列，并不是 SQL 输出列。</p>
 <p><code>1 preceding</code> 就是前一行；分区第一行没有前一行，就只计算当前行。尤其注意 B 的第一笔不会把 A 的最后一笔带进来。</p>
@@ -1332,30 +1332,30 @@
 </h3>
 <p>例如题目要求：“计算每名员工按时间排列的最近三笔销售金额之和。”</p>
 <table>
-  <thead>
-      <tr>
-          <th>题意</th>
-          <th>对应写法</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>每名员工分别计算</td>
-          <td><code>partition by employee</code></td>
-      </tr>
-      <tr>
-          <td>按时间排列，同一天按 id 排列</td>
-          <td><code>order by sale_date, id</code></td>
-      </tr>
-      <tr>
-          <td>最近三笔，包含当前这笔</td>
-          <td><code>rows between 2 preceding and current row</code></td>
-      </tr>
-      <tr>
-          <td>金额之和</td>
-          <td><code>sum(amount)</code></td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>题意</th>
+<th>对应写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每名员工分别计算</td>
+<td><code>partition by employee</code></td>
+</tr>
+<tr>
+<td>按时间排列，同一天按 id 排列</td>
+<td><code>order by sale_date, id</code></td>
+</tr>
+<tr>
+<td>最近三笔，包含当前这笔</td>
+<td><code>rows between 2 preceding and current row</code></td>
+</tr>
+<tr>
+<td>金额之和</td>
+<td><code>sum(amount)</code></td>
+</tr>
+</tbody>
 </table>
 <p>组合起来就是：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="w">
@@ -1380,25 +1380,25 @@ p</p>
 <p>看到 <code>row_number()</code>、<code>rank()</code>、<code>dense_rank()</code> 都放在 <code>over (...)</code> 前面，我最开始也会想：它们是不是和 <code>sum()</code> 一样，都是聚合函数？</p>
 <p><strong>这三个是排名类窗口函数，不是聚合函数。</strong> 它们根据窗口中的顺序，为每行计算编号或排名。</p>
 <table>
-  <thead>
-      <tr>
-          <th>类型</th>
-          <th>例子</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>聚合函数</td>
-          <td><code>sum()</code>、<code>avg()</code>、<code>count()</code></td>
-          <td>对多行数据求和、求平均值或计数</td>
-      </tr>
-      <tr>
-          <td>排名类窗口函数</td>
-          <td><code>row_number()</code>、<code>rank()</code>、<code>dense_rank()</code></td>
-          <td>为每行计算编号或排名</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>类型</th>
+<th>例子</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>聚合函数</td>
+<td><code>sum()</code>、<code>avg()</code>、<code>count()</code></td>
+<td>对多行数据求和、求平均值或计数</td>
+</tr>
+<tr>
+<td>排名类窗口函数</td>
+<td><code>row_number()</code>、<code>rank()</code>、<code>dense_rank()</code></td>
+<td>为每行计算编号或排名</td>
+</tr>
+</tbody>
 </table>
 <p>容易混淆，是因为聚合函数也可以作为窗口函数使用：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 聚合函数作为窗口函数使用：为每行计算所在分区的总额
@@ -1421,50 +1421,50 @@ p</p>
 </h3>
 <p>假设有四名员工，按工资从高到低排列：</p>
 <table>
-  <thead>
-      <tr>
-          <th>id</th>
-          <th>员工</th>
-          <th>工资</th>
-          <th><code>row_number()</code></th>
-          <th><code>rank()</code></th>
-          <th><code>dense_rank()</code></th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>1</td>
-          <td>A</td>
-          <td>90000</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-      </tr>
-      <tr>
-          <td>2</td>
-          <td>B</td>
-          <td>85000</td>
-          <td>2</td>
-          <td>2</td>
-          <td>2</td>
-      </tr>
-      <tr>
-          <td>3</td>
-          <td>C</td>
-          <td>85000</td>
-          <td>3</td>
-          <td>2</td>
-          <td>2</td>
-      </tr>
-      <tr>
-          <td>4</td>
-          <td>D</td>
-          <td>70000</td>
-          <td>4</td>
-          <td>4</td>
-          <td>3</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>id</th>
+<th>员工</th>
+<th>工资</th>
+<th><code>row_number()</code></th>
+<th><code>rank()</code></th>
+<th><code>dense_rank()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>90000</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>B</td>
+<td>85000</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>C</td>
+<td>85000</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>D</td>
+<td>70000</td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+</tr>
+</tbody>
 </table>
 <ul>
 <li><code>row_number()</code>：每行一个唯一编号，不并列，依次是 <code>1、2、3、4</code>。这里用 id 确定同工资时的先后。</li>
@@ -1518,30 +1518,30 @@ p</p>
     
 </h3>
 <table>
-  <thead>
-      <tr>
-          <th>题目需求</th>
-          <th>可以考虑</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>只取前两名员工，人数足够时恰好取两人</td>
-          <td><code>row_number()</code>，并明确同工资时的取舍顺序</td>
-      </tr>
-      <tr>
-          <td>比赛排名，并列后留出被占用的名次</td>
-          <td><code>rank()</code></td>
-      </tr>
-      <tr>
-          <td>找第三高的不同工资</td>
-          <td><code>dense_rank()</code></td>
-      </tr>
-      <tr>
-          <td>找每个部门前三高的不同工资对应的员工</td>
-          <td><code>dense_rank()</code> 配合 <code>partition by</code></td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>题目需求</th>
+<th>可以考虑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>只取前两名员工，人数足够时恰好取两人</td>
+<td><code>row_number()</code>，并明确同工资时的取舍顺序</td>
+</tr>
+<tr>
+<td>比赛排名，并列后留出被占用的名次</td>
+<td><code>rank()</code></td>
+</tr>
+<tr>
+<td>找第三高的不同工资</td>
+<td><code>dense_rank()</code></td>
+</tr>
+<tr>
+<td>找每个部门前三高的不同工资对应的员工</td>
+<td><code>dense_rank()</code> 配合 <code>partition by</code></td>
+</tr>
+</tbody>
 </table>
 <p>比如“每个部门内部按工资排名”对应的表达式是：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="w">
@@ -1573,7 +1573,7 @@ p</p>
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/aiinfra_coding2/featured_hu_f9e92bb46c69fdc6.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/aiinfra_coding2/featured_hu14754171024940339309.PNG);"></div>
         
       
 
@@ -1624,7 +1624,7 @@ p</p>
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13616 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">28 分钟</span>
+  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13615 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">28 分钟</span>
   
 
   
@@ -1655,7 +1655,7 @@ p</p>
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-11/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-11/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -1737,7 +1737,7 @@ p</p>
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/aiinfra_coding1/featured_hu_f9e92bb46c69fdc6.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/aiinfra_coding1/featured_hu14754171024940339309.PNG);"></div>
         
       
 
@@ -1826,8 +1826,8 @@ p</p>
           
         
       <script>
-        var oid = "views_coding\/mysql_window_function\/index.md"
-        var oid_likes = "likes_coding\/mysql_window_function\/index.md"
+        var oid = "views_coding\\mysql_window_function\\index.md"
+        var oid_likes = "likes_coding\\mysql_window_function\\index.md"
       </script>
       
       
@@ -1898,7 +1898,7 @@ p</p>
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="Tags">
+            title="">
             
             Tags
           </a>
@@ -1906,7 +1906,7 @@ p</p>
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="Categories">
+            title="">
             
             Categories
           </a>

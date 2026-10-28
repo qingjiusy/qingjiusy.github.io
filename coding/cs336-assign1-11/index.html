@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Lives">
+          <p class="text-sm font-sm" title="">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Codings">
+          <p class="text-sm font-sm" title="">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Lives">
+        <p class="text-sm font-small" title="">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Codings">
+        <p class="text-sm font-small" title="">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-11/featured_hu_fdbc5ba662749d7d.JPG);">
+    style="background-image:url(/coding/cs336-assign1-11/featured_hu15877482033400326244.JPG);">
     
 
 
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
@@ -1034,7 +1034,8 @@
 <li>理解<strong>编码/解码</strong>的数据流，并拿到 <code>train_bpe</code> 与 <code>Tokenizer</code> 的<strong>引导骨架</strong>。</li>
 </ol>
 <blockquote>
-<p><strong>⚠️ 学术诚信（本章尤其严格）</strong>：BPE 训练循环和 encode 的合并循环是本作业的<strong>核心考点</strong>，本笔记本<strong>绝不实现</strong>它们。下面的代码只做两类<strong>安全的事</strong>：(a)<strong>表示层演示</strong>（字节、映射、正则预分词边界的展示）；(b)<strong>检查已训练好的参考产物</strong>（加载 fixtures 打印出来看）。真正的算法只用<strong>文字</strong>讲清，实现处给 <code>...</code> 留白的<strong>引导骨架</strong>。这里不会出现&quot;我的输出 == 参考输出&quot;这种对拍 cell——那是你自己写完实现后用 <code>pytest</code> 去验证的。</p></blockquote>
+<p><strong>⚠️ 学术诚信（本章尤其严格）</strong>：BPE 训练循环和 encode 的合并循环是本作业的<strong>核心考点</strong>，本笔记本<strong>绝不实现</strong>它们。下面的代码只做两类<strong>安全的事</strong>：(a)<strong>表示层演示</strong>（字节、映射、正则预分词边界的展示）；(b)<strong>检查已训练好的参考产物</strong>（加载 fixtures 打印出来看）。真正的算法只用<strong>文字</strong>讲清，实现处给 <code>...</code> 留白的<strong>引导骨架</strong>。这里不会出现&quot;我的输出 == 参考输出&quot;这种对拍 cell——那是你自己写完实现后用 <code>pytest</code> 去验证的。</p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pathlib</span><span class="o">,</span> <span class="nn">json</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </span></span><span class="line"><span class="cl">
@@ -1163,7 +1164,8 @@ UTF-8 字节数 len(b): 17
 <li><code>merges</code>: <code>list[tuple[bytes, bytes]]</code>，按创建顺序排列的合并规则。</li>
 </ul>
 <blockquote>
-<p>直觉：高频的字母组合（如 <code>t</code>+<code>he</code> → <code>the</code>）会先被合并成一个 token，于是常见词只需很少的 token 就能表示，而罕见串仍可退回到字节，两全其美。</p></blockquote>
+<p>直觉：高频的字母组合（如 <code>t</code>+<code>he</code> → <code>the</code>）会先被合并成一个 token，于是常见词只需很少的 token 就能表示，而罕见串仍可退回到字节，两全其美。</p>
+</blockquote>
 
 
 <h3 class="relative group">🖐️ 纸面手推（放这里体会，别用代码去实现这个循环） 
@@ -1178,35 +1180,36 @@ UTF-8 字节数 len(b): 17
 </h3>
 <p>拿一个玩具&quot;语料&quot;：只有一个词 <code>low</code>，出现了 <strong>5 次</strong>（真实训练里当然是整篇文本，这里极简化）。初始每个 pre-token 是字节序列 <code>l o w</code>。</p>
 <table>
-  <thead>
-      <tr>
-          <th>轮次</th>
-          <th>当前序列</th>
-          <th>相邻对计数</th>
-          <th>最高频对</th>
-          <th>新 merge</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>1</td>
-          <td><code>l o w</code> ×5</td>
-          <td><code>(l,o)</code>=5, <code>(o,w)</code>=5</td>
-          <td>平局 → 按 tie-break 选</td>
-          <td>记作 merge #1，假设选 <code>(o,w)</code>→<code>ow</code></td>
-      </tr>
-      <tr>
-          <td>2</td>
-          <td><code>l ow</code> ×5</td>
-          <td><code>(l,ow)</code>=5</td>
-          <td><code>(l,ow)</code></td>
-          <td>merge #2：<code>(l,ow)</code>→<code>low</code></td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>轮次</th>
+<th>当前序列</th>
+<th>相邻对计数</th>
+<th>最高频对</th>
+<th>新 merge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>l o w</code> ×5</td>
+<td><code>(l,o)</code>=5, <code>(o,w)</code>=5</td>
+<td>平局 → 按 tie-break 选</td>
+<td>记作 merge #1，假设选 <code>(o,w)</code>→<code>ow</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>l ow</code> ×5</td>
+<td><code>(l,ow)</code>=5</td>
+<td><code>(l,ow)</code></td>
+<td>merge #2：<code>(l,ow)</code>→<code>low</code></td>
+</tr>
+</tbody>
 </table>
 <p>两轮后词表新增了 <code>ow</code>、<code>low</code> 两个 token。<strong>注意第 1 轮的平局</strong>：真实语料里平局非常常见，所以 tie-break 规则不是细节而是正确性关键——它直接决定 merges 的<strong>顺序</strong>，而测试是<strong>逐条比对顺序</strong>的。</p>
 <blockquote>
-<p>练习：把语料换成 <code>low</code>×5 + <code>lower</code>×2，自己在纸上多推两轮，感受计数如何随合并变化。<strong>不要</strong>写代码实现这个循环——那是作业本体。</p></blockquote>
+<p>练习：把语料换成 <code>low</code>×5 + <code>lower</code>×2，自己在纸上多推两轮，感受计数如何随合并变化。<strong>不要</strong>写代码实现这个循环——那是作业本体。</p>
+</blockquote>
 
 
 <h2 class="relative group">Part D · 预分词（pre-tokenization）：先切成&quot;词块&quot;再谈合并 
@@ -1267,7 +1270,8 @@ UTF-8 字节数 len(b): 17
 </h2>
 <p>光讲算法太抽象。这里<strong>加载课程提供的、已经训练好的参考产物</strong>，直观看看&quot;训练输出&quot;到底长什么样。我们用和 <code>tests/</code> 完全一致的方式加载：文件里存的是 <code>gpt2_bytes_to_unicode</code> 映射后的可打印字符串，加载时用<strong>逆映射</strong>把它们还原回真正的 <code>bytes</code>。</p>
 <blockquote>
-<p>这是<strong>纯检查</strong>：加载别人训练好的结果打印出来看，不涉及任何训练/编码算法。</p></blockquote>
+<p>这是<strong>纯检查</strong>：加载别人训练好的结果打印出来看，不涉及任何训练/编码算法。</p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 逆映射: 可打印字符 -&gt; 原始字节整数 (与 tests 中的做法一致)</span>
 </span></span><span class="line"><span class="cl"><span class="n">byte_decoder</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">b2u</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 </span></span><span class="line"><span class="cl">
@@ -1364,11 +1368,11 @@ UTF-8 字节数 len(b): 17
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-11/index_files/index_15_0_hu_b10c396e9cfcf518.png 330w,
-        /coding/cs336-assign1-11/index_files/index_15_0_hu_9dad1f198bbdbfa9.png 660w,
-        /coding/cs336-assign1-11/index_files/index_15_0_hu_ee14fcf036aa5c1c.png 1024w,
-        /coding/cs336-assign1-11/index_files/index_15_0_hu_10568a193096d721.png 2x"
-        src="/coding/cs336-assign1-11/index_files/index_15_0_hu_9dad1f198bbdbfa9.png"
+        /coding/cs336-assign1-11/index_files/index_15_0_hu17403020194730202652.png 330w,
+        /coding/cs336-assign1-11/index_files/index_15_0_hu4037147078598361415.png 660w,
+        /coding/cs336-assign1-11/index_files/index_15_0_hu13640433303382571237.png 1024w,
+        /coding/cs336-assign1-11/index_files/index_15_0_hu11991653287886808457.png 2x"
+        src="/coding/cs336-assign1-11/index_files/index_15_0_hu4037147078598361415.png"
         alt="png"
       />
       
@@ -1405,7 +1409,8 @@ UTF-8 字节数 len(b): 17
 <li>用 <code>utf-8</code> 解码回字符串（注意：单个 token 可能是&quot;半个&quot;多字节字符，所以<strong>要先拼接再解码</strong>，且解码要能容错处理非法字节）。</li>
 </ol>
 <blockquote>
-<p>下面<strong>只在表示层</strong>验证一个直觉——单个 token 的 <code>bytes</code> 未必能独立解码成合法字符，从而理解 decode 为什么必须&quot;先拼接全部、再一次性 utf-8 解码&quot;。<strong>这不是 decode 的实现</strong>（不做查表+拼接的完整流程），只是观察一个字节片段的性质。</p></blockquote>
+<p>下面<strong>只在表示层</strong>验证一个直觉——单个 token 的 <code>bytes</code> 未必能独立解码成合法字符，从而理解 decode 为什么必须&quot;先拼接全部、再一次性 utf-8 解码&quot;。<strong>这不是 decode 的实现</strong>（不做查表+拼接的完整流程），只是观察一个字节片段的性质。</p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 表示层观察: 一个多字节字符被拆成的“半个字符”字节，单独解码会失败/乱码</span>
 </span></span><span class="line"><span class="cl"><span class="n">partial</span> <span class="o">=</span> <span class="s2">&#34;世&#34;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>     <span class="c1"># 只取“世”的第一个字节</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;“世”的完整 UTF-8 字节:&#34;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&#34;世&#34;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)))</span>
@@ -1848,35 +1853,35 @@ errors='replace' 容错解码: '�'
     
 </h2>
 <table>
-  <thead>
-      <tr>
-          <th>你要实现</th>
-          <th>对应测试 / <code>run_*</code></th>
-          <th>一句话提示</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>train_bpe</code></td>
-          <td><code>run_train_bpe</code> / <code>tests/test_train_bpe.py</code></td>
-          <td>从 256 字节起步，循环&quot;数对→选最高频(tie-break)→合并&quot;；注意 1.5s 速度上限</td>
-      </tr>
-      <tr>
-          <td><code>Tokenizer.encode</code></td>
-          <td><code>get_tokenizer</code> / <code>tests/test_tokenizer.py</code></td>
-          <td>预分词后<strong>按 merges 顺序</strong>合并；特殊 token 先切出来</td>
-      </tr>
-      <tr>
-          <td><code>Tokenizer.encode_iterable</code></td>
-          <td>同上</td>
-          <td>惰性产出 id，用于流式处理大文件</td>
-      </tr>
-      <tr>
-          <td><code>Tokenizer.decode</code></td>
-          <td>同上</td>
-          <td>id→bytes→<strong>先拼接后</strong> utf-8 解码(容错)</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>你要实现</th>
+<th>对应测试 / <code>run_*</code></th>
+<th>一句话提示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>train_bpe</code></td>
+<td><code>run_train_bpe</code> / <code>tests/test_train_bpe.py</code></td>
+<td>从 256 字节起步，循环&quot;数对→选最高频(tie-break)→合并&quot;；注意 1.5s 速度上限</td>
+</tr>
+<tr>
+<td><code>Tokenizer.encode</code></td>
+<td><code>get_tokenizer</code> / <code>tests/test_tokenizer.py</code></td>
+<td>预分词后<strong>按 merges 顺序</strong>合并；特殊 token 先切出来</td>
+</tr>
+<tr>
+<td><code>Tokenizer.encode_iterable</code></td>
+<td>同上</td>
+<td>惰性产出 id，用于流式处理大文件</td>
+</tr>
+<tr>
+<td><code>Tokenizer.decode</code></td>
+<td>同上</td>
+<td>id→bytes→<strong>先拼接后</strong> utf-8 解码(容错)</td>
+</tr>
+</tbody>
 </table>
 <p>接线方式看 <code>tests/adapters.py</code> 里 <code>run_train_bpe</code> / <code>get_tokenizer</code> 的 docstring。<strong>建议路线</strong>：先在 <code>corpus.en</code> 这种小语料 + 小 <code>vocab_size</code> 上跑通、和参考产物对拍<strong>正确性</strong>，再回头优化<strong>速度</strong>（增量更新 pair 计数）。</p>
 
@@ -1922,7 +1927,7 @@ errors='replace' 容错解码: '�'
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-10/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-10/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -2004,7 +2009,7 @@ errors='replace' 容错解码: '�'
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -2055,7 +2060,7 @@ errors='replace' 容错解码: '�'
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8850 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8827 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
   
 
   
@@ -2086,7 +2091,7 @@ errors='replace' 容错解码: '�'
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -2175,8 +2180,8 @@ errors='replace' 容错解码: '�'
           
         
       <script>
-        var oid = "views_coding\/cs336-assign1-11\/index.md"
-        var oid_likes = "likes_coding\/cs336-assign1-11\/index.md"
+        var oid = "views_coding\\cs336-assign1-11\\index.md"
+        var oid_likes = "likes_coding\\cs336-assign1-11\\index.md"
       </script>
       
       
@@ -2269,7 +2274,7 @@ errors='replace' 容错解码: '�'
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="Tags">
+            title="">
             
             Tags
           </a>
@@ -2277,7 +2282,7 @@ errors='replace' 容错解码: '�'
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="Categories">
+            title="">
             
             Categories
           </a>
