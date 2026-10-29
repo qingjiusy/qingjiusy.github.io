@@ -112,7 +112,7 @@
     "keywords": ["java"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "4226"
+    "wordCount": "5063"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4226 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
+  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5063 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
   
 
   
@@ -755,6 +755,7 @@
         <li><a href="#threadlocal线程局部变量">ThreadLocal：线程局部变量</a></li>
         <li><a href="#spring-mvc-接收前端参数的四种常见写法">Spring MVC 接收前端参数的四种常见写法</a></li>
         <li><a href="#pagehelper-分页查询">PageHelper 分页查询</a></li>
+        <li><a href="#spring-mvc-消息转换器">Spring MVC 消息转换器</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -790,6 +791,7 @@
         <li><a href="#threadlocal线程局部变量">ThreadLocal：线程局部变量</a></li>
         <li><a href="#spring-mvc-接收前端参数的四种常见写法">Spring MVC 接收前端参数的四种常见写法</a></li>
         <li><a href="#pagehelper-分页查询">PageHelper 分页查询</a></li>
+        <li><a href="#spring-mvc-消息转换器">Spring MVC 消息转换器</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -1149,6 +1151,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">PageResult</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">EmployeePageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">)</span><span class="w">
 </span></span></span></code></pre></div><p>适用场景：分页查询、多个条件组合查询。</p>
 <p><strong><code>@RequestParam</code>：接收指定的请求参数：</strong></p>
+<p>在 Spring MVC 中，像 Long、Integer、String 这样的简单类型参数，如果没有其他参数绑定注解，默认可以从请求参数中获取同名的值，这时候就<strong>可以省略<code>@RequestParam</code></strong>。</p>
 <p>前端请求：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="err">GET /employee/page?page=1&amp;pageSize=10
 </span></span></span></code></pre></div><p>后端接收：</p>
@@ -1234,6 +1237,61 @@
 </span></span></span></code></pre></div><p><code>startPage()</code> 将分页参数保存在当前线程的 <code>ThreadLocal</code> 中，MyBatis 拦截器读取参数并处理分页。</p>
 <p>注意<code>PageHelper.startPage</code>应该紧挨着目标 Mapper 查询调用，作用于之后的第一个 MyBatis 查询；之后的 Mapper SQL 就无须手写 <code>LIMIT</code>。</p>
 <p>查询结果得到<code>Page&lt;E&gt;</code>，既保存本页数据，也保存分页信息。这个示例page使用<code>getTotal()</code> 和 <code>getResult()</code> 不会再次查询数据库。</p>
+
+
+<h3 class="relative group">Spring MVC 消息转换器 
+    <div id="spring-mvc-%E6%B6%88%E6%81%AF%E8%BD%AC%E6%8D%A2%E5%99%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#spring-mvc-%E6%B6%88%E6%81%AF%E8%BD%AC%E6%8D%A2%E5%99%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>负责 HTTP 请求体、响应体与 Java 对象之间的转换。不同转换器可以处理 JSON、字符串、字节数组等数据。</p>
+<p>常见场景：</p>
+<ul>
+<li><strong>读取请求</strong>：配合 <code>@RequestBody</code>，将前端传入的 JSON 转换成 Java 对象，称为<strong>反序列化</strong>。</li>
+<li><strong>返回响应</strong>：配合 <code>@ResponseBody</code> 或 <code>@RestController</code>，将 Java 对象转换成 JSON，称为<strong>序列化</strong>。</li>
+<li><strong>定制转换规则</strong>：例如统一日期格式、将 <code>Long</code> 输出为字符串以避免前端数字精度丢失、配置空值或未知字段的处理方式。这些规则需要在 JSON 转换配置中具体实现。</li>
+</ul>
+<p>比如可以在继承 <code>WebMvcConfigurationSupport</code> 的配置类中，重写扩展方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 告诉 Spring MVC，在把 Java 对象转换成 JSON 返回给前端时，优先使用我们配置的转换规则，其中就包括日期格式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// &lt;?&gt;：泛型通配符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">extendMessageConverters</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">HttpMessageConverter</span><span class="o">&lt;?&gt;&gt;</span><span class="w"> </span><span class="n">converters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 创建一个处理 JSON 的消息转换器对象，是一个使用 Jackson 库处理 JSON 的 HTTP 消息转换器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 它能完成：Java 对象 → JSON</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">MappingJackson2HttpMessageConverter</span><span class="w"> </span><span class="n">converter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MappingJackson2HttpMessageConverter</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 需要为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// JacksonObjectMapper 负责 Java 对象与 JSON 的具体转换规则</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 让这个消息转换器使用项目自定义的 ObjectMapper 来处理转换</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">converter</span><span class="p">.</span><span class="na">setObjectMapper</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">JacksonObjectMapper</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//将自己的消息转化器加入容器中</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Java 集合 List 的用法：list.add(索引, 元素)。这里表示把我们的转换器插到第一位</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 放在第一位，是为了让我们配置的 JSON 转换器在符合条件时优先被选中</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">converters</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="n">converter</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>其中，<code>JacksonObjectMapper</code> 是项目自定义类，继承 <code>ObjectMapper</code>。例如在其构造方法中注册日期序列化规则：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">SimpleModule</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleModule</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">module</span><span class="p">.</span><span class="na">addSerializer</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">LocalDateTimeSerializer</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">DateTimeFormatter</span><span class="p">.</span><span class="na">ofPattern</span><span class="p">(</span><span class="s">&#34;yyyy-MM-dd HH:mm&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">registerModule</span><span class="p">(</span><span class="n">module</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>这样，返回对象中的 <code>LocalDateTime</code> 字段会统一输出为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;createTime&#34;</span><span class="p">:</span> <span class="s2">&#34;2026-10-30 09:30&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>注意上述 <code>addSerializer()</code> 配置的是输出规则；解析请求中的日期需要对应的反序列化配置。日期格式化只改变 JSON 表达，不修改数据库中的时间。</p>
+<p>要区分清楚每一部分的职责分工：业务代码负责提供数据，消息转换器负责 HTTP 消息转换，<code>ObjectMapper</code> 负责具体的 JSON 转换规则。</p>
 
 
 <h2 class="relative group">业务逻辑 
