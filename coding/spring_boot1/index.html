@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>spring boot &middot; QingJiu</title>
-  <meta name="title" content="spring boot &middot; QingJiu" />
+  <title>spring boot开发笔记 &middot; QingJiu</title>
+  <meta name="title" content="spring boot开发笔记 &middot; QingJiu" />
   
   <meta name="description" content="blog" />
   <meta name="keywords" content="java, " />
@@ -71,7 +71,7 @@
   
   <meta property="og:url" content="http://localhost:1313/coding/spring_boot1/">
   <meta property="og:site_name" content="QingJiu">
-  <meta property="og:title" content="spring boot">
+  <meta property="og:title" content="spring boot开发笔记">
   <meta property="og:description" content="blog">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
@@ -84,7 +84,7 @@
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="http://localhost:1313/coding/spring_boot1/featured.png">
-  <meta name="twitter:title" content="spring boot">
+  <meta name="twitter:title" content="spring boot开发笔记">
   <meta name="twitter:description" content="blog">
 
   
@@ -93,8 +93,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Codings",
-    "name": "spring boot",
-    "headline": "spring boot",
+    "name": "spring boot开发笔记",
+    "headline": "spring boot开发笔记",
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
@@ -112,7 +112,7 @@
     "keywords": ["java"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2791"
+    "wordCount": "4226"
   }]
   </script>
 
@@ -555,7 +555,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      spring boot
+      spring boot开发笔记
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>2791 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4226 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span>
   
 
   
@@ -753,6 +753,8 @@
         <li><a href="#jwt-拦截器">JWT 拦截器</a></li>
         <li><a href="#全局异常处理器">全局异常处理器</a></li>
         <li><a href="#threadlocal线程局部变量">ThreadLocal：线程局部变量</a></li>
+        <li><a href="#spring-mvc-接收前端参数的四种常见写法">Spring MVC 接收前端参数的四种常见写法</a></li>
+        <li><a href="#pagehelper-分页查询">PageHelper 分页查询</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -786,6 +788,8 @@
         <li><a href="#jwt-拦截器">JWT 拦截器</a></li>
         <li><a href="#全局异常处理器">全局异常处理器</a></li>
         <li><a href="#threadlocal线程局部变量">ThreadLocal：线程局部变量</a></li>
+        <li><a href="#spring-mvc-接收前端参数的四种常见写法">Spring MVC 接收前端参数的四种常见写法</a></li>
+        <li><a href="#pagehelper-分页查询">PageHelper 分页查询</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -1083,6 +1087,153 @@
 <li>普通 ThreadLocal 不会自动向新线程或异步任务传递数据；本项目中未设置值时，<code>get()</code> 返回 <code>null</code>。</li>
 <li>服务器会复用线程，请求结束后必须清理，避免旧数据残留和不必要的内存占用。同步 Spring MVC 请求通常在拦截器的 <code>afterCompletion</code> 中清理。</li>
 </ul>
+<p>下面这条笔记可以直接保存。</p>
+
+
+<h3 class="relative group">Spring MVC 接收前端参数的四种常见写法 
+    <div id="spring-mvc-%E6%8E%A5%E6%94%B6%E5%89%8D%E7%AB%AF%E5%8F%82%E6%95%B0%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%B8%B8%E8%A7%81%E5%86%99%E6%B3%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#spring-mvc-%E6%8E%A5%E6%94%B6%E5%89%8D%E7%AB%AF%E5%8F%82%E6%95%B0%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%B8%B8%E8%A7%81%E5%86%99%E6%B3%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><strong>选哪种写法，先看参数放在哪里，再看后端用单个变量还是对象来接收。</strong></p>
+<table>
+<thead>
+<tr>
+<th>写法</th>
+<th>参数来源</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@ModelAttribute EmployeePageQueryDTO dto</code></td>
+<td>query 参数、表单字段</td>
+<td>将多个参数绑定到对象属性</td>
+</tr>
+<tr>
+<td><code>@RequestParam(&quot;page&quot;) Integer page</code></td>
+<td>query 参数、表单字段</td>
+<td>接收指定名称的参数</td>
+</tr>
+<tr>
+<td><code>@PathVariable(&quot;id&quot;) Long id</code></td>
+<td>URL 路径</td>
+<td>提取路径中的变量</td>
+</tr>
+<tr>
+<td><code>@RequestBody EmployeeDTO dto</code></td>
+<td>HTTP 请求体</td>
+<td>将请求体内容转换成对象，常用于 JSON</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>@ModelAttribute</code>：把多个参数装进对象：</strong></p>
+<p>前端请求：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="err">GET /employee/page?page=1&amp;pageSize=10&amp;name=张三
+</span></span></span></code></pre></div><p>后端接收：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/page&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">PageResult</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nd">@ModelAttribute</span><span class="w"> </span><span class="n">EmployeePageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// dto.getPage()      → 1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// dto.getPageSize()  → 10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// dto.getName()      → &#34;张三&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><strong>Spring MVC 按参数名匹配对象属性名，并进行类型转换和属性赋值。</strong> 常见 DTO 通过无参构造方法创建，再通过 setter 设置属性；<code>@Data</code> 可以生成 setter。</p>
+<p>对于<strong>这里的普通 DTO，<code>@ModelAttribute</code> 可以省略</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">PageResult</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">EmployeePageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>适用场景：分页查询、多个条件组合查询。</p>
+<p><strong><code>@RequestParam</code>：接收指定的请求参数：</strong></p>
+<p>前端请求：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="err">GET /employee/page?page=1&amp;pageSize=10
+</span></span></span></code></pre></div><p>后端接收：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/page&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">PageResult</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nd">@RequestParam</span><span class="p">(</span><span class="s">&#34;page&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">currentPage</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nd">@RequestParam</span><span class="p">(</span><span class="s">&#34;pageSize&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">pageSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// currentPage → 1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// pageSize    → 10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><code>@RequestParam(&quot;page&quot;)</code> 的意思是：<strong>读取名为 <code>page</code> 的参数，赋给当前方法参数。</strong>
+常用配置：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 默认必传；缺少该参数时通常返回 400</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestParam</span><span class="p">(</span><span class="s">&#34;page&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">page</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 可选；未传时为 null</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestParam</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;name&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">required</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 未传或传入空字符串时，使用默认值 1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestParam</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;page&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">defaultValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;1&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">page</span><span class="w">
+</span></span></span></code></pre></div><p>适用场景：请求参数较少，直接用方法参数接收更清晰。</p>
+<p><strong><code>@PathVariable</code>：接收 URL 路径中的值：</strong></p>
+<p>前端请求：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="err">GET /employee/10
+</span></span></span></code></pre></div><p>后端接收：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// id → 10L</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>这里的 <code>{id}</code> 是路径中的占位符，<code>@PathVariable(&quot;id&quot;)</code> 将它对应的值取出来。</p>
+<p>对比：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/employee/10       → 10 在路径中，用 @PathVariable
+</span></span><span class="line"><span class="cl">/employee?id=10    → id 在 query 中，用 @RequestParam
+</span></span></code></pre></div><p>适用场景：通过 ID 查询、修改或删除某个具体资源。</p>
+<p><strong><code>@RequestBody</code>：接收请求体中的 JSON：</strong></p>
+<p>前端请求：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="err">POST /employee
+</span></span></span><span class="line"><span class="cl"><span class="err">Content-Type: application/json
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">{
+</span></span></span><span class="line"><span class="cl"><span class="err">  &#34;name&#34;: &#34;张三&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="err">  &#34;phone&#34;: &#34;13800138000&#34;
+</span></span></span><span class="line"><span class="cl"><span class="err">}
+</span></span></span></code></pre></div><p>后端接收：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@PostMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">EmployeeDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// dto.getName()  → &#34;张三&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// dto.getPhone() → &#34;13800138000&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>Spring MVC 通过消息转换器读取请求体；处理 JSON 时，通常由 Jackson 将 JSON 转换成 Java 对象，这个过程叫<strong>反序列化</strong>。</p>
+<p>适用场景：新增或修改数据，前端使用 JSON 提交字段。</p>
+<p><strong>普通 DTO 参数省略注解时，不会按这种方式读取 JSON 请求体。</strong> 要接收 JSON，通常需要明确写 <code>@RequestBody</code>。</p>
+<p>针对四种做法，有容易混淆的地方：</p>
+<ul>
+<li><strong>不是 GET 一定用 <code>@RequestParam</code>，POST 一定用 <code>@RequestBody</code>。</strong> 判断依据是参数所在位置和内容格式。POST 请求也可以带 query 参数。</li>
+<li><strong>同一个接口可以组合使用这些注解。</strong> 例如修改员工时，用 <code>@PathVariable</code> 接收路径中的员工 ID，用 <code>@RequestBody</code> 接收 JSON 中的修改内容。</li>
+<li><strong>绑定不等于校验。</strong> 参数成功装进 DTO，不代表必填、长度等条件都已检查；这些通常还需要配合 <code>@Valid</code> 和字段上的校验注解。</li>
+</ul>
+<p><strong>记忆：多个查询条件装 DTO，指定请求参数用 <code>@RequestParam</code>，路径取值用 <code>@PathVariable</code>，JSON 请求体用 <code>@RequestBody</code>。</strong></p>
+
+
+<h3 class="relative group">PageHelper 分页查询 
+    <div id="pagehelper-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#pagehelper-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 设置页码（从 1 开始）和每页条数，本身不查询数据库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">PageHelper</span><span class="p">.</span><span class="na">startPage</span><span class="p">(</span><span class="n">dto</span><span class="p">.</span><span class="na">getPage</span><span class="p">(),</span><span class="w"> </span><span class="n">dto</span><span class="p">.</span><span class="na">getPageSize</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 执行查询：插件自动查询总数，并为 SQL 添加分页限制</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Page</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">employeeMapper</span><span class="p">.</span><span class="na">pageQuery</span><span class="p">(</span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">long</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getTotal</span><span class="p">();</span><span class="w">               </span><span class="c1">// 符合条件的总记录数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span><span class="w"> </span><span class="n">records</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getResult</span><span class="p">();</span><span class="w">  </span><span class="c1">// 当前页的数据</span><span class="w">
+</span></span></span></code></pre></div><p><code>startPage()</code> 将分页参数保存在当前线程的 <code>ThreadLocal</code> 中，MyBatis 拦截器读取参数并处理分页。</p>
+<p>注意<code>PageHelper.startPage</code>应该紧挨着目标 Mapper 查询调用，作用于之后的第一个 MyBatis 查询；之后的 Mapper SQL 就无须手写 <code>LIMIT</code>。</p>
+<p>查询结果得到<code>Page&lt;E&gt;</code>，既保存本页数据，也保存分页信息。这个示例page使用<code>getTotal()</code> 和 <code>getResult()</code> 不会再次查询数据库。</p>
 
 
 <h2 class="relative group">业务逻辑 
