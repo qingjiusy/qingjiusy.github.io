@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>spring boot开发笔记 &middot; QingJiu</title>
-  <meta name="title" content="spring boot开发笔记 &middot; QingJiu" />
+  <title>java &#43; spring boot开发笔记 &middot; QingJiu</title>
+  <meta name="title" content="java &#43; spring boot开发笔记 &middot; QingJiu" />
   
   <meta name="description" content="blog" />
   <meta name="keywords" content="java, " />
@@ -71,7 +71,7 @@
   
   <meta property="og:url" content="http://localhost:1313/coding/spring_boot1/">
   <meta property="og:site_name" content="QingJiu">
-  <meta property="og:title" content="spring boot开发笔记">
+  <meta property="og:title" content="java &#43; spring boot开发笔记">
   <meta property="og:description" content="blog">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
@@ -84,7 +84,7 @@
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="http://localhost:1313/coding/spring_boot1/featured.png">
-  <meta name="twitter:title" content="spring boot开发笔记">
+  <meta name="twitter:title" content="java &#43; spring boot开发笔记">
   <meta name="twitter:description" content="blog">
 
   
@@ -93,8 +93,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Codings",
-    "name": "spring boot开发笔记",
-    "headline": "spring boot开发笔记",
+    "name": "java \u002b spring boot开发笔记",
+    "headline": "java \u002b spring boot开发笔记",
     
     "abstract": "blog",
     "inLanguage": "zh-cn",
@@ -112,7 +112,7 @@
     "keywords": ["java"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "5063"
+    "wordCount": "5968"
   }]
   </script>
 
@@ -555,7 +555,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      spring boot开发笔记
+      java + spring boot开发笔记
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5063 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
+  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5968 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -746,7 +746,7 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#spring-框架">Spring 框架</a>
+    <li><a href="#spring-boot框架">Spring boot框架</a>
       <ul>
         <li><a href="#spring-如何创建配置和注入对象">Spring 如何创建、配置和注入对象</a></li>
         <li><a href="#进行注释的注解">进行注释的注解</a></li>
@@ -756,6 +756,7 @@
         <li><a href="#spring-mvc-接收前端参数的四种常见写法">Spring MVC 接收前端参数的四种常见写法</a></li>
         <li><a href="#pagehelper-分页查询">PageHelper 分页查询</a></li>
         <li><a href="#spring-mvc-消息转换器">Spring MVC 消息转换器</a></li>
+        <li><a href="#aop-面向切面编程">AOP 面向切面编程</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -782,7 +783,7 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#spring-框架">Spring 框架</a>
+    <li><a href="#spring-boot框架">Spring boot框架</a>
       <ul>
         <li><a href="#spring-如何创建配置和注入对象">Spring 如何创建、配置和注入对象</a></li>
         <li><a href="#进行注释的注解">进行注释的注解</a></li>
@@ -792,6 +793,7 @@
         <li><a href="#spring-mvc-接收前端参数的四种常见写法">Spring MVC 接收前端参数的四种常见写法</a></li>
         <li><a href="#pagehelper-分页查询">PageHelper 分页查询</a></li>
         <li><a href="#spring-mvc-消息转换器">Spring MVC 消息转换器</a></li>
+        <li><a href="#aop-面向切面编程">AOP 面向切面编程</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -890,13 +892,13 @@
         <div class="article-content max-w-prose mb-20">
           
 
-<h2 class="relative group">Spring 框架 
-    <div id="spring-%E6%A1%86%E6%9E%B6" class="anchor"></div>
+<h2 class="relative group">Spring boot框架 
+    <div id="spring-boot%E6%A1%86%E6%9E%B6" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#spring-%E6%A1%86%E6%9E%B6" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#spring-boot%E6%A1%86%E6%9E%B6" aria-label="锚点">#</a>
     </span>        
     
 </h2>
@@ -1292,6 +1294,97 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>注意上述 <code>addSerializer()</code> 配置的是输出规则；解析请求中的日期需要对应的反序列化配置。日期格式化只改变 JSON 表达，不修改数据库中的时间。</p>
 <p>要区分清楚每一部分的职责分工：业务代码负责提供数据，消息转换器负责 HTTP 消息转换，<code>ObjectMapper</code> 负责具体的 JSON 转换规则。</p>
+
+
+<h3 class="relative group">AOP 面向切面编程 
+    <div id="aop-%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#aop-%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>AOP 是将多个业务中<strong>重复的公共逻辑提取出来，在指定方法执行前后统一执行，减少重复代码</strong>。</p>
+<p>例如：新增员工、新增分类都需要设置创建时间、创建人等字段，可以通过 AOP 统一进行公共字段自动填充。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>含义</th>
+<th>本例对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切面</td>
+<td>组织公共处理逻辑的类</td>
+<td><code>AutoFillAspect</code>，使用 <code>@Aspect</code> 标记</td>
+</tr>
+<tr>
+<td>切入点</td>
+<td>指定哪些方法需要处理</td>
+<td>Mapper 包中带 <code>@AutoFill</code> 的方法</td>
+</tr>
+<tr>
+<td>通知</td>
+<td>指定何时执行、执行什么逻辑</td>
+<td>比如<code>@Before</code>：在目标方法执行前填充字段</td>
+</tr>
+<tr>
+<td>连接点</td>
+<td>被拦截的方法执行，可获取相关信息</td>
+<td><code>JoinPoint</code> 提供方法信息和调用参数</td>
+</tr>
+</tbody>
+</table>
+<p><code>@Component</code> 将切面交给 Spring boot 管理。</p>
+<p>接下来举一个进行公共字段自动填充的例子：</p>
+<ul>
+<li>
+<p>Mapper 方法添加标记：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@AutoFill</span><span class="p">(</span><span class="n">OperationType</span><span class="p">.</span><span class="na">INSERT</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span><span class="n">Employee</span><span class="w"> </span><span class="n">employee</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>
+<p>切面定义匹配规则和执行时机：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 切入点：决定“哪些方法需要处理”</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 表示既匹配的是 com.sky.mapper 包内的方法。这里的写法不包含子包</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 又要方法上必须有 @AutoFill 注解</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Pointcut</span><span class="p">(</span><span class="s">&#34;execution(* com.sky.mapper.*.*(..)) &amp;&amp; @annotation(com.sky.annotation.AutoFill)&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">autoFillPointCut</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// @Before 表示前置通知，也就是在目标方法执行之前运行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 表示对符合 autoFillPointCut 规则的方法，在它们执行之前，先执行下面的 autoFill() 方法 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Before</span><span class="p">(</span><span class="s">&#34;autoFillPointCut()&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 在这里是在通知中进行重复的公共逻辑操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// JoinPoint 可以理解成 “当前被拦截的方法调用的信息”</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// AOP 执行通知时，会把它传进来，你不需要自己创建</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">autoFill</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 读取操作类型，获取实体，通过反射调用 setter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>
+<p>执行流程：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Service 调用 Mapper 方法
+</span></span><span class="line"><span class="cl">    → 执行前置通知
+</span></span><span class="line"><span class="cl">    → 读取 @AutoFill 中的 INSERT / UPDATE
+</span></span><span class="line"><span class="cl">    → 获取方法参数中的实体对象
+</span></span><span class="line"><span class="cl">    → 调用 setter，填充公共字段
+</span></span><span class="line"><span class="cl">    → Mapper 继续执行 SQL
+</span></span></code></pre></div><p>具体来说，针对两个不同的 mapper 方法，进行不同的处理，具体的分支选择在<code>autoFill</code>函数里面做：</p>
+<p><strong>INSERT</strong>：填充创建时间、创建人、修改时间、修改人。
+<strong>UPDATE</strong>：只填充修改时间、修改人。</p>
+</li>
+</ul>
+<p>要区分三种技术：</p>
+<ol>
+<li><strong>自定义注解</strong>：为类、方法、字段等添加描述信息，注解本身不执行业务逻辑。本例中，<code>@AutoFill</code>标记需要填充的方法，并携带新增或修改的操作类型。</li>
+<li><strong>AOP</strong>：将公共逻辑集中处理，在指定方法执行前、正常返回后、抛出异常时等时机执行。本例中，通过 <code>@Before</code> 在 Mapper 方法执行前运行填充代码。</li>
+<li><strong>反射</strong>：在运行时获取类的信息，并进行创建对象、调用方法、读写字段、读取注解等操作。本例中，用于读取方法上的 <code>@AutoFill</code> 注解，以及查找并调用实体的 setter。</li>
+</ol>
+<p><strong>注意：注解本身不会自动赋值；切面修改的是传入的实体对象，最终仍由 Mapper 的 SQL 将字段写入数据库</strong>。</p>
 
 
 <h2 class="relative group">业务逻辑 

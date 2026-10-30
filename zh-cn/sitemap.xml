@@ -19,6 +19,12 @@
     />
   </url>
   <url>
+    <loc>http://localhost:1313/coding/spring_boot1/</loc>
+    <lastmod>2026-10-25T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2026-10-25T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
@@ -33,12 +39,6 @@
       hreflang="zh-cn"
       href="http://localhost:1313/"
     />
-  </url>
-  <url>
-    <loc>http://localhost:1313/coding/spring_boot1/</loc>
-    <lastmod>2026-10-25T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:1313/coding/mysql_window_function/</loc>
