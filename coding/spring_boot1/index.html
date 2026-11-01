@@ -112,7 +112,7 @@
     "keywords": ["java"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "5968"
+    "wordCount": "6464"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5968 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6464 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">13 分钟</span>
   
 
   
@@ -914,17 +914,32 @@
     </span>        
     
 </h3>
-<p>要记住下面这些常用的注解：</p>
-<blockquote>
-<p>@Component / @Service：让被扫描到的类交给 Spring 创建和管理。
-@ConfigurationProperties：把配置值绑定到对象字段。
-@Autowired：主要按类型寻找对象，将对象引用注入字段。
-@Data：由 Lombok 生成 getter、setter 等方法，不负责读取配置。</p>
-</blockquote>
-<p>另外，注意到代码里有：</p>
+<p>Spring 创建和管理的对象称为 <strong>Bean</strong>。下面这些注解分别负责注册对象、绑定配置和注入依赖：</p>
+<ul>
+<li><code>@Component / @Service</code>：标在类上，让被扫描到的类交给 Spring 创建和管理。其中 <code>@Service</code> 通常用于业务层。</li>
+<li><code>@Configuration</code>：标在类上，声明这是一个配置类，通常在其中通过 <code>@Bean</code> 方法定义 Bean。配置类需要被 Spring 扫描或引入。</li>
+<li><code>@Bean</code>：标在方法上，将方法返回的对象注册为 Spring Bean，默认使用方法名作为 Bean 名称。</li>
+<li><code>@ConfigurationProperties</code>：将外部配置绑定到对象属性，通常通过 <code>prefix</code> 指定配置前缀。配置类还需要通过 <code>@Component</code>、<code>@EnableConfigurationProperties</code> 或 <code>@ConfigurationPropertiesScan</code> 等方式注册。</li>
+<li><code>@Autowired</code>：主要按类型查找并注入匹配的 Bean，可以用于字段、构造器或方法。</li>
+<li><code>@Data</code>：由 Lombok 生成 getter、setter、<code>toString()</code> 等方法，不负责注册 Bean、读取配置或注入依赖。</li>
+</ul>
+<p><strong>使用 <code>@Configuration</code> 和 <code>@Bean</code></strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AppConfig</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Student</span><span class="w"> </span><span class="nf">student</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>Spring 处理这个配置类时，会调用 <code>student()</code> 方法，将返回的对象注册到容器中，默认 Bean 名为 <code>student</code>。配置类 <code>AppConfig</code> 本身也由 Spring 管理。</p>
+<p><code>@Component / @Service</code> 是在类上标记，让 Spring 创建对象；<code>@Bean</code> 是通过方法提供对象，再交给 Spring 管理。<strong>第三方库的类不方便直接添加注解，或者对象需要自定义创建过程时，可以使用 <code>@Bean</code>。</strong></p>
+<p><strong>通过接口注入实现类对象</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Autowired</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">EmployeeService</span><span class="w"> </span><span class="n">employeeService</span><span class="p">;</span><span class="w">
-</span></span></span></code></pre></div><p><code>EmployeeService</code> 虽然是接口，但变量可以引用实现该接口的对象。<code>EmployeeServiceImpl</code> 实现了这个接口，并通过 <code>@Service</code> 和组件扫描注册为 Spring Bean，因此 Spring 可以把匹配的 Bean 注入 <code>employeeService</code>。如果存在多个候选 Bean，需要通过 @Primary、@Qualifier 等规则确定注入哪一个。</p>
+</span></span></span></code></pre></div><p><code>EmployeeService</code> 虽然是接口，但变量可以引用实现该接口的对象。<code>EmployeeServiceImpl</code> 实现了这个接口，并通过 <code>@Service</code> 和组件扫描注册为 Spring Bean，因此 Spring 可以把匹配的 Bean 注入 <code>employeeService</code>。包含这个字段的对象通常也需要由 Spring 管理，注入才会自动发生。</p>
+<p>如果存在多个候选 Bean，可以通过 <code>@Primary</code> 指定优先使用的 Bean，或通过 <code>@Qualifier</code> 限定要注入的 Bean。</p>
+<p><strong><code>@Autowired</code> 不等于 <code>new EmployeeServiceImpl()</code>：<code>new</code> 是自己创建对象，<code>@Autowired</code> 是让 Spring 提供并注入匹配的 Bean。</strong></p>
 
 
 <h3 class="relative group">进行注释的注解 
