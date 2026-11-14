@@ -112,7 +112,7 @@
     "keywords": ["cs336"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "4994"
+    "wordCount": "5024"
   }]
   </script>
 
@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Lives">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Codings">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Lives">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Codings">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-7/featured_hu15877482033400326244.JPG);">
+    style="background-image:url(/coding/cs336-assign1-7/featured_hu_fdbc5ba662749d7d.JPG);">
     
 
 
@@ -733,7 +733,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-08T00:00:00&#43;00:00">8 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4994 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  <time datetime="2026-08-08T00:00:00&#43;00:00">8 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5024 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
   
 
   
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
     
   
   <div class="place-self-center">
@@ -1016,8 +1016,7 @@
 <li>记住工程约定：<strong>只对 Q/K 施加</strong>，不动 V；位置来自 <code>token_positions</code> 参数。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信</strong>：本笔记本用<strong>通用的 2×2 旋转矩阵</strong>来演示&quot;旋转&quot;这一几何概念，用来建立直觉——它<strong>不是</strong> <code>adapters.py::run_rope</code> 里要交付的那个针对 <code>d_k</code> 的前向实现。频率曲线只是把公式画出来看形状。真正的实现（张量配对、施加到 Q/K、处理任意前导维与 <code>token_positions</code>）留给你，本章结尾只给<strong>带步骤注释的骨架</strong>，<code>...</code> 处留白。</p>
-</blockquote>
+<p><strong>学术诚信</strong>：本笔记本用<strong>通用的 2×2 旋转矩阵</strong>来演示&quot;旋转&quot;这一几何概念，用来建立直觉——它<strong>不是</strong> <code>adapters.py::run_rope</code> 里要交付的那个针对 <code>d_k</code> 的前向实现。频率曲线只是把公式画出来看形状。真正的实现（张量配对、施加到 Q/K、处理任意前导维与 <code>token_positions</code>）留给你，本章结尾只给<strong>带步骤注释的骨架</strong>，<code>...</code> 处留白。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1089,8 +1088,7 @@
 </h2>
 <p>RoPE 的做法：把特征向量的维度<strong>两两配成一组</strong>，每一组看成一个<strong>二维平面上的点</strong>；然后按 token 所在的<strong>位置 $m$</strong> 把这个二维点<strong>旋转一个角度</strong> $m\cdot\omega$（$\omega$ 是这一组对应的频率）。</p>
 <p>二维旋转就是最普通的旋转矩阵：</p>
-$$R(\phi)=\begin{bmatrix}\cos\phi & -\sin\phi\\ \sin\phi & \cos\phi\end{bmatrix}$$
-<p>下面用<strong>通用</strong>的 $R(\phi)$（这只是几何工具，不是 RoPE 前向）把同一个二维向量在位置 $m=0,1,2,\dots$ 上依次旋转，看它在圆上&quot;走&quot;出的轨迹。位置越大，转得越远。</p>
+$$R(\phi)=\begin{bmatrix}\cos\phi & -\sin\phi\\ \sin\phi & \cos\phi\end{bmatrix}$$<p>下面用<strong>通用</strong>的 $R(\phi)$（这只是几何工具，不是 RoPE 前向）把同一个二维向量在位置 $m=0,1,2,\dots$ 上依次旋转，看它在圆上&quot;走&quot;出的轨迹。位置越大，转得越远。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rot</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 通用 2x2 旋转矩阵（纯几何工具，与作业实现无关）</span>
 </span></span><span class="line"><span class="cl">    <span class="n">phi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -1122,11 +1120,11 @@ $$R(\phi)=\begin{bmatrix}\cos\phi & -\sin\phi\\ \sin\phi & \cos\phi\end{bmatrix}
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-7/index_files/index_5_0_hu17394018543825910825.png 330w,
-        /coding/cs336-assign1-7/index_files/index_5_0_hu14165274124430257167.png 660w,
-        /coding/cs336-assign1-7/index_files/index_5_0_hu10831283539564475865.png 1024w,
-        /coding/cs336-assign1-7/index_files/index_5_0_hu13179879517641000608.png 2x"
-        src="/coding/cs336-assign1-7/index_files/index_5_0_hu14165274124430257167.png"
+        /coding/cs336-assign1-7/index_files/index_5_0_hu_bb338faf58338869.png 330w,
+        /coding/cs336-assign1-7/index_files/index_5_0_hu_4666d721b7a9d128.png 660w,
+        /coding/cs336-assign1-7/index_files/index_5_0_hu_9290cc54bad139a1.png 1024w,
+        /coding/cs336-assign1-7/index_files/index_5_0_hu_33762bfc6bc6a97e.png 2x"
+        src="/coding/cs336-assign1-7/index_files/index_5_0_hu_4666d721b7a9d128.png"
         alt="png"
       />
       
@@ -1147,8 +1145,7 @@ $$R(\phi)=\begin{bmatrix}\cos\phi & -\sin\phi\\ \sin\phi & \cos\phi\end{bmatrix}
     
 </h2>
 <p>如果所有维度对都用同一个 $\omega$，那不同维度携带的位置信息完全重复。RoPE 让<strong>每一组用不同的频率</strong>，按下式安排（$i$ 是维度对的索引，从 0 数起，$d$ 是特征维数）：</p>
-$$\omega_i=\theta^{-2i/d},\qquad \theta \approx 10000$$
-<p>i增大，2i/d增大，$\theta^{2i/d}$也增大，而它的倒数$\theta^{-2i/d}$越来越小，对应的就是频率小</p>
+$$\omega_i=\theta^{-2i/d},\qquad \theta \approx 10000$$<p>i增大，2i/d增大，$\theta^{2i/d}$也增大，而它的倒数$\theta^{-2i/d}$越来越小，对应的就是频率小</p>
 <ul>
 <li>$i$ 小 → 频率大 → <strong>转得快</strong>（波长短），对<strong>相邻</strong>位置差敏感；</li>
 <li>$i$ 大 → 频率小 → <strong>转得慢</strong>（波长长），能覆盖<strong>很远</strong>的位置差。</li>
@@ -1183,11 +1180,11 @@ $$\omega_i=\theta^{-2i/d},\qquad \theta \approx 10000$$
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-7/index_files/index_7_0_hu12965457146623989945.png 330w,
-        /coding/cs336-assign1-7/index_files/index_7_0_hu10520617487875917697.png 660w,
-        /coding/cs336-assign1-7/index_files/index_7_0_hu10090037677191324135.png 1024w,
-        /coding/cs336-assign1-7/index_files/index_7_0_hu2810067047491460284.png 2x"
-        src="/coding/cs336-assign1-7/index_files/index_7_0_hu10520617487875917697.png"
+        /coding/cs336-assign1-7/index_files/index_7_0_hu_3a28e1d150d8a973.png 330w,
+        /coding/cs336-assign1-7/index_files/index_7_0_hu_23c6a676b8158c86.png 660w,
+        /coding/cs336-assign1-7/index_files/index_7_0_hu_6a8de126f0bd1e5a.png 1024w,
+        /coding/cs336-assign1-7/index_files/index_7_0_hu_fd480b265090a39f.png 2x"
+        src="/coding/cs336-assign1-7/index_files/index_7_0_hu_23c6a676b8158c86.png"
         alt="png"
       />
       
@@ -1210,8 +1207,7 @@ $$\omega_i=\theta^{-2i/d},\qquad \theta \approx 10000$$
 <p>这是 RoPE 最漂亮的性质。设某个维度对里，query 在位置 $m$、key 在位置 $n$，各自被旋转：</p>
 $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
 = q^{\top} R(m\omega)^{\top} R(n\omega)\, k
-= q^{\top} R\big((n-m)\omega\big)\, k$$
-<p>（用到 $R(a)^{\top}R(b)=R(b-a)$。）结果里<strong>绝对位置 $m,n$ 消失了</strong>，只剩下<strong>相对位置 $n-m$</strong>。也就是说：把两个 token 一起平移，注意力打分不变——模型学到的是&quot;相隔多远&quot;，而不是&quot;各自在第几位&quot;。</p>
+= q^{\top} R\big((n-m)\omega\big)\, k$$<p>（用到 $R(a)^{\top}R(b)=R(b-a)$。）结果里<strong>绝对位置 $m,n$ 消失了</strong>，只剩下<strong>相对位置 $n-m$</strong>。也就是说：把两个 token 一起平移，注意力打分不变——模型学到的是&quot;相隔多远&quot;，而不是&quot;各自在第几位&quot;。</p>
 <p>也就是<strong>给 Query 和 Key 都做 RoPE 旋转以后，它们的点积只和二者相距多少个位置有关，而不再分别依赖它们各自在第几个位置。</strong></p>
 <p>下面用<strong>通用 2D 旋转</strong>把这条恒等式<strong>测出来</strong>：固定偏移 $n-m$ 时打分是常数；改变偏移时打分才变化。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rot</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
@@ -1252,11 +1248,11 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-7/index_files/index_9_0_hu9145623924731059739.png 330w,
-        /coding/cs336-assign1-7/index_files/index_9_0_hu15929024300003250395.png 660w,
-        /coding/cs336-assign1-7/index_files/index_9_0_hu18411357927801774431.png 1024w,
-        /coding/cs336-assign1-7/index_files/index_9_0_hu3112807541422438383.png 2x"
-        src="/coding/cs336-assign1-7/index_files/index_9_0_hu15929024300003250395.png"
+        /coding/cs336-assign1-7/index_files/index_9_0_hu_96391a66f8059e6a.png 330w,
+        /coding/cs336-assign1-7/index_files/index_9_0_hu_fdc6c4435b253035.png 660w,
+        /coding/cs336-assign1-7/index_files/index_9_0_hu_66a6d2da85114baf.png 1024w,
+        /coding/cs336-assign1-7/index_files/index_9_0_hu_8941c538997ce17c.png 2x"
+        src="/coding/cs336-assign1-7/index_files/index_9_0_hu_fdc6c4435b253035.png"
         alt="png"
       />
       
@@ -1266,8 +1262,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
 这正是 RoPE 想要的：注意力对“相隔多远”敏感，对“各自第几位”不敏感。
 </code></pre>
 <blockquote>
-<p><strong>一个工程约定别忘了</strong>：RoPE <strong>只施加在 Q 和 K 上</strong>，<strong>不作用于 V</strong>。原因正是 Part D——位置信息要进入的是&quot;谁和谁匹配&quot;的打分（$q\cdot k$），而 V 只是被加权求和的内容，不参与打分，所以不需要旋转。</p>
-</blockquote>
+<p><strong>一个工程约定别忘了</strong>：RoPE <strong>只施加在 Q 和 K 上</strong>，<strong>不作用于 V</strong>。原因正是 Part D——位置信息要进入的是&quot;谁和谁匹配&quot;的打分（$q\cdot k$），而 V 只是被加权求和的内容，不参与打分，所以不需要旋转。</p></blockquote>
 
 
 <h2 class="relative group">🔬 拓展实验（自己动手，加深理解） 
@@ -1397,7 +1392,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1448,7 +1443,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5984 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5985 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -1479,7 +1474,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1530,7 +1525,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4692 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4701 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
   
 
   
@@ -1561,7 +1556,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1612,7 +1607,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5660 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -1650,8 +1645,8 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
           
         
       <script>
-        var oid = "views_coding\\cs336-assign1-7\\index.md"
-        var oid_likes = "likes_coding\\cs336-assign1-7\\index.md"
+        var oid = "views_coding\/cs336-assign1-7\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-7\/index.md"
       </script>
       
       
@@ -1744,7 +1739,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="">
+            title="Tags">
             
             Tags
           </a>
@@ -1752,7 +1747,7 @@ $$\langle R(m\omega)\,q,\; R(n\omega)\,k\rangle
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="">
+            title="Categories">
             
             Categories
           </a>

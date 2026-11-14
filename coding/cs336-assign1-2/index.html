@@ -112,7 +112,7 @@
     "keywords": ["cs336"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "6170"
+    "wordCount": "6180"
   }]
   </script>
 
@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Lives">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Codings">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Lives">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Codings">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-2/featured_hu15877482033400326244.JPG);">
+    style="background-image:url(/coding/cs336-assign1-2/featured_hu_fdbc5ba662749d7d.JPG);">
     
 
 
@@ -733,7 +733,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-03T00:00:00&#43;00:00">3 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6170 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">13 分钟</span>
+  <time datetime="2026-08-03T00:00:00&#43;00:00">3 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6180 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">13 分钟</span>
   
 
   
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
     
   
   <div class="place-self-center">
@@ -1026,8 +1026,7 @@
 <li>拿到 RMSNorm 的<strong>引导骨架</strong>，知道自己在 <code>cs336_basics/</code> 里要写什么。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信</strong>：本笔记本用 <code>nn.LayerNorm</code> / <code>nn.RMSNorm</code> 等 PyTorch 内置件当&quot;参考教具&quot;，只用来展示<strong>行为、性质、几何与数值现象</strong>，<strong>不</strong>包含任何可复制粘贴的 <code>run_rmsnorm</code> 解答。真正的实现表达式全部留白（<code>...</code>）给你自己写。</p>
-</blockquote>
+<p><strong>学术诚信</strong>：本笔记本用 <code>nn.LayerNorm</code> / <code>nn.RMSNorm</code> 等 PyTorch 内置件当&quot;参考教具&quot;，只用来展示<strong>行为、性质、几何与数值现象</strong>，<strong>不</strong>包含任何可复制粘贴的 <code>run_rmsnorm</code> 解答。真正的实现表达式全部留白（<code>...</code>）给你自己写。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
@@ -1058,13 +1057,10 @@
 RMS：看数值本身离 0 有多远
 标准差：看数值离自己的平均值有多远</p>
 <p>对一个 <code>(d, d)</code>、权重元素方差为 $\sigma^2$ 的线性层，它作用在激活上时，对<strong>标准差 / RMS</strong> 的乘性增益约为：</p>
-$$g \approx \sqrt{d}\,\sigma$$
-<blockquote>
-<p>推导：输出分量 $h_i=\sum_{j} W_{ij}x_j$，在权重独立同分布假设下 $\mathrm{Var}(h_i)=\sigma^2\|x\|^2$；$d$ 个分量合起来 $\mathbb{E}\|h\|^2 = d\,\sigma^2\|x\|^2$，开方即得 $g=\sqrt{d}\,\sigma$。</p>
-</blockquote>
+$$g \approx \sqrt{d}\,\sigma$$<blockquote>
+<p>推导：输出分量 $h_i=\sum_{j} W_{ij}x_j$，在权重独立同分布假设下 $\mathrm{Var}(h_i)=\sigma^2\|x\|^2$；$d$ 个分量合起来 $\mathbb{E}\|h\|^2 = d\,\sigma^2\|x\|^2$，开方即得 $g=\sqrt{d}\,\sigma$。</p></blockquote>
 <p><code>nn.Linear</code> 的默认初始化（<code>kaiming_uniform_(a=√5)</code>）让权重服从 $U(-1/\sqrt{d},\ 1/\sqrt{d})$，方差 $\sigma^2=\tfrac{1}{3d}$，于是</p>
-$$g=\sqrt{d}\cdot\tfrac{1}{\sqrt{3d}}=\tfrac{1}{\sqrt{3}}\approx 0.577<1.$$
-<p><strong>这不是巧合</strong>：fan-in 缩放初始化的目的，就是把每层增益压在 1 附近（略小于 1），让信号既不爆炸也不太快消失。现在若人为把权重乘上系数 <code>c</code>，增益变成 $g=c/\sqrt{3}$，于是存在一个<strong>临界系数</strong>：</p>
+$$g=\sqrt{d}\cdot\tfrac{1}{\sqrt{3d}}=\tfrac{1}{\sqrt{3}}\approx 0.577<1.$$<p><strong>这不是巧合</strong>：fan-in 缩放初始化的目的，就是把每层增益压在 1 附近（略小于 1），让信号既不爆炸也不太快消失。现在若人为把权重乘上系数 <code>c</code>，增益变成 $g=c/\sqrt{3}$，于是存在一个<strong>临界系数</strong>：</p>
 $$
 c^*=\sqrt{3}\approx 1.73,\qquad
 \begin{cases}
@@ -1072,8 +1068,7 @@ c<\sqrt{3}\Rightarrow g<1\Rightarrow \text{指数消失}\\[2pt]
 c=\sqrt{3}\Rightarrow g\approx 1\Rightarrow \text{勉强持平（随机游走）}\\[2pt]
 c>\sqrt{3}\Rightarrow g>1\Rightarrow \text{指数爆炸}
 \end{cases}
-$$
-<p>下面用三个不同的 <code>c</code> 把这三种情形一次跑出来，并叠上理论预测 $g^{\text{depth}}$ 做验证；然后在<strong>爆炸</strong>那一档上每层后接 <code>nn.LayerNorm</code>（内置参考件，只看&quot;效果&quot;不看实现），看尺度是否被摁回 $O(1)$。</p>
+$$<p>下面用三个不同的 <code>c</code> 把这三种情形一次跑出来，并叠上理论预测 $g^{\text{depth}}$ 做验证；然后在<strong>爆炸</strong>那一档上每层后接 <code>nn.LayerNorm</code>（内置参考件，只看&quot;效果&quot;不看实现），看尺度是否被摁回 $O(1)$。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">depth</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">512</span>
 </span></span><span class="line"><span class="cl"><span class="n">sqrt3</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">**</span> <span class="mf">0.5</span>
 </span></span><span class="line"><span class="cl">
@@ -1134,11 +1129,11 @@ $$
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-2/index_files/index_3_0_hu12343434130564173105.png 330w,
-        /coding/cs336-assign1-2/index_files/index_3_0_hu3068863402667774411.png 660w,
-        /coding/cs336-assign1-2/index_files/index_3_0_hu12491364377206845368.png 1024w,
-        /coding/cs336-assign1-2/index_files/index_3_0_hu7639894367917675625.png 2x"
-        src="/coding/cs336-assign1-2/index_files/index_3_0_hu3068863402667774411.png"
+        /coding/cs336-assign1-2/index_files/index_3_0_hu_5bc754dbc1720a6f.png 330w,
+        /coding/cs336-assign1-2/index_files/index_3_0_hu_3eec7a5d64c5f66e.png 660w,
+        /coding/cs336-assign1-2/index_files/index_3_0_hu_6a20044a8bab5f54.png 1024w,
+        /coding/cs336-assign1-2/index_files/index_3_0_hu_6700b97505ed40da.png 2x"
+        src="/coding/cs336-assign1-2/index_files/index_3_0_hu_3eec7a5d64c5f66e.png"
         alt="png"
       />
       
@@ -1171,31 +1166,31 @@ $$
 </h2>
 <p>两者都沿<strong>最后一维</strong>（特征维 <code>d_model</code>）归一化，但做法不同：</p>
 <table>
-<thead>
-<tr>
-<th></th>
-<th>减均值?</th>
-<th>缩放依据</th>
-<th>bias?</th>
-<th>可学习参数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>LayerNorm</strong></td>
-<td>是</td>
-<td>标准差 std（含均值的方差）</td>
-<td>有</td>
-<td>gain + bias</td>
-</tr>
-<tr>
-<td><strong>RMSNorm</strong></td>
-<td><strong>否</strong></td>
-<td><strong>均方根 RMS</strong>（只看平方均值）</td>
-<td><strong>无</strong></td>
-<td>只有 gain</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th></th>
+          <th>减均值?</th>
+          <th>缩放依据</th>
+          <th>bias?</th>
+          <th>可学习参数</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>LayerNorm</strong></td>
+          <td>是</td>
+          <td>标准差 std（含均值的方差）</td>
+          <td>有</td>
+          <td>gain + bias</td>
+      </tr>
+      <tr>
+          <td><strong>RMSNorm</strong></td>
+          <td><strong>否</strong></td>
+          <td><strong>均方根 RMS</strong>（只看平方均值）</td>
+          <td><strong>无</strong></td>
+          <td>只有 gain</td>
+      </tr>
+  </tbody>
 </table>
 <p>RMSNorm 去掉了&quot;减均值&quot;和 bias，仅仅是把每个元素除以整条向量的 RMS，公式更简单、计算更省，而效果在大模型上与 LayerNorm 相当——所以本作业用它。</p>
 <p>关键的行为差异：<strong>RMSNorm 不减均值</strong>。</p>
@@ -1298,11 +1293,11 @@ upcast fp32 再算   : 20.208784   绝对误差 8.46e-07
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-2/index_files/index_10_0_hu10226637169183972926.png 330w,
-        /coding/cs336-assign1-2/index_files/index_10_0_hu7887169107646916335.png 660w,
-        /coding/cs336-assign1-2/index_files/index_10_0_hu8877380478909991527.png 1024w,
-        /coding/cs336-assign1-2/index_files/index_10_0_hu8774274439773849611.png 2x"
-        src="/coding/cs336-assign1-2/index_files/index_10_0_hu7887169107646916335.png"
+        /coding/cs336-assign1-2/index_files/index_10_0_hu_118d8159ef93e4d8.png 330w,
+        /coding/cs336-assign1-2/index_files/index_10_0_hu_4275ee8ae29d60d7.png 660w,
+        /coding/cs336-assign1-2/index_files/index_10_0_hu_c1049a5ef607ccbb.png 1024w,
+        /coding/cs336-assign1-2/index_files/index_10_0_hu_3930c85a50a45edb.png 2x"
+        src="/coding/cs336-assign1-2/index_files/index_10_0_hu_4275ee8ae29d60d7.png"
         alt="png"
       />
       
@@ -1495,22 +1490,22 @@ RMSNorm 输出: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackwa
     
 </h3>
 <table>
-<thead>
-<tr>
-<th>你要实现</th>
-<th>对应 <code>run_*</code></th>
-<th>测试</th>
-<th>一句话提示</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>RMSNorm</code></td>
-<td><code>run_rmsnorm</code></td>
-<td><code>tests/test_model.py::test_rmsnorm</code></td>
-<td><code>eps=1e-5</code>，gain 形状 <code>(d_model,)</code>，<strong>别忘 fp32 upcast</strong></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>测试</th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>RMSNorm</code></td>
+          <td><code>run_rmsnorm</code></td>
+          <td><code>tests/test_model.py::test_rmsnorm</code></td>
+          <td><code>eps=1e-5</code>，gain 形状 <code>(d_model,)</code>，<strong>别忘 fp32 upcast</strong></td>
+      </tr>
+  </tbody>
 </table>
 <p>关于这个测试的事实（来自 <code>tests/</code>，帮你对齐预期）：</p>
 <ul>
@@ -1563,7 +1558,7 @@ RMSNorm 输出: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackwa
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1645,7 +1640,7 @@ RMSNorm 输出: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackwa
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-0/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-0/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1727,7 +1722,7 @@ RMSNorm 输出: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackwa
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/knowledege1/featured_hu17091525869089436197.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/knowledege1/featured_hu_afbd216f444a1af.PNG);"></div>
         
       
 
@@ -1816,8 +1811,8 @@ RMSNorm 输出: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackwa
           
         
       <script>
-        var oid = "views_coding\\cs336-assign1-2\\index.md"
-        var oid_likes = "likes_coding\\cs336-assign1-2\\index.md"
+        var oid = "views_coding\/cs336-assign1-2\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-2\/index.md"
       </script>
       
       
@@ -1910,7 +1905,7 @@ RMSNorm 输出: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackwa
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="">
+            title="Tags">
             
             Tags
           </a>
@@ -1918,7 +1913,7 @@ RMSNorm 输出: tensor([[0.3651, 1.4606, 0.5477, 4.3818]], grad_fn=&lt;MulBackwa
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="">
+            title="Categories">
             
             Categories
           </a>

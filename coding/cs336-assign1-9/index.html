@@ -112,7 +112,7 @@
     "keywords": ["cs336"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "8827"
+    "wordCount": "8850"
   }]
   </script>
 
@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Lives">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Codings">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Lives">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Codings">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-9/featured_hu15877482033400326244.JPG);">
+    style="background-image:url(/coding/cs336-assign1-9/featured_hu_fdbc5ba662749d7d.JPG);">
     
 
 
@@ -733,7 +733,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8827 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8850 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
   
 
   
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
     
   
   <div class="place-self-center">
@@ -1077,8 +1077,7 @@
 <li>拿到三个<strong>引导骨架</strong>，知道自己在 <code>cs336_basics/</code> 与 <code>tests/adapters.py</code> 里要写什么。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信</strong>：本章用 <code>torch.optim.SGD/AdamW</code>、<code>torch.optim.lr_scheduler</code>、<code>torch.nn.utils.clip_grad_norm_</code> 当&quot;参考教具&quot;来<strong>展示行为</strong>，不作为你的答案。所有需要你实现的更新式 / 闭式表达都以 <code>...</code> 留白。也不展示&quot;我的表达式恰好等于参考输出&quot;这类等价 cell —— 那属于把答案写出来。</p>
-</blockquote>
+<p><strong>学术诚信</strong>：本章用 <code>torch.optim.SGD/AdamW</code>、<code>torch.optim.lr_scheduler</code>、<code>torch.nn.utils.clip_grad_norm_</code> 当&quot;参考教具&quot;来<strong>展示行为</strong>，不作为你的答案。所有需要你实现的更新式 / 闭式表达都以 <code>...</code> 留白。也不展示&quot;我的表达式恰好等于参考输出&quot;这类等价 cell —— 那属于把答案写出来。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
@@ -1109,25 +1108,25 @@
 </ul>
 <p>一个 <code>lr</code> 很难同时照顾这两种方向。改进思路有两条，Adam 把它们合在一起：</p>
 <table>
-<thead>
-<tr>
-<th>机制</th>
-<th>直觉</th>
-<th>解决什么</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>动量（一阶矩 m）</strong></td>
-<td>梯度的指数滑动平均，像&quot;惯性&quot;</td>
-<td>抑制陡峭方向的震荡、加速平缓方向</td>
-</tr>
-<tr>
-<td><strong>自适应缩放（二阶矩 v）</strong></td>
-<td>用梯度平方的滑动平均去归一化步长</td>
-<td>让每个坐标自动获得合适的有效步长</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>机制</th>
+          <th>直觉</th>
+          <th>解决什么</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>动量（一阶矩 m）</strong></td>
+          <td>梯度的指数滑动平均，像&quot;惯性&quot;</td>
+          <td>抑制陡峭方向的震荡、加速平缓方向</td>
+      </tr>
+      <tr>
+          <td><strong>自适应缩放（二阶矩 v）</strong></td>
+          <td>用梯度平方的滑动平均去归一化步长</td>
+          <td>让每个坐标自动获得合适的有效步长</td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Adam</strong> = 动量 + 逐坐标自适应步长。<strong>AdamW</strong> 在此之上把<strong>权重衰减解耦</strong>出来（后面细讲）。下面用一个病态二次函数把这种差异&quot;看&quot;出来。</p>
 
@@ -1184,11 +1183,11 @@
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-9/index_files/index_4_0_hu13480658114877545899.png 330w,
-        /coding/cs336-assign1-9/index_files/index_4_0_hu1234609375119310863.png 660w,
-        /coding/cs336-assign1-9/index_files/index_4_0_hu6464998393558136828.png 1024w,
-        /coding/cs336-assign1-9/index_files/index_4_0_hu13554545361269699362.png 2x"
-        src="/coding/cs336-assign1-9/index_files/index_4_0_hu1234609375119310863.png"
+        /coding/cs336-assign1-9/index_files/index_4_0_hu_1d4328d98e763401.png 330w,
+        /coding/cs336-assign1-9/index_files/index_4_0_hu_4196db4fdfd5a22a.png 660w,
+        /coding/cs336-assign1-9/index_files/index_4_0_hu_33ef834b1ad37534.png 1024w,
+        /coding/cs336-assign1-9/index_files/index_4_0_hu_abe0c8a4fcbded76.png 2x"
+        src="/coding/cs336-assign1-9/index_files/index_4_0_hu_4196db4fdfd5a22a.png"
         alt="png"
       />
       
@@ -1216,67 +1215,55 @@ AdamW 末点: [0.31190813 0.3119082 ]
 <p>一阶矩 $m_t$：梯度 $g_t$ 的指数滑动平均，表示最近一段时间的<strong>主要更新方向</strong>：</p>
 $$
   m_t = \beta_1 m_{t-1} + (1-\beta_1)g_t
-  $$
-<p>其中 $\beta_1$ 控制对历史梯度的保留程度，Adam 中通常取 $\beta_1=0.9$。</p>
+  $$<p>其中 $\beta_1$ 控制对历史梯度的保留程度，Adam 中通常取 $\beta_1=0.9$。</p>
 </li>
 <li>
 <p>二阶矩 $v_t$：梯度平方 $g_t^2$ 的指数滑动平均，表示该参数最近的<strong>典型梯度大小</strong>：</p>
 $$
   v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2
-  $$
-<p>其中 $\beta_2$ 控制对历史梯度平方的保留程度，Adam 中通常取 $\beta_2=0.999$。</p>
+  $$<p>其中 $\beta_2$ 控制对历史梯度平方的保留程度，Adam 中通常取 $\beta_2=0.999$。</p>
 </li>
 </ul>
 <p>因为 $m_t,v_t$ 都从 0 开始，训练早期的指数滑动平均会天然偏向 0。</p>
 <p>例如第一步：</p>
 $$
 m_1 = \beta_1 m_0 + (1-\beta_1)g_1
-$$
-<p>由于 $m_0=0$：</p>
+$$<p>由于 $m_0=0$：</p>
 $$
 m_1 = (1-\beta_1)g_1
-$$
-<p>如果 $\beta_1=0.9$，那么：</p>
+$$<p>如果 $\beta_1=0.9$，那么：</p>
 $$
 m_1 = 0.1g_1
-$$
-<p>可以看到，第一步得到的 $m_1$ 会明显小于真实梯度尺度。$v_t$ 也有同样的问题。</p>
+$$<p>可以看到，第一步得到的 $m_1$ 会明显小于真实梯度尺度。$v_t$ 也有同样的问题。</p>
 <p>因此 Adam 会做<strong>偏差校正</strong>（bias correction）。</p>
 <p>由于一阶矩和二阶矩都从 0 开始初始化：</p>
 $$
 m_0 = 0,\qquad v_0 = 0
-$$
-<p>训练初期得到的 $m_t,v_t$ 会被低估，因此需要补偿这一初始化偏差。</p>
+$$<p>训练初期得到的 $m_t,v_t$ 会被低估，因此需要补偿这一初始化偏差。</p>
 <p>最直观的写法是直接校正 $m_t,v_t$：</p>
 $$
 \hat m_t = \frac{m_t}{1-\beta_1^t}
-$$
-$$
+$$$$
 \hat v_t = \frac{v_t}{1-\beta_2^t}
-$$
-<p>其中 $\hat m_t,\hat v_t$ 是校正后的估计值。</p>
+$$<p>其中 $\hat m_t,\hat v_t$ 是校正后的估计值。</p>
 <p>以第一步为例：</p>
 $$
 m_1 = (1-\beta_1)g_1
-$$
-<p>因此：</p>
+$$<p>因此：</p>
 $$
 \hat m_1
 =%
 \frac{(1-\beta_1)g_1}{1-\beta_1}
 =%
 g_1
-$$
-<p>这样就补偿了由于初始值设为 0 所造成的低估。</p>
+$$<p>这样就补偿了由于初始值设为 0 所造成的低估。</p>
 <p>随着训练步数 $t$ 增大：</p>
 $$
 \beta_1^t,\beta_2^t \to 0
-$$
-<p>因此：</p>
+$$<p>因此：</p>
 $$
 1-\beta_1^t,\;1-\beta_2^t \to 1
-$$
-<p>偏差校正的影响会逐渐变小。</p>
+$$<p>偏差校正的影响会逐渐变小。</p>
 
 
 <h3 class="relative group">偏差校正的两种等价写法 
@@ -1304,11 +1291,9 @@ $$
 <p>先计算：</p>
 $$
 \hat m_t = \frac{m_t}{1-\beta_1^t}
-$$
-$$
+$$$$
 \hat v_t = \frac{v_t}{1-\beta_2^t}
-$$
-<p>然后更新参数：</p>
+$$<p>然后更新参数：</p>
 $$
 p_t
 =%
@@ -1317,7 +1302,6 @@ p_{t-1}
 \text{lr}
 \frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}
 $$
-
 
 <h4 class="relative group">方式 2：把偏差校正吸收到等效步长中 
     <div id="%E6%96%B9%E5%BC%8F-2%E6%8A%8A%E5%81%8F%E5%B7%AE%E6%A0%A1%E6%AD%A3%E5%90%B8%E6%94%B6%E5%88%B0%E7%AD%89%E6%95%88%E6%AD%A5%E9%95%BF%E4%B8%AD" class="anchor"></div>
@@ -1336,16 +1320,14 @@ $$
 =%
 \frac{\sqrt{1-\beta_2^t}}{1-\beta_1^t}
 \frac{m_t}{\sqrt{v_t}}
-$$
-<p>因此可以定义等效步长：</p>
+$$<p>因此可以定义等效步长：</p>
 $$
 \alpha_t
 =%
 \text{lr}
 \frac{\sqrt{1-\beta_2^t}}
 {1-\beta_1^t}
-$$
-<p>然后直接使用未校正的 $m_t,v_t$：</p>
+$$<p>然后直接使用未校正的 $m_t,v_t$：</p>
 $$
 p_t
 =%
@@ -1353,8 +1335,7 @@ p_{t-1}
 -%
 \alpha_t
 \frac{m_t}{\sqrt{v_t}+\cdots}
-$$
-<p>代码中常见写法：</p>
+$$<p>代码中常见写法：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">bias_correction1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta1</span> <span class="o">**</span> <span class="n">t</span>
 </span></span><span class="line"><span class="cl"><span class="n">bias_correction2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta2</span> <span class="o">**</span> <span class="n">t</span>
 </span></span><span class="line"><span class="cl">
@@ -1367,8 +1348,7 @@ p_{t-1}
 -%
 \text{lr}
 \frac{m_t}{\sqrt{v_t}+\epsilon}
-$$
-<p>其中：</p>
+$$<p>其中：</p>
 <ul>
 <li>$p_t$：第 t 次更新之后的参数值</li>
 <li><code>lr</code>：整体学习率；</li>
@@ -1384,8 +1364,7 @@ $$
 \times
 \frac{\text{梯度的历史方向}}
 {\text{梯度的历史大小}}
-$$
-<p>梯度长期较大的参数会被缩小有效步长，梯度较小的参数则相对不会被压得那么厉害。</p>
+$$<p>梯度长期较大的参数会被缩小有效步长，梯度较小的参数则相对不会被压得那么厉害。</p>
 
 
 <h3 class="relative group">为什么还需要 AdamW？ 
@@ -1402,16 +1381,13 @@ $$
 <p><strong>老式做法（Adam + L2）</strong> 是把 L2 正则项加入 loss：</p>
 $$
 L' = L + \frac{\lambda}{2}\|p\|^2
-$$
-<p>于是梯度变成：</p>
+$$<p>于是梯度变成：</p>
 $$
 g' = g + \lambda p
-$$
-<p>问题是：$\lambda p$ 本来只是想把参数稍微向 0 拉，但现在它被混进了梯度 $g'$，会和普通梯度一起进入 $m_t、v_t$，最终还要经过 Adam 的</p>
+$$<p>问题是：$\lambda p$ 本来只是想把参数稍微向 0 拉，但现在它被混进了梯度 $g'$，会和普通梯度一起进入 $m_t、v_t$，最终还要经过 Adam 的</p>
 $$
 \frac{1}{\sqrt{v_t}+\epsilon}
-$$
-<p>自适应缩放。</p>
+$$<p>自适应缩放。</p>
 <p>于是不同参数受到的实际衰减强度也会被 $v_t$ 改变，weight decay 不再是单纯的“按比例缩小参数”。</p>
 <p><strong>AdamW</strong> 的做法是把两件事分开：</p>
 <ol>
@@ -1426,24 +1402,20 @@ p
 -%
 \text{lr}
 \frac{\hat m}{\sqrt{\hat v}+\epsilon}
-$$
-<p>然后独立执行：</p>
+$$<p>然后独立执行：</p>
 $$
 p
 \leftarrow
 p-\text{lr}\cdot\lambda p
-$$
-<p>也就是：</p>
+$$<p>也就是：</p>
 $$
 p
 \leftarrow
 (1-\text{lr}\cdot\lambda)p
-$$
-<p>这里的 weight decay <strong>不进入梯度，也不经过 $m、v$ 和 $\sqrt{v}$ 的自适应缩放</strong>。</p>
+$$<p>这里的 weight decay <strong>不进入梯度，也不经过 $m、v$ 和 $\sqrt{v}$ 的自适应缩放</strong>。</p>
 <p>这就是所谓的 <strong>decoupled weight decay（解耦权重衰减）</strong>：</p>
 <blockquote>
-<p><strong>把“根据梯度优化参数”和“让参数逐渐变小”这两件事解耦，分别处理。</strong></p>
-</blockquote>
+<p><strong>把“根据梯度优化参数”和“让参数逐渐变小”这两件事解耦，分别处理。</strong></p></blockquote>
 <p>因此可以简单记成：</p>
 $$
 \boxed{
@@ -1453,10 +1425,8 @@ $$
 +
 \text{独立的 Weight Decay}
 }
-$$
-<blockquote>
-<p>看 <code>test_optimizer.py::test_adamw</code>：它用 <code>lr=1e-3, weight_decay=0. 01, betas=(0.9,0.999), eps=1e-8</code> 构造你的类，跑 1000 步，最后和 PyTorch AdamW（或参考快照）在 <code>atol=1e-4</code> 下对齐。所以你的 <code>__init__</code> 关键字参数<strong>必须与之匹配</strong>。</p>
-</blockquote>
+$$<blockquote>
+<p>看 <code>test_optimizer.py::test_adamw</code>：它用 <code>lr=1e-3, weight_decay=0. 01, betas=(0.9,0.999), eps=1e-8</code> 构造你的类，跑 1000 步，最后和 PyTorch AdamW（或参考快照）在 <code>atol=1e-4</code> 下对齐。所以你的 <code>__init__</code> 关键字参数<strong>必须与之匹配</strong>。</p></blockquote>
 
 
 <h3 class="relative group">✏️ 你的任务：AdamW 引导骨架 
@@ -1471,8 +1441,7 @@ $$
 </h3>
 <p>下面是<strong>给你填的骨架</strong>（<code>...</code> 处留白，不可直接用于训练）。接口（构造参数名与默认值）来自 <code>test_optimizer.py</code>，照抄即可；真正要你想清楚的是 <code>step</code> 里各状态怎么更新、偏差校正放哪、以及<strong>解耦衰减为什么要单独一步</strong>。</p>
 <blockquote>
-<p>提示：先在纸上写清楚一步更新涉及哪些量（$m,v,t,\hat m,\hat v$），再决定用 <code>self.state[p]</code> 存哪些。可以用 handout 给的&quot;把偏差校正吸收进等效步长 $\alpha_t$&ldquo;的写法，少存两个中间张量。</p>
-</blockquote>
+<p>提示：先在纸上写清楚一步更新涉及哪些量（$m,v,t,\hat m,\hat v$），再决定用 <code>self.state[p]</code> 存哪些。可以用 handout 给的&quot;把偏差校正吸收进等效步长 $\alpha_t$&ldquo;的写法，少存两个中间张量。</p></blockquote>
 
 
 <h3 class="relative group"><code>self.param_groups</code> 是什么？ 
@@ -1684,11 +1653,11 @@ $$
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-9/index_files/index_10_0_hu11986988141838066670.png 330w,
-        /coding/cs336-assign1-9/index_files/index_10_0_hu4968857420436156647.png 660w,
-        /coding/cs336-assign1-9/index_files/index_10_0_hu4243601771327739444.png 1024w,
-        /coding/cs336-assign1-9/index_files/index_10_0_hu15358853327404452774.png 2x"
-        src="/coding/cs336-assign1-9/index_files/index_10_0_hu4968857420436156647.png"
+        /coding/cs336-assign1-9/index_files/index_10_0_hu_6b9233e7101f20bc.png 330w,
+        /coding/cs336-assign1-9/index_files/index_10_0_hu_439afcefb3cf7085.png 660w,
+        /coding/cs336-assign1-9/index_files/index_10_0_hu_f70b74ddd4a018a3.png 1024w,
+        /coding/cs336-assign1-9/index_files/index_10_0_hu_bb54599fd1e88b8f.png 2x"
+        src="/coding/cs336-assign1-9/index_files/index_10_0_hu_439afcefb3cf7085.png"
         alt="png"
       />
       
@@ -1810,11 +1779,11 @@ $$
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-9/index_files/index_14_1_hu11296320263693298925.png 330w,
-        /coding/cs336-assign1-9/index_files/index_14_1_hu6724242812620382929.png 660w,
-        /coding/cs336-assign1-9/index_files/index_14_1_hu14358940374202103840.png 1024w,
-        /coding/cs336-assign1-9/index_files/index_14_1_hu7510433569979141664.png 2x"
-        src="/coding/cs336-assign1-9/index_files/index_14_1_hu6724242812620382929.png"
+        /coding/cs336-assign1-9/index_files/index_14_1_hu_794dca7ab49f4098.png 330w,
+        /coding/cs336-assign1-9/index_files/index_14_1_hu_88f22b05f0f93089.png 660w,
+        /coding/cs336-assign1-9/index_files/index_14_1_hu_9d6e9453d1f04594.png 1024w,
+        /coding/cs336-assign1-9/index_files/index_14_1_hu_42c6ead630cf42c9.png 2x"
+        src="/coding/cs336-assign1-9/index_files/index_14_1_hu_88f22b05f0f93089.png"
         alt="png"
       />
       
@@ -1899,14 +1868,12 @@ $$
 </ol>
 $$
 v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2
-$$
-<p>它记录了每个参数最近一段时间的<strong>典型梯度大小</strong>。</p>
+$$<p>它记录了每个参数最近一段时间的<strong>典型梯度大小</strong>。</p>
 <p>实验中两个坐标的梯度尺度差异很大，因此梯度较大的坐标会积累更大的 $v_t$，梯度较小的坐标则得到较小的 $v_t$。</p>
 <p>AdamW 更新参数时会用：</p>
 $$
 \frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}
-$$
-<p>因此：</p>
+$$<p>因此：</p>
 <ul>
 <li>
 <p>梯度长期较大的方向 → $v_t$ 大 → 分母大 → 更新被压小；</p>
@@ -1951,34 +1918,34 @@ $$
     
 </h3>
 <table>
-<thead>
-<tr>
-<th>你要实现</th>
-<th>对应接口</th>
-<th>测试</th>
-<th>一句话提示</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>AdamW</code> 优化器类</td>
-<td><code>get_adamw_cls</code></td>
-<td><code>test_optimizer.py::test_adamw</code></td>
-<td>构造参数名/默认值照抄测试；<code>step</code> 里更新 $m,v$、偏差校正、解耦衰减单独一步</td>
-</tr>
-<tr>
-<td>cosine LR 调度</td>
-<td><code>run_get_lr_cosine_schedule</code></td>
-<td><code>test_optimizer.py::test_get_lr_cosine_schedule</code></td>
-<td>三段式；<code>it=0-&gt;0</code>、<code>it=warmup-&gt;max</code>、<code>it&gt;=cosine_cycle-&gt;min</code></td>
-</tr>
-<tr>
-<td>梯度裁剪</td>
-<td><code>run_gradient_clipping</code></td>
-<td><code>test_nn_utils.py::test_gradient_clipping</code></td>
-<td>全局范数、跳过 <code>None</code> 梯度、原地缩放</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应接口</th>
+          <th>测试</th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>AdamW</code> 优化器类</td>
+          <td><code>get_adamw_cls</code></td>
+          <td><code>test_optimizer.py::test_adamw</code></td>
+          <td>构造参数名/默认值照抄测试；<code>step</code> 里更新 $m,v$、偏差校正、解耦衰减单独一步</td>
+      </tr>
+      <tr>
+          <td>cosine LR 调度</td>
+          <td><code>run_get_lr_cosine_schedule</code></td>
+          <td><code>test_optimizer.py::test_get_lr_cosine_schedule</code></td>
+          <td>三段式；<code>it=0-&gt;0</code>、<code>it=warmup-&gt;max</code>、<code>it&gt;=cosine_cycle-&gt;min</code></td>
+      </tr>
+      <tr>
+          <td>梯度裁剪</td>
+          <td><code>run_gradient_clipping</code></td>
+          <td><code>test_nn_utils.py::test_gradient_clipping</code></td>
+          <td>全局范数、跳过 <code>None</code> 梯度、原地缩放</td>
+      </tr>
+  </tbody>
 </table>
 <p>接线方式看 <code>tests/adapters.py</code> 里三个 <code>run_*</code> / <code>get_adamw_cls</code> 的 docstring。写完这三块，你就凑齐了训练循环需要的全部&quot;驾驶部件&quot;，下一步就能把它们接进 training loop 去真正训模型了。</p>
 
@@ -2004,7 +1971,7 @@ $$
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -2086,7 +2053,7 @@ $$
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-8/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-8/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -2168,7 +2135,7 @@ $$
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -2219,7 +2186,7 @@ $$
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5984 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5985 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -2257,8 +2224,8 @@ $$
           
         
       <script>
-        var oid = "views_coding\\cs336-assign1-9\\index.md"
-        var oid_likes = "likes_coding\\cs336-assign1-9\\index.md"
+        var oid = "views_coding\/cs336-assign1-9\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-9\/index.md"
       </script>
       
       
@@ -2351,7 +2318,7 @@ $$
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="">
+            title="Tags">
             
             Tags
           </a>
@@ -2359,7 +2326,7 @@ $$
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="">
+            title="Categories">
             
             Categories
           </a>

@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Lives">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Codings">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Lives">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Codings">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-10/featured_hu15877482033400326244.JPG);">
+    style="background-image:url(/coding/cs336-assign1-10/featured_hu_fdbc5ba662749d7d.JPG);">
     
 
 
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
     
   
   <div class="place-self-center">
@@ -1030,8 +1030,7 @@
 <li>掌握 <strong>checkpoint 往返</strong>的 torch 机制：<code>state_dict</code> + <code>torch.save/load</code> + <code>load_state_dict</code>。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信</strong>：本笔记本用玩具数据和通用的 numpy / torch 机制建立直觉，<strong>不包含</strong> <code>run_get_batch</code> / <code>run_save_checkpoint</code> / <code>run_load_checkpoint</code> 的完整实现。涉及交付的地方只给<strong>引导骨架</strong>（<code>...</code> 留白）和思路，代码要你自己写。</p>
-</blockquote>
+<p><strong>学术诚信</strong>：本笔记本用玩具数据和通用的 numpy / torch 机制建立直觉，<strong>不包含</strong> <code>run_get_batch</code> / <code>run_save_checkpoint</code> / <code>run_load_checkpoint</code> 的完整实现。涉及交付的地方只给<strong>引导骨架</strong>（<code>...</code> 留白）和思路，代码要你自己写。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
@@ -1123,11 +1122,11 @@ label 是不是 input 右移一位?   True
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-10/index_files/index_5_0_hu10847401732357223656.png 330w,
-        /coding/cs336-assign1-10/index_files/index_5_0_hu14932979094823971872.png 660w,
-        /coding/cs336-assign1-10/index_files/index_5_0_hu4862390397780396202.png 1024w,
-        /coding/cs336-assign1-10/index_files/index_5_0_hu11866663435266911971.png 2x"
-        src="/coding/cs336-assign1-10/index_files/index_5_0_hu14932979094823971872.png"
+        /coding/cs336-assign1-10/index_files/index_5_0_hu_817e4ea4e10b7a2.png 330w,
+        /coding/cs336-assign1-10/index_files/index_5_0_hu_4817b07458378169.png 660w,
+        /coding/cs336-assign1-10/index_files/index_5_0_hu_6b1c7b69ffd089b4.png 1024w,
+        /coding/cs336-assign1-10/index_files/index_5_0_hu_a95729b144b4e76c.png 2x"
+        src="/coding/cs336-assign1-10/index_files/index_5_0_hu_4817b07458378169.png"
         alt="png"
       />
       
@@ -1333,8 +1332,7 @@ dtype / shape : uint16 / (1000,)
 </h2>
 <p>把前面几块拼起来就是采样器了。下面是<strong>给你填的骨架</strong>（<code>...</code> 处留白，不可直接运行）。逐步想清楚：合法起点区间是什么？input 窗口和 label 窗口的切片差在哪？最后 dtype 和 device 怎么处理？</p>
 <blockquote>
-<p>建议先在<strong>上面那条 <code>[0..19]</code> 玩具流</strong>上手验证一个 batch，确认 <code>y == x + 1</code> 再去跑 <code>test_data.py</code>。</p>
-</blockquote>
+<p>建议先在<strong>上面那条 <code>[0..19]</code> 玩具流</strong>上手验证一个 batch，确认 <code>y == x + 1</code> 再去跑 <code>test_data.py</code>。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_batch</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">context_length</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># step 1: 采 batch_size 个随机起点</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 想清楚合法区间：要能取到 input 和&#34;右移一位&#34;的 label，最大起点是多少？</span>
@@ -1473,34 +1471,34 @@ dtype / shape : uint16 / (1000,)
     
 </h3>
 <table>
-<thead>
-<tr>
-<th>你要实现</th>
-<th>对应 <code>run_*</code></th>
-<th>测试文件</th>
-<th>一句话提示</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>get_batch</code></td>
-<td><code>run_get_batch</code></td>
-<td><code>test_data.py</code></td>
-<td>随机起点想清合法区间；label 右移一位；转 long 搬到 device</td>
-</tr>
-<tr>
-<td><code>save_checkpoint</code></td>
-<td><code>run_save_checkpoint</code></td>
-<td><code>test_serialization.py</code></td>
-<td>打包 model/optimizer/iteration 成 dict 再 <code>torch.save</code></td>
-</tr>
-<tr>
-<td><code>load_checkpoint</code></td>
-<td><code>run_load_checkpoint</code></td>
-<td><code>test_serialization.py</code></td>
-<td><code>torch.load</code> 后 <code>load_state_dict</code> 灌回传入对象，<strong>返回 iteration</strong></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>测试文件</th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>get_batch</code></td>
+          <td><code>run_get_batch</code></td>
+          <td><code>test_data.py</code></td>
+          <td>随机起点想清合法区间；label 右移一位；转 long 搬到 device</td>
+      </tr>
+      <tr>
+          <td><code>save_checkpoint</code></td>
+          <td><code>run_save_checkpoint</code></td>
+          <td><code>test_serialization.py</code></td>
+          <td>打包 model/optimizer/iteration 成 dict 再 <code>torch.save</code></td>
+      </tr>
+      <tr>
+          <td><code>load_checkpoint</code></td>
+          <td><code>run_load_checkpoint</code></td>
+          <td><code>test_serialization.py</code></td>
+          <td><code>torch.load</code> 后 <code>load_state_dict</code> 灌回传入对象，<strong>返回 iteration</strong></td>
+      </tr>
+  </tbody>
 </table>
 <p>接线方式看 <code>tests/adapters.py</code> 里对应 <code>run_*</code> 的 docstring。跑单测：
 <code>uv run pytest tests/test_data.py tests/test_serialization.py -x</code></p>
@@ -1528,7 +1526,7 @@ dtype / shape : uint16 / (1000,)
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1579,7 +1577,7 @@ dtype / shape : uint16 / (1000,)
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8827 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8850 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
   
 
   
@@ -1610,7 +1608,7 @@ dtype / shape : uint16 / (1000,)
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1692,7 +1690,7 @@ dtype / shape : uint16 / (1000,)
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-8/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-8/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1781,8 +1779,8 @@ dtype / shape : uint16 / (1000,)
           
         
       <script>
-        var oid = "views_coding\\cs336-assign1-10\\index.md"
-        var oid_likes = "likes_coding\\cs336-assign1-10\\index.md"
+        var oid = "views_coding\/cs336-assign1-10\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-10\/index.md"
       </script>
       
       
@@ -1875,7 +1873,7 @@ dtype / shape : uint16 / (1000,)
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="">
+            title="Tags">
             
             Tags
           </a>
@@ -1883,7 +1881,7 @@ dtype / shape : uint16 / (1000,)
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="">
+            title="Categories">
             
             Categories
           </a>

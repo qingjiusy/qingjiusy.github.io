@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Lives">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="">
+          <p class="text-sm font-sm" title="Codings">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Lives">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="">
+        <p class="text-sm font-small" title="Codings">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-8/featured_hu15877482033400326244.JPG);">
+    style="background-image:url(/coding/cs336-assign1-8/featured_hu_fdbc5ba662749d7d.JPG);">
     
 
 
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
+      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
     
   
   <div class="place-self-center">
@@ -1042,8 +1042,7 @@
 <li>拿到 MHA / block / LM 三个<strong>引导骨架</strong>，知道该怎么用前面的积木把它们拼出来。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信（本章尤其克制）</strong>：这是计学分的作业，本章内容风险最高。下面<strong>不会</strong>给出 MHA / block / LM 的实现表达式，也不会写&quot;我的输出恰好等于参考&quot;这种对拍。可视化里用到的 <code>nn.MultiheadAttention</code> / <code>F.scaled_dot_product_attention</code> <strong>只是参考教具</strong>（用来展示注意力&quot;长什么样&quot;），作业里是<strong>禁止</strong>用它们的——你要用自己写的积木装配。真正的实现留白（<code>...</code>）给你自己写。</p>
-</blockquote>
+<p><strong>学术诚信（本章尤其克制）</strong>：这是计学分的作业，本章内容风险最高。下面<strong>不会</strong>给出 MHA / block / LM 的实现表达式，也不会写&quot;我的输出恰好等于参考&quot;这种对拍。可视化里用到的 <code>nn.MultiheadAttention</code> / <code>F.scaled_dot_product_attention</code> <strong>只是参考教具</strong>（用来展示注意力&quot;长什么样&quot;），作业里是<strong>禁止</strong>用它们的——你要用自己写的积木装配。真正的实现留白（<code>...</code>）给你自己写。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
@@ -1132,8 +1131,7 @@ d_model=64  num_heads=4  d_head=16  d_ff=128  n_layers=3
 <li><strong>头的多样性</strong>：同一层的不同头，注意力分布明显不同——这正是&quot;多头&quot;的价值。</li>
 </ul>
 <blockquote>
-<p>注意：<code>nn.MultiheadAttention</code> 的 <code>attn_mask</code> 约定是 <strong>True = 屏蔽</strong>，而你自己 SDPA 的 mask 约定可能相反（True = 保留）。所以这段代码<strong>不能照抄</strong>进作业，它只是让你&quot;看见&quot;模式。</p>
-</blockquote>
+<p>注意：<code>nn.MultiheadAttention</code> 的 <code>attn_mask</code> 约定是 <strong>True = 屏蔽</strong>，而你自己 SDPA 的 mask 约定可能相反（True = 保留）。所以这段代码<strong>不能照抄</strong>进作业，它只是让你&quot;看见&quot;模式。</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">L</span> <span class="o">=</span> <span class="mi">8</span>
 </span></span><span class="line"><span class="cl"><span class="n">ref_mha</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">(</span><span class="n">embed_dim</span><span class="o">=</span><span class="n">D_MODEL</span><span class="p">,</span> <span class="n">num_heads</span><span class="o">=</span><span class="n">N_HEADS</span><span class="p">,</span>
@@ -1172,11 +1170,11 @@ d_model=64  num_heads=4  d_head=16  d_ff=128  n_layers=3
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-8/index_files/index_5_1_hu1859966628859037048.png 330w,
-        /coding/cs336-assign1-8/index_files/index_5_1_hu10479523489367169718.png 660w,
-        /coding/cs336-assign1-8/index_files/index_5_1_hu9605252542598895962.png 1024w,
-        /coding/cs336-assign1-8/index_files/index_5_1_hu6506967822648664782.png 2x"
-        src="/coding/cs336-assign1-8/index_files/index_5_1_hu10479523489367169718.png"
+        /coding/cs336-assign1-8/index_files/index_5_1_hu_9aec2db5313e8666.png 330w,
+        /coding/cs336-assign1-8/index_files/index_5_1_hu_35f672f5f8634c20.png 660w,
+        /coding/cs336-assign1-8/index_files/index_5_1_hu_f327a670a94af1c2.png 1024w,
+        /coding/cs336-assign1-8/index_files/index_5_1_hu_502b753308a6eb6d.png 2x"
+        src="/coding/cs336-assign1-8/index_files/index_5_1_hu_35f672f5f8634c20.png"
         alt="png"
       />
       
@@ -1241,11 +1239,11 @@ d_model=64  num_heads=4  d_head=16  d_ff=128  n_layers=3
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-8/index_files/index_7_0_hu12732807341358834621.png 330w,
-        /coding/cs336-assign1-8/index_files/index_7_0_hu9624361253446451260.png 660w,
-        /coding/cs336-assign1-8/index_files/index_7_0_hu15516633264662354050.png 1024w,
-        /coding/cs336-assign1-8/index_files/index_7_0_hu17234223037058413312.png 2x"
-        src="/coding/cs336-assign1-8/index_files/index_7_0_hu9624361253446451260.png"
+        /coding/cs336-assign1-8/index_files/index_7_0_hu_ee57a440edd38057.png 330w,
+        /coding/cs336-assign1-8/index_files/index_7_0_hu_75c6be63eab3bc03.png 660w,
+        /coding/cs336-assign1-8/index_files/index_7_0_hu_1767e4d586fc9078.png 1024w,
+        /coding/cs336-assign1-8/index_files/index_7_0_hu_14559f14c4e51c9d.png 2x"
+        src="/coding/cs336-assign1-8/index_files/index_7_0_hu_75c6be63eab3bc03.png"
         alt="png"
       />
       
@@ -1537,35 +1535,35 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
     
 </h3>
 <table>
-<thead>
-<tr>
-<th>你要实现</th>
-<th>对应 <code>run_*</code></th>
-<th>一句话提示</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>多头自注意力</td>
-<td><code>run_multihead_self_attention</code></td>
-<td>一次投影 → 拆头 → SDPA(因果) → 拼头 → 输出投影</td>
-</tr>
-<tr>
-<td>带 RoPE 的 MHA</td>
-<td><code>run_multihead_self_attention_with_rope</code></td>
-<td>同上，在 SDPA 前对 q,k 施加 RoPE（作用在 <code>d_head</code> 维）</td>
-</tr>
-<tr>
-<td>Transformer block</td>
-<td><code>run_transformer_block</code></td>
-<td>pre-norm 两子层残差，复用 RMSNorm/MHA/SwiGLU（atol=1e-4）</td>
-</tr>
-<tr>
-<td>Transformer LM</td>
-<td><code>run_transformer_lm</code></td>
-<td>嵌入→堆 block→最终 norm→lm_head（atol=1e-4, rtol=1e-2）</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>你要实现</th>
+          <th>对应 <code>run_*</code></th>
+          <th>一句话提示</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>多头自注意力</td>
+          <td><code>run_multihead_self_attention</code></td>
+          <td>一次投影 → 拆头 → SDPA(因果) → 拼头 → 输出投影</td>
+      </tr>
+      <tr>
+          <td>带 RoPE 的 MHA</td>
+          <td><code>run_multihead_self_attention_with_rope</code></td>
+          <td>同上，在 SDPA 前对 q,k 施加 RoPE（作用在 <code>d_head</code> 维）</td>
+      </tr>
+      <tr>
+          <td>Transformer block</td>
+          <td><code>run_transformer_block</code></td>
+          <td>pre-norm 两子层残差，复用 RMSNorm/MHA/SwiGLU（atol=1e-4）</td>
+      </tr>
+      <tr>
+          <td>Transformer LM</td>
+          <td><code>run_transformer_lm</code></td>
+          <td>嵌入→堆 block→最终 norm→lm_head（atol=1e-4, rtol=1e-2）</td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>调试顺序</strong>：先让底层单测（SDPA / RoPE / RMSNorm / SwiGLU）<strong>全绿</strong>，再查装配层——装配的 bug 几乎都在&quot;拆头/拼头的形状&quot;和&quot;mask 约定/RoPE 作用维度&quot;上。接线方式看 <code>tests/adapters.py</code> 里对应 <code>run_*</code> 的 docstring（权重键名、<code>(d_model,d_model)</code> 且按 <code>(num_heads,d_head)</code> 排列）。</p>
 <p>至此，模型部分（架构）就装配完成了。接下来的章节会转向<strong>训练</strong>：损失函数、优化器（AdamW）、学习率调度与训练循环。</p>
@@ -1592,7 +1590,7 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-6/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1643,7 +1641,7 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5984 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-07T00:00:00&#43;00:00">7 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5985 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -1674,7 +1672,7 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1725,7 +1723,7 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5660 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -1756,7 +1754,7 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu8441776849342008447.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-5/featured_hu_354ec90f08579264.JPG);"></div>
         
       
 
@@ -1807,7 +1805,7 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4692 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4701 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
   
 
   
@@ -1845,8 +1843,8 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
           
         
       <script>
-        var oid = "views_coding\\cs336-assign1-8\\index.md"
-        var oid_likes = "likes_coding\\cs336-assign1-8\\index.md"
+        var oid = "views_coding\/cs336-assign1-8\/index.md"
+        var oid_likes = "likes_coding\/cs336-assign1-8\/index.md"
       </script>
       
       
@@ -1939,7 +1937,7 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="">
+            title="Tags">
             
             Tags
           </a>
@@ -1947,7 +1945,7 @@ post-norm 每层都把整条流重新缩放 =&gt; 深层堆叠时更难优化。
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="">
+            title="Categories">
             
             Categories
           </a>
