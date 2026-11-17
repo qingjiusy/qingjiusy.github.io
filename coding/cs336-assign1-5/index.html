@@ -112,7 +112,7 @@
     "keywords": ["cs336"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "4701"
+    "wordCount": "4692"
   }]
   </script>
 
@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Lives">
+          <p class="text-sm font-sm" title="">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Codings">
+          <p class="text-sm font-sm" title="">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Lives">
+        <p class="text-sm font-small" title="">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Codings">
+        <p class="text-sm font-small" title="">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-5/featured_hu_fdbc5ba662749d7d.JPG);">
+    style="background-image:url(/coding/cs336-assign1-5/featured_hu15877482033400326244.JPG);">
     
 
 
@@ -733,7 +733,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4701 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  <time datetime="2026-08-06T00:00:00&#43;00:00">6 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>4692 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
   
 
   
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
@@ -1016,7 +1016,8 @@
 <li>对应作业：<code>run_cross_entropy</code> 与 <code>test_cross_entropy</code>（含 <code>1000 * inputs</code> 的溢出测试）。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信</strong>：本笔记本用 PyTorch 内置函数（<code>F.cross_entropy</code>、<code>F.log_softmax</code>、<code>F.nll_loss</code>、<code>torch.logsumexp</code>）当&quot;教具/参考&quot;来建立直觉与展示性质，<strong>不包含</strong>任何要你在 <code>adapters.py</code> 里交付的 <code>run_cross_entropy</code> 实现。结尾&quot;✏️ 作业连接&quot;只给<strong>引导骨架</strong>（思路 + <code># step</code> 注释），求解行留空由你完成。</p></blockquote>
+<p><strong>学术诚信</strong>：本笔记本用 PyTorch 内置函数（<code>F.cross_entropy</code>、<code>F.log_softmax</code>、<code>F.nll_loss</code>、<code>torch.logsumexp</code>）当&quot;教具/参考&quot;来建立直觉与展示性质，<strong>不包含</strong>任何要你在 <code>adapters.py</code> 里交付的 <code>run_cross_entropy</code> 实现。结尾&quot;✏️ 作业连接&quot;只给<strong>引导骨架</strong>（思路 + <code># step</code> 注释），求解行留空由你完成。</p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1040,7 +1041,8 @@
     
 </h2>
 <p>给一个样本的 logits 向量 $z \in \mathbb{R}^{V}$（$V$ 是词表/类别数）和正确类别索引 $t$，交叉熵损失是</p>
-$$\ell = -\log\big(\mathrm{softmax}(z)_t\big) = -\log\frac{e^{z_t}}{\sum_j e^{z_j}} = \underbrace{\log\sum_j e^{z_j}}_{\text{log-sum-exp}} - \; z_t.$$<p>读法：<strong>它只看正确类别的概率</strong>。如果模型给正确类别的概率接近 1，$-\log(\approx 1)\approx 0$；如果给正确类别的概率很小，$-\log(\text{小数})$ 就很大。注意最右边的等价形式 —— 后面数值稳定和引导骨架都会用到它：<strong>loss = log-sum-exp(z) − z[t]</strong>。</p>
+$$\ell = -\log\big(\mathrm{softmax}(z)_t\big) = -\log\frac{e^{z_t}}{\sum_j e^{z_j}} = \underbrace{\log\sum_j e^{z_j}}_{\text{log-sum-exp}} - \; z_t.$$
+<p>读法：<strong>它只看正确类别的概率</strong>。如果模型给正确类别的概率接近 1，$-\log(\approx 1)\approx 0$；如果给正确类别的概率很小，$-\log(\text{小数})$ 就很大。注意最右边的等价形式 —— 后面数值稳定和引导骨架都会用到它：<strong>loss = log-sum-exp(z) − z[t]</strong>。</p>
 <p>下面用 <code>F.cross_entropy</code> 作参考，看几个极端例子的数值。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 一个样本，5 个类别，正确类别 = 2</span>
 </span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span>
@@ -1094,11 +1096,11 @@ $$\ell = -\log\big(\mathrm{softmax}(z)_t\big) = -\log\frac{e^{z_t}}{\sum_j e^{z_
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-5/index_files/index_5_0_hu_2cef1945c54e3c40.png 330w,
-        /coding/cs336-assign1-5/index_files/index_5_0_hu_4bd3ff1be90026d7.png 660w,
-        /coding/cs336-assign1-5/index_files/index_5_0_hu_cca75af5b7c5c5cb.png 1024w,
-        /coding/cs336-assign1-5/index_files/index_5_0_hu_5852ca683874fe4d.png 2x"
-        src="/coding/cs336-assign1-5/index_files/index_5_0_hu_4bd3ff1be90026d7.png"
+        /coding/cs336-assign1-5/index_files/index_5_0_hu13366127483157121263.png 330w,
+        /coding/cs336-assign1-5/index_files/index_5_0_hu539253805582098082.png 660w,
+        /coding/cs336-assign1-5/index_files/index_5_0_hu2155225578256899073.png 1024w,
+        /coding/cs336-assign1-5/index_files/index_5_0_hu2256234198175155990.png 2x"
+        src="/coding/cs336-assign1-5/index_files/index_5_0_hu539253805582098082.png"
         alt="png"
       />
       
@@ -1120,7 +1122,8 @@ $$\ell = -\log\big(\mathrm{softmax}(z)_t\big) = -\log\frac{e^{z_t}}{\sum_j e^{z_
 </h2>
 <p>朴素做法 <code>log(softmax(z))</code> 会先算 <code>exp(z)</code>。回忆第 00 章：<code>exp(1000.) = inf</code>（float32 溢出）。一旦出现 <code>inf</code>，后面 <code>sum</code>、<code>log</code>、相减全被污染成 <code>inf</code> / <code>nan</code>。</p>
 <p><strong>log-sum-exp 技巧</strong>：利用恒等式（对任意常数 $m$）</p>
-$$\log\sum_j e^{z_j} = m + \log\sum_j e^{z_j - m}.$$<p>取 $m = \max_j z_j$，则每个 <code>exp(z_j - m)</code> 的指数 $\le 0$，绝不会上溢，且至少有一项等于 1，也不会下溢到全 0。这就是 <code>test_cross_entropy</code> 里 <code>1000.0 * inputs</code> 那个溢出测试要考的点。</p>
+$$\log\sum_j e^{z_j} = m + \log\sum_j e^{z_j - m}.$$
+<p>取 $m = \max_j z_j$，则每个 <code>exp(z_j - m)</code> 的指数 $\le 0$，绝不会上溢，且至少有一项等于 1，也不会下溢到全 0。这就是 <code>test_cross_entropy</code> 里 <code>1000.0 * inputs</code> 那个溢出测试要考的点。</p>
 <p>下面<strong>只用通用张量运算</strong>演示这个现象本身（不组织成完整的交叉熵前向），对比朴素路径和减最大值后的稳定路径。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 一组任意 logits，乘以 1000 放大（模拟 test 里的 1000 * inputs）</span>
 </span></span><span class="line"><span class="cl"><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.9639</span><span class="p">,</span> <span class="mf">0.8864</span><span class="p">,</span> <span class="mf">0.1585</span><span class="p">,</span> <span class="mf">0.3038</span><span class="p">,</span> <span class="mf">0.0350</span><span class="p">])</span>
@@ -1194,11 +1197,11 @@ torch.logsumexp 参考      : 963.9000244140625
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-5/index_files/index_9_0_hu_b204ab8dc548adcb.png 330w,
-        /coding/cs336-assign1-5/index_files/index_9_0_hu_26adcb8736962a37.png 660w,
-        /coding/cs336-assign1-5/index_files/index_9_0_hu_f9edc4a40f4bdf88.png 1024w,
-        /coding/cs336-assign1-5/index_files/index_9_0_hu_27c51d957ff5620b.png 2x"
-        src="/coding/cs336-assign1-5/index_files/index_9_0_hu_26adcb8736962a37.png"
+        /coding/cs336-assign1-5/index_files/index_9_0_hu3256515787821152401.png 330w,
+        /coding/cs336-assign1-5/index_files/index_9_0_hu16957052852336631799.png 660w,
+        /coding/cs336-assign1-5/index_files/index_9_0_hu16103222369627008907.png 1024w,
+        /coding/cs336-assign1-5/index_files/index_9_0_hu15858880138708165173.png 2x"
+        src="/coding/cs336-assign1-5/index_files/index_9_0_hu16957052852336631799.png"
         alt="png"
       />
       
@@ -1413,7 +1416,7 @@ log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000]
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -1464,7 +1467,7 @@ log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000]
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5660 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -1495,7 +1498,7 @@ log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000]
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -1577,7 +1580,7 @@ log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000]
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-4/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-4/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -1628,7 +1631,7 @@ log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000]
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-05T00:00:00&#43;00:00">5 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3388 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
+  <time datetime="2026-08-05T00:00:00&#43;00:00">5 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3366 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
   
 
   
@@ -1666,8 +1669,8 @@ log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000]
           
         
       <script>
-        var oid = "views_coding\/cs336-assign1-5\/index.md"
-        var oid_likes = "likes_coding\/cs336-assign1-5\/index.md"
+        var oid = "views_coding\\cs336-assign1-5\\index.md"
+        var oid_likes = "likes_coding\\cs336-assign1-5\\index.md"
       </script>
       
       
@@ -1760,7 +1763,7 @@ log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000]
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="Tags">
+            title="">
             
             Tags
           </a>
@@ -1768,7 +1771,7 @@ log_softmax(big): tensor([   0.0000,  -77.5001, -805.4000, -660.1000, -928.9000]
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="Categories">
+            title="">
             
             Categories
           </a>

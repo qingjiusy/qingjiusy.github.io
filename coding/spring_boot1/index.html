@@ -112,7 +112,7 @@
     "keywords": ["java"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "9440"
+    "wordCount": "12130"
   }]
   </script>
 
@@ -255,14 +255,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Lives">
+          <p class="text-sm font-sm" title="">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Codings">
+          <p class="text-sm font-sm" title="">
             code
           </p>
         </a>
@@ -463,7 +463,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Lives">
+        <p class="text-sm font-small" title="">
             生活
         </p>
     </a>
@@ -472,7 +472,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Codings">
+        <p class="text-sm font-small" title="">
             code
         </p>
     </a>
@@ -538,7 +538,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/spring_boot1/featured_hu_a934eee2ebed17b0.png);">
+    style="background-image:url(/coding/spring_boot1/featured_hu5935182935397162034.png);">
     
 
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>9440 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">19 分钟</span>
+  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>12130 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">25 分钟</span>
   
 
   
@@ -640,7 +640,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
@@ -760,6 +760,7 @@
         <li><a href="#mybatis-主键回填">MyBatis 主键回填</a></li>
         <li><a href="#配置文件的关系">配置文件的关系</a></li>
         <li><a href="#spring-cache-四个常用注解">Spring Cache 四个常用注解</a></li>
+        <li><a href="#controller-中的requestresponse与返回值">Controller 中的request、response与返回值</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -768,6 +769,8 @@
         <li><a href="#删除关联数据先删子记录再删主记录">删除关联数据：先删子记录，再删主记录</a></li>
         <li><a href="#批量操作优化减少数据库访问次数">批量操作优化：减少数据库访问次数</a></li>
         <li><a href="#微信登录流程">微信登录流程</a></li>
+        <li><a href="#支付业务调用流程">支付业务调用流程</a></li>
+        <li><a href="#内网穿透">内网穿透</a></li>
       </ul>
     </li>
     <li><a href="#java知识">Java知识</a>
@@ -806,6 +809,7 @@
         <li><a href="#mybatis-主键回填">MyBatis 主键回填</a></li>
         <li><a href="#配置文件的关系">配置文件的关系</a></li>
         <li><a href="#spring-cache-四个常用注解">Spring Cache 四个常用注解</a></li>
+        <li><a href="#controller-中的requestresponse与返回值">Controller 中的request、response与返回值</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -814,6 +818,8 @@
         <li><a href="#删除关联数据先删子记录再删主记录">删除关联数据：先删子记录，再删主记录</a></li>
         <li><a href="#批量操作优化减少数据库访问次数">批量操作优化：减少数据库访问次数</a></li>
         <li><a href="#微信登录流程">微信登录流程</a></li>
+        <li><a href="#支付业务调用流程">支付业务调用流程</a></li>
+        <li><a href="#内网穿透">内网穿透</a></li>
       </ul>
     </li>
     <li><a href="#java知识">Java知识</a>
@@ -972,30 +978,30 @@
 </h3>
 <p>使用下面注解，swagger可以生成可读性更好的接口文档：</p>
 <table>
-  <thead>
-      <tr>
-          <th><strong>注解</strong></th>
-          <th><strong>说明</strong></th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>@Api</td>
-          <td>用在类上，例如Controller，表示对类的说明</td>
-      </tr>
-      <tr>
-          <td>@ApiModel</td>
-          <td>用在类上，例如entity、DTO、VO</td>
-      </tr>
-      <tr>
-          <td>@ApiModelProperty</td>
-          <td>用在属性上，描述属性信息</td>
-      </tr>
-      <tr>
-          <td>@ApiOperation</td>
-          <td>用在方法上，例如Controller的方法，说明方法的用途、作用</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th><strong>注解</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Api</td>
+<td>用在类上，例如Controller，表示对类的说明</td>
+</tr>
+<tr>
+<td>@ApiModel</td>
+<td>用在类上，例如entity、DTO、VO</td>
+</tr>
+<tr>
+<td>@ApiModelProperty</td>
+<td>用在属性上，描述属性信息</td>
+</tr>
+<tr>
+<td>@ApiOperation</td>
+<td>用在方法上，例如Controller的方法，说明方法的用途、作用</td>
+</tr>
+</tbody>
 </table>
 
 
@@ -1091,26 +1097,26 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">BaseContext</span><span class="p">.</span><span class="na">removeCurrentId</span><span class="p">();</span><span class="w">
 </span></span></span></code></pre></div><p>在这里，<code>BaseContext</code> 是项目对 ThreadLocal 的封装，对应三个方法：</p>
 <table>
-  <thead>
-      <tr>
-          <th>ThreadLocal 方法</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>set(value)</code></td>
-          <td>设置当前线程的值</td>
-      </tr>
-      <tr>
-          <td><code>get()</code></td>
-          <td>获取当前线程的值</td>
-      </tr>
-      <tr>
-          <td><code>remove()</code></td>
-          <td>移除当前线程的值</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>ThreadLocal 方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>set(value)</code></td>
+<td>设置当前线程的值</td>
+</tr>
+<tr>
+<td><code>get()</code></td>
+<td>获取当前线程的值</td>
+</tr>
+<tr>
+<td><code>remove()</code></td>
+<td>移除当前线程的值</td>
+</tr>
+</tbody>
 </table>
 <p>可见一个 ThreadLocal 对象，在每个线程中对应一个值。 同一线程再次调用 set()，会覆盖之前的值；不同线程的值互不影响。但是“一个值”不代表只能保存一个字段，可以使用这样的方法保存不止一个值：</p>
 <ul>
@@ -1139,35 +1145,35 @@
 </h3>
 <p><strong>选哪种写法，先看参数放在哪里，再看后端用单个变量还是对象来接收。</strong></p>
 <table>
-  <thead>
-      <tr>
-          <th>写法</th>
-          <th>参数来源</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>@ModelAttribute EmployeePageQueryDTO dto</code></td>
-          <td>query 参数、表单字段</td>
-          <td>将多个参数绑定到对象属性</td>
-      </tr>
-      <tr>
-          <td><code>@RequestParam(&quot;page&quot;) Integer page</code></td>
-          <td>query 参数、表单字段</td>
-          <td>接收指定名称的参数</td>
-      </tr>
-      <tr>
-          <td><code>@PathVariable(&quot;id&quot;) Long id</code></td>
-          <td>URL 路径</td>
-          <td>提取路径中的变量</td>
-      </tr>
-      <tr>
-          <td><code>@RequestBody EmployeeDTO dto</code></td>
-          <td>HTTP 请求体</td>
-          <td>将请求体内容转换成对象，常用于 JSON</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>写法</th>
+<th>参数来源</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@ModelAttribute EmployeePageQueryDTO dto</code></td>
+<td>query 参数、表单字段</td>
+<td>将多个参数绑定到对象属性</td>
+</tr>
+<tr>
+<td><code>@RequestParam(&quot;page&quot;) Integer page</code></td>
+<td>query 参数、表单字段</td>
+<td>接收指定名称的参数</td>
+</tr>
+<tr>
+<td><code>@PathVariable(&quot;id&quot;) Long id</code></td>
+<td>URL 路径</td>
+<td>提取路径中的变量</td>
+</tr>
+<tr>
+<td><code>@RequestBody EmployeeDTO dto</code></td>
+<td>HTTP 请求体</td>
+<td>将请求体内容转换成对象，常用于 JSON</td>
+</tr>
+</tbody>
 </table>
 <p><strong><code>@ModelAttribute</code>：把多个参数装进对象：</strong></p>
 <p>前端请求：</p>
@@ -1343,35 +1349,35 @@
 <p>AOP 是将多个业务中<strong>重复的公共逻辑提取出来，在指定方法执行前后统一执行，减少重复代码</strong>。</p>
 <p>例如：新增员工、新增分类都需要设置创建时间、创建人等字段，可以通过 AOP 统一进行公共字段自动填充。</p>
 <table>
-  <thead>
-      <tr>
-          <th>概念</th>
-          <th>含义</th>
-          <th>本例对应</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>切面</td>
-          <td>组织公共处理逻辑的类</td>
-          <td><code>AutoFillAspect</code>，使用 <code>@Aspect</code> 标记</td>
-      </tr>
-      <tr>
-          <td>切入点</td>
-          <td>指定哪些方法需要处理</td>
-          <td>Mapper 包中带 <code>@AutoFill</code> 的方法</td>
-      </tr>
-      <tr>
-          <td>通知</td>
-          <td>指定何时执行、执行什么逻辑</td>
-          <td>比如<code>@Before</code>：在目标方法执行前填充字段</td>
-      </tr>
-      <tr>
-          <td>连接点</td>
-          <td>被拦截的方法执行，可获取相关信息</td>
-          <td><code>JoinPoint</code> 提供方法信息和调用参数</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>概念</th>
+<th>含义</th>
+<th>本例对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切面</td>
+<td>组织公共处理逻辑的类</td>
+<td><code>AutoFillAspect</code>，使用 <code>@Aspect</code> 标记</td>
+</tr>
+<tr>
+<td>切入点</td>
+<td>指定哪些方法需要处理</td>
+<td>Mapper 包中带 <code>@AutoFill</code> 的方法</td>
+</tr>
+<tr>
+<td>通知</td>
+<td>指定何时执行、执行什么逻辑</td>
+<td>比如<code>@Before</code>：在目标方法执行前填充字段</td>
+</tr>
+<tr>
+<td>连接点</td>
+<td>被拦截的方法执行，可获取相关信息</td>
+<td><code>JoinPoint</code> 提供方法信息和调用参数</td>
+</tr>
+</tbody>
 </table>
 <p><code>@Component</code> 将切面交给 Spring boot 管理。</p>
 <p>接下来举一个进行公共字段自动填充的例子：</p>
@@ -1465,26 +1471,26 @@
 <p>Spring Boot 可以按运行环境拆分配置，让同一套代码在开发、测试、生产环境中使用不同参数。</p>
 <p>首先明确一下不同文件的分工：</p>
 <table>
-  <thead>
-      <tr>
-          <th>文件</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>application.yml</code></td>
-          <td>基础配置，通常存放通用配置</td>
-      </tr>
-      <tr>
-          <td><code>application-dev.yml</code></td>
-          <td>开发环境配置，例如本地数据库连接</td>
-      </tr>
-      <tr>
-          <td><code>application-prod.yml</code></td>
-          <td>生产环境配置，例如正式数据库连接</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>application.yml</code></td>
+<td>基础配置，通常存放通用配置</td>
+</tr>
+<tr>
+<td><code>application-dev.yml</code></td>
+<td>开发环境配置，例如本地数据库连接</td>
+</tr>
+<tr>
+<td><code>application-prod.yml</code></td>
+<td>生产环境配置，例如正式数据库连接</td>
+</tr>
+</tbody>
 </table>
 <p>环境配置文件遵循命名规则：<code>application-{环境名}.yml</code>。</p>
 <p>在 <code>application.yml</code> 中配置来启用需要的环境：</p>
@@ -1522,35 +1528,35 @@
     
 </h3>
 <table>
-  <thead>
-      <tr>
-          <th>注解</th>
-          <th>作用</th>
-          <th>记忆方式</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>@EnableCaching</code></td>
-          <td>开启缓存注解功能，通常加在启动类或配置类上</td>
-          <td>开启缓存</td>
-      </tr>
-      <tr>
-          <td><code>@Cacheable</code></td>
-          <td>先查缓存：命中则直接返回；未命中则执行方法，并缓存返回值</td>
-          <td>有就用，没有就查并存</td>
-      </tr>
-      <tr>
-          <td><code>@CachePut</code></td>
-          <td>每次都执行方法，并将返回值写入缓存</td>
-          <td>每次执行并更新缓存</td>
-      </tr>
-      <tr>
-          <td><code>@CacheEvict</code></td>
-          <td>删除指定缓存，默认在方法成功执行后删除</td>
-          <td>清理缓存</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>注解</th>
+<th>作用</th>
+<th>记忆方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@EnableCaching</code></td>
+<td>开启缓存注解功能，通常加在启动类或配置类上</td>
+<td>开启缓存</td>
+</tr>
+<tr>
+<td><code>@Cacheable</code></td>
+<td>先查缓存：命中则直接返回；未命中则执行方法，并缓存返回值</td>
+<td>有就用，没有就查并存</td>
+</tr>
+<tr>
+<td><code>@CachePut</code></td>
+<td>每次都执行方法，并将返回值写入缓存</td>
+<td>每次执行并更新缓存</td>
+</tr>
+<tr>
+<td><code>@CacheEvict</code></td>
+<td>删除指定缓存，默认在方法成功执行后删除</td>
+<td>清理缓存</td>
+</tr>
+</tbody>
 </table>
 <p><strong>常见写法</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 开启缓存注解功能，加在启动类或配置类上</span><span class="w">
@@ -1583,6 +1589,36 @@
 <li><strong>不能直接读取方法体中的局部变量。</strong></li>
 </ul>
 <p><strong>注意：</strong><code>@Cacheable</code> 的 <code>key</code> 不能使用 <code>#result</code>，因为此时方法尚未执行；<code>@CachePut</code> 和默认执行后的 <code>@CacheEvict</code> 可以使用。</p>
+
+
+<h3 class="relative group">Controller 中的request、response与返回值 
+    <div id="controller-%E4%B8%AD%E7%9A%84requestresponse%E4%B8%8E%E8%BF%94%E5%9B%9E%E5%80%BC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#controller-%E4%B8%AD%E7%9A%84requestresponse%E4%B8%8E%E8%BF%94%E5%9B%9E%E5%80%BC" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li><code>HttpServletRequest</code>：读取本次 HTTP 请求的数据。</li>
+<li><code>HttpServletResponse</code>：设置本次 HTTP 响应的状态码、响应头和响应体。</li>
+</ul>
+<p>两者是由服务器提供的。Spring MVC 调用 Controller 方法时自动传入，并不是前端提交的普通参数。</p>
+<p>响应有两种常见写法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 返回对象，由 Spring MVC 转换并写入响应体（@RestController 下）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">example</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="s">&#34;成功&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 直接操作 response，手动写入响应</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">example</span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">response</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">200</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">write</span><span class="p">(</span><span class="s">&#34;SUCCESS&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>@RestController 支持自动处理返回值，但不强制每个方法都返回对象，也允许通过 response 手动控制响应。</p>
+<p>要明白Java 方法返回值 ≠ HTTP 响应。<code>void</code> 只表示没有 Java 返回值，仍可以通过 <code>response</code> 向客户端发送响应。</p>
 
 
 <h2 class="relative group">业务逻辑 
@@ -1701,30 +1737,30 @@
 </span></span><span class="line"><span class="cl">小程序保存 token，后续请求携带 token，供后端校验身份
 </span></span></code></pre></div><p>要注意这里的三个关键数据：</p>
 <table>
-  <thead>
-      <tr>
-          <th>数据</th>
-          <th>含义</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>code</code></td>
-          <td>临时登录凭证</td>
-          <td>供后端向微信换取用户身份信息</td>
-      </tr>
-      <tr>
-          <td><code>openid</code></td>
-          <td>用户在当前小程序中的微信身份标识</td>
-          <td>关联外卖系统中的用户账号</td>
-      </tr>
-      <tr>
-          <td><code>token</code></td>
-          <td>外卖系统签发的登录凭证</td>
-          <td>供后续业务请求验证身份</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>数据</th>
+<th>含义</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td>临时登录凭证</td>
+<td>供后端向微信换取用户身份信息</td>
+</tr>
+<tr>
+<td><code>openid</code></td>
+<td>用户在当前小程序中的微信身份标识</td>
+<td>关联外卖系统中的用户账号</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>外卖系统签发的登录凭证</td>
+<td>供后续业务请求验证身份</td>
+</tr>
+</tbody>
 </table>
 <p>这样设计的原因是：</p>
 <ul>
@@ -1732,6 +1768,198 @@
 <li><strong>为什么由后端拿 code 换取 openid？</strong> 后端可以直接向微信核实身份，同时将 <code>appsecret</code> 保存在服务端，避免暴露给客户端。</li>
 <li><strong>为什么有了 openid，还需要 token？</strong> <code>openid</code> 只是身份编号，不能单独证明请求者就是本人；<code>token</code> 才是后端在确认身份后签发的登录凭证。</li>
 </ul>
+
+
+<h3 class="relative group">支付业务调用流程 
+    <div id="%E6%94%AF%E4%BB%98%E4%B8%9A%E5%8A%A1%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%94%AF%E4%BB%98%E4%B8%9A%E5%8A%A1%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>支付业务分为三个阶段：<strong>创建订单 → 申请支付 → 接收支付结果并更新订单</strong>。商户订单号 orders.number 将三个阶段关联起来。</p>
+<ol>
+<li>用户下单：创建本地订单</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">小程序提交订单：POST /user/order/submit
+</span></span><span class="line"><span class="cl">→ OrderController.submit()
+</span></span><span class="line"><span class="cl">→ OrderServiceImpl.submitOrder()
+</span></span></code></pre></div><p><code>submitOrder()</code> 内部依次执行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">addressBookMapper.getById()：查询收货地址
+</span></span><span class="line"><span class="cl">→ shoppingCartMapper.list()：查询当前用户购物车
+</span></span><span class="line"><span class="cl">→ 校验地址、购物车是否有效
+</span></span><span class="line"><span class="cl">→ 构造 Orders 对象，设置订单号、用户、金额、状态等
+</span></span><span class="line"><span class="cl">→ orderMapper.insert()：保存订单并回填主键 id
+</span></span><span class="line"><span class="cl">→ 将购物车商品转换成订单明细，设置 orderId
+</span></span><span class="line"><span class="cl">→ orderDetailMapper.insertBatch()：批量保存明细
+</span></span><span class="line"><span class="cl">→ shoppingCartMapper.deleteByUserId()：清空购物车
+</span></span><span class="line"><span class="cl">→ 封装并返回 OrderSubmitVO
+</span></span></code></pre></div><p>注意订单与明细是一对多关系，通过 <code>order_detail.order_id</code> 关联。并且先保存订单，获得主键后才能关联明细。</p>
+<p>此时订单为<strong>待付款、未支付</strong>，还没有付款。</p>
+<ol start="2">
+<li>申请支付：获取调起支付所需的参数</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">小程序携带订单号：PUT /user/order/payment
+</span></span><span class="line"><span class="cl">→ OrderController.payment()
+</span></span><span class="line"><span class="cl">→ OrderServiceImpl.payment()
+</span></span></code></pre></div><p>Service 首先查询付款用户：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Long</span><span class="w"> </span><span class="n">userId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BaseContext</span><span class="p">.</span><span class="na">getCurrentId</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userMapper</span><span class="p">.</span><span class="na">getById</span><span class="p">(</span><span class="n">userId</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p><code>userId</code> 是本地数据库用户 ID，而<code>user.getOpenid()</code> 是微信侧识别该用户的标识，这两个是不一样的，要区分。我们用userId可以知道现在具体是数据库中的哪个user，然后就可以知道它的Openid。</p>
+<p>接下来调用<code>weChatPayUtil.pay(订单号, 金额, 商品描述, openid);</code>这个工具类。</p>
+<p>工具类内部的调用顺序：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">WeChatPayUtil.pay()
+</span></span><span class="line"><span class="cl">→ jsapi()：组装订单号、金额、openid、notifyUrl 等请求数据
+</span></span><span class="line"><span class="cl">→ post()：准备发送 HTTP 请求
+</span></span><span class="line"><span class="cl">  → getClient()：加载私钥、证书，创建支付 HTTP 客户端
+</span></span><span class="line"><span class="cl">  → 向微信申请预支付交易单
+</span></span><span class="line"><span class="cl">→ 微信响应经 post()、jsapi() 返回 pay()
+</span></span><span class="line"><span class="cl">→ pay() 取得 prepay_id，生成小程序支付参数
+</span></span></code></pre></div><p>其中<code>notifyUrl</code>告诉微信：支付成功后，应向哪个地址发送通知。在本地开发时，微信服务器不能直接访问我们电脑的 localhost:8080，因此需要用<strong>内网穿透</strong>提供一个公网可访问的入口，并将 notifyUrl 配置成：<code>https://公网入口域名/notify/paySuccess</code>。</p>
+<p>之后微信向 notifyUrl 发送支付通知的时候，内网穿透服务将请求转发到本机 localhost:8080。一般来说后端主动请求微信支付接口通常不需要内网穿透；微信主动回调本地后端时才需要这个公网入口。</p>
+<p>支付参数包括：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>timeStamp</code></td>
+<td>时间戳</td>
+</tr>
+<tr>
+<td><code>nonceStr</code></td>
+<td>随机字符串</td>
+</tr>
+<tr>
+<td><code>package</code></td>
+<td>包含 <code>prepay_id</code> 的字符串</td>
+</tr>
+<tr>
+<td><code>signType</code></td>
+<td>签名算法</td>
+</tr>
+<tr>
+<td><code>paySign</code></td>
+<td>支付签名</td>
+</tr>
+</tbody>
+</table>
+<p>随后回到 <code>OrderServiceImpl.payment()</code>去检查返回结果是否为 ORDERPAID（订单已支付）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">如果结果不是 ORDERPAID（订单目前未支付）
+</span></span><span class="line"><span class="cl">→ 将 JSONObject 转换成 OrderPaymentVO
+</span></span><span class="line"><span class="cl">→ 手动将 package 设置到 packageStr
+</span></span><span class="line"><span class="cl">→ 返回 VO
+</span></span><span class="line"><span class="cl">→ OrderController.payment() 返回 Result.success(vo)
+</span></span></code></pre></div><p><code>package</code> 是 Java 关键字，所以 VO 使用 <code>packageStr</code>，需要手动对应。</p>
+<p><strong>这次 HTTP 请求到这里结束。小程序再使用返回的参数调起支付界面，由用户确认付款。</strong></p>
+<p>注意：<strong>生成预支付交易单成功，只代表可以发起付款，不代表已经付款。</strong> 真实业务使用后端核定的订单金额。</p>
+<ol start="3">
+<li>微信回调：通知后端支付结果</li>
+</ol>
+<p>用户付完款了，但是后端数据库还没更新，所以微信联系后端让后端去更新数据，更新好了以后后端通知微信自己处理完了。</p>
+<p>用户付款成功后，微信向预支付请求中的 <code>notifyUrl</code> 发起新的 HTTP 请求：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">微信服务器请求 /notify/paySuccess
+</span></span><span class="line"><span class="cl">→ PayNotifyController.paySuccessNotify(request, response)
+</span></span></code></pre></div><p>当前代码的执行顺序：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">readData(request)
+</span></span><span class="line"><span class="cl">→ 读取请求体，得到字符串 body
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">decryptData(body)
+</span></span><span class="line"><span class="cl">→ 从 resource 中取出密文及解密参数
+</span></span><span class="line"><span class="cl">→ 使用 API v3 密钥解密，得到明文 JSON
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">JSON.parseObject(plainText)
+</span></span><span class="line"><span class="cl">→ 读取 out_trade_no：商户订单号
+</span></span><span class="line"><span class="cl">→ 读取 transaction_id：微信支付交易号
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">orderService.paySuccess(outTradeNo)
+</span></span><span class="line"><span class="cl">→ 根据商户订单号处理本地订单
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">responseToWeixin(response)
+</span></span><span class="line"><span class="cl">→ 告诉微信，这条通知已成功处理
+</span></span></code></pre></div><p>注意：当前教学代码尚未补齐通知验签、金额等校验。<strong>实际业务应验证通知来源、支付状态和订单信息后，再执行订单更新。</strong></p>
+<ol start="4">
+<li><code>orderService.paySuccess</code>：更新订单并防止重复处理</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">检查订单号是否为空
+</span></span><span class="line"><span class="cl">→ orderMapper.getByNumber(outTradeNo)
+</span></span><span class="line"><span class="cl">→ 检查订单是否存在
+</span></span><span class="line"><span class="cl">→ paymentAlreadyHandled() 判断是否已处理
+</span></span></code></pre></div><p>如果已经支付或已进入退款状态，直接正常 <code>return</code>，避免重复修改付款时间，或者把后续订单状态覆盖掉。</p>
+<p>否则继续检查订单是否为“待付款、未支付”，如果是的话，就执行条件更新：orderMapper.markPaidIfPending()</p>
+<p>其中SQL 的核心逻辑：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">orders</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">pay_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">checkout_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">pay_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>Java 查询到的状态，只代表查询那一刻的状态，不保证数据库执行 UPDATE 时还是这个状态。因此数据库更新时update方法仍需检查原状态保证状态是我们期望的，也就是sql的where部分中的<code>status = 1 AND pay_status = 0</code>。</p>
+<p>然后根据sql的update返回的更新行数处理：</p>
+<table>
+<thead>
+<tr>
+<th>更新结果</th>
+<th>后续处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td>本次更新成功，直接 <code>return</code></td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>本次没有更新到记录，重新查询订单</td>
+</tr>
+</tbody>
+</table>
+<p>返回 <code>0</code> 后，调用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Orders</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">getByNumber</span><span class="p">(</span><span class="n">outTradeNo</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>重新查询是为了区分现在订单的情况，方便分开处理：</p>
+<ul>
+<li><strong>另一个支付回调已抢先处理成功</strong>：正常结束。</li>
+<li><strong>订单被取消等其他变化</strong>：抛出业务异常，要求核查。</li>
+</ul>
+<ol start="5">
+<li>向微信应答</li>
+</ol>
+<p><code>paySuccess()</code> 正常结束后，回到 Controller，继续执行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">responseToWeixin</span><span class="p">(</span><span class="n">response</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>它设置 HTTP 状态码并写入响应，表示通知已处理。</p>
+<p>在整个支付流程中，我们要分清：</p>
+<ul>
+<li><code>payment()</code>：准备支付，返回调起支付所需的参数。</li>
+<li><code>paySuccess()</code>：确认支付结果后的本地业务处理，更新订单状态。</li>
+</ul>
+<p><strong><code>payment()</code> 不会直接调用 <code>paySuccess()</code>。</strong> 前者由小程序请求触发，后者由微信回调触发，两者属于不同请求，因此回调不能依赖用户的登录上下文。</p>
+
+
+<h3 class="relative group">内网穿透 
+    <div id="%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>能够让外部服务器能够访问运行在本机或内网中的服务。</p>
+<p>一般来说本地后端地址通常是<code>http://localhost:端口号</code>，微信并不能直接访问到。而内网穿透建立起一条转发通道：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">微信服务器
+</span></span><span class="line"><span class="cl">→ 公网入口，例如 https://example.cpolar.cn
+</span></span><span class="line"><span class="cl">→ 内网穿透通道
+</span></span><span class="line"><span class="cl">→ 本机 localhost:8080
+</span></span></code></pre></div><p>另外要注意内网穿透只解决“请求能否到达”，不能代替通知验签等安全校验。当后端部署到公网、已有可访问的回调地址后，通常不需要本地内网穿透。</p>
 
 
 <h2 class="relative group">Java知识 
@@ -1906,7 +2134,7 @@
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/mysql_window_function/featured_hu_10f609d9e6075acd.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/mysql_window_function/featured_hu2136026916268866939.PNG);"></div>
         
       
 
@@ -1988,7 +2216,7 @@
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/aiinfra_coding2/featured_hu_f9e92bb46c69fdc6.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/aiinfra_coding2/featured_hu14754171024940339309.PNG);"></div>
         
       
 
@@ -2039,7 +2267,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13616 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">28 分钟</span>
+  <time datetime="2026-09-06T00:00:00&#43;00:00">6 September 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13615 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">28 分钟</span>
   
 
   
@@ -2070,7 +2298,7 @@
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-11/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-11/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -2159,8 +2387,8 @@
           
         
       <script>
-        var oid = "views_coding\/spring_boot1\/index.md"
-        var oid_likes = "likes_coding\/spring_boot1\/index.md"
+        var oid = "views_coding\\spring_boot1\\index.md"
+        var oid_likes = "likes_coding\\spring_boot1\\index.md"
       </script>
       
       
@@ -2253,7 +2481,7 @@
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="Tags">
+            title="">
             
             Tags
           </a>
@@ -2261,7 +2489,7 @@
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="Categories">
+            title="">
             
             Categories
           </a>

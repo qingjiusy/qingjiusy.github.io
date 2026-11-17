@@ -114,7 +114,7 @@
     "keywords": ["LeetCode","算法","Python"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "133307"
+    "wordCount": "133297"
   }]
   </script>
 
@@ -390,14 +390,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Lives">
+          <p class="text-sm font-sm" title="">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Codings">
+          <p class="text-sm font-sm" title="">
             code
           </p>
         </a>
@@ -598,7 +598,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Lives">
+        <p class="text-sm font-small" title="">
             生活
         </p>
     </a>
@@ -607,7 +607,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Codings">
+        <p class="text-sm font-small" title="">
             code
         </p>
     </a>
@@ -673,7 +673,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/leetcode_notes/featured_hu_f0efdee92eef4e3b.PNG);">
+    style="background-image:url(/coding/leetcode_notes/featured_hu12691462511367279356.PNG);">
     
 
 
@@ -735,7 +735,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>133307 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">267 分钟</span>
+  <time datetime="2026-08-17T00:00:00&#43;00:00">17 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>133297 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">267 分钟</span>
   
 
   
@@ -775,7 +775,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
@@ -12800,35 +12800,45 @@ dp</p>
 <p>假设 <code>i</code> 的最优拆分最终为：</p>
 $$
 i = a_1 + a_2 + \cdots + a_k
-$$<p>对应的最大乘积为：</p>
+$$
+<p>对应的最大乘积为：</p>
 $$
 a_1a_2\cdots a_k
-$$<p>其中，<code>a_1</code> 到 <code>a_k</code> 都已经是<strong>最终拆分后的整数</strong>，不会再继续拆分。</p>
+$$
+<p>其中，<code>a_1</code> 到 <code>a_k</code> 都已经是<strong>最终拆分后的整数</strong>，不会再继续拆分。</p>
 <p>因此，我们总可以任选其中一个整数（例如 <code>a_1</code>）作为 <code>j</code>：</p>
 $$
 j = a_1
-$$<p>那么剩余部分就是：</p>
+$$
+<p>那么剩余部分就是：</p>
 $$
 i - j = a_2 + \cdots + a_k
-$$<p>于是有：</p>
+$$
+<p>于是有：</p>
 $$
 j \times dp[i-j] = a_1 \times dp[a_2 + \cdots + a_k]
-$$<p>由于 <code>dp[i-j]</code> 表示将 <code>i-j</code> 拆分后能够得到的最大乘积，因此它至少能够得到：</p>
+$$
+<p>由于 <code>dp[i-j]</code> 表示将 <code>i-j</code> 拆分后能够得到的最大乘积，因此它至少能够得到：</p>
 $$
 a_2a_3\cdots a_k
-$$<p>也就是说：</p>
+$$
+<p>也就是说：</p>
 $$
 dp[i-j] \geq a_2a_3\cdots a_k
-$$<p>因此：</p>
+$$
+<p>因此：</p>
 $$
 j \times dp[i-j] \geq a_1a_2\cdots a_k
-$$<p>而 \( a_1 \cdot a_2 \cdot \cdots \cdot a_k \) 本身已经是 <code>i</code> 的最优拆分结果，所以最终实际上有：</p>
+$$
+<p>而 \( a_1 \cdot a_2 \cdot \cdots \cdot a_k \) 本身已经是 <code>i</code> 的最优拆分结果，所以最终实际上有：</p>
 $$
 j \times dp[i-j] = a_1a_2\cdots a_k
-$$<p>也就是说，最优解一定可以表示成：</p>
+$$
+<p>也就是说，最优解一定可以表示成：</p>
 $$
 j \times dp[i-j]
-$$<p>因此，没有必要额外考虑 <code>dp[j] * dp[i-j]</code>。
+$$
+<p>因此，没有必要额外考虑 <code>dp[j] * dp[i-j]</code>。
 所以，任何 <code>dp[j] * dp[i - j]</code>（左右两部分都继续拆分）的情况，都可以改写为：固定一个最终拆分出的整数作为 <code>j</code>，剩余部分交给 <code>dp[i - j]</code> 继续拆分。因此，无需单独考虑 <code>dp[j] * dp[i - j]</code>。</p>
 <p>做法二：
 由于j的遍历范围只有2和3，我们把遍历的时间复杂度变成了常数级。递推公式仍然是 dp[i] = max(dp[i], j * (i - j), j * dp[i - j])。</p>
@@ -12899,7 +12909,8 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[
 <blockquote>
 <p>它的含义是：
 不放物品i：背包容量为j，里面不放物品i的最大价值是 dp[i - 1][j]。
-放物品i：背包空出物品i的容量后，背包容量为j - weight[i]，dp[i - 1][j - weight[i]] 为背包容量为j - weight[i]且不放物品i的最大价值，那么dp[i - 1][j - weight[i]] + value[i] （物品i的价值），就是背包放物品i得到的最大价值</p></blockquote>
+放物品i：背包空出物品i的容量后，背包容量为j - weight[i]，dp[i - 1][j - weight[i]] 为背包容量为j - weight[i]且不放物品i的最大价值，那么dp[i - 1][j - weight[i]] + value[i] （物品i的价值），就是背包放物品i得到的最大价值</p>
+</blockquote>
 <ol start="3">
 <li>初始化：dp[i][0]，也就是背包容量为0，背包价值总和一定为0。 dp[0][j]，即：背包中存放编号0的物品的时候，各个容量的背包所能存放的最大价值。那么很明显当 j &lt; weight[0]的时候，dp[0][j] 应该是 0，因为背包容量比编号0的物品重量还小。当j &gt;= weight[0]时，dp[0][j] 应该是value[0]，因为背包容量放足够放编号0物品。</li>
 <li>遍历顺序：先遍历物品和背包都可以；为了便于理解，可以先遍历物品。</li>
@@ -12922,7 +12933,8 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[
 <li>递推公式：<code>dp[j] = max(dp[j], dp[j - weight[i]] + value[i])</code>。</li>
 </ol>
 <blockquote>
-<p>dp[j - weight[i]] + value[i] 表示 容量为 [j - 物品i重量] 的背包 加上 物品i的价值。（也就是容量为j的背包，放入物品i了之后的价值即：dp[j]）。另一个dp[j]就表示此次递归不取物品i。</p></blockquote>
+<p>dp[j - weight[i]] + value[i] 表示 容量为 [j - 物品i重量] 的背包 加上 物品i的价值。（也就是容量为j的背包，放入物品i了之后的价值即：dp[j]）。另一个dp[j]就表示此次递归不取物品i。</p>
+</blockquote>
 <ol start="3">
 <li>初始化：一开始的时候dp[0]一定为0，其他下标对应的元素可以随便取0或者小于0的数，只要保证之后可以正常更新即可。为了方便起见我们一般全部取0即可。</li>
 <li>遍历顺序：注意这里和基础做法不一样！这里要<strong>倒序遍历背包容量！倒序遍历是为了保证物品i只被放入一次！<strong>并且在这里一定要</strong>先遍历物品然后嵌套遍历背包容量</strong>。</li>
@@ -13435,7 +13447,8 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] 
 <blockquote>
 <p>它的含义是：
 不放物品i：背包容量为j，里面不放物品i的最大价值是 dp[i - 1][j]。
-放物品i：背包空出物品i的容量后，背包容量为j - weight[i]。但是要注意这里是完全背包，每个物品可以取无限次！因此这个背包<strong>取了一个物品i以后是可以接着取物品i的</strong>，所以这里应该是 dp[i][j - weight[i]]，为背包容量为j - weight[i]且能接着在下标为[0-i]的物品的范围里面选择的最大价值，那么dp[i][j - weight[i]] + value[i] （物品i的价值），就是背包选择取物品i得到的最大价值</p></blockquote>
+放物品i：背包空出物品i的容量后，背包容量为j - weight[i]。但是要注意这里是完全背包，每个物品可以取无限次！因此这个背包<strong>取了一个物品i以后是可以接着取物品i的</strong>，所以这里应该是 dp[i][j - weight[i]]，为背包容量为j - weight[i]且能接着在下标为[0-i]的物品的范围里面选择的最大价值，那么dp[i][j - weight[i]] + value[i] （物品i的价值），就是背包选择取物品i得到的最大价值</p>
+</blockquote>
 <ol start="3">
 <li>初始化：dp[i][0]，也就是背包容量为0，背包价值总和一定为0。 dp[0][j]，即：背包中存放编号0的物品的时候，各个容量的背包所能存放的最大价值。那么很明显当 j &lt; weight[0]的时候，dp[0][j] 应该是 0，因为背包容量比编号0的物品重量还小。当j &gt;= weight[0]时，我们要尽可能的去取编号0的商品，每一种物品有无限个。
 其他位置可以随便初始化，为了方便我们一般初始化为0。</li>
@@ -13459,7 +13472,8 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] 
 <li>递推公式：<code>dp[j] = max(dp[j], dp[j - weight[i]] + value[i])</code>。</li>
 </ol>
 <blockquote>
-<p>dp[j - weight[i]] + value[i] 表示 容量为 [j - 物品i重量] 的背包 加上 物品i的价值。（也就是容量为j的背包，放入物品i了之后的价值即：dp[j]）。另一个dp[j]就表示此次递归不取物品i。</p></blockquote>
+<p>dp[j - weight[i]] + value[i] 表示 容量为 [j - 物品i重量] 的背包 加上 物品i的价值。（也就是容量为j的背包，放入物品i了之后的价值即：dp[j]）。另一个dp[j]就表示此次递归不取物品i。</p>
+</blockquote>
 <ol start="3">
 <li>初始化：普通最大价值问题中，dp 全部初始化为 0 即可。</li>
 <li>遍历顺序：注意这里要和01背包的遍历顺序进行区分！这里要**遍历物品和遍历背包容量没有先后顺序的强制要求！**在完全背包中，对于一维dp数组来说，其实两个for循环嵌套顺序是无所谓的！同时在最大价值型完全背包中，这两个遍历都应该是正序遍历。在别的变体问题则要另行区分。
@@ -14090,7 +14104,8 @@ j &gt;= weight[i] 时，<code>dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] 
 另一个 <code>dp[j]</code> 则表示当前不选择第 <code>i</code> 种物品，或者保留之前已经得到的更优结果。
 因此对于每个 <code>dp[j]</code>，实际上是在枚举：
 <code>0 个、1 个、2 个、...、nums[i] 个</code>
-第 <code>i</code> 种物品，并从中选出最大价值。</p></blockquote>
+第 <code>i</code> 种物品，并从中选出最大价值。</p>
+</blockquote>
 <ol start="3">
 <li>初始化：普通最大价值问题中，<code>dp</code> 全部初始化为 <code>0</code> 即可。</li>
 </ol>
@@ -18478,40 +18493,40 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
     
 </h3>
 <table>
-  <thead>
-      <tr>
-          <th>操作</th>
-          <th>含义</th>
-          <th>常见用途</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>a &amp; b</code></td>
-          <td>与</td>
-          <td>检查某一位</td>
-      </tr>
-      <tr>
-          <td><code>a | b</code></td>
-          <td>或</td>
-          <td>把某一位设为 <code>1</code></td>
-      </tr>
-      <tr>
-          <td><code>a ^ b</code></td>
-          <td>异或</td>
-          <td>消除相同值、翻转某一位</td>
-      </tr>
-      <tr>
-          <td><code>a &lt;&lt; i</code></td>
-          <td>左移i 位，空位补0</td>
-          <td>生成 mask，数学上相当于 a * 2^i</td>
-      </tr>
-      <tr>
-          <td><code>a &gt;&gt; i</code></td>
-          <td>右移i 位，移出去的位丢弃</td>
-          <td>逐位读取</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>操作</th>
+<th>含义</th>
+<th>常见用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>a &amp; b</code></td>
+<td>与</td>
+<td>检查某一位</td>
+</tr>
+<tr>
+<td><code>a | b</code></td>
+<td>或</td>
+<td>把某一位设为 <code>1</code></td>
+</tr>
+<tr>
+<td><code>a ^ b</code></td>
+<td>异或</td>
+<td>消除相同值、翻转某一位</td>
+</tr>
+<tr>
+<td><code>a &lt;&lt; i</code></td>
+<td>左移i 位，空位补0</td>
+<td>生成 mask，数学上相当于 a * 2^i</td>
+</tr>
+<tr>
+<td><code>a &gt;&gt; i</code></td>
+<td>右移i 位，移出去的位丢弃</td>
+<td>逐位读取</td>
+</tr>
+</tbody>
 </table>
 
 
@@ -18610,35 +18625,35 @@ dp[i][3] 表示第i天第二次空仓所得最多现金。</li>
 </h3>
 <p>我们这里可以这样去做：</p>
 <table>
-  <thead>
-      <tr>
-          <th>数值</th>
-          <th>旧状态</th>
-          <th>新状态</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>0</td>
-          <td>死</td>
-          <td>死</td>
-      </tr>
-      <tr>
-          <td>2</td>
-          <td>死</td>
-          <td>活</td>
-      </tr>
-      <tr>
-          <td>1</td>
-          <td>活</td>
-          <td>活</td>
-      </tr>
-      <tr>
-          <td>-1</td>
-          <td>活</td>
-          <td>死</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>数值</th>
+<th>旧状态</th>
+<th>新状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>死</td>
+<td>死</td>
+</tr>
+<tr>
+<td>2</td>
+<td>死</td>
+<td>活</td>
+</tr>
+<tr>
+<td>1</td>
+<td>活</td>
+<td>活</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>活</td>
+<td>死</td>
+</tr>
+</tbody>
 </table>
 <p>我们在第一次遍历的时候，去检查<code>abs(board[neighbor_x][neighbor_y]) == 1</code>，因为根据我们的编码操作，不管检查到的元素是编码后的元素还是初始的元素，只要绝对值为1，就表示旧状态为活。我们就可以用它统计我们周围八个元素的死活情况。具体根据题意，我们的状态转移情况如下：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
@@ -24493,7 +24508,7 @@ union(a, b)：O(N)</p>
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-10/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-10/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -24575,7 +24590,7 @@ union(a, b)：O(N)</p>
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-9/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -24626,7 +24641,7 @@ union(a, b)：O(N)</p>
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8850 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
+  <time datetime="2026-08-10T00:00:00&#43;00:00">10 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>8827 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">18 分钟</span>
   
 
   
@@ -24657,7 +24672,7 @@ union(a, b)：O(N)</p>
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/torchapi/featured_hu_8b2a8a9a2e2ed690.PNG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/torchapi/featured_hu6577315390552941504.PNG);"></div>
         
       
 
@@ -24746,8 +24761,8 @@ union(a, b)：O(N)</p>
           
         
       <script>
-        var oid = "views_coding\/leetcode_notes\/index.md"
-        var oid_likes = "likes_coding\/leetcode_notes\/index.md"
+        var oid = "views_coding\\leetcode_notes\\index.md"
+        var oid_likes = "likes_coding\\leetcode_notes\\index.md"
       </script>
       
       
@@ -24840,7 +24855,7 @@ union(a, b)：O(N)</p>
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="Tags">
+            title="">
             
             Tags
           </a>
@@ -24848,7 +24863,7 @@ union(a, b)：O(N)</p>
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="Categories">
+            title="">
             
             Categories
           </a>

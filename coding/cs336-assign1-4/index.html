@@ -112,7 +112,7 @@
     "keywords": ["cs336"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "3388"
+    "wordCount": "3366"
   }]
   </script>
 
@@ -388,14 +388,14 @@
         
         <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Lives">
+          <p class="text-sm font-sm" title="">
             生活
           </p>
         </a>
         
         <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
           
-          <p class="text-sm font-sm" title="Codings">
+          <p class="text-sm font-sm" title="">
             code
           </p>
         </a>
@@ -596,7 +596,7 @@
 <li class="mt-1">
     <a href="/life/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Lives">
+        <p class="text-sm font-small" title="">
             生活
         </p>
     </a>
@@ -605,7 +605,7 @@
 <li class="mt-1">
     <a href="/coding/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
         
-        <p class="text-sm font-small" title="Codings">
+        <p class="text-sm font-small" title="">
             code
         </p>
     </a>
@@ -671,7 +671,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/coding/cs336-assign1-4/featured_hu_fdbc5ba662749d7d.JPG);">
+    style="background-image:url(/coding/cs336-assign1-4/featured_hu15877482033400326244.JPG);">
     
 
 
@@ -733,7 +733,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-05T00:00:00&#43;00:00">5 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3388 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
+  <time datetime="2026-08-05T00:00:00&#43;00:00">5 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>3366 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
   
 
   
@@ -773,7 +773,7 @@
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="清酒" src="/img/cc_hu_a94d04087deb6a8.png" />
+      alt="清酒" src="/img/cc_hu7181080746626923322.png" />
     
   
   <div class="place-self-center">
@@ -1014,7 +1014,8 @@
 <li>理解 <strong>temperature（温度）</strong> 如何调节分布的尖锐程度。</li>
 </ol>
 <blockquote>
-<p><strong>学术诚信</strong>：本笔记本用 <code>torch.nn.functional.softmax</code> 等**内置件当&quot;教具/参考&quot;**来建立直觉与验证性质，<strong>不包含</strong>任何要你在 <code>adapters.py</code> 里交付的 <code>run_softmax</code> 实现。最后的&quot;引导骨架&quot;只给 <code># step</code> 思路和留白，不给求解代码。</p></blockquote>
+<p><strong>学术诚信</strong>：本笔记本用 <code>torch.nn.functional.softmax</code> 等**内置件当&quot;教具/参考&quot;**来建立直觉与验证性质，<strong>不包含</strong>任何要你在 <code>adapters.py</code> 里交付的 <code>run_softmax</code> 实现。最后的&quot;引导骨架&quot;只给 <code># step</code> 思路和留白，不给求解代码。</p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1114,7 +1115,8 @@ F.softmax(x) = tensor([0., 0., 1.])  &lt;- 正确：几乎全部概率集中在�
     
 </h2>
 <p>给整个向量<strong>同时加上一个常数 $c$</strong>，softmax 的结果<strong>完全不变</strong>：</p>
-$$\mathrm{softmax}(x+c)_i = \frac{e^{x_i+c}}{\sum_j e^{x_j+c}} = \frac{e^{c}\,e^{x_i}}{e^{c}\sum_j e^{x_j}} = \frac{e^{x_i}}{\sum_j e^{x_j}} = \mathrm{softmax}(x)_i$$<p>分子分母上的 $e^{c}$ 约掉了。用参考件 <code>F.softmax</code> 来<strong>验证这个性质</strong>（注意：这里只是在演示数学性质，不是在实现 softmax）。</p>
+$$\mathrm{softmax}(x+c)_i = \frac{e^{x_i+c}}{\sum_j e^{x_j+c}} = \frac{e^{c}\,e^{x_i}}{e^{c}\sum_j e^{x_j}} = \frac{e^{x_i}}{\sum_j e^{x_j}} = \mathrm{softmax}(x)_i$$
+<p>分子分母上的 $e^{c}$ 约掉了。用参考件 <code>F.softmax</code> 来<strong>验证这个性质</strong>（注意：这里只是在演示数学性质，不是在实现 softmax）。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.4655</span><span class="p">,</span> <span class="mf">0.8303</span><span class="p">,</span> <span class="mf">0.9608</span><span class="p">,</span> <span class="mf">0.9656</span><span class="p">,</span> <span class="mf">0.6840</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">p0</span>    <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>        <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -1212,11 +1214,11 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
         class="my-0 rounded-md"
         loading="lazy"
         srcset="
-        /coding/cs336-assign1-4/index_files/index_11_0_hu_9c68ec7cd73de9f6.png 330w,
-        /coding/cs336-assign1-4/index_files/index_11_0_hu_35c6498a2ead04f5.png 660w,
-        /coding/cs336-assign1-4/index_files/index_11_0_hu_cb0bda98f7b5764e.png 1024w,
-        /coding/cs336-assign1-4/index_files/index_11_0_hu_20fa10118cc7f3b8.png 2x"
-        src="/coding/cs336-assign1-4/index_files/index_11_0_hu_35c6498a2ead04f5.png"
+        /coding/cs336-assign1-4/index_files/index_11_0_hu7728634657299343481.png 330w,
+        /coding/cs336-assign1-4/index_files/index_11_0_hu6334620876242741608.png 660w,
+        /coding/cs336-assign1-4/index_files/index_11_0_hu4635375940347336053.png 1024w,
+        /coding/cs336-assign1-4/index_files/index_11_0_hu9918797506965726147.png 2x"
+        src="/coding/cs336-assign1-4/index_files/index_11_0_hu6334620876242741608.png"
         alt="png"
       />
       
@@ -1313,7 +1315,7 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-3/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -1364,7 +1366,7 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5689 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
+  <time datetime="2026-08-04T00:00:00&#43;00:00">4 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>5660 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span>
   
 
   
@@ -1395,7 +1397,7 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-2/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-2/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -1446,7 +1448,7 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-08-03T00:00:00&#43;00:00">3 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6180 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">13 分钟</span>
+  <time datetime="2026-08-03T00:00:00&#43;00:00">3 August 2026</time><span class="px-2 text-primary-500">&middot;</span><span>6170 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">13 分钟</span>
   
 
   
@@ -1477,7 +1479,7 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
         
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu_354ec90f08579264.JPG);"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/coding/cs336-assign1-1/featured_hu8441776849342008447.JPG);"></div>
         
       
 
@@ -1566,8 +1568,8 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
           
         
       <script>
-        var oid = "views_coding\/cs336-assign1-4\/index.md"
-        var oid_likes = "likes_coding\/cs336-assign1-4\/index.md"
+        var oid = "views_coding\\cs336-assign1-4\\index.md"
+        var oid_likes = "likes_coding\\cs336-assign1-4\\index.md"
       </script>
       
       
@@ -1660,7 +1662,7 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
-            title="Tags">
+            title="">
             
             Tags
           </a>
@@ -1668,7 +1670,7 @@ exp(x - max(x))   = tensor([0., 0., 1.])  &lt;- 全部有限，最大项恰为 1
         
         <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
           <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
-            title="Categories">
+            title="">
             
             Categories
           </a>
