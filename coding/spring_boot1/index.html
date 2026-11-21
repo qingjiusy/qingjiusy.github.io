@@ -112,7 +112,7 @@
     "keywords": ["java"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "12130"
+    "wordCount": "13455"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>12130 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">25 分钟</span>
+  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13455 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">27 分钟</span>
   
 
   
@@ -761,6 +761,7 @@
         <li><a href="#配置文件的关系">配置文件的关系</a></li>
         <li><a href="#spring-cache-四个常用注解">Spring Cache 四个常用注解</a></li>
         <li><a href="#controller-中的requestresponse与返回值">Controller 中的request、response与返回值</a></li>
+        <li><a href="#cron-表达式">Cron 表达式</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -771,6 +772,7 @@
         <li><a href="#微信登录流程">微信登录流程</a></li>
         <li><a href="#支付业务调用流程">支付业务调用流程</a></li>
         <li><a href="#内网穿透">内网穿透</a></li>
+        <li><a href="#websocket">WebSocket</a></li>
       </ul>
     </li>
     <li><a href="#java知识">Java知识</a>
@@ -780,6 +782,7 @@
         <li><a href="#list-与-arraylist">List 与 ArrayList</a></li>
         <li><a href="#foreach-与-lambda-表达式">forEach 与 Lambda 表达式</a></li>
         <li><a href="#maven-的依赖传递">Maven 的依赖传递</a></li>
+        <li><a href="#java-异常throwthrows-与处理方式">Java 异常：<code>throw</code>、<code>throws</code> 与处理方式</a></li>
       </ul>
     </li>
   </ul>
@@ -810,6 +813,7 @@
         <li><a href="#配置文件的关系">配置文件的关系</a></li>
         <li><a href="#spring-cache-四个常用注解">Spring Cache 四个常用注解</a></li>
         <li><a href="#controller-中的requestresponse与返回值">Controller 中的request、response与返回值</a></li>
+        <li><a href="#cron-表达式">Cron 表达式</a></li>
       </ul>
     </li>
     <li><a href="#业务逻辑">业务逻辑</a>
@@ -820,6 +824,7 @@
         <li><a href="#微信登录流程">微信登录流程</a></li>
         <li><a href="#支付业务调用流程">支付业务调用流程</a></li>
         <li><a href="#内网穿透">内网穿透</a></li>
+        <li><a href="#websocket">WebSocket</a></li>
       </ul>
     </li>
     <li><a href="#java知识">Java知识</a>
@@ -829,6 +834,7 @@
         <li><a href="#list-与-arraylist">List 与 ArrayList</a></li>
         <li><a href="#foreach-与-lambda-表达式">forEach 与 Lambda 表达式</a></li>
         <li><a href="#maven-的依赖传递">Maven 的依赖传递</a></li>
+        <li><a href="#java-异常throwthrows-与处理方式">Java 异常：<code>throw</code>、<code>throws</code> 与处理方式</a></li>
       </ul>
     </li>
   </ul>
@@ -1084,6 +1090,7 @@
     
 </h3>
 <p><strong>为每个线程保存各自的数据</strong>，实现同一线程内跨方法、跨类读取数据，<strong>不同线程的数据相互隔离</strong>。它本身不会创建线程。</p>
+<p>ThreadLocal 只负责保存和读取当前线程的数据，不会自动识别数据的业务含义。因此，读取数据时，需要明确它的来源和含义，不能因为类型相同就混用。接收变量的名称也不会改变数据的含义。如果需要同时保存多种身份信息，可以使用具有明确字段的上下文对象，减少歧义。</p>
 <p>一个典型的场景：</p>
 <p>新增员工时，拦截器从 JWT 中解析出当前登录员工 ID，存入 ThreadLocal；Service 再取出该 ID，设置记录的创建人和修改人，避免通过方法参数逐层传递。（当然用方法参数逐层传递也能实现这个功能）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 拦截器：保存当前操作人的 ID</span><span class="w">
@@ -1130,7 +1137,6 @@
 <li>普通 ThreadLocal 不会自动向新线程或异步任务传递数据；本项目中未设置值时，<code>get()</code> 返回 <code>null</code>。</li>
 <li>服务器会复用线程，请求结束后必须清理，避免旧数据残留和不必要的内存占用。同步 Spring MVC 请求通常在拦截器的 <code>afterCompletion</code> 中清理。</li>
 </ul>
-<p>下面这条笔记可以直接保存。</p>
 
 
 <h3 class="relative group">Spring MVC 接收前端参数的四种常见写法 
@@ -1621,6 +1627,70 @@
 <p>要明白Java 方法返回值 ≠ HTTP 响应。<code>void</code> 只表示没有 Java 返回值，仍可以通过 <code>response</code> 向客户端发送响应。</p>
 
 
+<h3 class="relative group">Cron 表达式 
+    <div id="cron-%E8%A1%A8%E8%BE%BE%E5%BC%8F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#cron-%E8%A1%A8%E8%BE%BE%E5%BC%8F" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>Cron 表达式用于设置<strong>定时任务什么时候执行</strong>。Spring 中使用六个字段，以空格分隔：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">秒  分  时  日  月  周
+</span></span></code></pre></div><p><strong>常用符号</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>每个允许的值</td>
+<td>分钟位为 <code>*</code>：每分钟</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>不指定，仅用于日或周</td>
+<td>周位为 <code>?</code>：不限制星期</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>从起始值开始，按步长取值</td>
+<td>秒位为 <code>0/5</code>：第 0、5、10……55 秒</td>
+</tr>
+<tr>
+<td><code>,</code></td>
+<td>指定多个值</td>
+<td>小时位为 <code>9,18</code>：9 点和 18 点</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>指定范围</td>
+<td>小时位为 <code>9-18</code>：9 点到 18 点，每个整点</td>
+</tr>
+</tbody>
+</table>
+<p>下面举两个例子：</p>
+<p><strong>处理超时未支付订单：每分钟检查一次。</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Scheduled</span><span class="p">(</span><span class="n">cron</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;0 * * * * ?&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">processTimeoutOrder</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 查询下单超过 15 分钟且仍待支付的订单，自动取消</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>逐位理解：第 <code>0</code> 秒、每分钟、每小时、每天、每月、不限制星期。</p>
+<p><strong>处理仍处于派送中的订单：每天凌晨 1 点检查一次。</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Scheduled</span><span class="p">(</span><span class="n">cron</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;0 0 1 * * ?&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">processDeliveryOrder</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 查询仍处于派送中，且下单时间早于当前时间 60 分钟的订单</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 将这些订单改为已完成</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div>
+
 <h2 class="relative group">业务逻辑 
     <div id="%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91" class="anchor"></div>
     
@@ -1962,6 +2032,74 @@
 </span></span></code></pre></div><p>另外要注意内网穿透只解决“请求能否到达”，不能代替通知验签等安全校验。当后端部署到公网、已有可访问的回调地址后，通常不需要本地内网穿透。</p>
 
 
+<h3 class="relative group">WebSocket 
+    <div id="websocket" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#websocket" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>WebSocket 是一种支持<strong>双向通信</strong>的协议。连接建立后，客户端和服务器都能主动发送消息，适合来单提醒、聊天、实时数据更新等场景。</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>普通 HTTP 请求响应</th>
+<th>WebSocket</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通信方式</td>
+<td>客户端请求，服务器响应</td>
+<td>双方都能主动发送消息</td>
+</tr>
+<tr>
+<td>获取新消息</td>
+<td>可以通过定时请求查询，即轮询</td>
+<td>服务器通过已有连接推送</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>登录、查询菜品、提交订单</td>
+<td>来单提醒、催单通知</td>
+</tr>
+<tr>
+<td>地址形式</td>
+<td><code>http://</code>、<code>https://</code></td>
+<td><code>ws://</code>、<code>wss://</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>HTTP 也可以复用连接，不能简单理解成“HTTP 是短连接，WebSocket 是长连接”。</strong> 核心区别在于通信方式。典型的 WebSocket 连接先通过 HTTP 握手，再升级为 WebSocket 协议。</p>
+<p><strong>一些项目中的应用：</strong></p>
+<p>商家打开管理端后，前端先与后端建立 WebSocket 连接，等待通知。</p>
+<ol>
+<li>来单提醒：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">用户支付成功
+</span></span><span class="line"><span class="cl">    → 后端处理订单状态
+</span></span><span class="line"><span class="cl">    → 后端通过 WebSocket 推送来单消息
+</span></span><span class="line"><span class="cl">    → 商家管理端收到消息
+</span></span><span class="line"><span class="cl">    → 弹出提醒、播放提示音
+</span></span></code></pre></div><ol start="2">
+<li>客户催单：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">用户点击“催单”
+</span></span><span class="line"><span class="cl">    → 用户端通过 HTTP 调用催单接口
+</span></span><span class="line"><span class="cl">    → 后端通过 WebSocket 推送催单消息
+</span></span><span class="line"><span class="cl">    → 商家管理端收到消息并提醒商家
+</span></span></code></pre></div><p>两种消息可以通过 <code>type</code> 字段区分，并携带订单 ID、提示内容等信息。</p>
+<ul>
+<li>HTTP 和 WebSocket 可以配合使用：<strong>HTTP 处理业务请求，WebSocket 推送实时通知。</strong></li>
+<li>推送通知不等于修改订单状态，订单数据仍由后端业务代码保存到数据库。</li>
+<li>连接可能断开，实际应用通常需要考虑心跳检测、断线重连，以及重连后查询遗漏的订单。</li>
+</ul>
+
+
 <h2 class="relative group">Java知识 
     <div id="java%E7%9F%A5%E8%AF%86" class="anchor"></div>
     
@@ -2111,6 +2249,39 @@
 <li>传递依赖：通过其他依赖间接引入的依赖。</li>
 <li>注意：传递会受到 scope、<code>optional</code> 和 exclusions 的影响。</li>
 </ul>
+
+
+<h3 class="relative group">Java 异常：<code>throw</code>、<code>throws</code> 与处理方式 
+    <div id="java-%E5%BC%82%E5%B8%B8throwthrows-%E4%B8%8E%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#java-%E5%BC%82%E5%B8%B8throwthrows-%E4%B8%8E%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li>
+<p><strong><code>throw</code></strong>：实际抛出一个异常，当前正常流程中断。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OrderBusinessException</span><span class="p">(</span><span class="s">&#34;订单不存在&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>
+<p><strong><code>throws</code></strong>：在方法上声明异常可能传给调用方，<strong>不代表异常已经被处理，也不代表一定会发生</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">cancelForUser</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<p>另外还要区别受检异常和非受检异常。继承了 <code>RuntimeException</code> 的异常就是非受检异常。继承了 <code>Exception</code>，但不属于 <code>RuntimeException</code> 分支的就是受检异常。</p>
+<ul>
+<li><strong>受检异常</strong>：编译器要求必须处理——要么 <code>try-catch</code>，要么声明 <code>throws</code> 继续向外传递。</li>
+<li><strong>非受检异常</strong>：不强制捕获或声明。</li>
+</ul>
+<p><strong>结合退款场景：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">退款工具抛出异常
+</span></span><span class="line"><span class="cl">    → Service 未捕获，向上传递
+</span></span><span class="line"><span class="cl">    → Controller 未捕获，向上传递
+</span></span><span class="line"><span class="cl">    → Spring 寻找匹配的异常处理器
+</span></span></code></pre></div><p>异常发生后，沿途方法中调用位置后面的正常代码不会继续执行；已经完成的操作不会因此自动撤销。</p>
 
           
           
