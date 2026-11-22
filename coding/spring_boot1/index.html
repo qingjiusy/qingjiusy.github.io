@@ -112,7 +112,7 @@
     "keywords": ["java"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "13455"
+    "wordCount": "13769"
   }]
   </script>
 
@@ -600,7 +600,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13455 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">27 分钟</span>
+  <time datetime="2026-10-25T00:00:00&#43;00:00">25 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>13769 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">28 分钟</span>
   
 
   
@@ -783,6 +783,7 @@
         <li><a href="#foreach-与-lambda-表达式">forEach 与 Lambda 表达式</a></li>
         <li><a href="#maven-的依赖传递">Maven 的依赖传递</a></li>
         <li><a href="#java-异常throwthrows-与处理方式">Java 异常：<code>throw</code>、<code>throws</code> 与处理方式</a></li>
+        <li><a href="#idea对表达式求值">IDEA「对表达式求值」</a></li>
       </ul>
     </li>
   </ul>
@@ -835,6 +836,7 @@
         <li><a href="#foreach-与-lambda-表达式">forEach 与 Lambda 表达式</a></li>
         <li><a href="#maven-的依赖传递">Maven 的依赖传递</a></li>
         <li><a href="#java-异常throwthrows-与处理方式">Java 异常：<code>throw</code>、<code>throws</code> 与处理方式</a></li>
+        <li><a href="#idea对表达式求值">IDEA「对表达式求值」</a></li>
       </ul>
     </li>
   </ul>
@@ -2282,6 +2284,38 @@
 </span></span><span class="line"><span class="cl">    → Controller 未捕获，向上传递
 </span></span><span class="line"><span class="cl">    → Spring 寻找匹配的异常处理器
 </span></span></code></pre></div><p>异常发生后，沿途方法中调用位置后面的正常代码不会继续执行；已经完成的操作不会因此自动撤销。</p>
+
+
+<h3 class="relative group">IDEA「对表达式求值」 
+    <div id="idea%E5%AF%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#idea%E5%AF%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>程序在断点处暂停时，利用当前位置的变量和对象，查看数据、计算表达式或调用方法，无需修改源码。</p>
+<p>步骤：</p>
+<ol>
+<li>设置断点，以 <strong>Debug</strong> 模式启动程序。</li>
+<li>触发请求，让程序停在断点处。</li>
+<li>打开 <strong>运行 → 调试操作 → 对表达式求值</strong>。</li>
+<li>输入表达式，点击“求值”；完成后恢复程序。</li>
+</ol>
+<p>接下来举一个例子：</p>
+<p>先打开商家管理端，确保 WebSocket 已连接。在下单接口的 <code>return</code> 行打断点：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">OrderSubmitVO</span><span class="w"> </span><span class="n">orderSubmitVO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderService</span><span class="p">.</span><span class="na">submitOrder</span><span class="p">(</span><span class="n">ordersSubmitDTO</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">orderSubmitVO</span><span class="p">);</span><span class="w"> </span><span class="c1">// 断点：订单已创建</span><span class="w">
+</span></span></span></code></pre></div><p>暂停后，可以求值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 查看新订单的订单号</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">orderSubmitVO</span><span class="p">.</span><span class="na">getOrderNumber</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 模拟确认支付成功，触发订单更新和来单提醒</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">orderService</span><span class="p">.</span><span class="na">paySuccess</span><span class="p">(</span><span class="n">orderSubmitVO</span><span class="p">.</span><span class="na">getOrderNumber</span><span class="p">())</span><span class="w">
+</span></span></span></code></pre></div><p>恢复程序后，检查订单是否变为已支付、管理端是否收到提醒。这能测试支付成功后的业务。</p>
+<p><strong>注意：求值是真实执行。</strong> 修改数据库、发送消息都会生效，关闭窗口不会撤销；每点一次“求值”都会再执行一次。</p>
 
           
           
